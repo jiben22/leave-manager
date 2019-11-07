@@ -1,12 +1,12 @@
-package fr.enssat.leave_manager.model;
+package fr.enssat.leave_manager.watchlist.model;
 
-public class WatchEmployee {
+public class WatchlistEmployee {
     private String lastname;
     private String firstname;
     private String team;
     private String teamManager;
 
-    public WatchEmployee(String lastname, String firstname, String team, String teamManager) {
+    public WatchlistEmployee(String lastname, String firstname, String team, String teamManager) {
         this.lastname = lastname;
         this.firstname = firstname;
         this.team = team;
