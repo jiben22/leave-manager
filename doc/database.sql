@@ -63,7 +63,7 @@ CREATE TABLE EmployeeTeam (
 CREATE TABLE TypeOfLeave (
     id VARCHAR(32) PRIMARY KEY DEFAULT id_generator('TYPEOFLEAVE'),
     name VARCHAR(45) NOT NULL,
-    description VARCHAR(128),
+    description VARCHAR(255),
     is_archived BOOLEAN DEFAULT FALSE
 );
 
