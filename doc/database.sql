@@ -1,6 +1,3 @@
-CREATE SCHEMA leave_manager;
-SET search_path TO leave_manager;
-
 CREATE OR REPLACE FUNCTION id_generator(prefix varchar)
 RETURNS VARCHAR
 LANGUAGE SQL AS

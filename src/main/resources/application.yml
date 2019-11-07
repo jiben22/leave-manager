@@ -2,3 +2,9 @@
 #app.environment=prod
 
 #logging.level.root=WARN
+
+# Database
+spring.datasource.url=jdbc:postgresql://localhost:5432/LeaveManager
+spring.datasource.username=postgres
+spring.datasource.password=root
+spring.jpa.generate-ddl=true
