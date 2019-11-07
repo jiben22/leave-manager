@@ -260,12 +260,12 @@
                                         <th>
                                             Team Manager
                                         </th>
-                                        <th>
+                                        <th th:text="${numberOfEmployee}">
                                             Salary
                                         </th>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="${watchlistEmployee}">
+                                        <tr th:each="watchlistEmployee: ${watchlistEmployee}">
                                             <td th:text="${watchlistEmployee.lastname}">
                                                 1
                                             </td>
