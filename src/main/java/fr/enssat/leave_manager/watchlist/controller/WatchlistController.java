@@ -16,7 +16,7 @@ public class WatchlistController {
 
     @GetMapping("/watchlist")
     public ModelAndView getWatchlist() {
-        String viewName = "watchlist";
+        String viewName = "watchlistEmployee";
 
         watchlistEmployees.clear();
         watchlistEmployees.add(new WatchlistEmployee("Stark", "Tony", "Avengers", "Nick Fury"));
