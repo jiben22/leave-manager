@@ -1,20 +1,32 @@
 package fr.enssat.leave_manager.model;
 
+import lombok.*;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
+import java.util.Set;
 
-public class Department {
-    @Size(min = 1, max = 45, message = "Comment should be maximum 45 characters")
-    private String name;
-    @NotNull
-    private List<Team> teams = new ArrayList<Team>();
+@Entity
+@Table(name = "Department")
+@EqualsAndHashCode @ToString
+public class Department implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @ToString.Exclude
+    @Getter
     @Size(min = 31, max = 31)
     private String id;
 
-    public Department(@Size(min = 1, max = 45, message = "Comment should be maximum 45 characters") String name, @NotNull List<Team> teams) {
-        this.name = name;
-        this.teams = teams;
-    }
+    @Column(name = "name")
+    @Getter @Setter @NonNull
+    @Size(min = 1, max = 45, message = "Le nom ne peut pas être vide et ne doit aps dépasser les 45 caractères !")
+    private String name;
+
+    @ToString.Exclude @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+    @Getter @Setter
+    @NotNull
+    private Set<Team> teams;
 }
