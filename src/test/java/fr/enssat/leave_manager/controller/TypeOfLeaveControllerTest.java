@@ -18,7 +18,8 @@ public class TypeOfLeaveControllerTest {
     MockMvc mockMvc;
 
     @Test
-    public void testHomePage() throws Exception {
-        this.mockMvc.perform(get("/typesconges")).andExpect(status().isOk());
+    public void testShowTypesOfLeavesPage() throws Exception {
+        mockMvc.perform(get("/typesconges"))
+                .andExpect(status().isOk());
     }
 }

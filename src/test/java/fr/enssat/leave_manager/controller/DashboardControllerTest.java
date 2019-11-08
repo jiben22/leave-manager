@@ -18,7 +18,8 @@ public class DashboardControllerTest {
     MockMvc mockMvc;
 
     @Test
-    public void testHomePage() throws Exception {
-        this.mockMvc.perform(get("/")).andExpect(status().isOk());
+    public void testShowDashboardPage() throws Exception {
+        mockMvc.perform(get("/"))
+                .andExpect(status().isOk());
     }
 }

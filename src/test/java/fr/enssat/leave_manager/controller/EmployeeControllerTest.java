@@ -18,7 +18,8 @@ public class EmployeeControllerTest {
     MockMvc mockMvc;
 
     @Test
-    public void testHomePage() throws Exception {
-        this.mockMvc.perform(get("/employes")).andExpect(status().isOk());
+    public void testShowEmployeesPage() throws Exception {
+        mockMvc.perform(get("/employes"))
+                .andExpect(status().isOk());
     }
 }

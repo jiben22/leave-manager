@@ -18,7 +18,8 @@ public class TeamControllerTest {
     MockMvc mockMvc;
 
     @Test
-    public void testHomePage() throws Exception {
-        this.mockMvc.perform(get("/equipes")).andExpect(status().isOk());
+    public void testShowTeamsPage() throws Exception {
+        mockMvc.perform(get("/equipes"))
+                .andExpect(status().isOk());
     }
 }

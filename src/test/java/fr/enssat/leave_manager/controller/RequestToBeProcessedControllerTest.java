@@ -18,7 +18,8 @@ public class RequestToBeProcessedControllerTest {
     MockMvc mockMvc;
 
     @Test
-    public void testHomePage() throws Exception {
-        this.mockMvc.perform(get("/demandes")).andExpect(status().isOk());
+    public void testShowRequestsToBeProcessedPage() throws Exception {
+        mockMvc.perform(get("/demandes"))
+                .andExpect(status().isOk());
     }
 }
