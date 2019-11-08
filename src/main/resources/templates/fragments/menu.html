@@ -10,37 +10,37 @@
         </div>
         <div class="sidebar-wrapper">
             <ul class="nav">
-                <li class="nav-item active">
+                <li class="nav-item" th:classappend="${title == 'Vue d''ensemble' ? 'active' : ''}">
                     <a class="nav-link" href="/">
                         <i class="material-icons">dashboard</i>
                         <p>Vue d'ensemble</p>
                     </a>
                 </li>
-                <li class="nav-item ">
+                <li class="nav-item" th:classappend="${title == 'Demandes à traiter' ? 'active' : ''}">
                     <a class="nav-link" href="./demandes">
                         <i class="material-icons">assignment</i>
                         <p>Demandes à traiter</p>
                     </a>
                 </li>
-                <li class="nav-item ">
+                <li class="nav-item" th:classappend="${title == 'Liste des équipes' ? 'active' : ''}">
                     <a class="nav-link" href="./equipes">
                         <i class="material-icons">people</i>
                         <p>Liste des équipes</p>
                     </a>
                 </li>
-                <li class="nav-item ">
+                <li class="nav-item" th:classappend="${title == 'Liste des employés' ? 'active' : ''}">
                     <a class="nav-link" href="./employes">
                         <i class="material-icons">person</i>
                         <p>Liste des employés</p>
                     </a>
                 </li>
-                <li class="nav-item ">
+                <li class="nav-item" th:classappend="${title == 'Liste des types de congés' ? 'active' : ''}">
                     <a class="nav-link" href="./typesconges">
                         <i class="material-icons">library_books</i>
                         <p>Liste des types de congés</p>
                     </a>
                 </li>
-                <li class="nav-item ">
+                <li class="nav-item" th:classappend="${title == 'Mes demandes de congés' ? 'active' : ''}">
                     <a class="nav-link" href="./demandesconges">
                         <i class="material-icons">next_week</i>
                         <p>Mes demandes de congés</p>
