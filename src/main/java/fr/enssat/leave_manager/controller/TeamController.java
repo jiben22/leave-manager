@@ -8,14 +8,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-public class EmployeeController {
+public class TeamController {
 
-    @GetMapping("/employes")
+    @GetMapping("/equipes")
     public ModelAndView showEmployees() {
 
-        String viewName = "employees";
+        String viewName = "teams";
         Map<String,Object> model = new HashMap<>();
-        model.put("title", "Liste des employés");
+        model.put("title", "Liste des équipes");
 
         return new ModelAndView(viewName, model);
     }

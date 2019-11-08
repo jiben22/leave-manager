@@ -14,7 +14,8 @@ public class DashboardController {
     public ModelAndView showDashboard() {
 
         String viewName = "dashboard";
-        Map<String,Object> model = new HashMap<>();
+        Map<String, Object> model = new HashMap<>();
+        model.put("title", "Vue d'ensemble");
 
         return new ModelAndView(viewName, model);
     }

@@ -14655,7 +14655,6 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   color: #3C4858;
   padding-left: 10px;
   padding-right: 10px;
-  text-transform: capitalize;
   font-size: 13px;
   padding: 10px 15px;
 }
@@ -18819,5 +18818,3 @@ Copyright (c) 2015 Daniel Eden
     display: none !important;
   }
 }
-
-/*# sourceMappingURL=dashboard-free.css.map */

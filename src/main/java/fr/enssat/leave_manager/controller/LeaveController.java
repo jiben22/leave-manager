@@ -8,15 +8,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-public class LeaveListController {
+public class LeaveController {
 
     @GetMapping("/demandesconges")
     public ModelAndView showListLeave() {
 
-        String viewName = "listLeave";
-
+        String viewName = "leaves";
         Map<String,Object> model = new HashMap<>();
-
+        model.put("title", "Mes demandes");
 
         return new ModelAndView(viewName,model);
     }
