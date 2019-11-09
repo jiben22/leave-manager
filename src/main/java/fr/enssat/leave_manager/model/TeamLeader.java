@@ -13,11 +13,10 @@ import java.util.Set;
 @EqualsAndHashCode
 @ToString
 @RequiredArgsConstructor @NoArgsConstructor
-public class TeamLeader implements Serializable {
+public class TeamLeader extends PKGenerator implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(length = 29, updatable = false)
-    @Getter @NonNull
+    @Getter
     @Size(min = 29, max = 29)
     private String eid;
 
@@ -29,7 +28,12 @@ public class TeamLeader implements Serializable {
 
     @Getter @Setter @NonNull
     @ToString.Exclude @EqualsAndHashCode.Exclude
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "teamLeader")
     @NotEmpty
     private Set<Team> teamList;
+
+    @Override
+    public void setId() {
+        if (this.eid == null) this.eid = this.generatePK("EMPLOYEE");
+    }
 }

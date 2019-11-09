@@ -15,7 +15,12 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor @NoArgsConstructor
-public class LeaveRequest implements Serializable {
+public class LeaveRequest extends PKGenerator implements Serializable {
+
+    @Override
+    public void setId() {
+        if (this.lrid == null) this.lrid = this.generatePK("LEAVEREQUEST");
+    }
 
     private enum LeaveStatus {
         PENDING("En attente"),
@@ -34,9 +39,8 @@ public class LeaveRequest implements Serializable {
         }
     }
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(length = 33, updatable = false)
-    @Getter @NonNull
+    @Getter
     @Size(min = 33, max = 33)
     private String lrid;
 

@@ -13,11 +13,10 @@ import java.util.Set;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor @NoArgsConstructor
-public class TypeOfLeave implements Serializable {
+public class TypeOfLeave extends PKGenerator implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(length = 32, updatable = false)
-    @Getter @NonNull
+    @Getter
     @Size(min = 32, max = 32)
     private String id;
 
@@ -38,4 +37,9 @@ public class TypeOfLeave implements Serializable {
     @OneToMany(mappedBy = "typeOfLeave", cascade = CascadeType.ALL)
     @Getter @Setter @NonNull
     private Set<LeaveRequest> leaveRequests;
+
+    @Override
+    public void setId() {
+        if (this.id == null) this.id = this.generatePK("TYPEOFLEAVE");
+    }
 }

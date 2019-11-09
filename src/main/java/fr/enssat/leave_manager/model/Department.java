@@ -11,13 +11,12 @@ import java.util.Set;
 @Table(name = "Department")
 @EqualsAndHashCode @ToString
 @RequiredArgsConstructor @NoArgsConstructor
-public class Department implements Serializable {
+public class Department extends PKGenerator implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(length=31, updatable = false)
-    @Getter @NonNull
+    @Getter
     @Size(min = 31, max = 31)
-    private String id;
+    private String id = null;
 
     @Column(unique = true, nullable = false, length=45)
     @Getter @Setter @NonNull
@@ -25,7 +24,12 @@ public class Department implements Serializable {
     private String name;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
-    @OneToMany(cascade = CascadeType.ALL)
-    @Getter @Setter @NonNull
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
+    @Getter @Setter
     private Set<Team> teamList;
+
+    @Override
+    public void setId() {
+        if (this.id == null) this.id = this.generatePK("DEPARTMENT");
+    }
 }

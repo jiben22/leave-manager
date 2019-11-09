@@ -5,8 +5,6 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 
@@ -15,9 +13,8 @@ import java.util.Set;
 @EqualsAndHashCode @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor @NoArgsConstructor
-public class Employee implements Serializable {
+public class Employee extends PKGenerator implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(length = 29, updatable = false)
     @Getter @NonNull
     @Size(min = 29, max = 29)
@@ -61,7 +58,7 @@ public class Employee implements Serializable {
     @Column(nullable = false)
     @Getter @Setter @NonNull
     @Min(value = 0, message = "Le nombre de congés doit être supérieur ou égale à zero!")
-    private Double remaining_leaves;
+    private Double remaining_leave;
 
     @Column(nullable = false, length = 128, unique = true)
     @Getter @Setter @NonNull
@@ -81,7 +78,7 @@ public class Employee implements Serializable {
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
     @Getter @Setter @NonNull
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
     private Set<LeaveRequest> leaveRequestList;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
@@ -101,4 +98,9 @@ public class Employee implements Serializable {
     @OneToOne
     @JoinColumn(name = "eid", referencedColumnName = "employee")
     private TeamLeader teamLeader;
+
+    @Override
+    public void setId() {
+        if (this.eid == null) this.eid = this.generatePK("EMPLOYEE");
+    }
 }

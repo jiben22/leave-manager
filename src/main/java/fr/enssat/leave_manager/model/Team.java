@@ -3,7 +3,6 @@ package fr.enssat.leave_manager.model;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Set;
@@ -13,11 +12,10 @@ import java.util.Set;
 @EqualsAndHashCode @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor @NoArgsConstructor
-public class Team implements Serializable {
+public class Team extends PKGenerator implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(length = 25, updatable = false)
-    @Getter @NonNull
+    @Getter
     @Size(min = 25, max = 25)
     private String id;
 
@@ -26,12 +24,12 @@ public class Team implements Serializable {
     @Size(min = 1, max = 45, message = "Le nom ne peut pas être vide et ne doit pas dépasser les 45 caractères !")
     private String name;
 
-    @Getter @Setter @NonNull
+    @Getter @Setter
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false, name = "leader_id", referencedColumnName = "eid")
     private TeamLeader teamLeader;
 
-    @Getter @Setter @NonNull
+    @Getter @Setter
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false, name = "dept_id", referencedColumnName = "id")
     private Department department;
@@ -43,4 +41,9 @@ public class Team implements Serializable {
             joinColumns = @JoinColumn(name = "team_id", referencedColumnName = "id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "eid", referencedColumnName = "eid", nullable = false))
     private Set<Employee> employeeList;
+
+    @Override
+    public void setId() {
+        if (this.id == null) this.id = this.generatePK("TEAM");
+    }
 }

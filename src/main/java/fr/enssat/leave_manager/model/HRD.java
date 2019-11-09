@@ -11,11 +11,10 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @ToString
 @RequiredArgsConstructor @NoArgsConstructor
-public class HRD implements Serializable {
+public class HRD extends PKGenerator implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(length = 29, updatable = false)
-    @Getter @NonNull
+    @Getter
     @Size(min = 29, max = 29)
     private String eid;
 
@@ -24,4 +23,9 @@ public class HRD implements Serializable {
     @JoinColumn(name = "eid", nullable = false, referencedColumnName = "hrd")
     @MapsId
     private Employee employee;
+
+    @Override
+    public void setId() {
+        if (this.eid == null) this.eid = this.generatePK("EMPLOYEE");
+    }
 }
