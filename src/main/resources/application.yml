@@ -13,4 +13,5 @@ spring:
   jpa:
     generate-ddl: false
     database: postgresql
+    show-sql: true # FIXME DEBUG
 
