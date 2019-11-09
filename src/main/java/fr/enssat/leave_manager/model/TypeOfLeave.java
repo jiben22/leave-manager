@@ -12,7 +12,7 @@ import java.util.Set;
 @EqualsAndHashCode
 @ToString
 @RequiredArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor @NoArgsConstructor
 public class TypeOfLeave implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -14,7 +14,7 @@ import java.util.Set;
 @Table(name = "Employee")
 @EqualsAndHashCode @ToString
 @RequiredArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor @NoArgsConstructor
 public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

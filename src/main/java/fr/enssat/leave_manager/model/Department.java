@@ -10,7 +10,7 @@ import java.util.Set;
 @Entity
 @Table(name = "Department")
 @EqualsAndHashCode @ToString
-@RequiredArgsConstructor
+@RequiredArgsConstructor @NoArgsConstructor
 public class Department implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

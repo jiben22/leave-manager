@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Table(name = "LeaveRequest")
 @EqualsAndHashCode @ToString
 @RequiredArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor @NoArgsConstructor
 public class LeaveRequest implements Serializable {
 
     private enum LeaveStatus {

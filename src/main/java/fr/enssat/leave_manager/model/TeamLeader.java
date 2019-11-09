@@ -12,7 +12,7 @@ import java.util.Set;
 @Table(name = "HRD")
 @EqualsAndHashCode
 @ToString
-@RequiredArgsConstructor
+@RequiredArgsConstructor @NoArgsConstructor
 public class TeamLeader implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

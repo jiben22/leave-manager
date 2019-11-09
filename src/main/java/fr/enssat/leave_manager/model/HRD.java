@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Table(name = "HRD")
 @EqualsAndHashCode
 @ToString
-@RequiredArgsConstructor
+@RequiredArgsConstructor @NoArgsConstructor
 public class HRD implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
