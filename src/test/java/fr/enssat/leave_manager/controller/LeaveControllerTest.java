@@ -19,7 +19,7 @@ public class LeaveControllerTest {
 
     @Test
     public void testShowLeavesPage() throws Exception {
-        mockMvc.perform(get("/demandesconges"))
+        mockMvc.perform(get("/demandes-conges"))
                 .andExpect(status().isOk());
     }
 }

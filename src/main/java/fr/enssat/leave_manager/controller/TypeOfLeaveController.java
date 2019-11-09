@@ -10,7 +10,7 @@ import java.util.Map;
 @Controller
 public class TypeOfLeaveController {
 
-    @GetMapping("/typesconges")
+    @GetMapping("/types-conges")
     public ModelAndView showEmployees() {
 
         String viewName = "typesOfLeaves";

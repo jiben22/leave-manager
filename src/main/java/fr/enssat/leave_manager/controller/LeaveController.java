@@ -10,7 +10,7 @@ import java.util.Map;
 @Controller
 public class LeaveController {
 
-    @GetMapping("/demandesconges")
+    @GetMapping("/demandes-conges")
     public ModelAndView showListLeave() {
 
         String viewName = "leaves";
