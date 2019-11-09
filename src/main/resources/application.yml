@@ -1,0 +1,10 @@
+# Global
+#server:
+#  port: 80
+#app:
+#  environment: prod
+
+# Log
+#logging:
+#  level:
+#    root: WARN
