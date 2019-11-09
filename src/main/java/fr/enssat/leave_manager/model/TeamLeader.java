@@ -1,18 +1,35 @@
 package fr.enssat.leave_manager.model;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
+import lombok.*;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
+import java.util.Set;
 
-public class TeamLeader extends Employee implements ILeadership {
+@Entity
+@Table(name = "HRD")
+@EqualsAndHashCode
+@ToString
+@RequiredArgsConstructor
+public class TeamLeader implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(length = 29, updatable = false)
+    @Getter @NonNull
+    @Size(min = 29, max = 29)
+    private String eid;
+
+    @Getter @Setter @NonNull
+    @OneToOne(optional = false, cascade = CascadeType.ALL, mappedBy = "teamLeader")
+    @JoinColumn(name = "eid", nullable = false, referencedColumnName = "teamLeader")
+    @MapsId
+    private Employee employee;
+
+    @Getter @Setter @NonNull
+    @ToString.Exclude @EqualsAndHashCode.Exclude
+    @OneToMany(cascade = CascadeType.ALL)
     @NotEmpty
-    private List<Team> teamList = new ArrayList<Team>();
-
-    public TeamLeader(@Size(min = 1, max = 45, message = "Comment should be maximum 45 characters") String lastname, @Size(min = 1, max = 45, message = "Comment should be maximum 45 characters") String firstname, @Size(min = 1, max = 128, message = "Comment should be maximum 128 characters") String street, @Size(min = 1, max = 128, message = "Comment should be maximum 128 characters") String city, @Size(min = 1, max = 16, message = "Comment should be maximum 16 characters") String post_code, @Size(min = 1, max = 128, message = "Comment should be maximum 128 characters") String country, @Size(min = 1, max = 45, message = "Comment should be maximum 45 characters") String position, @Min(value = 0, message = "Number of leaves must be greater or equal to 0") Double remaining_leaves, @Email String email, @Size(min = 10, max = 30, message = "Password length must greater or equal to 10 and lower than 30 characters ") String password, @NotEmpty List<Team> teamList, @NotEmpty List<LeaveRequest> leaveRequestList, @NotEmpty List<Team> teamList1) {
-        super(lastname, firstname, street, city, post_code, country, position, remaining_leaves, email, password, teamList, leaveRequestList);
-        this.teamList = teamList1;
-    }
+    private Set<Team> teamList;
 }

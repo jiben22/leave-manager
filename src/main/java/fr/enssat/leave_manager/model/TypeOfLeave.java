@@ -1,22 +1,41 @@
 package fr.enssat.leave_manager.model;
 
-import lombok.Data;
+import lombok.*;
 
+import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
+import java.util.Set;
 
-@Data
-public class TypeOfLeave {
-    @Size(min = 1, max = 45, message = "Comment should be maximum 45 characters")
-    private String text;
-    @Size(max = 255, message = "Comment should be maximum 255 characters")
-    private String desc;
-    private Boolean is_archived = false;
+@Entity
+@Table(name = "Team")
+@EqualsAndHashCode
+@ToString
+@RequiredArgsConstructor
+@AllArgsConstructor
+public class TypeOfLeave implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(length = 32, updatable = false)
+    @Getter @NonNull
     @Size(min = 32, max = 32)
     private String id;
 
-    public TypeOfLeave(@Size(min = 1, max = 45, message = "Comment should be maximum 45 characters") String text, @Size(max = 255, message = "Comment should be maximum 255 characters") String desc, Boolean is_archived) {
-        this.text = text;
-        this.desc = desc;
-        this.is_archived = is_archived;
-    }
+    @Column(length = 45)
+    @Getter @Setter @NonNull
+    @Size(min = 1, max = 45, message = "Le nom ne peut pas être vide et ne doit pas dépasser les 45 caractères !")
+    private String name;
+
+    @Column
+    @Getter @Setter
+    private String desc;
+
+    @Column
+    @Getter @Setter @NonNull
+    private Boolean is_archived;
+
+    @ToString.Exclude @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "typeOfLeave", cascade = CascadeType.ALL)
+    @Getter @Setter @NonNull
+    private Set<LeaveRequest> leaveRequests;
 }

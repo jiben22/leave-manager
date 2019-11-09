@@ -3,39 +3,44 @@ package fr.enssat.leave_manager.model;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "Team")
-@EqualsAndHashCode
-@ToString
-public class Team {
+@EqualsAndHashCode @ToString
+@RequiredArgsConstructor
+@AllArgsConstructor
+public class Team implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @ToString.Exclude
-    @Getter
+    @Column(length = 25, updatable = false)
+    @Getter @NonNull
     @Size(min = 25, max = 25)
     private String id;
 
-    @Column(name = "name")
+    @Column(length = 45)
     @Getter @Setter @NonNull
-    @Size(min = 1, max = 45, message = "Le nom ne peut pas être vide et ne doit aps dépasser les 45 caractères !")
+    @Size(min = 1, max = 45, message = "Le nom ne peut pas être vide et ne doit pas dépasser les 45 caractères !")
     private String name;
 
-    @ManyToOne
-    @JoinColumn
-    @NotNull
+    @Getter @Setter @NonNull
+    @ManyToOne(optional = false)
+    @JoinColumn(nullable = false, name = "leader_id", referencedColumnName = "eid")
     private TeamLeader teamLeader;
 
-    @ManyToOne
-    @JoinColumn
-    @NotNull
+    @Getter @Setter @NonNull
+    @ManyToOne(optional = false)
+    @JoinColumn(nullable = false, name = "dept_id", referencedColumnName = "id")
     private Department department;
 
-    @NotEmpty
-    private List<Employee> employeeList = new ArrayList<Employee>();
+    @ToString.Exclude @EqualsAndHashCode.Exclude
+    @Getter @Setter
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "EmployeeTeam",
+            joinColumns = @JoinColumn(name = "team_id", referencedColumnName = "id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "eid", referencedColumnName = "eid", nullable = false))
+    private Set<Employee> employeeList;
 }

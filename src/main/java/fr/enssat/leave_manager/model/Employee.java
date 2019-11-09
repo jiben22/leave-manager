@@ -1,57 +1,104 @@
 package fr.enssat.leave_manager.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
-@Getter
-@Setter
-public class Employee {
-    @Size(min = 1, max = 45, message = "Comment should be maximum 45 characters")
-    private String lastname;
-    @Size(min = 1, max = 45, message = "Comment should be maximum 45 characters")
-    private String firstname;
-    @Size(min = 1, max = 128, message = "Comment should be maximum 128 characters")
-    private String street;
-    @Size(min = 1, max = 128, message = "Comment should be maximum 128 characters")
-    private String city;
-    @Size(min = 1, max = 16, message = "Comment should be maximum 16 characters")
-    private String post_code;
-    @Size(min = 1, max = 128, message = "Comment should be maximum 128 characters")
-    private String country;
-    @Size(min = 1, max = 45, message = "Comment should be maximum 45 characters")
-    private String position;
-    @Min(value = 0, message = "Number of leaves must be greater or equal to 0")
-    private Double remaining_leaves = 25.0;
-    @Email
-    private String email;
-    @Size(min = 10, max = 30, message = "Password length must greater or equal to 10 and lower than 30 characters ")
-    private String password;
+
+@Entity
+@Table(name = "Employee")
+@EqualsAndHashCode @ToString
+@RequiredArgsConstructor
+@AllArgsConstructor
+public class Employee implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(length = 29, updatable = false)
+    @Getter @NonNull
     @Size(min = 29, max = 29)
     private String eid;
-    @NotEmpty
-    private List<Team> teamList = new ArrayList<Team>();
-    @NotEmpty
-    private List<LeaveRequest> leaveRequestList = new ArrayList<LeaveRequest>();
 
-    public Employee(@Size(min = 1, max = 45, message = "Comment should be maximum 45 characters") String lastname, @Size(min = 1, max = 45, message = "Comment should be maximum 45 characters") String firstname, @Size(min = 1, max = 128, message = "Comment should be maximum 128 characters") String street, @Size(min = 1, max = 128, message = "Comment should be maximum 128 characters") String city, @Size(min = 1, max = 16, message = "Comment should be maximum 16 characters") String post_code, @Size(min = 1, max = 128, message = "Comment should be maximum 128 characters") String country, @Size(min = 1, max = 45, message = "Comment should be maximum 45 characters") String position, @Min(value = 0, message = "Number of leaves must be greater or equal to 0") Double remaining_leaves, @Email String email, @Size(min = 10, max = 30, message = "Password length must greater or equal to 10 and lower than 30 characters ") String password, @NotEmpty List<Team> teamList, @NotEmpty List<LeaveRequest> leaveRequestList) {
-        this.lastname = lastname;
-        this.firstname = firstname;
-        this.street = street;
-        this.city = city;
-        this.post_code = post_code;
-        this.country = country;
-        this.position = position;
-        this.remaining_leaves = remaining_leaves;
-        this.email = email;
-        this.password = password;
-        this.teamList = teamList;
-        this.leaveRequestList = leaveRequestList;
-    }
+    @Column(nullable = false, length = 45)
+    @Getter @Setter @NonNull
+    @Size(min = 1, max = 45, message = "Le nom ne peut pas être vide et ne doit pas dépasser les 45 caractères !")
+    private String lastname;
+
+    @Column(nullable = false, length = 45)
+    @Getter @Setter @NonNull
+    @Size(min = 1, max = 45, message = "Le prenom ne peut pas être vide et ne doit pas dépasser les 45 caractères !")
+    private String firstname;
+
+    @Column(nullable = false, length = 128)
+    @Getter @Setter @NonNull
+    @Size(min = 1, max = 128, message = "La rue ne peut pas être vide et ne doit pas dépasser les 128 caractères !")
+    private String street;
+
+    @Column(nullable = false, length = 128)
+    @Getter @Setter @NonNull
+    @Size(min = 1, max = 128, message = "Le nom de la ville ne peut pas être vide et ne doit pas dépasser les 128 caractères !")
+    private String city;
+
+    @Column(nullable = false, length = 16)
+    @Getter @Setter @NonNull
+    @Size(min = 1, max = 16, message = "Le code postale ne peut pas être vide et ne doit pas dépasser les 16 caractères !")
+    private String post_code;
+
+    @Column(nullable = false, length = 128)
+    @Getter @Setter @NonNull
+    @Size(min = 1, max = 128, message = "Le pays ne peut pas être vide et ne doit pas dépasser les 128 caractères !")
+    private String country;
+
+    @Column(nullable = false, length = 45)
+    @Getter @Setter
+    @Size(max = 45, message = "La fonction ne doit pas dépasser les 45 caractères !")
+    private String position;
+
+    @Column(nullable = false)
+    @Getter @Setter @NonNull
+    @Min(value = 0, message = "Le nombre de congés doit être supérieur ou égale à zero!")
+    private Double remaining_leaves;
+
+    @Column(nullable = false, length = 128, unique = true)
+    @Getter @Setter @NonNull
+    @Email
+    private String email;
+
+    @ToString.Exclude
+    @Column(nullable = false)
+    @Setter @NonNull
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{10,})", message = "Le mot de passe doit contenir au moins une majuscule, une minuscule, un nombre et un caractère spécial (!@#$%^&*). Il doit avoir une taille minimum de 10 caractères !")
+    private String password;
+
+    @ToString.Exclude @EqualsAndHashCode.Exclude
+    @Getter @Setter @NonNull
+    @ManyToMany(mappedBy = "employeeList")
+    private Set<Team> teamList;
+
+    @ToString.Exclude @EqualsAndHashCode.Exclude
+    @Getter @Setter @NonNull
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<LeaveRequest> leaveRequestList;
+
+    @ToString.Exclude @EqualsAndHashCode.Exclude
+    @Getter @Setter
+    @OneToOne
+    @JoinColumn(name = "eid", referencedColumnName = "employee")
+    private HR hr;
+
+    @ToString.Exclude @EqualsAndHashCode.Exclude
+    @Getter @Setter
+    @OneToOne
+    @JoinColumn(name = "eid", referencedColumnName = "employee")
+    private HRD hrd;
+
+    @ToString.Exclude @EqualsAndHashCode.Exclude
+    @Getter @Setter
+    @OneToOne
+    @JoinColumn(name = "eid", referencedColumnName = "employee")
+    private TeamLeader teamLeader;
 }

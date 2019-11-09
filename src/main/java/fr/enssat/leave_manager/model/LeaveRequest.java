@@ -1,47 +1,87 @@
 package fr.enssat.leave_manager.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+import javax.persistence.*;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
-public class LeaveRequest {
-    @Size(max = 255, message = "Comment should be maximum 255 characters")
-    private String reason;
-    @FutureOrPresent
-    private LocalDateTime creation = LocalDateTime.now();
-    @PastOrPresent
-    private LocalDateTime last_edition = LocalDateTime.now();
-    @NotNull
-    @FutureOrPresent
-    private LocalDateTime starting_date;
-    @NotNull
-    @FutureOrPresent
-    private LocalDateTime ending_date;
-    @Size(max = 255, message = "Comment should be maximum 255 characters")
-    private String hr_comment;
-    private Employee eid;
-    private TypeOfLeave type_id;
+@Entity
+@Table(name = "LeaveRequest")
+@EqualsAndHashCode @ToString
+@RequiredArgsConstructor
+@AllArgsConstructor
+public class LeaveRequest implements Serializable {
+
+    private enum LeaveStatus {
+        PENDING("En attente"),
+        CANCELLED("Annulé"),
+        ACCEPTED("Accepté"),
+        DECLINED("Refusé");
+
+        private String fr;
+
+        LeaveStatus(String fr) {
+            this.fr = fr;
+        }
+
+        public String toString(){
+            return this.fr;
+        }
+    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(length = 33, updatable = false)
+    @Getter @NonNull
     @Size(min = 33, max = 33)
     private String lrid;
 
-    public LeaveRequest(@Size(max = 255, message = "Comment should be maximum 255 characters") String reason, @FutureOrPresent LocalDateTime creation, @PastOrPresent LocalDateTime last_edition, @NotNull @FutureOrPresent LocalDateTime starting_date, @NotNull @FutureOrPresent LocalDateTime ending_date, @Size(max = 255, message = "Comment should be maximum 255 characters") String hr_comment, Employee eid, TypeOfLeave type_id) {
-        this.reason = reason;
-        this.creation = creation;
-        this.last_edition = last_edition;
-        this.starting_date = starting_date;
-        this.ending_date = ending_date;
-        this.hr_comment = hr_comment;
-        this.eid = eid;
-        this.type_id = type_id;
-    }
+    @Column(length = 255)
+    @Getter @Setter
+    @Size(max = 255, message = "La raison du congés ne doit pas dépasser les 255 caractères !")
+    private String reason;
 
+    @Column(nullable = false)
+    @Getter @Setter @NonNull
+    @PastOrPresent
+    private LocalDateTime creation;
+
+    @Column(nullable = false)
+    @Getter @Setter @NonNull
+    @PastOrPresent
+    private LocalDateTime last_edition;
+
+    @Column(nullable = false)
+    @Getter @Setter @NonNull
+    @FutureOrPresent
+    private LocalDateTime starting_date;
+
+    @Column(nullable = false)
+    @Getter @Setter @NonNull
+    @FutureOrPresent
+    private LocalDateTime ending_date;
+
+    @Column(length = 255)
+    @Getter @Setter
+    @Size(max = 255, message = "Le commentaire du RH ne doit pas dépasser les 225 caractères !")
+    private String hr_comment;
+
+    @Getter @Setter @NonNull
+    @ManyToOne(optional = false)
+    @JoinColumn(nullable = false, name = "eid", referencedColumnName = "eid")
+    private Employee employee;
+
+    @Getter @Setter @NonNull
+    @ManyToOne(optional = false)
+    @JoinColumn(nullable = false, name = "type_id", referencedColumnName = "id")
+    private TypeOfLeave typeOfLeave;
+
+    @Column(length = 16, nullable = false)
+    @Enumerated(EnumType.STRING)
     @NotNull
-    private enum status {PENDING, CANCELLED, ACCEPTED, DECLINED}
+    private LeaveStatus status;
 }
