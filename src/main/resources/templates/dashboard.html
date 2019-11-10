@@ -7,7 +7,12 @@
   <div class="wrapper ">
     <div th:replace="fragments/menu.html :: menu"></div>
     <div class="main-panel">
-      <footer th:replace="fragments/footer.html :: footer"></footer>
+      <div class="content">
+        <div class="container-fluid">
+          <div th:replace="components/calendar.html :: calendar"></div>
+          <footer th:replace="fragments/footer.html :: footer"></footer>
+        </div>
+      </div>
     </div>
   </div>
 </body>
