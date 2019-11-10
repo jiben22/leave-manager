@@ -10,6 +10,13 @@
       <div class="content">
         <div class="container-fluid">
           <div class="row">
+            <div class="offset-md-11">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addEmployeeModal">
+                +
+              </button>
+            </div>
+          </div>
+          <div class="row">
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary card-header-icon">
@@ -54,11 +61,11 @@
                               <td>Avengers</td>
                             </tr>
                             <tr role="row" class="odd">
-                                <td tabindex="0" class="sorting_1">Spider</td>
-                                <td>Man</td>
-                                <td>Avengers</td>
-                                </td>
-                              </tr>
+                              <td tabindex="0" class="sorting_1">Spider</td>
+                              <td>Man</td>
+                              <td>Avengers</td>
+                              </td>
+                            </tr>
                           </tbody>
                         </table>
                       </div>
@@ -71,10 +78,10 @@
         </div>
       </div>
     </div>
+    <div th:replace="modals/employeeModals.html :: addEmployeeModal"></div>
     <footer th:replace="fragments/footer.html :: footer"></footer>
   </div>
   </div>
-  <script src="js/plugins/jquery.dataTables.min.js"></script>
   <script>
     $(document).ready(function () {
       $('#datatables').DataTable({
