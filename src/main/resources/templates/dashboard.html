@@ -4,17 +4,28 @@
 <head th:replace="fragments/head.html :: head"></head>
 
 <body class="">
-  <div class="wrapper ">
-    <div th:replace="fragments/menu.html :: menu"></div>
-    <div class="main-panel">
-      <div class="content">
-        <div class="container-fluid">
-          <div th:replace="components/calendar.html :: calendar"></div>
-          <footer th:replace="fragments/footer.html :: footer"></footer>
+    <div class="wrapper ">
+        <div th:replace="fragments/menu.html :: menu"></div>
+        <div class="main-panel">
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="card card-calendar">
+                        <div class="card-body ">
+                            <div id="fullCalendar" class="fc fc-unthemed fc-ltr">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer th:replace="fragments/footer.html :: footer"></footer>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+    <script>
+        $(document).ready(function () {
+            // initialise FullCalendar
+            md.initFullCalendar();
+        });
+    </script>
 </body>
 
 </html>
