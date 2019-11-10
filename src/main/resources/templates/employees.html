@@ -41,28 +41,51 @@
                                 style="width: 181px;" aria-sort="ascending"
                                 aria-label="Name: activate to sort column descending">Nom</th>
                               <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1"
-                                style="width: 257px;" aria-label="Position: activate to sort column ascending">
+                                style="width: 181px;" aria-label="Position: activate to sort column ascending">
                                 Prénom</th>
                               <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1"
-                                style="width: 134px;" aria-label="Office: activate to sort column ascending">Équipe
+                                style="width: 181px;" aria-label="Office: activate to sort column ascending">Ville
                               </th>
+                              <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1"
+                                style="width: 181px;" aria-label="Office: activate to sort column ascending">Équipe
+                              </th>
+                              <th class="disabled-sorting text-right sorting" tabindex="0" aria-controls="datatables"
+                                rowspan="1" colspan="1" style="width: 50px;"
+                                aria-label="Actions: activate to sort column ascending"></th>
                             </tr>
                           </thead>
                           <tbody>
                             <tr role="row" class="odd">
-                              <td tabindex="0" class="sorting_1">Captain</td>
+                              <td tabindex="0" class="sorting_1">
+                                <a href="#" data-toggle="modal" data-target="#updateEmployeeModal">Captain</a>
+                              </td>
                               <td>America</td>
+                              <td>Lannion</td>
                               <td>Avengers</td>
+                              <td class="text-right">
+                                <a href="#" class="btn btn-link btn-danger btn-just-icon remove" data-toggle="modal"
+                                  data-target="#deleteEmployeeModal"><i class="material-icons">close</i></a>
+                              </td>
                             </tr>
                             <tr role="row" class="even">
                               <td class="sorting_1" tabindex="0">Thor</td>
                               <td></td>
+                              <td>Paris</td>
                               <td>Avengers</td>
+                              <td class="text-right">
+                                <a href="#" class="btn btn-link btn-danger btn-just-icon remove" data-toggle="modal"
+                                  data-target="#deleteEmployeeModal"><i class="material-icons">close</i></a>
+                              </td>
                             </tr>
                             <tr role="row" class="odd">
                               <td tabindex="0" class="sorting_1">Spider</td>
                               <td>Man</td>
+                              <td>Lyon</td>
                               <td>Avengers</td>
+                              <td class="text-right">
+                                <a href="#" class="btn btn-link btn-danger btn-just-icon remove" data-toggle="modal"
+                                  data-target="#deleteEmployeeModal"><i class="material-icons">close</i></a>
+                              </td>
                             </tr>
                           </tbody>
                         </table>
@@ -79,6 +102,8 @@
     <footer th:replace="fragments/footer.html :: footer"></footer>
   </div>
   <div th:replace="modals/employeeModals.html :: addEmployeeModal"></div>
+  <div th:replace="modals/employeeModals.html :: updateEmployeeModal"></div>
+  <div th:replace="modals/employeeModals.html :: deleteEmployeeModal"></div>
   <script>
     $(document).ready(function () {
       $('#datatables').DataTable({
