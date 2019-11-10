@@ -8,12 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-public class LeaveController {
+public class LeaveRequestController {
 
     @GetMapping("/demandes-conges")
     public ModelAndView showListLeave() {
 
-        String viewName = "leaves";
+        String viewName = "leavesRequests";
         Map<String,Object> model = new HashMap<>();
         model.put("title", "Mes demandes de congés");
 

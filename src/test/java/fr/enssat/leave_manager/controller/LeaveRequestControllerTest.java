@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest
 @RunWith(SpringRunner.class)
-public class LeaveControllerTest {
+public class LeaveRequestControllerTest {
 
     @Autowired
     MockMvc mockMvc;

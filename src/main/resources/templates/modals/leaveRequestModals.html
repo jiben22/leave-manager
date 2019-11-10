@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div class="modal fade" id="addLeaveRequestModal" tabindex="-1" role="dialog" aria-labelledby="addLeaveRequestModal"
+  aria-hidden="true" th:fragment="addLeaveRequestModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Ajouter une demande de congé</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card ">
+          <div class="card-header card-header-primary card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">next_week</i>
+            </div>
+            <h4 class="card-title">Demande de congé</h4>
+          </div>
+          <div class="card-body">
+            <form class="form-horizontal">
+              <div class="row">
+                <label class="col-md-2 col-form-label">Date de début</label>
+                <div class="col-md-4">
+                  <div class="form-group has-default bmd-form-group">
+                      <input type="text" class="form-control datepicker">
+                  </div>
+                </div>
+                <label class="col-md-2 col-form-label">Date de fin</label>
+                <div class="col-md-4">
+                  <div class="form-group has-default bmd-form-group">
+                      <input type="text" class="form-control datepicker">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <label class="col-md-2 col-form-label">Type de congé</label>
+                <div class="col-md-4">
+                  <div class="form-group has-default bmd-form-group">
+                    <select type="text" class="form-control">
+                      <option>Congé payé</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <label class="col-md-2 col-form-label">Raison</label>
+                <div class="col-md-4">
+                  <div class="form-group has-default bmd-form-group">
+                    <input type="text" class="form-control">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-success">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="updateLeaveRequestModal" tabindex="-1" role="dialog"
+  aria-labelledby="updateLeaveRequestModal" aria-hidden="true" th:fragment="updateLeaveRequestModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modifier la demande de congé</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card ">
+          <div class="card-header card-header-primary card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">next_week</i>
+            </div>
+            <h4 class="card-title">Demande de congé</h4>
+          </div>
+          <div class="card-body">
+            <form class="form-horizontal">
+              <div class="row">
+                <label class="col-md-2 col-form-label">Date de début</label>
+                <div class="col-md-4">
+                  <div class="form-group has-default bmd-form-group">
+                      <input type="text" class="form-control datepicker" value="22/12/2019">
+                  </div>
+                </div>
+                <label class="col-md-2 col-form-label">Date de fin</label>
+                <div class="col-md-4">
+                  <div class="form-group has-default bmd-form-group">
+                      <input type="text" class="form-control datepicker" value="15/01/2020">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <label class="col-md-2 col-form-label">Type de congé</label>
+                <div class="col-md-4">
+                  <div class="form-group has-default bmd-form-group">
+                    <select type="text" class="form-control">
+                      <option selected>Congé payé</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <label class="col-md-2 col-form-label">Raison</label>
+                <div class="col-md-4">
+                  <div class="form-group has-default bmd-form-group">
+                    <input type="text" class="form-control" value="Vacances">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-warning">Modifier</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteLeaveRequestModal" tabindex="-1" role="dialog"
+  aria-labelledby="deleteLeaveRequestModal" aria-hidden="true" th:fragment="deleteLeaveRequestModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Supprimer la demande de congé</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Ëtes-vous sûr de supprimer la demande de congé ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-danger">Supprimer</button>
+      </div>
+    </div>
+  </div>
+</div>
