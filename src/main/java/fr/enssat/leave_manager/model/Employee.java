@@ -3,7 +3,10 @@ package fr.enssat.leave_manager.model;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Set;
 
