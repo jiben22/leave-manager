@@ -53,7 +53,6 @@
                               <td tabindex="0" class="sorting_1">Captain</td>
                               <td>America</td>
                               <td>Avengers</td>
-                              </td>
                             </tr>
                             <tr role="row" class="even">
                               <td class="sorting_1" tabindex="0">Thor</td>
@@ -64,7 +63,6 @@
                               <td tabindex="0" class="sorting_1">Spider</td>
                               <td>Man</td>
                               <td>Avengers</td>
-                              </td>
                             </tr>
                           </tbody>
                         </table>
@@ -78,10 +76,9 @@
         </div>
       </div>
     </div>
-    <div th:replace="modals/employeeModals.html :: addEmployeeModal"></div>
     <footer th:replace="fragments/footer.html :: footer"></footer>
   </div>
-  </div>
+  <div th:replace="modals/employeeModals.html :: addEmployeeModal"></div>
   <script>
     $(document).ready(function () {
       $('#datatables').DataTable({

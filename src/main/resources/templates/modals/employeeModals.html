@@ -12,67 +12,69 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="card">
-          <div class="card-header card-header-primary">
+        <div class="card ">
+          <div class="card-header card-header-primary card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">person</i>
+            </div>
             <h4 class="card-title">Employé</h4>
-            <p class="card-category">Entrer les informations concernant l'employé</p>
           </div>
           <div class="card-body">
-            <form>
+            <form class="form-horizontal">
               <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group bmd-form-group">
-                    <label class="bmd-label-floating">Nom</label>
+                <label class="col-md-2 col-form-label">Nom</label>
+                <div class="col-md-4">
+                  <div class="form-group has-default bmd-form-group">
                     <input type="text" class="form-control">
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="form-group bmd-form-group">
-                    <label class="bmd-label-floating">Prénom</label>
+                <label class="col-md-2 col-form-label">Prénom</label>
+                <div class="col-md-4">
+                  <div class="form-group has-default bmd-form-group">
                     <input type="text" class="form-control">
                   </div>
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group bmd-form-group">
-                    <label class="bmd-label-floating">Email</label>
+                <label class="col-md-2 col-form-label">Email</label>
+                <div class="col-md-10">
+                  <div class="form-group has-default bmd-form-group">
                     <input type="email" class="form-control">
                   </div>
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group bmd-form-group">
-                    <label class="bmd-label-floating">Addresse</label>
-                    <input type="text" class="form-control">
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="form-group bmd-form-group">
-                    <label class="bmd-label-floating">Ville</label>
-                    <input type="text" class="form-control">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group bmd-form-group">
-                    <label class="bmd-label-floating">Pays</label>
-                    <input type="text" class="form-control">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group bmd-form-group">
-                    <label class="bmd-label-floating">Code Postal</label>
-                    <input type="text" class="form-control">
-                  </div>
-                </div>
-              </div>
-              <div class="row">
+                <label class="col-md-2 col-form-label">Adresse</label>
                 <div class="col-md-10">
-                  <div class="form-group">
-                    <label for="exampleFormControlSelect1">Équipe</label>
+                  <div class="form-group bmd-form-group">
+                    <input type="text" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <label class="col-md-2 col-form-label">Ville</label>
+                <div class="col-md-2">
+                  <div class="form-group has-default bmd-form-group">
+                    <input type="text" class="form-control">
+                  </div>
+                </div>
+                <label class="col-md-2 col-form-label">Code Postal</label>
+                <div class="col-md-2">
+                  <div class="form-group has-default bmd-form-group">
+                    <input type="text" class="form-control">
+                  </div>
+                </div>
+                <label class="col-md-2 col-form-label">Pays</label>
+                <div class="col-md-2">
+                  <div class="form-group has-default bmd-form-group">
+                    <input type="text" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <label class="col-md-2 col-form-label">Équipe</label>
+                <div class="col-md-8">
+                  <div class="form-group bmd-form-group">
                     <select class="form-control" id="exampleFormControlSelect1">
                       <option>Avengers</option>
                       <option>...</option>
@@ -80,20 +82,20 @@
                   </div>
                 </div>
                 <div class="col-md-2">
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTeamModal">
-                    +
-                  </button>
+                  <div class="form-group has-default bmd-form-group">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTeamModal">
+                      +
+                    </button>
+                  </div>
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary pull-right">Enregistrer</button>
-              <div class="clearfix"></div>
-            </form>
           </div>
+          </form>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-        <button type="button" class="btn btn-primary">Enregistrer</button>
+        <button type="button" class="btn btn-success">Enregistrer</button>
       </div>
     </div>
   </div>
