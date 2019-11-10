@@ -2,7 +2,6 @@ package fr.enssat.leave_manager.controller;
 
 import fr.enssat.leave_manager.model.Department;
 import fr.enssat.leave_manager.repo.DepartmentRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +19,6 @@ public class DepartmentController {
     public ModelAndView getDepartments(
             @RequestParam(name = "id", required = false) String id,
             @RequestParam(name = "name", required = false) String name) {
-        // TODO 'name' param (name is unique)
         String viewName = "departments";
         List<Department> departments = new ArrayList<>();
 
