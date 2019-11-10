@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div class="modal fade" id="addDepartmentModal" tabindex="-1" role="dialog" aria-labelledby="addDepartmentModal"
+  aria-hidden="true" th:fragment="addDepartmentModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Ajouter un départment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card ">
+          <div class="card-header card-header-primary card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">business</i>
+            </div>
+            <h4 class="card-title">Départment</h4>
+          </div>
+          <div class="card-body">
+            <form class="form-horizontal">
+              <div class="row">
+                <label class="col-md-2 col-form-label">Nom</label>
+                <div class="col-md-4">
+                  <div class="form-group has-default bmd-form-group">
+                    <input type="text" class="form-control">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-success">Enregistrer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
