@@ -9,18 +9,93 @@
         <div class="main-panel">
             <div class="content">
                 <div class="container-fluid">
+                    <div class="row">
+                        <div class="offset-md-11">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addLeaveRequestModal">
+                                +
+                            </button>
+                        </div>
+                    </div>
                     <div class="card card-calendar">
                         <div class="card-body ">
-                            <div id="fullCalendar" class="fc fc-unthemed fc-ltr">
+                            <div id="fullCalendar" class="fc fc-unthemed fc-ltr"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="offset-md-1 col-md-5">
+                        <div class="card">
+                            <div class="card-header card-header-primary card-header-icon">
+                                <div class="card-icon">
+                                    <i class="material-icons">star</i>
+                                </div>
+                                <h4 class="card-title">Congés restants</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead class="">
+                                            <th style="width: 181px;">Type de congé</th>
+                                            <th style="width: 60px;">Nombre</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Congé payé</td>
+                                                <td>22</td>
+                                            </tr>
+                                            <tr>
+                                                <td>RTT</td>
+                                                <td>3</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="offset-md-2 col-md-3">
+                        <div class="card">
+                            <div class="card-header card-header-primary card-header-icon">
+                                <div class="card-icon">
+                                    <i class="material-icons">calendar_today</i>
+                                </div>
+                                <h4 class="card-title">Légende</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead class="">
+                                            <th style="width: 40px;"></th>
+                                            <th style="width: 181px;">Statut</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="p-3 mb-2 bg-success "></div>
+                                                </td>
+                                                <td>Validé</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="p-3 mb-2 bg-waring "></div>
+                                                </td>
+                                                <td>En attente</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <footer th:replace="fragments/footer.html :: footer"></footer>
+                <footer th:replace="fragments/footer.html :: footer "></footer>
             </div>
         </div>
     </div>
-    <script src="js/plugins/fullcalendar-locales-fr.js"></script>
+    <div th:replace="modals/leaveRequestModals.html :: addLeaveRequestModal "></div>
+    <div th:replace="modals/leaveRequestModals.html :: updateLeaveRequestModal "></div>
+    <div th:replace="modals/leaveRequestModals.html :: deleteLeaveRequestModal "></div>
+    <script src="js/plugins/fullcalendar-locales-fr.js "></script>
     <script>
         $(document).ready(function() {
             //Get date of today
@@ -29,76 +104,76 @@
             m = today.getMonth();
             d = today.getDate();
             // initialise FullCalendar
-            let calendar = $("#fullCalendar").fullCalendar({
+            let calendar = $("#fullCalendar ").fullCalendar({
                 viewRender: function(e, a) {
-                    "month" != e.name &&
+                    "month " != e.name &&
                         $(a)
-                        .find(".fc-scroller")
+                        .find(".fc-scroller ")
                         .perfectScrollbar();
                 },
                 disableDragging: true,
                 height: 600,
                 locale: 'fr',
                 header: {
-                    left: "title",
-                    center: "month",
-                    right: "prev,next,today"
+                    left: "title ",
+                    center: "month ",
+                    right: "prev,next,today "
                 },
                 defaultDate: today,
                 selectable: !0,
                 selectHelper: !0,
                 views: {
                     month: {
-                        titleFormat: "MMMM YYYY"
+                        titleFormat: "MMMM YYYY "
                     }
                 },
                 select: function(t, n) {
                     swal({
-                            title: "Ajouter un congé",
-                            html: '<div class="form-group"><input class="form-control" placeholder="Nom" id="input-field"></div>',
+                            title: "Ajouter un congé ",
+                            html: '<div class="form-group "><input class="form-control " placeholder="Nom " id="input-field "></div>',
                             showCancelButton: !0,
-                            confirmButtonClass: "btn btn-success",
-                            cancelButtonClass: "btn btn-danger",
+                            confirmButtonClass: "btn btn-success ",
+                            cancelButtonClass: "btn btn-danger ",
                             buttonsStyling: !1
                         })
                         .then(function(e) {
                             var a;
-                            (event_title = $("#input-field").val()),
+                            (event_title = $("#input-field ").val()),
                             event_title &&
                                 ((a = {
                                         title: event_title,
                                         start: t,
                                         end: n
                                     }),
-                                    $calendar.fullCalendar("renderEvent", a, !0)),
-                                $calendar.fullCalendar("unselect");
+                                    $calendar.fullCalendar("renderEvent ", a, !0)),
+                                $calendar.fullCalendar("unselect ");
                         })
                         .catch(swal.noop);
                 },
                 //editable: !0,
                 //eventLimit: !0,
                 events: [{
-                    title: "Congé payé",
+                    title: "Congé payé ",
                     start: new Date(y, m, 1),
-                    description: "Vacances",
-                    className: "event-green"
+                    description: "Vacances ",
+                    className: "event-green "
                 }, {
-                    title: "Congé payé",
+                    title: "Congé payé ",
                     start: new Date(y, m, 2),
-                    description: "Vacances",
-                    className: "event-green"
+                    description: "Vacances ",
+                    className: "event-green "
                 }, {
-                    title: "Congé payé",
+                    title: "Congé payé ",
                     start: new Date(y, m, 3),
-                    description: "Vacances",
-                    className: "event-green"
+                    description: "Vacances ",
+                    className: "event-green "
                 }, {
                     id: 999,
-                    title: "RTT",
+                    title: "RTT ",
                     start: new Date(y, m, d - 4, 6, 0),
                     allDay: !1,
-                    description: "",
-                    className: "event-orange"
+                    description: " ",
+                    className: "event-orange "
                 }],
                 eventRender: function(event, element) {
                     $(element).tooltip({
@@ -109,6 +184,12 @@
                     });
                 }
             });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // initialise Datetimepicker
+            md.initFormExtendedDatetimepickers();
         });
     </script>
 </body>
