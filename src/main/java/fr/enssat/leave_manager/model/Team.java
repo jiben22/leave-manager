@@ -12,12 +12,14 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class Team extends PKGenerator implements Serializable {
     @Id
     @Column(length = 25, updatable = false)
     @Setter(AccessLevel.NONE)
     @Size(min = 25, max = 25)
-    private String id = this.generatePK("TEAM");
+    @Builder.Default
+    private String id = PKGenerator.generatePK("TEAM");
 
     @Column(length = 45)
     @NonNull

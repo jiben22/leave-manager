@@ -13,12 +13,14 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class TeamLeader extends PKGenerator implements Serializable {
     @Id
     @Column(length = 29, updatable = false)
     @Setter(AccessLevel.NONE)
     @Size(min = 29, max = 29)
-    private String eid = this.generatePK("EMPLOYEE");
+    @Builder.Default
+    private String eid = PKGenerator.generatePK("EMPLOYEE");
 
     @NonNull
     @OneToOne(optional = false, cascade = CascadeType.ALL, mappedBy = "teamLeader")

@@ -7,17 +7,20 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Set;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "Department")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class Department extends PKGenerator implements Serializable {
     @Id
     @Column(length=31, updatable = false)
     @Setter(AccessLevel.NONE)
     @Size(min = 31, max = 31)
-    private String id = this.generatePK("DEPARTMENT");
+    @Builder.Default
+    private String id = PKGenerator.generatePK("DEPARTMENT");
 
     @Column(unique = true, nullable = false, length=45)
     @NonNull

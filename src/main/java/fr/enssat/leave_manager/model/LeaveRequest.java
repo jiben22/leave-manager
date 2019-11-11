@@ -16,9 +16,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class LeaveRequest extends PKGenerator implements Serializable {
 
-    private enum LeaveStatus {
+    public enum LeaveStatus {
         PENDING("En attente"),
         CANCELLED("Annulé"),
         ACCEPTED("Accepté"),
@@ -38,7 +39,8 @@ public class LeaveRequest extends PKGenerator implements Serializable {
     @Column(length = 33, updatable = false)
     @Setter(AccessLevel.NONE)
     @Size(min = 33, max = 33)
-    private String lrid = this.generatePK("LEAVEREQUEST");
+    @Builder.Default
+    private String lrid = PKGenerator.generatePK("LEAVEREQUEST");
 
     @Size(max = 255, message = "La raison du congés ne doit pas dépasser les 255 caractères !")
     private String reason;
@@ -46,11 +48,13 @@ public class LeaveRequest extends PKGenerator implements Serializable {
     @Column(nullable = false)
     @NonNull
     @PastOrPresent
+    @Builder.Default
     private LocalDateTime creation = new Timestamp(System.currentTimeMillis()).toLocalDateTime();
 
     @Column(nullable = false)
     @NonNull
     @PastOrPresent
+    @Builder.Default
     private LocalDateTime last_edition = new Timestamp(System.currentTimeMillis()).toLocalDateTime();
 
     @Column(nullable = false)
@@ -63,7 +67,6 @@ public class LeaveRequest extends PKGenerator implements Serializable {
     @FutureOrPresent
     private LocalDateTime ending_date;
 
-    @Column(length = 255)
     @Size(max = 255, message = "Le commentaire du RH ne doit pas dépasser les 225 caractères !")
     private String hr_comment;
 

@@ -16,13 +16,15 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class Employee extends PKGenerator implements Serializable {
     @Id
     @Column(length = 29, updatable = false)
     @Setter(AccessLevel.NONE)
     @NonNull
     @Size(min = 29, max = 29)
-    private String eid = this.generatePK("EMPLOYEE");
+    @Builder.Default
+    private String eid = PKGenerator.generatePK("EMPLOYEE");
 
     @Column(nullable = false, length = 45)
     @NonNull
@@ -62,6 +64,7 @@ public class Employee extends PKGenerator implements Serializable {
     @Column(nullable = false)
     @NonNull
     @Min(value = 0, message = "Le nombre de congés doit être supérieur ou égale à zero!")
+    @Builder.Default
     private Double remaining_leave = 25.0;
 
     @Column(nullable = false, length = 128, unique = true)

@@ -12,12 +12,14 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class TypeOfLeave extends PKGenerator implements Serializable {
     @Id
     @Column(length = 32, updatable = false)
     @Setter(AccessLevel.NONE)
     @Size(min = 32, max = 32)
-    private String id = this.generatePK("TYPEOFLEAVE");
+    @Builder.Default
+    private String id = PKGenerator.generatePK("TYPEOFLEAVE");
 
     @Column(length = 45)
     @NonNull
@@ -29,7 +31,8 @@ public class TypeOfLeave extends PKGenerator implements Serializable {
 
     @Column
     @NonNull
-    private Boolean is_archived;
+    @Builder.Default
+    private Boolean is_archived = false;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "typeOfLeave", cascade = CascadeType.ALL)
