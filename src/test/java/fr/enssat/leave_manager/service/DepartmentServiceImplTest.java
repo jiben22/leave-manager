@@ -23,6 +23,5 @@ public class DepartmentServiceImplTest {
 
         Department department = DepartmentFactory.getDepartment();
         Department departmentAdded = departmentService.addDepartment(department);
-        assertNotNull(departmentAdded);
     }
 }
