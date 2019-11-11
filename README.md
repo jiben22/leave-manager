@@ -8,14 +8,17 @@
 
 `git clone https://github.com/jiben22/leave-manager.git`
 
-### PostgreSQL
+### Database
 
-1. Create server
-> Name: **LeaveManager**
-> Host name: **localhost**
-> Port: **5432**
-> Username: **postgres**
+1. Install PostgreSQL 10
+
+2. Turn on the server with these values (or update `src/main/resources/application.yml` file)
+> Host name: **localhost** \
+> Port: **5432** \
+> Username: **postgres** \
 > Password: **root**
 
-2. Create database
+3. Create database
 > Database: **LeaveManager**
+
+4. Launch the application, it will do the rest
