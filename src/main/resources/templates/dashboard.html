@@ -20,10 +20,95 @@
             </div>
         </div>
     </div>
+    <script src="js/plugins/fullcalendar-locales-fr.js"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
+            //Get date of today
+            today = new Date();
+            y = today.getFullYear();
+            m = today.getMonth();
+            d = today.getDate();
             // initialise FullCalendar
-            md.initFullCalendar();
+            let calendar = $("#fullCalendar").fullCalendar({
+                viewRender: function(e, a) {
+                    "month" != e.name &&
+                        $(a)
+                        .find(".fc-scroller")
+                        .perfectScrollbar();
+                },
+                disableDragging: true,
+                height: 600,
+                locale: 'fr',
+                header: {
+                    left: "title",
+                    center: "month",
+                    right: "prev,next,today"
+                },
+                defaultDate: today,
+                selectable: !0,
+                selectHelper: !0,
+                views: {
+                    month: {
+                        titleFormat: "MMMM YYYY"
+                    }
+                },
+                select: function(t, n) {
+                    swal({
+                            title: "Ajouter un congé",
+                            html: '<div class="form-group"><input class="form-control" placeholder="Nom" id="input-field"></div>',
+                            showCancelButton: !0,
+                            confirmButtonClass: "btn btn-success",
+                            cancelButtonClass: "btn btn-danger",
+                            buttonsStyling: !1
+                        })
+                        .then(function(e) {
+                            var a;
+                            (event_title = $("#input-field").val()),
+                            event_title &&
+                                ((a = {
+                                        title: event_title,
+                                        start: t,
+                                        end: n
+                                    }),
+                                    $calendar.fullCalendar("renderEvent", a, !0)),
+                                $calendar.fullCalendar("unselect");
+                        })
+                        .catch(swal.noop);
+                },
+                //editable: !0,
+                //eventLimit: !0,
+                events: [{
+                    title: "Congé payé",
+                    start: new Date(y, m, 1),
+                    description: "Vacances",
+                    className: "event-green"
+                }, {
+                    title: "Congé payé",
+                    start: new Date(y, m, 2),
+                    description: "Vacances",
+                    className: "event-green"
+                }, {
+                    title: "Congé payé",
+                    start: new Date(y, m, 3),
+                    description: "Vacances",
+                    className: "event-green"
+                }, {
+                    id: 999,
+                    title: "RTT",
+                    start: new Date(y, m, d - 4, 6, 0),
+                    allDay: !1,
+                    description: "",
+                    className: "event-orange"
+                }],
+                eventRender: function(event, element) {
+                    $(element).tooltip({
+                        title: event.description,
+                        placement: 'top',
+                        trigger: 'hover',
+                        container: 'body'
+                    });
+                }
+            });
         });
     </script>
 </body>
