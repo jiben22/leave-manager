@@ -9,33 +9,30 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Team")
-@EqualsAndHashCode @ToString
-@RequiredArgsConstructor
-@AllArgsConstructor @NoArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Team extends PKGenerator implements Serializable {
     @Id
     @Column(length = 25, updatable = false)
-    @Getter
+    @Setter(AccessLevel.NONE)
     @Size(min = 25, max = 25)
     private String id = this.generatePK("TEAM");
 
     @Column(length = 45)
-    @Getter @Setter @NonNull
+    @NonNull
     @Size(min = 1, max = 45, message = "Le nom ne peut pas être vide et ne doit pas dépasser les 45 caractères !")
     private String name;
 
-    @Getter @Setter
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false, name = "leader_id", referencedColumnName = "eid")
     private TeamLeader teamLeader;
 
-    @Getter @Setter
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false, name = "dept_id", referencedColumnName = "id")
     private Department department;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
-    @Getter @Setter
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "EmployeeTeam",
             joinColumns = @JoinColumn(name = "team_id", referencedColumnName = "id", nullable = false),

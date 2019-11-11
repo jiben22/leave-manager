@@ -9,32 +9,30 @@ import java.util.Set;
 
 @Entity
 @Table(name = "TypeOfLeave")
-@EqualsAndHashCode
-@ToString
-@RequiredArgsConstructor
-@AllArgsConstructor @NoArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class TypeOfLeave extends PKGenerator implements Serializable {
     @Id
     @Column(length = 32, updatable = false)
-    @Getter
+    @Setter(AccessLevel.NONE)
     @Size(min = 32, max = 32)
     private String id = this.generatePK("TYPEOFLEAVE");
 
     @Column(length = 45)
-    @Getter @Setter @NonNull
+    @NonNull
     @Size(min = 1, max = 45, message = "Le nom ne peut pas être vide et ne doit pas dépasser les 45 caractères !")
     private String name;
 
     @Column
-    @Getter @Setter
     private String description;
 
     @Column
-    @Getter @Setter @NonNull
+    @NonNull
     private Boolean is_archived;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "typeOfLeave", cascade = CascadeType.ALL)
-    @Getter @Setter @NonNull
+    @NonNull
     private Set<LeaveRequest> leaveRequests;
 }

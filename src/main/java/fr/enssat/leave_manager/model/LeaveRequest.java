@@ -13,9 +13,9 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "LeaveRequest")
-@EqualsAndHashCode @ToString
-@RequiredArgsConstructor
-@AllArgsConstructor @NoArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class LeaveRequest extends PKGenerator implements Serializable {
 
     private enum LeaveStatus {
@@ -36,46 +36,43 @@ public class LeaveRequest extends PKGenerator implements Serializable {
     }
     @Id
     @Column(length = 33, updatable = false)
-    @Getter
+    @Setter(AccessLevel.NONE)
     @Size(min = 33, max = 33)
     private String lrid = this.generatePK("LEAVEREQUEST");
 
-    @Column(length = 255)
-    @Getter @Setter
     @Size(max = 255, message = "La raison du congés ne doit pas dépasser les 255 caractères !")
     private String reason;
 
     @Column(nullable = false)
-    @Getter @Setter @NonNull
+    @NonNull
     @PastOrPresent
     private LocalDateTime creation = new Timestamp(System.currentTimeMillis()).toLocalDateTime();
 
     @Column(nullable = false)
-    @Getter @Setter @NonNull
+    @NonNull
     @PastOrPresent
     private LocalDateTime last_edition = new Timestamp(System.currentTimeMillis()).toLocalDateTime();
 
     @Column(nullable = false)
-    @Getter @Setter @NonNull
+    @NonNull
     @FutureOrPresent
     private LocalDateTime starting_date;
 
     @Column(nullable = false)
-    @Getter @Setter @NonNull
+    @NonNull
     @FutureOrPresent
     private LocalDateTime ending_date;
 
     @Column(length = 255)
-    @Getter @Setter
     @Size(max = 255, message = "Le commentaire du RH ne doit pas dépasser les 225 caractères !")
     private String hr_comment;
 
-    @Getter @Setter @NonNull
+    @NonNull
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false, name = "eid", referencedColumnName = "eid")
     private Employee employee;
 
-    @Getter @Setter @NonNull
+    @NonNull
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false, name = "type_id", referencedColumnName = "id")
     private TypeOfLeave typeOfLeave;

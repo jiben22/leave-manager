@@ -8,17 +8,17 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "HRD")
-@EqualsAndHashCode
-@ToString
-@RequiredArgsConstructor @NoArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class HRD extends PKGenerator implements Serializable {
     @Id
     @Column(length = 29, updatable = false)
-    @Getter
+    @Setter(AccessLevel.NONE)
     @Size(min = 29, max = 29)
     private String eid = this.generatePK("EMPLOYEE");
 
-    @Getter @Setter @NonNull
+    @NonNull
     @OneToOne(optional = false, cascade = CascadeType.ALL, mappedBy = "hrd")
     @JoinColumn(name = "eid", nullable = false, referencedColumnName = "hrd")
     @MapsId

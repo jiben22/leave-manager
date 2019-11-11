@@ -10,23 +10,23 @@ import java.util.Set;
 
 @Entity
 @Table(name = "TeamLeader")
-@EqualsAndHashCode
-@ToString
-@RequiredArgsConstructor @NoArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class TeamLeader extends PKGenerator implements Serializable {
     @Id
     @Column(length = 29, updatable = false)
-    @Getter
+    @Setter(AccessLevel.NONE)
     @Size(min = 29, max = 29)
     private String eid = this.generatePK("EMPLOYEE");
 
-    @Getter @Setter @NonNull
+    @NonNull
     @OneToOne(optional = false, cascade = CascadeType.ALL, mappedBy = "teamLeader")
     @JoinColumn(name = "eid", nullable = false, unique = true, referencedColumnName = "eid")
     @MapsId("eid")
     private Employee employee;
 
-    @Getter @Setter @NonNull
+    @NonNull
     @ToString.Exclude @EqualsAndHashCode.Exclude
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "teamLeader")
     @NotEmpty
