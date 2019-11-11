@@ -16814,7 +16814,7 @@ label {
 .card.bg-danger,
 .card.card-rotate.bg-danger .front,
 .card.card-rotate.bg-danger .back {
-    background: linear-gradient(60deg, #2196f3, #2196f3);
+    background: linear-gradient(60deg, rgb(239, 83, 80), rgb(229, 57, 53))
 }
 
 .card .card-header-rose .card-icon,

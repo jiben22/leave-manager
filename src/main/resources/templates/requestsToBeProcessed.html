@@ -4,129 +4,150 @@
 <head th:replace="fragments/head.html :: head"></head>
 
 <body class="">
-  <div class="wrapper ">
-    <div th:replace="fragments/menu.html :: menu"></div>
-    <div class="main-panel">
-      <div class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-header card-header-primary card-header-icon">
-                  <div class="card-icon">
-                    <i class="material-icons">assignment</i>
-                  </div>
-                  <h4 class="card-title">Demandes à traiter</h4>
-                </div>
-                <div class="card-body">
-                  <div class="toolbar">
-                  </div>
-                  <div class="material-datatables">
+    <div class="wrapper ">
+        <div th:replace="fragments/menu.html :: menu"></div>
+        <div class="main-panel">
+            <div class="content">
+                <div class="container-fluid">
                     <div class="row">
-                      <div class="col-sm-12">
-                        <table id="datatables"
-                          class="table table-striped table-no-bordered table-hover dataTable dtr-inline"
-                          style="width: 100%;" role="grid" aria-describedby="datatables_info" width="100%"
-                          cellspacing="0">
-                          <thead>
-                            <tr role="row">
-                              <th class="sorting_asc" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1"
-                                style="width: 181px;" aria-sort="ascending"
-                                aria-label="Name: activate to sort column descending">
-                                Nom</th>
-                              <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1"
-                                style="width: 181px;" aria-label="Position: activate to sort column ascending">
-                                Prénom</th>
-                              <th class="disabled-sorting sorting" tabindex="0" aria-controls="datatables" rowspan="1"
-                                colspan="1" style="width: 181px;"
-                                aria-label="Actions: activate to sort column ascending">Type de congé</th>
-                              <th class="disabled-sorting sorting" tabindex="0" aria-controls="datatables" rowspan="1"
-                                colspan="1" style="width: 181px;"
-                                aria-label="Actions: activate to sort column ascending">Statut</th>
-                              <th class="disabled-sorting text-right sorting" tabindex="0" aria-controls="datatables"
-                                rowspan="1" colspan="1" style="width: 80px;"
-                                aria-label="Actions: activate to sort column ascending"></th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr role="row" class="odd pending">
-                              <td tabindex="0" class="sorting_1">Captain</td>
-                              <td>America</td>
-                              <td>Congé payé</td>
-                              <td>En attente</td>
-                              <td class="text-right">
-                                <a href="#" class="btn btn-link btn-warning btn-just-icon remove" data-toggle="modal"
-                                  data-target="#checkRequestToBeProcessedModal"><i class="material-icons">dvr</i></a>
-                              </td>
-                            </tr>
-                            <tr role="row" class="even accepted">
-                              <td tabindex="0" class="sorting_1">Thor</td>
-                              <td></td>
-                              <td>Congé payé</td>
-                              <td>Validé</td>
-                              <td class="text-right">
-                                <a href="#" class="btn btn-link btn-warning btn-just-icon remove" data-toggle="modal"
-                                  data-target="#checkRequestToBeProcessedModal"><i class="material-icons">dvr</i></a>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
+                        <div class="offset-md-3 col-md-2">
+                            <div class="card card-stats">
+                                <div class="card-header card-header-warning card-header-icon">
+                                    <div class="card-icon">
+                                        <i class="material-icons">work</i>
+                                    </div>
+                                    <p class="card-category">En attente</p>
+                                    <h3 class="card-title">1</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="card card-stats">
+                                <div class="card-header card-header-success card-header-icon">
+                                    <div class="card-icon">
+                                        <i class="material-icons">check</i>
+                                    </div>
+                                    <p class="card-category">Validée</p>
+                                    <h3 class="card-title">1</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="card card-stats">
+                                <div class="card-header card-header-danger card-header-icon">
+                                    <div class="card-icon">
+                                        <i class="material-icons">close</i>
+                                    </div>
+                                    <p class="card-category">Refusée</p>
+                                    <h3 class="card-title">0</h3>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-primary card-header-icon">
+                                    <div class="card-icon">
+                                        <i class="material-icons">assignment</i>
+                                    </div>
+                                    <h4 class="card-title">Demandes à traiter</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="toolbar">
+                                    </div>
+                                    <div class="material-datatables">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <table id="datatables" class="table table-striped table-no-bordered table-hover dataTable dtr-inline" style="width: 100%;" role="grid" aria-describedby="datatables_info" width="100%" cellspacing="0">
+                                                    <thead>
+                                                        <tr role="row">
+                                                            <th class="sorting_asc" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;" aria-sort="ascending" aria-label="Name: activate to sort column descending">
+                                                                Nom</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;" aria-label="Position: activate to sort column ascending">
+                                                                Prénom</th>
+                                                            <th class="disabled-sorting sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;" aria-label="Actions: activate to sort column ascending">Type de congé</th>
+                                                            <th class="disabled-sorting sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;" aria-label="Actions: activate to sort column ascending">Statut</th>
+                                                            <th class="disabled-sorting text-right sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 80px;" aria-label="Actions: activate to sort column ascending"></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr role="row" class="odd pending">
+                                                            <td tabindex="0" class="sorting_1">Captain</td>
+                                                            <td>America</td>
+                                                            <td>Congé payé</td>
+                                                            <td>En attente</td>
+                                                            <td class="text-right">
+                                                                <a href="#" class="btn btn-link btn-warning btn-just-icon remove" data-toggle="modal" data-target="#checkRequestToBeProcessedModal"><i class="material-icons">dvr</i></a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr role="row" class="even accepted">
+                                                            <td tabindex="0" class="sorting_1">Thor</td>
+                                                            <td></td>
+                                                            <td>Congé payé</td>
+                                                            <td>Validé</td>
+                                                            <td class="text-right">
+                                                                <a href="#" class="btn btn-link btn-warning btn-just-icon remove" data-toggle="modal" data-target="#checkRequestToBeProcessedModal"><i class="material-icons">dvr</i></a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
+            <footer th:replace="fragments/footer.html :: footer"></footer>
         </div>
-      </div>
-      <footer th:replace="fragments/footer.html :: footer"></footer>
-    </div>
-    <div th:replace="modals/requestToBeProcessedModals.html :: checkRequestToBeProcessedModal"></div>
-    <script>
-      $(document).ready(function () {
-        $('#datatables').DataTable({
-          "pagingType": "full_numbers",
-          "lengthMenu": [
-            [10, 25, 50, -1],
-            [10, 25, 50, "All"]
-          ],
-          responsive: true,
-          language: {
-            "sEmptyTable": "Aucune donnée disponible dans le tableau",
-            "sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
-            "sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
-            "sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
-            "sInfoPostFix": "",
-            "sInfoThousands": ",",
-            "sLengthMenu": "Afficher _MENU_ éléments",
-            "sLoadingRecords": "Chargement...",
-            "sProcessing": "Traitement...",
-            "sSearch": "Rechercher :",
-            "sZeroRecords": "Aucun élément correspondant trouvé",
-            "oPaginate": {
-              "sFirst": "Premier",
-              "sLast": "Dernier",
-              "sNext": "Suivant",
-              "sPrevious": "Précédent"
-            },
-            "oAria": {
-              "sSortAscending": ": activer pour trier la colonne par ordre croissant",
-              "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
-            },
-            "select": {
-              "rows": {
-                "_": "%d lignes sélectionnées",
-                "0": "Aucune ligne sélectionnée",
-                "1": "1 ligne sélectionnée"
-              }
-            }
-          }
-        });
+        <div th:replace="modals/requestToBeProcessedModals.html :: checkRequestToBeProcessedModal"></div>
+        <script>
+            $(document).ready(function() {
+                $('#datatables').DataTable({
+                    "pagingType": "full_numbers",
+                    "lengthMenu": [
+                        [10, 25, 50, -1],
+                        [10, 25, 50, "All"]
+                    ],
+                    responsive: true,
+                    language: {
+                        "sEmptyTable": "Aucune donnée disponible dans le tableau",
+                        "sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+                        "sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+                        "sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+                        "sInfoPostFix": "",
+                        "sInfoThousands": ",",
+                        "sLengthMenu": "Afficher _MENU_ éléments",
+                        "sLoadingRecords": "Chargement...",
+                        "sProcessing": "Traitement...",
+                        "sSearch": "Rechercher :",
+                        "sZeroRecords": "Aucun élément correspondant trouvé",
+                        "oPaginate": {
+                            "sFirst": "Premier",
+                            "sLast": "Dernier",
+                            "sNext": "Suivant",
+                            "sPrevious": "Précédent"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+                            "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+                        },
+                        "select": {
+                            "rows": {
+                                "_": "%d lignes sélectionnées",
+                                "0": "Aucune ligne sélectionnée",
+                                "1": "1 ligne sélectionnée"
+                            }
+                        }
+                    }
+                });
 
-        var table = $('#datatable').DataTable();
-      });
-    </script>
+                var table = $('#datatable').DataTable();
+            });
+        </script>
 </body>
 
 </html>
