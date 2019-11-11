@@ -128,29 +128,6 @@
                         titleFormat: "MMMM YYYY "
                     }
                 },
-                select: function(t, n) {
-                    swal({
-                            title: "Ajouter un congé ",
-                            html: '<div class="form-group "><input class="form-control " placeholder="Nom " id="input-field "></div>',
-                            showCancelButton: !0,
-                            confirmButtonClass: "btn btn-success ",
-                            cancelButtonClass: "btn btn-danger ",
-                            buttonsStyling: !1
-                        })
-                        .then(function(e) {
-                            var a;
-                            (event_title = $("#input-field ").val()),
-                            event_title &&
-                                ((a = {
-                                        title: event_title,
-                                        start: t,
-                                        end: n
-                                    }),
-                                    $calendar.fullCalendar("renderEvent ", a, !0)),
-                                $calendar.fullCalendar("unselect ");
-                        })
-                        .catch(swal.noop);
-                },
                 //editable: !0,
                 //eventLimit: !0,
                 events: [{
@@ -176,6 +153,12 @@
                     description: " ",
                     className: "event-orange "
                 }],
+                select: function() {
+                    $('#addLeaveRequestModal').modal('show');
+                },
+                eventClick: function(info) {
+                    $('#updateLeaveRequestModal').modal('show');
+                },
                 eventRender: function(event, element) {
                     $(element).tooltip({
                         title: event.description,
