@@ -7,6 +7,4 @@ public abstract class PKGenerator {
         String generated = String.valueOf(r).substring(1, 5);
         return prefix+"-"+timestamp+"-"+generated;
     }
-
-    public abstract void setId();
 }

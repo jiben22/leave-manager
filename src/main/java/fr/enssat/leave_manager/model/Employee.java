@@ -21,7 +21,7 @@ public class Employee extends PKGenerator implements Serializable {
     @Column(length = 29, updatable = false)
     @Getter @NonNull
     @Size(min = 29, max = 29)
-    private String eid;
+    private String eid = this.generatePK("EMPLOYEE");
 
     @Column(nullable = false, length = 45)
     @Getter @Setter @NonNull
@@ -61,7 +61,7 @@ public class Employee extends PKGenerator implements Serializable {
     @Column(nullable = false)
     @Getter @Setter @NonNull
     @Min(value = 0, message = "Le nombre de congés doit être supérieur ou égale à zero!")
-    private Double remaining_leave;
+    private Double remaining_leave = 25.0;
 
     @Column(nullable = false, length = 128, unique = true)
     @Getter @Setter @NonNull
@@ -101,9 +101,4 @@ public class Employee extends PKGenerator implements Serializable {
     @OneToOne
     @JoinColumn(name = "eid", referencedColumnName = "employee")
     private TeamLeader teamLeader;
-
-    @Override
-    public void setId() {
-        if (this.eid == null) this.eid = this.generatePK("EMPLOYEE");
-    }
 }

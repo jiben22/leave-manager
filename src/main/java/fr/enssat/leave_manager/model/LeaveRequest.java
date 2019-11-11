@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -16,11 +17,6 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 @AllArgsConstructor @NoArgsConstructor
 public class LeaveRequest extends PKGenerator implements Serializable {
-
-    @Override
-    public void setId() {
-        if (this.lrid == null) this.lrid = this.generatePK("LEAVEREQUEST");
-    }
 
     private enum LeaveStatus {
         PENDING("En attente"),
@@ -42,7 +38,7 @@ public class LeaveRequest extends PKGenerator implements Serializable {
     @Column(length = 33, updatable = false)
     @Getter
     @Size(min = 33, max = 33)
-    private String lrid;
+    private String lrid = this.generatePK("LEAVEREQUEST");
 
     @Column(length = 255)
     @Getter @Setter
@@ -52,12 +48,12 @@ public class LeaveRequest extends PKGenerator implements Serializable {
     @Column(nullable = false)
     @Getter @Setter @NonNull
     @PastOrPresent
-    private LocalDateTime creation;
+    private LocalDateTime creation = new Timestamp(System.currentTimeMillis()).toLocalDateTime();
 
     @Column(nullable = false)
     @Getter @Setter @NonNull
     @PastOrPresent
-    private LocalDateTime last_edition;
+    private LocalDateTime last_edition = new Timestamp(System.currentTimeMillis()).toLocalDateTime();
 
     @Column(nullable = false)
     @Getter @Setter @NonNull

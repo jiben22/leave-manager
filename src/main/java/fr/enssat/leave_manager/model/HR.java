@@ -16,16 +16,11 @@ public class HR extends PKGenerator implements Serializable {
     @Column(length = 29, updatable = false)
     @Getter
     @Size(min = 29, max = 29)
-    private String eid;
+    private String eid = this.generatePK("EMPLOYEE");
 
     @Getter @Setter @NonNull
     @OneToOne(optional = false, cascade = CascadeType.ALL, mappedBy = "hr")
     @JoinColumn(name = "eid", nullable = false, referencedColumnName = "hr")
     @MapsId
     private Employee employee;
-
-    @Override
-    public void setId() {
-        if (this.eid == null) this.eid = this.generatePK("EMPLOYEE");
-    }
 }

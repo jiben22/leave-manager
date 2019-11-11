@@ -17,7 +17,7 @@ public class Team extends PKGenerator implements Serializable {
     @Column(length = 25, updatable = false)
     @Getter
     @Size(min = 25, max = 25)
-    private String id;
+    private String id = this.generatePK("TEAM");
 
     @Column(length = 45)
     @Getter @Setter @NonNull
@@ -41,9 +41,4 @@ public class Team extends PKGenerator implements Serializable {
             joinColumns = @JoinColumn(name = "team_id", referencedColumnName = "id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "eid", referencedColumnName = "eid", nullable = false))
     private Set<Employee> employeeList;
-
-    @Override
-    public void setId() {
-        if (this.id == null) this.id = this.generatePK("TEAM");
-    }
 }

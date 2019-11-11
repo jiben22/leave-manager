@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-@Table(name = "Team")
+@Table(name = "TypeOfLeave")
 @EqualsAndHashCode
 @ToString
 @RequiredArgsConstructor
@@ -18,7 +18,7 @@ public class TypeOfLeave extends PKGenerator implements Serializable {
     @Column(length = 32, updatable = false)
     @Getter
     @Size(min = 32, max = 32)
-    private String id;
+    private String id = this.generatePK("TYPEOFLEAVE");
 
     @Column(length = 45)
     @Getter @Setter @NonNull
@@ -27,7 +27,7 @@ public class TypeOfLeave extends PKGenerator implements Serializable {
 
     @Column
     @Getter @Setter
-    private String desc;
+    private String description;
 
     @Column
     @Getter @Setter @NonNull
@@ -37,9 +37,4 @@ public class TypeOfLeave extends PKGenerator implements Serializable {
     @OneToMany(mappedBy = "typeOfLeave", cascade = CascadeType.ALL)
     @Getter @Setter @NonNull
     private Set<LeaveRequest> leaveRequests;
-
-    @Override
-    public void setId() {
-        if (this.id == null) this.id = this.generatePK("TYPEOFLEAVE");
-    }
 }

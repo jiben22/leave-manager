@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-@Table(name = "HRD")
+@Table(name = "TeamLeader")
 @EqualsAndHashCode
 @ToString
 @RequiredArgsConstructor @NoArgsConstructor
@@ -18,12 +18,12 @@ public class TeamLeader extends PKGenerator implements Serializable {
     @Column(length = 29, updatable = false)
     @Getter
     @Size(min = 29, max = 29)
-    private String eid;
+    private String eid = this.generatePK("EMPLOYEE");
 
     @Getter @Setter @NonNull
     @OneToOne(optional = false, cascade = CascadeType.ALL, mappedBy = "teamLeader")
-    @JoinColumn(name = "eid", nullable = false, referencedColumnName = "teamLeader")
-    @MapsId
+    @JoinColumn(name = "eid", nullable = false, unique = true, referencedColumnName = "eid")
+    @MapsId("eid")
     private Employee employee;
 
     @Getter @Setter @NonNull
@@ -31,9 +31,4 @@ public class TeamLeader extends PKGenerator implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "teamLeader")
     @NotEmpty
     private Set<Team> teamList;
-
-    @Override
-    public void setId() {
-        if (this.eid == null) this.eid = this.generatePK("EMPLOYEE");
-    }
 }

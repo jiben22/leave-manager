@@ -16,7 +16,7 @@ public class Department extends PKGenerator implements Serializable {
     @Column(length=31, updatable = false)
     @Getter
     @Size(min = 31, max = 31)
-    private String id = null;
+    private String id = this.generatePK("DEPARTMENT");
 
     @Column(unique = true, nullable = false, length=45)
     @Getter @Setter @NonNull
@@ -27,9 +27,4 @@ public class Department extends PKGenerator implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
     @Getter @Setter
     private Set<Team> teamList;
-
-    @Override
-    public void setId() {
-        if (this.id == null) this.id = this.generatePK("DEPARTMENT");
-    }
 }
