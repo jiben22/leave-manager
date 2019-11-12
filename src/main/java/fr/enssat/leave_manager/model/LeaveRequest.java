@@ -10,6 +10,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "LeaveRequest")
@@ -79,6 +80,11 @@ public class LeaveRequest extends PKGenerator implements Serializable {
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false, name = "type_id", referencedColumnName = "id")
     private TypeOfLeave typeOfLeave;
+
+    @ManyToOne
+    @JoinColumn(name = "hr_eid", referencedColumnName = "eid")
+    @Builder.Default
+    private HR hr = null;
 
     @Column(length = 16, nullable = false)
     @Enumerated(EnumType.STRING)

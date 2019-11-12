@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "HR")
@@ -25,4 +26,8 @@ public class HR extends PKGenerator implements Serializable {
     @JoinColumn(name = "eid", nullable = false, referencedColumnName = "hr")
     @MapsId
     private Employee employee;
+
+    @ToString.Exclude @EqualsAndHashCode.Exclude
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "hr")
+    private Set<LeaveRequest> leaveRequests;
 }

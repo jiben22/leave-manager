@@ -5,7 +5,7 @@ $$
 SELECT (prefix || '-' || EXTRACT(EPOCH FROM (SELECT current_timestamp AT TIME ZONE 'UTC')) *100000 || '-' || (random()*10000)::integer);
 $$;
 
-CREATE TABLE Employee (
+CREATE TABLE employee (
     eid VARCHAR(29) PRIMARY KEY DEFAULT id_generator('EMPLOYEE'),
     firstname VARCHAR(45) NOT NULL,
     lastname VARCHAR(45) NOT NULL,
@@ -19,45 +19,45 @@ CREATE TABLE Employee (
     password TEXT
 );
 
-CREATE TABLE HR (
+CREATE TABLE hr (
     eid VARCHAR(29) PRIMARY KEY,
-    FOREIGN KEY (eid) REFERENCES Employee(eid)
+    FOREIGN KEY (eid) REFERENCES employee(eid)
 );
 
-CREATE TABLE TeamLeader (
+CREATE TABLE team_leader (
     eid VARCHAR(29) PRIMARY KEY,
-    FOREIGN KEY (eid) REFERENCES Employee(eid)
+    FOREIGN KEY (eid) REFERENCES employee(eid)
 );
 
-CREATE TABLE HRD (
+CREATE TABLE hrd (
     eid VARCHAR(29) PRIMARY KEY,
-    FOREIGN KEY (eid) REFERENCES Employee(eid)
+    FOREIGN KEY (eid) REFERENCES employee(eid)
 );
 
 
-CREATE TABLE Department (
+CREATE TABLE department (
     id VARCHAR(31) PRIMARY KEY DEFAULT id_generator('DEPARTMENT'),
     name VARCHAR(45) NOT NULL UNIQUE
 );
 
-CREATE TABLE Team (
+CREATE TABLE team (
     id VARCHAR(25) PRIMARY KEY DEFAULT id_generator('TEAM'),
     name VARCHAR(45) NOT NULL,
     dept_id VARCHAR(31) NOT NULL,
     leader_id VARCHAR(29) NOT NULL,
-    FOREIGN KEY (dept_id) REFERENCES Department(id),
-    FOREIGN KEY (leader_id) REFERENCES TeamLeader(eid)
+    FOREIGN KEY (dept_id) REFERENCES tepartment(id),
+    FOREIGN KEY (leader_id) REFERENCES team_leader(eid)
 );
 
-CREATE TABLE EmployeeTeam (
+CREATE TABLE employee_team (
     eid VARCHAR(29),
     team_id VARCHAR(25),
     PRIMARY KEY (eid, team_id),
-    FOREIGN KEY (eid) REFERENCES Employee(eid),
-    FOREIGN KEY (team_id) REFERENCES Team(id)
+    FOREIGN KEY (eid) REFERENCES employee(eid),
+    FOREIGN KEY (team_id) REFERENCES team(id)
 );
 
-CREATE TABLE TypeOfLeave (
+CREATE TABLE type_of_leave (
     id VARCHAR(32) PRIMARY KEY DEFAULT id_generator('TYPEOFLEAVE'),
     name VARCHAR(45) NOT NULL,
     description VARCHAR(255),
@@ -66,7 +66,7 @@ CREATE TABLE TypeOfLeave (
 
 CREATE TYPE LEAVE_STATUS AS ENUM ('PENDING', 'CANCELLED', 'ACCEPTED', 'DECLINED');
 
-CREATE TABLE LeaveRequest (
+CREATE TABLE leave_request (
     lrid VARCHAR(33) PRIMARY KEY DEFAULT id_generator('LEAVEREQUEST'),
     reason TEXT,
     status LEAVE_STATUS DEFAULT 'PENDING',
@@ -77,8 +77,10 @@ CREATE TABLE LeaveRequest (
     hr_comment TEXT,
     eid VARCHAR(29) NOT NULL,
     type_id VARCHAR(32) NOT NULL,
-    FOREIGN KEY (eid) REFERENCES Employee(eid),
-    FOREIGN KEY (type_id) REFERENCES TypeOfLeave(id)
+    hr_id VARCHAR(29) DEFAULT NULL,
+    FOREIGN KEY (eid) REFERENCES employee(eid),
+    FOREIGN KEY (type_id) REFERENCES type_of_leave(id),
+    FOREIGN KEY (hr_id) REFERENCES hr(eid)
 );
 
 
