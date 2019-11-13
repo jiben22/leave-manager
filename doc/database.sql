@@ -14,7 +14,7 @@ CREATE TABLE employee (
     city VARCHAR(128) NOT NULL,
     country VARCHAR(128) NOT NULL,
     email VARCHAR(128) NOT NULL UNIQUE,
-    remaining_leave REAL DEFAULT 25.0,
+    leave_remaining REAL DEFAULT 25.0,
     position VARCHAR(45),
     password TEXT
 );
@@ -86,7 +86,7 @@ CREATE TABLE leave_request (
 
 /*==== INSERT ====*/
 
-INSERT INTO Employee (eid, firstname, lastname, street, post_code, city, country, email, position, password) VALUES
+INSERT INTO employee (eid, firstname, lastname, street, post_code, city, country, email, position, password) VALUES
 ('EMPLOYEE-157314099170606-0001', 'Tony','Stark','9 rue du chene germain','22700','Lannion','France','tony.stark@marvel.com','Director','ea181033360f35a6a7c48c50126f851a4e6c1da4916f8ec35a610c39405b7016d6d8b7e76b63d0196b446a97e8d984c246cfb0a82b5b5be5048d75095fdd4efc'),
 ('EMPLOYEE-157314099170606-0002', 'Thor','Odinson','5 avenue Asgardian ','22700','Lannion','France','thor@marvel.com','God','ac6126415e8804b0f9b40d190efdbe1732b81c1ae0a2c025b82c888d6ff07c4c6bebdf50c6811e4842e4355eeb4560aafe59f18227cb36151267c5533c157a70'),
 ('EMPLOYEE-157314099170606-0003', 'Henry','Jonathan','rue','0000','Nebraska','USA','antman@marvel.com','Ant-man','544e45c9eb1ee0aca7380b6563f0c366743f6e53c381089df221fd06c16b6ec7b8ae7070ccf252c39d63db79d96a24927bb8175fc0877f6e4f484f9927422a25'),
@@ -98,21 +98,21 @@ INSERT INTO Employee (eid, firstname, lastname, street, post_code, city, country
 ('EMPLOYEE-157314099170606-0009', 'Monica','Rambeau','partout','00','dans la','Galaxie','captainmarvel@marvel.com','Captain Marvel','b160d14001db050d19d32ac3c4850f3e03085fab749eaa11d7b4596b1b25ec2bbe3682ad39c22042217407d642d494abcc82658fae20738dde296ea38ca262e3'),
 ('EMPLOYEE-157314099170606-0010', 'Peter','Parker','quelque part','000','New York','USA','spiderman@marvel.com','Spider Man','7ab6888935567386376037e042524d27fc8a24ef87b1944449f6a0179991dbdbc481e98db4e70f6df0e04d1a69d8e7101d881379cf1966c992100389da7f3e9a');
 
-INSERT INTO HR VALUES
+INSERT INTO hr VALUES
 ('EMPLOYEE-157314099170606-0006'),
 ('EMPLOYEE-157314099170606-0008');
 
-INSERT INTO TeamLeader VALUES
+INSERT INTO team_leader VALUES
 ('EMPLOYEE-157314099170606-0002'),
 ('EMPLOYEE-157314099170606-0005'),
 ('EMPLOYEE-157314099170606-0001'),
 ('EMPLOYEE-157314099170606-0007');
 
-INSERT INTO HRD VALUES
+INSERT INTO hrd VALUES
 ('EMPLOYEE-157314099170606-0001'),
 ('EMPLOYEE-157314099170606-0002');
 
-INSERT INTO Department (id, name) VALUES
+INSERT INTO department (id, name) VALUES
 ('DEPARTMENT-157314099170606-0001', 'Space'),
 ('DEPARTMENT-157314099170606-0002', 'Recherche'),
 ('DEPARTMENT-157314099170606-0003', 'R&D');
