@@ -65,7 +65,7 @@ public class Employee extends PKGenerator implements Serializable {
     @NonNull
     @Min(value = 0, message = "Le nombre de congés doit être supérieur ou égale à zero!")
     @Builder.Default
-    private Double leave_remaining = 25.0;
+    private Double remaining_leave = 25.0;
 
     @Column(nullable = false, length = 128, unique = true)
     @NonNull

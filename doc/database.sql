@@ -14,7 +14,7 @@ CREATE TABLE employee (
     city VARCHAR(128) NOT NULL,
     country VARCHAR(128) NOT NULL,
     email VARCHAR(128) NOT NULL UNIQUE,
-    leave_remaining REAL DEFAULT 25.0,
+    remaining_leave REAL DEFAULT 25.0,
     position VARCHAR(45),
     password TEXT
 );
