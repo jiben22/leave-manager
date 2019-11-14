@@ -35,11 +35,6 @@ public class TeamLeaderServiceImpl implements TeamLeaderService {
     }
 
     @Override
-    public TeamLeaderEntity editTeamLeader(TeamLeaderEntity teamLeader) {
-        return repository.save(teamLeader);
-    }
-
-    @Override
     public void deleteTeamLeader(String id) {
         repository.deleteById(id);
     }

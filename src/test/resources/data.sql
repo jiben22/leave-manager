@@ -1,16 +1,18 @@
 INSERT INTO employee (eid, firstname, lastname, street, post_code, city, country, remaining_leave, email, position, password) VALUES
-('EMPLOYEE-157314099170606-0001', 'Tony','Stark','9 rue du chene germain','22700','Lannion','France',25.0,'tony.stark@marvel.com','Director','ea181033360f35a6a7c48c50126f851a4e6c1da4916f8ec35a610c39405b7016d6d8b7e76b63d0196b446a97e8d984c246cfb0a82b5b5be5048d75095fdd4efc'),
-('EMPLOYEE-157314099170606-0002', 'Thor','Odinson','5 avenue Asgardian ','22700','Lannion','France',25.0,'thor@marvel.com','God','ac6126415e8804b0f9b40d190efdbe1732b81c1ae0a2c025b82c888d6ff07c4c6bebdf50c6811e4842e4355eeb4560aafe59f18227cb36151267c5533c157a70'),
-('EMPLOYEE-157314099170606-0003', 'Henry','Jonathan','rue','0000','Nebraska','USA',15.0,'antman@marvel.com','Ant-man','544e45c9eb1ee0aca7380b6563f0c366743f6e53c381089df221fd06c16b6ec7b8ae7070ccf252c39d63db79d96a24927bb8175fc0877f6e4f484f9927422a25'),
-('EMPLOYEE-157314099170606-0004', 'Bruce','Banner','9 rue du labo','58695','Secret','USA',17.0,'hulk@marvel.com','doctor','d6693633bf12ca35258b3b91ab27e0996b0e1f1c5d6f4572461138f662696aa35d9c4cf135c1b861a99fa2db8c51a815551b700cef1aec033b79649f9a399e44'),
-('EMPLOYEE-157314099170606-0005', 'Steve','Rogers','0 rue du pole nord','0000','PoleNord','Danemark',19.0,'captain@marvel.com','Captain America','be544f75277c1c2c2eb1f7192e7104a47671ce6ec625f798964cbbadaca112edb29ef62b2d10ad527d8bf2d07e06285c3f1619026a3b9bedae8a472d265c0d2e'),
-('EMPLOYEE-157314099170606-0006', 'Clinton','Barton','5 branche','124578','Arbre','Terre',25.0,'hawkeye@marvel.com','Hawkeye','c168ce1ef8b634999fcf4da16134283b861bba7ad523f57b9c04345e32390887c0e355bb45c0fa58a7b238f1c75f2e90d7d932ab369ade8df16096586b571453'),
-('EMPLOYEE-157314099170606-0007', 'T','Challa','1 tour','1234','Wakanda','Africa',5.0,'blackpanther@marvel.com','Black Panther','af1ddfaa4c9612dff1584da900eae7a050cb4c326eeabeb3f1ac3674faf280af85cf79050a61c4a659ea3e05fd3f555804377b31abc3af6a69e9a2a116537f13'),
-('EMPLOYEE-157314099170606-0008', 'Natasha','Romanoff','1 rue du fantome','4569','Moscou','Russie',25.0,'blackwidow@marvel.com','Black Widow','7bc591713ef8bbfb667587a0586923cc0cc6ddf67c7eb5493c206731af85699788f03cd00c2629b55ec634da49d005b388756a611add4bbe1db471fb6a2f79fe'),
-('EMPLOYEE-157314099170606-0009', 'Monica','Rambeau','partout','00','dans la','Galaxie',21.0,'captainmarvel@marvel.com','Captain Marvel','b160d14001db050d19d32ac3c4850f3e03085fab749eaa11d7b4596b1b25ec2bbe3682ad39c22042217407d642d494abcc82658fae20738dde296ea38ca262e3'),
-('EMPLOYEE-157314099170606-0010', 'Peter','Parker','quelque part','000','New York','USA',23.0,'spiderman@marvel.com','Spider Man','7ab6888935567386376037e042524d27fc8a24ef87b1944449f6a0179991dbdbc481e98db4e70f6df0e04d1a69d8e7101d881379cf1966c992100389da7f3e9a');
+('EMPLOYEE-157314099170606-0001', 'Tony','Stark','9 rue du chene germain','22700','Lannion','France',25.0,'tony.stark@marvel.com','Director','$2b$12$dQdnkuO5uM7F.ZJOeUB93ud3BtjUDywdZesyJ71BPewgIZ7cMRvdi'),
+('EMPLOYEE-157314099170606-0002', 'Thor','Odinson','5 avenue Asgardian ','22700','Lannion','France',25.0,'thor@marvel.com','God','$2b$12$TExReLrbQgLjOoh1QRbYpe7h6E6WwM6DA.mgt7KwRDVbWEjRUp1ZK'),
+('EMPLOYEE-157314099170606-0003', 'Henry','Jonathan','rue','0000','Nebraska','USA',15.0,'antman@marvel.com','Ant-man','$2b$12$Hlq3YN2rCxcRvuea1ZSf3.nwcDkQR0FO8dtShHAM4g701VwU8inZu'),
+('EMPLOYEE-157314099170606-0004', 'Bruce','Banner','9 rue du labo','58695','Secret','USA',17.0,'hulk@marvel.com','doctor','$2b$12$1qY5Feh0iBicu8u9rB1FFOVSRMGPhUmi9Y4rYGb5Dwh/Q9KhoCEIi'),
+('EMPLOYEE-157314099170606-0005', 'Steve','Rogers','0 rue du pole nord','0000','PoleNord','Danemark',19.0,'captain@marvel.com','Captain America','$2b$12$aa0C5zURQtiF/jBPelXOWO297e5omf8nKp.CIiRyMT5SnfIG76X4e'),
+('EMPLOYEE-157314099170606-0006', 'Clinton','Barton','5 branche','124578','Arbre','Terre',25.0,'hawkeye@marvel.com','Hawkeye','$2b$12$Oq8razJgWixOWzw197cIZuOLwb8QovSGtaVHFavwQy1MH4LuzielG'),
+('EMPLOYEE-157314099170606-0007', 'T','Challa','1 tour','1234','Wakanda','Africa',5.0,'blackpanther@marvel.com','Black Panther','$2b$12$QDCNXhNzN22AiJ6MXUrCO.weefnZLB.qF3I3iUX3cm8TREvU/WgKO'),
+('EMPLOYEE-157314099170606-0008', 'Natasha','Romanoff','1 rue du fantome','4569','Moscou','Russie',25.0,'blackwidow@marvel.com','Black Widow','$2b$12$SknczUtXR1FyT4olx3bSRuf/bG58g1oYpvsW.ZPQ/zyBl3YDk0iDy'),
+('EMPLOYEE-157314099170606-0009', 'Monica','Rambeau','partout','00','dans la','Galaxie',21.0,'captainmarvel@marvel.com','Captain Marvel','$2b$12$ChB3ETZYRt.zmiT35IJKx.eEma5GI.6MSD6YTuH6k9ggt8VuXiovO'),
+('EMPLOYEE-157314099170606-0010', 'Peter','Parker','quelque part','000','New York','USA',23.0,'spiderman@marvel.com','Spider Man','$2b$12$fcAM1LpUchxbecBQcvzWTe9D2/mKtVPwaC7UC6L29CgaG41D5L272');
 
 INSERT INTO hr VALUES
+('EMPLOYEE-157314099170606-0001'),
+('EMPLOYEE-157314099170606-0002')
 ('EMPLOYEE-157314099170606-0006'),
 ('EMPLOYEE-157314099170606-0008');
 

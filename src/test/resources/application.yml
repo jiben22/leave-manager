@@ -12,7 +12,7 @@ spring:
     generate-ddl: false
     hibernate:
       ddl-auto: update # auto create or update database schema
-    database: postgresql
+    database: h2
     show-sql: true # show all queries
     properties:
       hibernate:

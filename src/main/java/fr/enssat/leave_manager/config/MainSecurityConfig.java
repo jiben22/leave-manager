@@ -80,4 +80,3 @@ public class MainSecurityConfig extends WebSecurityConfigurerAdapter {
         return source;
     }
 }
-
