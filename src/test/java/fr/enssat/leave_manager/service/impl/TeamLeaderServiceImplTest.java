@@ -1,4 +1,4 @@
-package fr.enssat.leave_manager.service;
+package fr.enssat.leave_manager.service.impl;
 
 import fr.enssat.leave_manager.factory.TeamLeaderFactory;
 import fr.enssat.leave_manager.model.TeamLeader;

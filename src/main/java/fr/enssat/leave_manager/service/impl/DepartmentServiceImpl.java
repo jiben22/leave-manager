@@ -13,12 +13,8 @@ import java.util.Optional;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
-    private final DepartmentRepository repository;
-
     @Autowired
-    public DepartmentServiceImpl(DepartmentRepository departmentRepository) {
-        this.repository = departmentRepository;
-    }
+    private DepartmentRepository repository;
 
     @Override
     public Department getDepartment(String id) {

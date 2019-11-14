@@ -1,4 +1,4 @@
-package fr.enssat.leave_manager.service;
+package fr.enssat.leave_manager.service.impl;
 
 import fr.enssat.leave_manager.factory.EmployeeFactory;
 import fr.enssat.leave_manager.model.Employee;
