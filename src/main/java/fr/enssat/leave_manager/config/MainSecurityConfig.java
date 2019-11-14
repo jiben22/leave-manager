@@ -16,7 +16,7 @@ import java.util.Arrays;
 public class MainSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable()
+        http
                 .authorizeRequests()
                 .antMatchers("/", "/home", "/css/**", "/img/**", "/js/**", "/scss/**").permitAll();
 //                .anyRequest().authenticated()
@@ -27,18 +27,5 @@ public class MainSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .and()
 //                .logout()
 //                .permitAll();
-    }
-
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList("*")); // FIXME do not do this on production
-        config.setAllowedMethods(Arrays.asList("*"));
-        config.setAllowedHeaders(Arrays.asList("*"));
-        config.setAllowCredentials(true);
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
-        return source;
     }
 }

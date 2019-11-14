@@ -13,7 +13,6 @@ public interface TeamLeaderService {
     TeamLeaderEntity getTeamLeader(String id);
     List<TeamLeaderEntity> getTeamLeaders();
     TeamLeaderEntity addTeamLeader(TeamLeaderEntity teamLeader);
-    TeamLeaderEntity editTeamLeader(TeamLeaderEntity teamLeader);
     void deleteTeamLeader(String id);
     void deleteTeamLeader(TeamLeaderEntity teamLeader);
 }
