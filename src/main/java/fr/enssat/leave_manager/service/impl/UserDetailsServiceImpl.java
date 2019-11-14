@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,10 +27,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Optional<EmployeeEntity> employee = employeeRepository.findByEmail(email);
 
         if (!employee.isPresent()) {
+            BCryptPasswordEncoder t = new BCryptPasswordEncoder();
+            String v = t.encode("ttt");
+            System.out.println(v);
             System.out.println("Mail not found! " + email);
             throw new UsernameNotFoundException("User mail " + email + " was not found in the database");
         }
 
+        System.out.println("Found mail: " + email);
         // [ROLE_USER, ROLE_ADMIN,..]
         String role = employee.get().getRole(); //this.appRoleDAO.getRoleNames(appUser.getUserId());
 

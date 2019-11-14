@@ -2,14 +2,31 @@ package fr.enssat.leave_manager.controller;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
+@Controller
 public class MainController {
+
+    @GetMapping("/login")
+    public ModelAndView showLogin() {
+
+        String viewName = "login";
+        Map<String, Object> model = new HashMap<>();
+        model.put("title", "Page de connexion");
+
+        return new ModelAndView(viewName, model);
+
+    }
+
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String welcomePage(Model model) {
         model.addAttribute("title", "Welcome");
@@ -24,7 +41,7 @@ public class MainController {
         model.addAttribute("uri", request.getRequestURI())
                 .addAttribute("user", auth.getName())
                 .addAttribute("roles", auth.getAuthorities());
-        return "my-page";
+        return "map";
     }
 
     /*@RequestMapping(value = "/403", method = RequestMethod.GET)
@@ -46,7 +63,9 @@ public class MainController {
         return "403Page";
     }*/
 
-    @GetMapping("/login")
+
+
+    /*@GetMapping("/login")
     public String login(Model model, String error, String logout) {
         if (error != null)
             model.addAttribute("error", "Your username and password is invalid.");
@@ -55,7 +74,7 @@ public class MainController {
             model.addAttribute("message", "You have been logged out successfully.");
 
         return "login";
-    }
+    }*/
     /*@RequestMapping(value = "/HR", method = RequestMethod.GET)
     public String adminPage(Model model, Principal principal) {
 
