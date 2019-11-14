@@ -1,4 +1,4 @@
-INSERT INTO employee (eid, firstname, lastname, street, post_code, city, country, leave_remaining, email, position, password) VALUES
+INSERT INTO employee (eid, firstname, lastname, street, post_code, city, country, remaining_leave, email, position, password) VALUES
 ('EMPLOYEE-157314099170606-0001', 'Tony','Stark','9 rue du chene germain','22700','Lannion','France',25.0,'tony.stark@marvel.com','Director','ea181033360f35a6a7c48c50126f851a4e6c1da4916f8ec35a610c39405b7016d6d8b7e76b63d0196b446a97e8d984c246cfb0a82b5b5be5048d75095fdd4efc'),
 ('EMPLOYEE-157314099170606-0002', 'Thor','Odinson','5 avenue Asgardian ','22700','Lannion','France',25.0,'thor@marvel.com','God','ac6126415e8804b0f9b40d190efdbe1732b81c1ae0a2c025b82c888d6ff07c4c6bebdf50c6811e4842e4355eeb4560aafe59f18227cb36151267c5533c157a70'),
 ('EMPLOYEE-157314099170606-0003', 'Henry','Jonathan','rue','0000','Nebraska','USA',15.0,'antman@marvel.com','Ant-man','544e45c9eb1ee0aca7380b6563f0c366743f6e53c381089df221fd06c16b6ec7b8ae7070ccf252c39d63db79d96a24927bb8175fc0877f6e4f484f9927422a25'),
