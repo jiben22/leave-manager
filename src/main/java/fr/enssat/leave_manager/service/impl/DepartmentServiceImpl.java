@@ -16,6 +16,11 @@ public class DepartmentServiceImpl implements DepartmentService {
     private DepartmentRepository repository;
 
     @Override
+    public boolean exists(String id) {
+        return repository.existsById(id);
+    }
+
+    @Override
     public DepartmentEntity getDepartment(String id) {
         return repository.findById(id).orElseThrow(() -> new DepartmentNotFoundException(id));
     }

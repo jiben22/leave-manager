@@ -9,6 +9,7 @@ import java.util.List;
 @Service
 @Transactional
 public interface DepartmentService {
+    boolean exists(String id);
     DepartmentEntity getDepartment(String id);
     DepartmentEntity getDepartmentByName(String name);
     List<DepartmentEntity> getDepartments();

@@ -16,6 +16,11 @@ public class TeamServiceImpl implements TeamService {
     private TeamRepository repository;
 
     @Override
+    public boolean exists(String id) {
+        return repository.existsById(id);
+    }
+
+    @Override
     public TeamEntity getTeam(String id) {
         return repository.findById(id).orElseThrow(() -> new TeamNotFoundException(id));
     }

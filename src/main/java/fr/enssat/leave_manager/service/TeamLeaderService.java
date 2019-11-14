@@ -9,6 +9,7 @@ import java.util.List;
 @Service
 @Transactional
 public interface TeamLeaderService {
+    boolean exists(String id);
     TeamLeaderEntity getTeamLeader(String id);
     List<TeamLeaderEntity> getTeamLeaders();
     TeamLeaderEntity addTeamLeader(TeamLeaderEntity teamLeader);

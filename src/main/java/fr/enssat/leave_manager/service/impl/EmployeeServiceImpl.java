@@ -16,6 +16,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeRepository repository;
 
     @Override
+    public boolean exists(String id) {
+        return repository.existsById(id);
+    }
+
+    @Override
     public EmployeeEntity getEmployee(String id) {
         return repository.findById(id).orElseThrow(() -> new EmployeeNotFoundException(id));
     }

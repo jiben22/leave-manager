@@ -9,6 +9,7 @@ import java.util.List;
 @Service
 @Transactional
 public interface EmployeeService {
+    boolean exists(String id);
     EmployeeEntity getEmployee(String id);
     EmployeeEntity getEmployeeByEmail(String email);
     List<EmployeeEntity> getEmployeeByFirstname(String firstname);

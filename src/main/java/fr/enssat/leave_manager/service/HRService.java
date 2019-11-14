@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public interface HRService {
+    boolean exists(String id);
     HREntity getHR(String id);
     HREntity addHR(HREntity hr);
     HREntity editHR(HREntity hr);

@@ -15,6 +15,11 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 
     private final LeaveRequestRepository repository;
 
+    @Override
+    public boolean exists(String id) {
+        return repository.existsById(id);
+    }
+
     @Autowired
     public LeaveRequestServiceImpl(LeaveRequestRepository repository) {
         this.repository = repository;

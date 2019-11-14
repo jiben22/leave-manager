@@ -9,6 +9,7 @@ import java.util.List;
 @Service
 @Transactional
 public interface TypeOfLeaveService {
+    boolean exists(String id);
     TypeOfLeaveEntity getTypeOfLeave(String id);
     List<TypeOfLeaveEntity> getTypeOfLeaveByName(String name);
     List<TypeOfLeaveEntity> getTypeOfLeaves();

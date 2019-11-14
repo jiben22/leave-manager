@@ -15,6 +15,11 @@ public class TeamLeaderServiceImpl implements TeamLeaderService {
     private TeamLeaderRepository repository;
 
     @Override
+    public boolean exists(String id) {
+        return repository.existsById(id);
+    }
+
+    @Override
     public TeamLeaderEntity getTeamLeader(String id) {
         return repository.findById(id).orElseThrow(() -> new TeamLeaderNotFoundException(id));
     }

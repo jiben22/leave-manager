@@ -15,6 +15,11 @@ public class TypeOfLeaveServiceImpl implements TypeOfLeaveService {
     private TypeOfLeaveRepository repository;
 
     @Override
+    public boolean exists(String id) {
+        return repository.existsById(id);
+    }
+
+    @Override
     public TypeOfLeaveEntity getTypeOfLeave(String id) {
         return repository.findById(id).orElseThrow(() -> new TypeOfLeaveException(id));
     }
