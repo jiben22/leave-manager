@@ -106,4 +106,16 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
     @OneToOne
     @JoinColumn(name = "eid", referencedColumnName = "employee")
     private TeamLeaderEntity teamLeader;
+
+    public String getRole() {
+        if (this.getHrd() != null) {
+            return "HRD";
+        } else if (this.getHr() != null) {
+            return "HR";
+        } else if (this.getTeamLeader() != null) {
+            return "TEAMLEADER";
+        } else {
+            return "EMPLOYEE";
+        }
+    }
 }
