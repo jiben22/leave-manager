@@ -1,16 +1,16 @@
 package fr.enssat.leave_manager.factory;
 
-import fr.enssat.leave_manager.model.LeaveRequest;
+import fr.enssat.leave_manager.model.LeaveRequestEntity;
+import fr.enssat.leave_manager.utils.enums.LeaveStatus;
 
 import java.time.LocalDateTime;
 import java.time.Month;
 
 public class LeaveRequestFactory {
 
-    public static LeaveRequest getLeaveRequest() {
+    public static LeaveRequestEntity getLeaveRequest() {
 
-        LeaveRequest leaveRequest = new LeaveRequest();
-        return leaveRequest.builder()
+        return LeaveRequestEntity.builder()
                 .reason("Vacances")
                 .starting_date(LocalDateTime
                         .of(2019, Month.DECEMBER, 22, 0, 0, 0))
@@ -19,7 +19,7 @@ public class LeaveRequestFactory {
                 .hr_comment("Commentaires")
                 .employee(EmployeeFactory.getEmployee())
                 .typeOfLeave(TypeOfLeaveFactory.getTypeOfLeave())
-                .status(LeaveRequest.LeaveStatus.ACCEPTED)
+                .status(LeaveStatus.ACCEPTED)
                 .build();
     }
 }

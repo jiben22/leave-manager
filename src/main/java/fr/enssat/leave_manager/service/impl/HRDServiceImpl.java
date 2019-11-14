@@ -1,17 +1,38 @@
 package fr.enssat.leave_manager.service.impl;
 
+import fr.enssat.leave_manager.model.HRDEntity;
 import fr.enssat.leave_manager.repository.HRDRepository;
-import fr.enssat.leave_manager.service.TypeOfLeaveService;
+import fr.enssat.leave_manager.service.HRDService;
+import fr.enssat.leave_manager.service.exception.EmployeeNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class HRDServiceImpl implements TypeOfLeaveService {
+public class HRDServiceImpl implements HRDService {
 
-    private final HRDRepository hrdRepository;
+    private final HRDRepository repository;
 
     @Autowired
-    public HRDServiceImpl(HRDRepository hrdRepository) {
-        this.hrdRepository = hrdRepository;
+    public HRDServiceImpl(HRDRepository repository) {
+        this.repository = repository;
     }
+
+    public HRDEntity getHRD(String id) {
+        return this.repository.findById(id).orElseThrow(()->new EmployeeNotFoundException(id));
+    }
+
+    public HRDEntity addHRD(HRDEntity hrd) {
+        return this.repository.save(hrd);
+    }
+
+    @Override
+    public HRDEntity editHRD(HRDEntity hrd) {
+        return this.repository.save(hrd);
+    }
+
+    @Override
+    public void deleteHRD(HRDEntity hrd) {
+        this.repository.delete(hrd);
+    }
+
 }

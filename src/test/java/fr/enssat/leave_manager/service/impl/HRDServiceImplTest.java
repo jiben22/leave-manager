@@ -1,8 +1,7 @@
 package fr.enssat.leave_manager.service.impl;
 
 import fr.enssat.leave_manager.factory.HRDFactory;
-import fr.enssat.leave_manager.model.HRD;
-import fr.enssat.leave_manager.service.impl.HRDServiceImpl;
+import fr.enssat.leave_manager.model.HRDEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -17,6 +16,6 @@ public class HRDServiceImplTest {
     @Test
     public void testGetHRD() {
 
-        HRD hrd = HRDFactory.getHRD();
+        HRDEntity hrd = HRDFactory.getHRD();
     }
 }

@@ -17,7 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Data
 @Builder
-public class Employee extends PKGenerator implements Serializable {
+public class EmployeeEntity extends PKGenerator implements Serializable {
     @Id
     @Column(length = 29, updatable = false)
     @Setter(AccessLevel.NONE)
@@ -82,28 +82,28 @@ public class Employee extends PKGenerator implements Serializable {
     @ToString.Exclude @EqualsAndHashCode.Exclude
     @NonNull
     @ManyToMany(mappedBy = "employeeList")
-    private Set<Team> teamList;
+    private Set<TeamEntity> teamList;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
     @NonNull
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
-    private Set<LeaveRequest> leaveRequestList;
+    private Set<LeaveRequestEntity> leaveRequestList;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
     @Setter(AccessLevel.NONE)
     @OneToOne
     @JoinColumn(name = "eid", referencedColumnName = "employee")
-    private HR hr;
+    private HREntity hr;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
     @Setter(AccessLevel.NONE)
     @OneToOne
     @JoinColumn(name = "eid", referencedColumnName = "employee")
-    private HRD hrd;
+    private HRDEntity hrd;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
     @Setter(AccessLevel.NONE)
     @OneToOne
     @JoinColumn(name = "eid", referencedColumnName = "employee")
-    private TeamLeader teamLeader;
+    private TeamLeaderEntity teamLeader;
 }

@@ -1,6 +1,6 @@
 package fr.enssat.leave_manager.service.impl;
 
-import fr.enssat.leave_manager.model.TypeOfLeave;
+import fr.enssat.leave_manager.model.TypeOfLeaveEntity;
 import fr.enssat.leave_manager.repository.TypeOfLeaveRepository;
 import fr.enssat.leave_manager.service.TypeOfLeaveService;
 import fr.enssat.leave_manager.service.exception.TypeOfLeaveException;
@@ -15,27 +15,27 @@ public class TypeOfLeaveServiceImpl implements TypeOfLeaveService {
     private TypeOfLeaveRepository repository;
 
     @Override
-    public TypeOfLeave getTypeOfLeave(String id) {
+    public TypeOfLeaveEntity getTypeOfLeave(String id) {
         return repository.findById(id).orElseThrow(() -> new TypeOfLeaveException(id));
     }
 
     @Override
-    public List<TypeOfLeave> getTypeOfLeaveByName(String name) {
+    public List<TypeOfLeaveEntity> getTypeOfLeaveByName(String name) {
         return repository.findByName(name);
     }
 
     @Override
-    public List<TypeOfLeave> getTypeOfLeaves() {
+    public List<TypeOfLeaveEntity> getTypeOfLeaves() {
         return repository.findAll();
     }
 
     @Override
-    public TypeOfLeave addTypeOfLeave(TypeOfLeave typeOfLeave) {
+    public TypeOfLeaveEntity addTypeOfLeave(TypeOfLeaveEntity typeOfLeave) {
         return repository.save(typeOfLeave);
     }
 
     @Override
-    public TypeOfLeave editTypeOfLeave(TypeOfLeave typeOfLeave) {
+    public TypeOfLeaveEntity editTypeOfLeave(TypeOfLeaveEntity typeOfLeave) {
         return repository.save(typeOfLeave);
     }
 
@@ -45,7 +45,7 @@ public class TypeOfLeaveServiceImpl implements TypeOfLeaveService {
     }
 
     @Override
-    public void deleteTypeOfLeave(TypeOfLeave typeOfLeave) {
+    public void deleteTypeOfLeave(TypeOfLeaveEntity typeOfLeave) {
         repository.delete(typeOfLeave);
     }
 }

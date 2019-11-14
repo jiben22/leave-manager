@@ -12,7 +12,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Data
 @Builder
-public class HRD extends PKGenerator implements Serializable {
+public class HRDEntity extends PKGenerator implements Serializable {
     @Id
     @Column(length = 29, updatable = false)
     @Setter(AccessLevel.NONE)
@@ -24,5 +24,5 @@ public class HRD extends PKGenerator implements Serializable {
     @OneToOne(optional = false, cascade = CascadeType.ALL, mappedBy = "hrd")
     @JoinColumn(name = "eid", nullable = false, referencedColumnName = "hrd")
     @MapsId
-    private Employee employee;
+    private EmployeeEntity employee;
 }

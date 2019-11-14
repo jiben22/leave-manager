@@ -1,12 +1,12 @@
 # Spring configuration
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/LeaveManager
-    username: postgres
-    password: root
-    driver-class-name: org.postgresql.Driver
-  jpa:
-    generate-ddl: false
-    hibernate:
-      ddl-auto: update # auto create or update database schema
-    database: postgresql
+      spring:
+        datasource:
+          url: jdbc:postgresql://localhost:5432/LeaveManager
+          username: postgres
+          password: root
+          driver-class-name: org.postgresql.Driver
+        jpa:
+          generate-ddl: false
+          hibernate:
+            ddl-auto: update # auto create or update database schema
+          database: postgresql

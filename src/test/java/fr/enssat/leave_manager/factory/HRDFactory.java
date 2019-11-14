@@ -1,13 +1,12 @@
 package fr.enssat.leave_manager.factory;
 
-import fr.enssat.leave_manager.model.HRD;
+import fr.enssat.leave_manager.model.HRDEntity;
 
 public class HRDFactory {
 
-    public static HRD getHRD() {
+    public static HRDEntity getHRD() {
 
-        HRD hrd = new HRD();
-        return hrd.builder()
+        return HRDEntity.builder()
                 .employee(EmployeeFactory.getEmployee())
                 .build();
     }

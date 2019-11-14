@@ -1,23 +1,22 @@
 package fr.enssat.leave_manager.factory;
 
-import fr.enssat.leave_manager.model.Employee;
-import fr.enssat.leave_manager.model.LeaveRequest;
-import fr.enssat.leave_manager.model.Team;
+import fr.enssat.leave_manager.model.EmployeeEntity;
+import fr.enssat.leave_manager.model.LeaveRequestEntity;
+import fr.enssat.leave_manager.model.TeamEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class EmployeeFactory {
 
-    public static Employee getEmployee() {
+    public static EmployeeEntity getEmployee() {
 
-        Set<Team> teams = new HashSet<>();
+        Set<TeamEntity> teams = new HashSet<>();
 //        teams.add(TeamFactory.getTeam());
-        Set<LeaveRequest> leaveRequests = new HashSet<>();
+        Set<LeaveRequestEntity> leaveRequests = new HashSet<>();
 //        leaveRequests.add(LeaveRequestFactory.getLeaveRequest());
 
-        Employee employee = new Employee();
-        return employee.builder()
+        return EmployeeEntity.builder()
                 .lastname("Captain")
                 .firstname("America")
                 .street("Man")

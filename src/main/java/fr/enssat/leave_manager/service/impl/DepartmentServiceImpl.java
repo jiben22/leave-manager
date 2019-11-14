@@ -1,6 +1,6 @@
 package fr.enssat.leave_manager.service.impl;
 
-import fr.enssat.leave_manager.model.Department;
+import fr.enssat.leave_manager.model.DepartmentEntity;
 import fr.enssat.leave_manager.repository.DepartmentRepository;
 import fr.enssat.leave_manager.service.DepartmentService;
 import fr.enssat.leave_manager.service.exception.DepartmentNotFoundException;
@@ -9,7 +9,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
@@ -17,27 +16,27 @@ public class DepartmentServiceImpl implements DepartmentService {
     private DepartmentRepository repository;
 
     @Override
-    public Department getDepartment(String id) {
+    public DepartmentEntity getDepartment(String id) {
         return repository.findById(id).orElseThrow(() -> new DepartmentNotFoundException(id));
     }
 
     @Override
-    public Department getDepartmentByName(String name) {
+    public DepartmentEntity getDepartmentByName(String name) {
         return repository.findByName(name).orElseThrow(() -> new DepartmentNotFoundException(name));
     }
 
     @Override
-    public List<Department> getDepartments() {
+    public List<DepartmentEntity> getDepartments() {
         return repository.findAll(Sort.by(Sort.Direction.ASC, "name"));
     }
 
     @Override
-    public Department addDepartment(Department department) {
+    public DepartmentEntity addDepartment(DepartmentEntity department) {
         return repository.save(department);
     }
 
     @Override
-    public Department editDepartment(Department department) {
+    public DepartmentEntity editDepartment(DepartmentEntity department) {
         return repository.save(department);
     }
 
@@ -47,7 +46,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public void deleteDepartment(Department department) {
+    public void deleteDepartment(DepartmentEntity department) {
         repository.delete(department);
     }
 }

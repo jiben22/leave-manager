@@ -1,8 +1,7 @@
 package fr.enssat.leave_manager.service.impl;
 
 import fr.enssat.leave_manager.factory.EmployeeFactory;
-import fr.enssat.leave_manager.model.Employee;
-import fr.enssat.leave_manager.service.impl.EmployeeServiceImpl;
+import fr.enssat.leave_manager.model.EmployeeEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -17,6 +16,6 @@ public class EmployeeServiceImplTest {
     @Test
     public void testGetEmployee() {
 
-        Employee employee = EmployeeFactory.getEmployee();
+        EmployeeEntity employee = EmployeeFactory.getEmployee();
     }
 }

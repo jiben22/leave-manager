@@ -1,7 +1,6 @@
 package fr.enssat.leave_manager.service;
 
-import fr.enssat.leave_manager.model.Employee;
-import fr.enssat.leave_manager.model.Employee;
+import fr.enssat.leave_manager.model.EmployeeEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,13 +9,13 @@ import java.util.List;
 @Service
 @Transactional
 public interface EmployeeService {
-    Employee getEmployee(String id);
-    Employee getEmployeeByEmail(String email);
-    List<Employee> getEmployeeByFirstname(String firstname);
-    List<Employee> getEmployeeByLastname(String lastname);
-    List<Employee> getEmployees();
-    Employee addEmployee(Employee employee);
-    Employee editEmployee(Employee employee);
+    EmployeeEntity getEmployee(String id);
+    EmployeeEntity getEmployeeByEmail(String email);
+    List<EmployeeEntity> getEmployeeByFirstname(String firstname);
+    List<EmployeeEntity> getEmployeeByLastname(String lastname);
+    List<EmployeeEntity> getEmployees();
+    EmployeeEntity addEmployee(EmployeeEntity employee);
+    EmployeeEntity editEmployee(EmployeeEntity employee);
     void deleteEmployee(String id);
-    void deleteEmployee(Employee employee);
+    void deleteEmployee(EmployeeEntity employee);
 }

@@ -1,8 +1,7 @@
 package fr.enssat.leave_manager.service.impl;
 
 import fr.enssat.leave_manager.factory.DepartmentFactory;
-import fr.enssat.leave_manager.model.Department;
-import fr.enssat.leave_manager.service.impl.DepartmentServiceImpl;
+import fr.enssat.leave_manager.model.DepartmentEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -17,7 +16,7 @@ public class DepartmentServiceImplTest {
     @Test
     public void testAddDepartment() {
 
-        Department department = DepartmentFactory.getDepartment();
-        Department departmentAdded = departmentService.addDepartment(department);
+        DepartmentEntity department = DepartmentFactory.getDepartment();
+        DepartmentEntity departmentAdded = departmentService.addDepartment(department);
     }
 }

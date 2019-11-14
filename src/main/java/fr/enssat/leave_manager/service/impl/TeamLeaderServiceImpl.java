@@ -1,6 +1,6 @@
 package fr.enssat.leave_manager.service.impl;
 
-import fr.enssat.leave_manager.model.TeamLeader;
+import fr.enssat.leave_manager.model.TeamLeaderEntity;
 import fr.enssat.leave_manager.repository.TeamLeaderRepository;
 import fr.enssat.leave_manager.service.TeamLeaderService;
 import fr.enssat.leave_manager.service.exception.TeamLeaderNotFoundException;
@@ -15,22 +15,22 @@ public class TeamLeaderServiceImpl implements TeamLeaderService {
     private TeamLeaderRepository repository;
 
     @Override
-    public TeamLeader getTeamLeader(String id) {
+    public TeamLeaderEntity getTeamLeader(String id) {
         return repository.findById(id).orElseThrow(() -> new TeamLeaderNotFoundException(id));
     }
 
     @Override
-    public List<TeamLeader> getTeamLeaders() {
+    public List<TeamLeaderEntity> getTeamLeaders() {
         return repository.findAll();
     }
 
     @Override
-    public TeamLeader addTeamLeader(TeamLeader teamLeader) {
+    public TeamLeaderEntity addTeamLeader(TeamLeaderEntity teamLeader) {
         return repository.save(teamLeader);
     }
 
     @Override
-    public TeamLeader editTeamLeader(TeamLeader teamLeader) {
+    public TeamLeaderEntity editTeamLeader(TeamLeaderEntity teamLeader) {
         return repository.save(teamLeader);
     }
 
@@ -40,7 +40,7 @@ public class TeamLeaderServiceImpl implements TeamLeaderService {
     }
 
     @Override
-    public void deleteTeamLeader(TeamLeader teamLeader) {
+    public void deleteTeamLeader(TeamLeaderEntity teamLeader) {
         repository.delete(teamLeader);
     }
 }

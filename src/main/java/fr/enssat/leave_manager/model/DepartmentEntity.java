@@ -14,7 +14,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Data
 @Builder
-public class Department extends PKGenerator implements Serializable {
+public class DepartmentEntity extends PKGenerator implements Serializable {
     @Id
     @Column(length=31, updatable = false)
     @Setter(AccessLevel.NONE)
@@ -29,5 +29,5 @@ public class Department extends PKGenerator implements Serializable {
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
-    private Set<Team> teamList;
+    private Set<TeamEntity> teamList;
 }

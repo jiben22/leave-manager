@@ -1,6 +1,6 @@
 package fr.enssat.leave_manager.service.impl;
 
-import fr.enssat.leave_manager.model.Employee;
+import fr.enssat.leave_manager.model.EmployeeEntity;
 import fr.enssat.leave_manager.repository.EmployeeRepository;
 import fr.enssat.leave_manager.service.EmployeeService;
 import fr.enssat.leave_manager.service.exception.EmployeeNotFoundException;
@@ -16,37 +16,37 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeRepository repository;
 
     @Override
-    public Employee getEmployee(String id) {
+    public EmployeeEntity getEmployee(String id) {
         return repository.findById(id).orElseThrow(() -> new EmployeeNotFoundException(id));
     }
 
     @Override
-    public Employee getEmployeeByEmail(String email) {
+    public EmployeeEntity getEmployeeByEmail(String email) {
         return repository.findByEmail(email).orElseThrow(() -> new EmployeeNotFoundException(email));
     }
 
     @Override
-    public List<Employee> getEmployeeByFirstname(String firstname) {
+    public List<EmployeeEntity> getEmployeeByFirstname(String firstname) {
         return repository.findByFirstname(firstname);
     }
 
     @Override
-    public List<Employee> getEmployeeByLastname(String lastname) {
+    public List<EmployeeEntity> getEmployeeByLastname(String lastname) {
         return repository.findByLastname(lastname);
     }
 
     @Override
-    public List<Employee> getEmployees() {
+    public List<EmployeeEntity> getEmployees() {
         return repository.findAll(Sort.by(Sort.Direction.ASC, "lastname"));
     }
 
     @Override
-    public Employee addEmployee(Employee employee) {
+    public EmployeeEntity addEmployee(EmployeeEntity employee) {
         return repository.save(employee);
     }
 
     @Override
-    public Employee editEmployee(Employee employee) {
+    public EmployeeEntity editEmployee(EmployeeEntity employee) {
         return repository.save(employee);
     }
 
@@ -56,7 +56,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void deleteEmployee(Employee employee) {
+    public void deleteEmployee(EmployeeEntity employee) {
         repository.delete(employee);
     }
 }

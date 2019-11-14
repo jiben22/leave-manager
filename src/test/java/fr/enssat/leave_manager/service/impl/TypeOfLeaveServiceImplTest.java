@@ -1,8 +1,7 @@
 package fr.enssat.leave_manager.service.impl;
 
 import fr.enssat.leave_manager.factory.TypeOfLeaveFactory;
-import fr.enssat.leave_manager.model.TypeOfLeave;
-import fr.enssat.leave_manager.service.impl.TypeOfLeaveServiceImpl;
+import fr.enssat.leave_manager.model.TypeOfLeaveEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -17,6 +16,6 @@ public class TypeOfLeaveServiceImplTest {
     @Test
     public void testGetTypeOfLeave() {
 
-        TypeOfLeave typeOfLeave = TypeOfLeaveFactory.getTypeOfLeave();
+        TypeOfLeaveEntity typeOfLeave = TypeOfLeaveFactory.getTypeOfLeave();
     }
 }

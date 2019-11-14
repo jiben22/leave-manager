@@ -1,5 +1,6 @@
 package fr.enssat.leave_manager.model;
 
+import fr.enssat.leave_manager.utils.enums.LeaveStatus;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,7 +11,6 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Entity
 @Table(name = "LeaveRequest")
@@ -18,24 +18,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Data
 @Builder
-public class LeaveRequest extends PKGenerator implements Serializable {
+public class LeaveRequestEntity extends PKGenerator implements Serializable {
 
-    public enum LeaveStatus {
-        PENDING("En attente"),
-        CANCELLED("Annulé"),
-        ACCEPTED("Accepté"),
-        DECLINED("Refusé");
-
-        private String fr;
-
-        LeaveStatus(String fr) {
-            this.fr = fr;
-        }
-
-        public String toString(){
-            return this.fr;
-        }
-    }
     @Id
     @Column(length = 33, updatable = false)
     @Setter(AccessLevel.NONE)
@@ -50,7 +34,7 @@ public class LeaveRequest extends PKGenerator implements Serializable {
     @NonNull
     @PastOrPresent
     @Builder.Default
-    private LocalDateTime creation = new Timestamp(System.currentTimeMillis()).toLocalDateTime();
+    private LocalDateTime creation = LocalDateTime.now();
 
     @Column(nullable = false)
     @NonNull
@@ -74,17 +58,17 @@ public class LeaveRequest extends PKGenerator implements Serializable {
     @NonNull
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false, name = "eid", referencedColumnName = "eid")
-    private Employee employee;
+    private EmployeeEntity employee;
 
     @NonNull
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false, name = "type_id", referencedColumnName = "id")
-    private TypeOfLeave typeOfLeave;
+    private TypeOfLeaveEntity typeOfLeave;
 
     @ManyToOne
     @JoinColumn(name = "hr_eid", referencedColumnName = "eid")
     @Builder.Default
-    private HR hr = null;
+    private HREntity hr = null;
 
     @Column(length = 16, nullable = false)
     @Enumerated(EnumType.STRING)

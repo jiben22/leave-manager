@@ -1,8 +1,7 @@
 package fr.enssat.leave_manager.service.impl;
 
 import fr.enssat.leave_manager.factory.LeaveRequestFactory;
-import fr.enssat.leave_manager.model.LeaveRequest;
-import fr.enssat.leave_manager.service.impl.LeaveRequestServiceImpl;
+import fr.enssat.leave_manager.model.LeaveRequestEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -17,6 +16,6 @@ public class LeaveRequestServiceImplTest {
     @Test
     public void testGetLeaveRequest() {
 
-        LeaveRequest leaveRequest = LeaveRequestFactory.getLeaveRequest();
+        LeaveRequestEntity leaveRequest = LeaveRequestFactory.getLeaveRequest();
     }
 }

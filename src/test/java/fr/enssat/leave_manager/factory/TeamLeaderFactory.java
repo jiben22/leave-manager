@@ -1,20 +1,19 @@
 package fr.enssat.leave_manager.factory;
 
-import fr.enssat.leave_manager.model.Team;
-import fr.enssat.leave_manager.model.TeamLeader;
+import fr.enssat.leave_manager.model.TeamEntity;
+import fr.enssat.leave_manager.model.TeamLeaderEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class TeamLeaderFactory {
 
-    public static TeamLeader getTeamLeader() {
+    public static TeamLeaderEntity getTeamLeader() {
 
-        Set<Team> teams = new HashSet<>();
+        Set<TeamEntity> teams = new HashSet<>();
 //        teams.add(TeamFactory.getTeam());
 
-        TeamLeader teamLeader = new TeamLeader();
-        return teamLeader.builder()
+        return TeamLeaderEntity.builder()
                 .employee(EmployeeFactory.getEmployee())
                 .teamList(teams)
                 .build();

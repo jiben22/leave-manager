@@ -13,7 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Data
 @Builder
-public class Team extends PKGenerator implements Serializable {
+public class TeamEntity extends PKGenerator implements Serializable {
     @Id
     @Column(length = 25, updatable = false)
     @Setter(AccessLevel.NONE)
@@ -28,16 +28,16 @@ public class Team extends PKGenerator implements Serializable {
 
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false, name = "leader_id", referencedColumnName = "eid")
-    private TeamLeader teamLeader;
+    private TeamLeaderEntity teamLeader;
 
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false, name = "dept_id", referencedColumnName = "id")
-    private Department department;
+    private DepartmentEntity department;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "EmployeeTeam",
             joinColumns = @JoinColumn(name = "team_id", referencedColumnName = "id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "eid", referencedColumnName = "eid", nullable = false))
-    private Set<Employee> employeeList;
+    private Set<EmployeeEntity> employeeList;
 }

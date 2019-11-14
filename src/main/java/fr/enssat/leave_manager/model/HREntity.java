@@ -3,18 +3,17 @@ package fr.enssat.leave_manager.model;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-@Table(name = "TeamLeader")
+@Table(name = "HR")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
-public class TeamLeader extends PKGenerator implements Serializable {
+public class HREntity extends PKGenerator implements Serializable {
     @Id
     @Column(length = 29, updatable = false)
     @Setter(AccessLevel.NONE)
@@ -23,14 +22,12 @@ public class TeamLeader extends PKGenerator implements Serializable {
     private String eid = PKGenerator.generatePK("EMPLOYEE");
 
     @NonNull
-    @OneToOne(optional = false, cascade = CascadeType.ALL, mappedBy = "teamLeader")
-    @JoinColumn(name = "eid", nullable = false, unique = true, referencedColumnName = "eid")
-    @MapsId("eid")
-    private Employee employee;
+    @OneToOne(optional = false, cascade = CascadeType.ALL, mappedBy = "hr")
+    @JoinColumn(name = "eid", nullable = false, referencedColumnName = "hr")
+    @MapsId
+    private EmployeeEntity employee;
 
-    @NonNull
     @ToString.Exclude @EqualsAndHashCode.Exclude
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "teamLeader")
-    @NotEmpty
-    private Set<Team> teamList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "hr")
+    private Set<LeaveRequestEntity> leaveRequests;
 }

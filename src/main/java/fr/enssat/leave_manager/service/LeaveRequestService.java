@@ -1,9 +1,18 @@
 package fr.enssat.leave_manager.service;
 
+import fr.enssat.leave_manager.model.LeaveRequestEntity;
+import fr.enssat.leave_manager.utils.enums.LeaveStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
 public interface LeaveRequestService {
+    LeaveRequestEntity getLeaveRequest(String id);
+    List<LeaveRequestEntity> getLeaveRequestByStatus(LeaveStatus status);
+    LeaveRequestEntity addLeaveRequest(LeaveRequestEntity lr);
+    LeaveRequestEntity editLeaveRequest(LeaveRequestEntity lr);
+    void deleteLeaveRequest(LeaveRequestEntity lr);
 }

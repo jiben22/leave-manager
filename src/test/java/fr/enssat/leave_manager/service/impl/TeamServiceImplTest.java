@@ -1,8 +1,7 @@
 package fr.enssat.leave_manager.service.impl;
 
 import fr.enssat.leave_manager.factory.TeamFactory;
-import fr.enssat.leave_manager.model.Team;
-import fr.enssat.leave_manager.service.impl.TeamServiceImpl;
+import fr.enssat.leave_manager.model.TeamEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -17,6 +16,6 @@ public class TeamServiceImplTest {
     @Test
     public void testGetTeam() {
 
-        Team team = TeamFactory.getTeam();
+        TeamEntity team = TeamFactory.getTeam();
     }
 }

@@ -13,7 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Data
 @Builder
-public class TypeOfLeave extends PKGenerator implements Serializable {
+public class TypeOfLeaveEntity extends PKGenerator implements Serializable {
     @Id
     @Column(length = 32, updatable = false)
     @Setter(AccessLevel.NONE)
@@ -37,5 +37,5 @@ public class TypeOfLeave extends PKGenerator implements Serializable {
     @ToString.Exclude @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "typeOfLeave", cascade = CascadeType.ALL)
     @NonNull
-    private Set<LeaveRequest> leaveRequests;
+    private Set<LeaveRequestEntity> leaveRequests;
 }
