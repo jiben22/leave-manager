@@ -2,6 +2,7 @@ package fr.enssat.leave_manager.service;
 
 import fr.enssat.leave_manager.factory.TeamLeaderFactory;
 import fr.enssat.leave_manager.model.TeamLeader;
+import fr.enssat.leave_manager.service.impl.TeamLeaderServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;

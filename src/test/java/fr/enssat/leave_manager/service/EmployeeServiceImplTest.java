@@ -2,6 +2,7 @@ package fr.enssat.leave_manager.service;
 
 import fr.enssat.leave_manager.factory.EmployeeFactory;
 import fr.enssat.leave_manager.model.Employee;
+import fr.enssat.leave_manager.service.impl.EmployeeServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
