@@ -1,13 +1,16 @@
 package fr.enssat.leave_manager.service.impl;
 
+import fr.enssat.leave_manager.LeaveManagerApplication;
 import fr.enssat.leave_manager.factory.DepartmentFactory;
 import fr.enssat.leave_manager.model.DepartmentEntity;
 import fr.enssat.leave_manager.service.exception.DepartmentNotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
