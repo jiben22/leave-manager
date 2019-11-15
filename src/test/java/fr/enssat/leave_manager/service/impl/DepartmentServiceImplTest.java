@@ -1,27 +1,30 @@
 package fr.enssat.leave_manager.service.impl;
 
-import fr.enssat.leave_manager.LeaveManagerApplication;
 import fr.enssat.leave_manager.factory.DepartmentFactory;
 import fr.enssat.leave_manager.model.DepartmentEntity;
+import fr.enssat.leave_manager.repository.DepartmentRepository;
 import fr.enssat.leave_manager.service.exception.DepartmentNotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
 public class DepartmentServiceImplTest {
     @Mock
+    private DepartmentRepository repository;
+
+    @InjectMocks
     private DepartmentServiceImpl departmentService;
 
     @Test
     public void testGetDepartment() {
+        //TODO use Mockito (ex: https://howtodoinjava.com/spring-boot2/testing/spring-boot-mockito-junit-example/)
         DepartmentEntity dept = departmentService.getDepartment("DEPARTMENT-157314099170606-0001");
 
         assertEquals(dept.getId(), "DEPARTMENT-157314099170606-0001");

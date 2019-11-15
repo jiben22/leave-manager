@@ -35,7 +35,7 @@ public class EmployeeServiceImplTest {
         assertEquals(employee.getRemaining_leave(), 25.0);
         assertEquals(employee.getEmail(), "tony.stark@marvel.com");
         assertEquals(employee.getPosition(), "Director");
-//        assertTrue(encoder.matches("ironman", employee.getPassword()));
+        assertTrue(encoder.matches("ironman", employee.getPassword()));
     }
 
     @Test(expected = EmployeeNotFoundException.class)
