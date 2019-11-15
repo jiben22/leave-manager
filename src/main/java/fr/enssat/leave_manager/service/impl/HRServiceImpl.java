@@ -9,17 +9,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class HRServiceImpl implements HRService {
-
-    private final HRRepository repository;
+    @Autowired
+    private HRRepository repository;
 
     @Override
     public boolean exists(String id) {
         return repository.existsById(id);
-    }
-
-    @Autowired
-    public HRServiceImpl(HRRepository repository) {
-        this.repository = repository;
     }
 
     @Override
