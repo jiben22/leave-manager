@@ -5,7 +5,6 @@ import fr.enssat.leave_manager.repository.LeaveRequestRepository;
 import fr.enssat.leave_manager.service.LeaveRequestService;
 import fr.enssat.leave_manager.service.exception.LeaveRequestNotFound;
 import fr.enssat.leave_manager.utils.enums.LeaveStatus;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,14 +14,13 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 
     private final LeaveRequestRepository repository;
 
+    public LeaveRequestServiceImpl(LeaveRequestRepository repository) {
+        this.repository = repository;
+    }
+
     @Override
     public boolean exists(String id) {
         return repository.existsById(id);
-    }
-
-    @Autowired
-    public LeaveRequestServiceImpl(LeaveRequestRepository repository) {
-        this.repository = repository;
     }
 
     @Override

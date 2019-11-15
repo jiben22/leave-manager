@@ -1,11 +1,9 @@
 # Spring configuration
 spring:
-  profiles:
-    active: test
   datasource:
-    url: jdbc:h2:mem:LeaveManager;DB_CLOSE_DELAY=-1
+    url: jdbc:h2:mem:LeaveManager
     username: sa
-    password: password
+    password:
     driver-class-name: org.h2.Driver
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect

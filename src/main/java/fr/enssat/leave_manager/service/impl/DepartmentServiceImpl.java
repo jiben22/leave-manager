@@ -12,8 +12,12 @@ import java.util.List;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
-    @Autowired
-    private DepartmentRepository repository;
+
+    private final DepartmentRepository repository;
+
+    public DepartmentServiceImpl(DepartmentRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public boolean exists(String id) {

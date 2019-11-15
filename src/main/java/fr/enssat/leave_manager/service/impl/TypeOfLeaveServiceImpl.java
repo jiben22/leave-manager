@@ -11,8 +11,12 @@ import java.util.List;
 
 @Service
 public class TypeOfLeaveServiceImpl implements TypeOfLeaveService {
-    @Autowired
-    private TypeOfLeaveRepository repository;
+
+    private final TypeOfLeaveRepository repository;
+
+    public TypeOfLeaveServiceImpl(TypeOfLeaveRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public boolean exists(String id) {

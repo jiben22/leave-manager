@@ -12,8 +12,12 @@ import java.util.List;
 
 @Service
 public class TeamServiceImpl implements TeamService {
-    @Autowired
-    private TeamRepository repository;
+
+    private final TeamRepository repository;
+
+    public TeamServiceImpl(TeamRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public boolean exists(String id) {
