@@ -41,7 +41,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
     }
 
     @Override
-    public void deleteLeaveRequest(LeaveRequestEntity lr) {
-        this.repository.delete(lr);
+    public void deleteLeaveRequest(String lrid) {
+        this.repository.deleteById(lrid);
     }
 }

@@ -49,9 +49,4 @@ public class TeamServiceImpl implements TeamService {
     public void deleteTeam(String id) {
         repository.deleteById(id);
     }
-
-    @Override
-    public void deleteTeam(TeamEntity team) {
-        repository.delete(team);
-    }
 }

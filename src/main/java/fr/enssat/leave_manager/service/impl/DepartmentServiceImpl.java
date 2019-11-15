@@ -49,9 +49,4 @@ public class DepartmentServiceImpl implements DepartmentService {
     public void deleteDepartment(String id) {
         repository.deleteById(id);
     }
-
-    @Override
-    public void deleteDepartment(DepartmentEntity department) {
-        repository.delete(department);
-    }
 }

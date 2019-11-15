@@ -16,5 +16,4 @@ public interface DepartmentService {
     DepartmentEntity addDepartment(DepartmentEntity department);
     DepartmentEntity editDepartment(DepartmentEntity department);
     void deleteDepartment(String id);
-    void deleteDepartment(DepartmentEntity department);
 }

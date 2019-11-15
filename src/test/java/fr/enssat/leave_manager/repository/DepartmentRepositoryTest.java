@@ -2,7 +2,6 @@ package fr.enssat.leave_manager.repository;
 
 import fr.enssat.leave_manager.factory.DepartmentFactory;
 import fr.enssat.leave_manager.model.DepartmentEntity;
-import fr.enssat.leave_manager.service.exception.DepartmentNotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -70,8 +70,7 @@ public class DepartmentRepositoryTest {
         DepartmentEntity department = DepartmentFactory.getDepartment();
         DepartmentEntity added_department = repository.save(department);
 
-        assertEquals(department.getId(), added_department.getId());
-        assertEquals(department.getName(), added_department.getName());
+        assertThat(department).isEqualToComparingFieldByField(added_department);
     }
 
     @Test
@@ -79,16 +78,5 @@ public class DepartmentRepositoryTest {
         repository.deleteById("DEPARTMENT-157314099170606-0001");
 
         assertFalse(repository.existsById("DEPARTMENT-157314099170606-0001"));
-    }
-
-    @Test
-    public void testDeleteDepartment() {
-        Optional<DepartmentEntity> opt_dept = repository.findById("DEPARTMENT-157314099170606-0002");
-        assertTrue(opt_dept.isPresent());
-
-        DepartmentEntity dept = opt_dept.get();
-        repository.delete(dept);
-
-        assertFalse(repository.existsById("DEPARTMENT-157314099170606-0002"));
     }
 }

@@ -18,5 +18,4 @@ public interface EmployeeService {
     EmployeeEntity addEmployee(EmployeeEntity employee);
     EmployeeEntity editEmployee(EmployeeEntity employee);
     void deleteEmployee(String id);
-    void deleteEmployee(EmployeeEntity employee);
 }

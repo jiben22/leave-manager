@@ -48,9 +48,4 @@ public class TypeOfLeaveServiceImpl implements TypeOfLeaveService {
     public void deleteTypeOfLeave(String id) {
         repository.deleteById(id);
     }
-
-    @Override
-    public void deleteTypeOfLeave(TypeOfLeaveEntity typeOfLeave) {
-        repository.delete(typeOfLeave);
-    }
 }

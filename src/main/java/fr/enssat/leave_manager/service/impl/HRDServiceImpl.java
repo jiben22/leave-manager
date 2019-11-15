@@ -31,8 +31,8 @@ public class HRDServiceImpl implements HRDService {
     }
 
     @Override
-    public void deleteHRD(HRDEntity hrd) {
-        this.repository.delete(hrd);
+    public void deleteHRD(String eid) {
+        this.repository.deleteById(eid);
     }
 
 }

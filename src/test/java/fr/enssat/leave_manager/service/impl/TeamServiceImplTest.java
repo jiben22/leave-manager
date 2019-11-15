@@ -70,17 +70,9 @@ public class TeamServiceImplTest {
     }
 
     @Test
-    public void testDeleteTeamById() {
+    public void testDeleteTeam() {
         teamService.deleteTeam("TEAM-157314099170606-0001");
 
         assertFalse(teamService.exists("TEAM-157314099170606-0001"));
-    }
-
-    @Test
-    public void testDeleteTeam() {
-        TeamEntity team = teamService.getTeam("TEAM-157314099170606-0002");
-        teamService.deleteTeam(team);
-
-        assertFalse(teamService.exists("TEAM-157314099170606-0002"));
     }
 }

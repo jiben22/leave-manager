@@ -11,5 +11,5 @@ public interface HRService {
     HREntity getHR(String id);
     HREntity addHR(HREntity hr);
     HREntity editHR(HREntity hr);
-    void deleteHR(HREntity hr);
+    void deleteHR(String eid);
 }

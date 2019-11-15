@@ -33,7 +33,7 @@ public class HRServiceImpl implements HRService {
     }
 
     @Override
-    public void deleteHR(HREntity hr) {
-        this.repository.delete(hr);
+    public void deleteHR(String eid) {
+        this.repository.deleteById(eid);
     }
 }

@@ -47,13 +47,6 @@ public class TeamLeaderServiceImplTest {
     }
 
     @Test
-    public void testDeleteTeamLeaderById() {
-        teamLeaderService.deleteTeamLeader("EMPLOYEE-157314099170606-0007");
-
-        assertFalse(teamLeaderService.exists("EMPLOYEE-157314099170606-0007"));
-    }
-
-    @Test
     public void testDeleteTeamLeader() {
         teamLeaderService.deleteTeamLeader("EMPLOYEE-157314099170606-0007");
 
