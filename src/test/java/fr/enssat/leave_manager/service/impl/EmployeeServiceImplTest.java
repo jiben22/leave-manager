@@ -19,8 +19,6 @@ public class EmployeeServiceImplTest {
     @Mock
     private EmployeeServiceImpl employeeService;
 
-    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
     @Test
     public void testGetEmployee() {
         EmployeeEntity employee = employeeService.getEmployee("EMPLOYEE-157314099170606-0001");
@@ -35,7 +33,7 @@ public class EmployeeServiceImplTest {
         assertEquals(employee.getRemaining_leave(), 25.0);
         assertEquals(employee.getEmail(), "tony.stark@marvel.com");
         assertEquals(employee.getPosition(), "Director");
-        assertTrue(encoder.matches("ironman", employee.getPassword()));
+        assertTrue(employee.matchPassword("ironman"));
     }
 
     @Test(expected = EmployeeNotFoundException.class)
@@ -57,7 +55,7 @@ public class EmployeeServiceImplTest {
         assertEquals(employee.getRemaining_leave(), 25.0);
         assertEquals(employee.getEmail(), "tony.stark@marvel.com");
         assertEquals(employee.getPosition(), "Director");
-        assertTrue(encoder.matches("ironman", employee.getPassword()));
+        assertTrue(employee.matchPassword("ironman"));
     }
 
     @Test(expected = EmployeeNotFoundException.class)
@@ -84,7 +82,7 @@ public class EmployeeServiceImplTest {
         assertEquals(employee.getRemaining_leave(), 25.0);
         assertEquals(employee.getEmail(), "tony.stark@marvel.com");
         assertEquals(employee.getPosition(), "Director");
-        assertTrue(encoder.matches("ironman", employee.getPassword()));
+        assertTrue(employee.matchPassword("ironman"));
     }
 
     @Test
@@ -106,7 +104,7 @@ public class EmployeeServiceImplTest {
         assertEquals(employee.getRemaining_leave(), 25.0);
         assertEquals(employee.getEmail(), "tony.stark@marvel.com");
         assertEquals(employee.getPosition(), "Director");
-        assertTrue(encoder.matches("ironman", employee.getPassword()));
+        assertTrue(employee.matchPassword("ironman"));
     }
 
     @Test

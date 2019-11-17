@@ -68,7 +68,7 @@ public class DepartmentRepositoryTest {
     @Test
     public void testSaveDepartment() {
         DepartmentEntity department = DepartmentFactory.getDepartment();
-        DepartmentEntity added_department = repository.save(department);
+        DepartmentEntity added_department = repository.saveAndFlush(department);
 
         assertThat(department).isEqualToComparingFieldByField(added_department);
     }

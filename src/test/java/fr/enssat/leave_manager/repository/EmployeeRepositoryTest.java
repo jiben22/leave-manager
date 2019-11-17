@@ -23,8 +23,6 @@ public class EmployeeRepositoryTest {
     @Autowired
     private EmployeeRepository repository;
 
-    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
     @Test
     public void testGetEmployee() {
         Optional<EmployeeEntity> opt_employee = repository.findById("EMPLOYEE-157314099170606-0001");
@@ -43,7 +41,7 @@ public class EmployeeRepositoryTest {
         assertEquals(employee.getRemaining_leave(), 25.0);
         assertEquals(employee.getEmail(), "tony.stark@marvel.com");
         assertEquals(employee.getPosition(), "Director");
-        assertTrue(encoder.matches("ironman", employee.getPassword()));
+        assertTrue(employee.matchPassword("ironman"));
     }
 
     @Test
@@ -71,7 +69,7 @@ public class EmployeeRepositoryTest {
         assertEquals(employee.getRemaining_leave(), 25.0);
         assertEquals(employee.getEmail(), "tony.stark@marvel.com");
         assertEquals(employee.getPosition(), "Director");
-        assertTrue(encoder.matches("ironman", employee.getPassword()));
+        assertTrue(employee.matchPassword("ironman"));
     }
 
     @Test
@@ -100,7 +98,7 @@ public class EmployeeRepositoryTest {
         assertEquals(employee.getRemaining_leave(), 25.0);
         assertEquals(employee.getEmail(), "tony.stark@marvel.com");
         assertEquals(employee.getPosition(), "Director");
-        assertTrue(encoder.matches("ironman", employee.getPassword()));
+        assertTrue(employee.matchPassword("ironman"));
     }
 
     @Test
@@ -122,7 +120,7 @@ public class EmployeeRepositoryTest {
         assertEquals(employee.getRemaining_leave(), 25.0);
         assertEquals(employee.getEmail(), "tony.stark@marvel.com");
         assertEquals(employee.getPosition(), "Director");
-        assertTrue(encoder.matches("ironman", employee.getPassword()));
+        assertTrue(employee.matchPassword("ironman"));
     }
 
     @Test
@@ -136,9 +134,10 @@ public class EmployeeRepositoryTest {
     @Test
     public void testSaveEmployee() {
         EmployeeEntity employee = EmployeeFactory.getEmployee();
-        EmployeeEntity added_employe = repository.save(employee);
+        EmployeeEntity added_employe = repository.saveAndFlush(employee);
 
         assertThat(employee).isEqualToComparingFieldByField(added_employe);
+        assertTrue(employee.matchPassword("@Password99"));
     }
 
     @Test

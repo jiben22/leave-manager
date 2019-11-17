@@ -1,6 +1,7 @@
 package fr.enssat.leave_manager.model;
 
 import lombok.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -74,10 +75,23 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
 
     @ToString.Exclude
     @Column(nullable = false)
-    @Setter(AccessLevel.NONE)
+    @Getter(AccessLevel.NONE)
     @NonNull
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{10,})", message = "Le mot de passe doit contenir au moins une majuscule, une minuscule, un nombre et un caractère spécial (!@#$%^&*). Il doit avoir une taille minimum de 10 caractères !")
     private String password;
+
+    // Override Lombok Setter to encode password
+    public void setPassword(String password) {
+        this.password = encodePassword(password);
+    }
+
+    // Override Builder 'password' function to encode password
+    public static class EmployeeEntityBuilder {
+        private String password;
+        public EmployeeEntityBuilder password(String password) {
+            this.password = encodePassword(password);
+            return this;
+        }
+    }
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
     @NonNull
@@ -114,4 +128,17 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "eid", referencedColumnName = "employee")
     private TeamLeaderEntity teamLeader;
+
+
+    private static BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+    // To encode password
+    public static String encodePassword(@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{10,})", message = "Le mot de passe doit contenir au moins une majuscule, une minuscule, un nombre et un caractère spécial (!@#$%^&*). Il doit avoir une taille minimum de 10 caractères !") String password) {
+        return encoder.encode(password);
+    }
+
+    // To check that the password match
+    public boolean matchPassword(String password) {
+        return encoder.matches(password, this.password);
+    }
 }
