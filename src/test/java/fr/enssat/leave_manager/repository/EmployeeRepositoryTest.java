@@ -142,7 +142,7 @@ public class EmployeeRepositoryTest {
     }
 
     @Test
-    public void testDeleteEmployeById() {
+    public void testDeleteEmployeeById() {
         repository.deleteById("EMPLOYEE-157314099170606-0008");
 
         assertFalse(repository.existsById("EMPLOYEE-157314099170606-0008"));

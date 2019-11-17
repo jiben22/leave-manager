@@ -81,7 +81,15 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
     @NonNull
-    @ManyToMany(mappedBy = "employeeList", cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {
+            CascadeType.DETACH,
+            CascadeType.MERGE,
+            CascadeType.REFRESH,
+            CascadeType.PERSIST
+    })
+    @JoinTable(name = "EmployeeTeam",
+            inverseJoinColumns = @JoinColumn(name = "team_id", referencedColumnName = "id", nullable = false),
+            joinColumns = @JoinColumn(name = "eid", referencedColumnName = "eid", nullable = false))
     private Set<TeamEntity> teamList;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
