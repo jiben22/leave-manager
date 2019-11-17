@@ -41,6 +41,24 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
     }
 
     @Override
+    public LeaveRequestEntity acceptLeaveRequest(LeaveRequestEntity lr) {
+        lr.setStatus(LeaveStatus.ACCEPTED);
+        return this.repository.save(lr);
+    }
+
+    @Override
+    public LeaveRequestEntity declineLeaveRequest(LeaveRequestEntity lr) {
+        lr.setStatus(LeaveStatus.DECLINED);
+        return this.repository.save(lr);
+    }
+
+    @Override
+    public LeaveRequestEntity cancelLeaveRequest(LeaveRequestEntity lr) {
+        lr.setStatus(LeaveStatus.CANCELLED);
+        return this.repository.save(lr);
+    }
+
+    @Override
     public void deleteLeaveRequest(String lrid) {
         this.repository.deleteById(lrid);
     }

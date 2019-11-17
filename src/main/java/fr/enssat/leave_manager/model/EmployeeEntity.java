@@ -107,24 +107,20 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
     private Set<TeamEntity> teamList;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
-    @NonNull
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
     private Set<LeaveRequestEntity> leaveRequestList;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
-    @Setter(AccessLevel.NONE)
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "eid", referencedColumnName = "employee")
     private HREntity hr;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
-    @Setter(AccessLevel.NONE)
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "eid", referencedColumnName = "employee")
     private HRDEntity hrd;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
-    @Setter(AccessLevel.NONE)
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "eid", referencedColumnName = "employee")
     private TeamLeaderEntity teamLeader;

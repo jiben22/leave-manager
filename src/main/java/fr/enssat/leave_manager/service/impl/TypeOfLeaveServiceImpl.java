@@ -26,12 +26,16 @@ public class TypeOfLeaveServiceImpl implements TypeOfLeaveService {
 
     @Override
     public List<TypeOfLeaveEntity> getTypeOfLeaveByName(String name) {
-        return repository.findByName(name);
+        return repository.findByNameAndIsArchivedFalse(name);
     }
 
     @Override
     public List<TypeOfLeaveEntity> getTypeOfLeaves() {
-        return repository.findAll();
+        return repository.findAllByIsArchivedFalse();
+    }
+
+    public List<TypeOfLeaveEntity> getArchivedTypeOfLeaves() {
+        return repository.findAllByIsArchivedTrue();
     }
 
     @Override
@@ -46,6 +50,9 @@ public class TypeOfLeaveServiceImpl implements TypeOfLeaveService {
 
     @Override
     public void deleteTypeOfLeave(String id) {
-        repository.deleteById(id);
+        // Soft delete
+        TypeOfLeaveEntity type_of_leave = this.getTypeOfLeave(id);
+        type_of_leave.setIsArchived(true);
+        this.editTypeOfLeave(type_of_leave);
     }
 }

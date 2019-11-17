@@ -3,7 +3,6 @@ package fr.enssat.leave_manager.model;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Set;
@@ -23,14 +22,18 @@ public class TeamLeaderEntity extends PKGenerator implements Serializable {
     private String eid = PKGenerator.generatePK("EMPLOYEE");
 
     @NonNull
-    @OneToOne(optional = false, cascade = CascadeType.ALL, mappedBy = "teamLeader")
+    @OneToOne(optional = false, mappedBy = "teamLeader")
     @JoinColumn(name = "eid", nullable = false, unique = true, referencedColumnName = "eid")
     @MapsId("eid")
     private EmployeeEntity employee;
 
-    @NonNull
     @ToString.Exclude @EqualsAndHashCode.Exclude
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "teamLeader")
-    @NotEmpty
     private Set<TeamEntity> teamList;
+
+    @PreRemove
+    private void preRemove() {
+        // delete 'teamLeader' field from employee table
+        employee.setTeamLeader(null);
+    }
 }

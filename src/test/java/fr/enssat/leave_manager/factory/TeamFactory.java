@@ -11,12 +11,12 @@ public class TeamFactory {
     public static TeamEntity getTeam() {
 
         Set<EmployeeEntity> employees = new HashSet<>();
-        employees.add(EmployeeFactory.getEmployee());
+        employees.add(EmployeeFactory.getEmployee3());
 
         return TeamEntity.builder()
                 .name("Avengers")
-                .teamLeader(TeamLeaderFactory.getTeamLeader())
-                .department(DepartmentFactory.getDepartment())
+                .teamLeader(TeamLeaderFactory.getTeamLeader2())
+                .department(DepartmentFactory.getDepartment1().get())
                 .employeeList(employees)
                 .build();
     }

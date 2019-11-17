@@ -26,11 +26,11 @@ public class TeamEntity extends PKGenerator implements Serializable {
     @Size(min = 1, max = 45, message = "Le nom ne peut pas être vide et ne doit pas dépasser les 45 caractères !")
     private String name;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false)
     @JoinColumn(nullable = false, name = "leader_id", referencedColumnName = "eid")
     private TeamLeaderEntity teamLeader;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false)
     @JoinColumn(nullable = false, name = "dept_id", referencedColumnName = "id")
     private DepartmentEntity department;
 
