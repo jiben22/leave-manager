@@ -16,8 +16,8 @@ public class LeaveRequestFactory {
                 .endingDate(LocalDateTime
                         .of(2020, Month.JANUARY, 5, 0, 0, 0))
                 .hrComment("")
-                .employee(EmployeeFactory.getEmployee2())
-                .typeOfLeave(TypeOfLeaveFactory.getTypeOfLeave1().get())
+                .employee(EmployeeFactory.getEmployee())
+                .typeOfLeave(TypeOfLeaveFactory.getTypeOfLeave())
                 .status(LeaveStatus.ACCEPTED)
                 .build();
     }

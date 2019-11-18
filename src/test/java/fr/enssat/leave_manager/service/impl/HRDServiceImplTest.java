@@ -4,6 +4,7 @@ import fr.enssat.leave_manager.factory.HRDFactory;
 import fr.enssat.leave_manager.model.HRDEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -12,6 +13,7 @@ public class HRDServiceImplTest {
 
     @Mock
     private HRDServiceImpl hrdService;
+
 
     @Test
     public void testGetHRD() {

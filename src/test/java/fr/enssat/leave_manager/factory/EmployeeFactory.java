@@ -3,16 +3,17 @@ package fr.enssat.leave_manager.factory;
 import fr.enssat.leave_manager.model.EmployeeEntity;
 
 import java.util.HashSet;
+import java.util.Optional;
 
 public class EmployeeFactory {
 
     public static EmployeeEntity getEmployee() {
         return EmployeeEntity.builder()
-                .lastname("Captain")
-                .firstname("America")
+                .firstname("Captain")
+                .lastname("America")
                 .street("Man")
                 .city("Manhattan")
-                .post_code("10004")
+                .postCode("10004")
                 .country("United States")
                 .position("Super héro")
                 .email("captain.america@enssat.fr")
@@ -22,13 +23,13 @@ public class EmployeeFactory {
                 .build();
     }
 
-    public static EmployeeEntity getEmployee2() {
-        return EmployeeEntity.builder()
+    public static Optional<EmployeeEntity> getEmployee2() {
+        return Optional.ofNullable(EmployeeEntity.builder()
                 .eid("EMPLOYEE-157314099170606-0002")
                 .firstname("Thor")
                 .lastname("Odinson")
                 .street("5 avenue Asgardian")
-                .post_code("22700")
+                .postCode("22700")
                 .city("Lannion")
                 .country("France")
                 .email("thor@marvel.com")
@@ -36,7 +37,7 @@ public class EmployeeFactory {
                 .password("Thor56789*")
                 .teamList(new HashSet<>())
                 .leaveRequestList(new HashSet<>())
-                .build();
+                .build());
     }
 
     public static EmployeeEntity getEmployee3() {
@@ -45,7 +46,7 @@ public class EmployeeFactory {
                 .firstname("Henry")
                 .lastname("Jonathan")
                 .street("rue")
-                .post_code("0000")
+                .postCode("0000")
                 .city("Nebraska")
                 .country("USA")
                 .email("antman@marvel.com")
@@ -62,7 +63,7 @@ public class EmployeeFactory {
                 .firstname("Steve")
                 .lastname("Rogers")
                 .street("0 rue du pole nord")
-                .post_code("0000")
+                .postCode("0000")
                 .city("PoleNord")
                 .country("Danemark")
                 .email("captain@marvel.com")
@@ -79,7 +80,7 @@ public class EmployeeFactory {
                 .firstname("Peter")
                 .lastname("Parker")
                 .street("quelque part")
-                .post_code("000")
+                .postCode("000")
                 .city("New York")
                 .country("USA")
                 .email("spiderman@marvel.com")

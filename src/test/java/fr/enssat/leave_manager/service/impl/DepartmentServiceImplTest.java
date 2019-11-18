@@ -32,7 +32,6 @@ public class DepartmentServiceImplTest {
         MockitoAnnotations.initMocks(this);
     }
 
-
     @Test
     public void testGetDepartment() {
         when(repository.findById("DEPARTMENT-157314099170606-0001"))
@@ -69,7 +68,7 @@ public class DepartmentServiceImplTest {
 
     @Test
     public void testGetDepartments() {
-        List<DepartmentEntity> list = new ArrayList<DepartmentEntity>();
+        List<DepartmentEntity> list = new ArrayList<>();
         list.add(DepartmentFactory.getDepartment());
 
         when(repository.findAll(Sort.by(Sort.Direction.ASC, "name"))).thenReturn(list);

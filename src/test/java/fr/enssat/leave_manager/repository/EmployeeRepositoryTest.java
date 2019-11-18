@@ -35,13 +35,13 @@ public class EmployeeRepositoryTest {
         assertEquals(employee.getFirstname(), "Tony");
         assertEquals(employee.getLastname(), "Stark");
         assertEquals(employee.getStreet(), "9 rue du chene germain");
-        assertEquals(employee.getPost_code(), "22700");
+        assertEquals(employee.getPostCode(), "22700");
         assertEquals(employee.getCity(), "Lannion");
         assertEquals(employee.getCountry(), "France");
-        assertEquals(employee.getRemaining_leave(), 25.0);
+        assertEquals(employee.getRemainingLeave(), 25.0);
         assertEquals(employee.getEmail(), "tony.stark@marvel.com");
         assertEquals(employee.getPosition(), "Director");
-        assertTrue(employee.matchPassword("ironman"));
+        assertTrue(employee.matchesPassword("ironman"));
     }
 
     @Test
@@ -63,13 +63,13 @@ public class EmployeeRepositoryTest {
         assertEquals(employee.getFirstname(), "Tony");
         assertEquals(employee.getLastname(), "Stark");
         assertEquals(employee.getStreet(), "9 rue du chene germain");
-        assertEquals(employee.getPost_code(), "22700");
+        assertEquals(employee.getPostCode(), "22700");
         assertEquals(employee.getCity(), "Lannion");
         assertEquals(employee.getCountry(), "France");
-        assertEquals(employee.getRemaining_leave(), 25.0);
+        assertEquals(employee.getRemainingLeave(), 25.0);
         assertEquals(employee.getEmail(), "tony.stark@marvel.com");
         assertEquals(employee.getPosition(), "Director");
-        assertTrue(employee.matchPassword("ironman"));
+        assertTrue(employee.matchesPassword("ironman"));
     }
 
     @Test
@@ -92,13 +92,13 @@ public class EmployeeRepositoryTest {
         assertEquals(employee.getFirstname(), "Tony");
         assertEquals(employee.getLastname(), "Stark");
         assertEquals(employee.getStreet(), "9 rue du chene germain");
-        assertEquals(employee.getPost_code(), "22700");
+        assertEquals(employee.getPostCode(), "22700");
         assertEquals(employee.getCity(), "Lannion");
         assertEquals(employee.getCountry(), "France");
-        assertEquals(employee.getRemaining_leave(), 25.0);
+        assertEquals(employee.getRemainingLeave(), 25.0);
         assertEquals(employee.getEmail(), "tony.stark@marvel.com");
         assertEquals(employee.getPosition(), "Director");
-        assertTrue(employee.matchPassword("ironman"));
+        assertTrue(employee.matchesPassword("ironman"));
     }
 
     @Test
@@ -114,13 +114,13 @@ public class EmployeeRepositoryTest {
         assertEquals(employee.getFirstname(), "Tony");
         assertEquals(employee.getLastname(), "Stark");
         assertEquals(employee.getStreet(), "9 rue du chene germain");
-        assertEquals(employee.getPost_code(), "22700");
+        assertEquals(employee.getPostCode(), "22700");
         assertEquals(employee.getCity(), "Lannion");
         assertEquals(employee.getCountry(), "France");
-        assertEquals(employee.getRemaining_leave(), 25.0);
+        assertEquals(employee.getRemainingLeave(), 25.0);
         assertEquals(employee.getEmail(), "tony.stark@marvel.com");
         assertEquals(employee.getPosition(), "Director");
-        assertTrue(employee.matchPassword("ironman"));
+        assertTrue(employee.matchesPassword("ironman"));
     }
 
     @Test
@@ -137,7 +137,7 @@ public class EmployeeRepositoryTest {
         EmployeeEntity added_employe = repository.saveAndFlush(employee);
 
         assertThat(employee).isEqualToComparingFieldByField(added_employe);
-        assertTrue(employee.matchPassword("@Password99"));
+        assertTrue(employee.matchesPassword("@Password99"));
     }
 
     @Test
