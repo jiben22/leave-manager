@@ -1,6 +1,7 @@
 package fr.enssat.leave_manager.model;
 
 import lombok.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -79,9 +80,31 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{10,})", message = "Le mot de passe doit contenir au moins une majuscule, une minuscule, un nombre et un caractère spécial (!@#$%^&*). Il doit avoir une taille minimum de 10 caractères !")
     private String password;
 
+    // Override Lombok Setter to encode password
+    public void setPassword(String password) {
+        this.password = encodePassword(password);
+    }
+
+    // Override Builder 'password' function to encode password
+    public static class EmployeeEntityBuilder {
+        private String password;
+        public EmployeeEntityBuilder password(String password) {
+            this.password = encodePassword(password);
+            return this;
+        }
+    }
+
     @ToString.Exclude @EqualsAndHashCode.Exclude
     @NonNull
-    @ManyToMany(mappedBy = "employeeList")
+    @ManyToMany(cascade = {
+            CascadeType.DETACH,
+            CascadeType.MERGE,
+            CascadeType.REFRESH,
+            CascadeType.PERSIST
+    })
+    @JoinTable(name = "EmployeeTeam",
+            inverseJoinColumns = @JoinColumn(name = "team_id", referencedColumnName = "id", nullable = false),
+            joinColumns = @JoinColumn(name = "eid", referencedColumnName = "eid", nullable = false))
     private Set<TeamEntity> teamList;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
@@ -90,20 +113,17 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
     private Set<LeaveRequestEntity> leaveRequestList;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
-    @Setter(AccessLevel.NONE)
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "eid", referencedColumnName = "employee")
     private HREntity hr;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
-    @Setter(AccessLevel.NONE)
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "eid", referencedColumnName = "employee")
     private HRDEntity hrd;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
-    @Setter(AccessLevel.NONE)
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "eid", referencedColumnName = "employee")
     private TeamLeaderEntity teamLeader;
 
@@ -117,5 +137,16 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
         } else {
             return "EMPLOYEE";
         }
+    }
+    private static BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+    // To encode password
+    public static String encodePassword(@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{10,})", message = "Le mot de passe doit contenir au moins une majuscule, une minuscule, un nombre et un caractère spécial (!@#$%^&*). Il doit avoir une taille minimum de 10 caractères !") String password) {
+        return encoder.encode(password);
+    }
+
+    // To check that the password match
+    public boolean matchPassword(String password) {
+        return encoder.matches(password, this.password);
     }
 }

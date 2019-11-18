@@ -15,5 +15,8 @@ public interface LeaveRequestService {
     List<LeaveRequestEntity> getLeaveRequestByStatus(LeaveStatus status);
     LeaveRequestEntity addLeaveRequest(LeaveRequestEntity lr);
     LeaveRequestEntity editLeaveRequest(LeaveRequestEntity lr);
-    void deleteLeaveRequest(LeaveRequestEntity lr);
+    LeaveRequestEntity acceptLeaveRequest(LeaveRequestEntity lr);
+    LeaveRequestEntity declineLeaveRequest(LeaveRequestEntity lr);
+    LeaveRequestEntity cancelLeaveRequest(LeaveRequestEntity lr);
+    void deleteLeaveRequest(String lrid);
 }

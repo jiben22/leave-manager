@@ -8,5 +8,7 @@ import java.util.List;
 
 @Repository
 public interface TypeOfLeaveRepository extends JpaRepository<TypeOfLeaveEntity, String> {
-    List<TypeOfLeaveEntity> findByName(String name);
+    List<TypeOfLeaveEntity> findByNameAndIsArchivedFalse(String name);
+    List<TypeOfLeaveEntity> findAllByIsArchivedFalse();
+    List<TypeOfLeaveEntity> findAllByIsArchivedTrue();
 }

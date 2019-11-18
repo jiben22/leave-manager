@@ -22,12 +22,18 @@ public class HREntity extends PKGenerator implements Serializable {
     private String eid = PKGenerator.generatePK("EMPLOYEE");
 
     @NonNull
-    @OneToOne(optional = false, cascade = CascadeType.ALL, mappedBy = "hr")
-    @JoinColumn(name = "eid", nullable = false, referencedColumnName = "hr")
-    @MapsId
+    @OneToOne(optional = false, mappedBy = "hr")
+    @JoinColumn(name = "eid", nullable = false, unique = true, referencedColumnName = "hr")
+    @MapsId("eid")
     private EmployeeEntity employee;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "hr")
     private Set<LeaveRequestEntity> leaveRequests;
+
+    @PreRemove
+    private void preRemove() {
+        // delete 'hr' field from employee table
+        employee.setHr(null);
+    }
 }

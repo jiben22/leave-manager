@@ -12,17 +12,12 @@ import java.util.List;
 
 @Service
 public class LeaveRequestServiceImpl implements LeaveRequestService {
-
-    private final LeaveRequestRepository repository;
+    @Autowired
+    private LeaveRequestRepository repository;
 
     @Override
     public boolean exists(String id) {
         return repository.existsById(id);
-    }
-
-    @Autowired
-    public LeaveRequestServiceImpl(LeaveRequestRepository repository) {
-        this.repository = repository;
     }
 
     @Override
@@ -46,7 +41,25 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
     }
 
     @Override
-    public void deleteLeaveRequest(LeaveRequestEntity lr) {
-        this.repository.delete(lr);
+    public LeaveRequestEntity acceptLeaveRequest(LeaveRequestEntity lr) {
+        lr.setStatus(LeaveStatus.ACCEPTED);
+        return this.repository.save(lr);
+    }
+
+    @Override
+    public LeaveRequestEntity declineLeaveRequest(LeaveRequestEntity lr) {
+        lr.setStatus(LeaveStatus.DECLINED);
+        return this.repository.save(lr);
+    }
+
+    @Override
+    public LeaveRequestEntity cancelLeaveRequest(LeaveRequestEntity lr) {
+        lr.setStatus(LeaveStatus.CANCELLED);
+        return this.repository.save(lr);
+    }
+
+    @Override
+    public void deleteLeaveRequest(String lrid) {
+        this.repository.deleteById(lrid);
     }
 }

@@ -14,5 +14,4 @@ public interface TeamLeaderService {
     List<TeamLeaderEntity> getTeamLeaders();
     TeamLeaderEntity addTeamLeader(TeamLeaderEntity teamLeader);
     void deleteTeamLeader(String id);
-    void deleteTeamLeader(TeamLeaderEntity teamLeader);
 }

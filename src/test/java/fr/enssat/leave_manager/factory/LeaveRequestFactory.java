@@ -9,16 +9,15 @@ import java.time.Month;
 public class LeaveRequestFactory {
 
     public static LeaveRequestEntity getLeaveRequest() {
-
         return LeaveRequestEntity.builder()
                 .reason("Vacances")
-                .starting_date(LocalDateTime
+                .startingDate(LocalDateTime
                         .of(2019, Month.DECEMBER, 22, 0, 0, 0))
-                .ending_date(LocalDateTime
-                        .of(2020, Month.JANUARY, 05, 0, 0, 0))
-                .hr_comment("Commentaires")
-                .employee(EmployeeFactory.getEmployee())
-                .typeOfLeave(TypeOfLeaveFactory.getTypeOfLeave())
+                .endingDate(LocalDateTime
+                        .of(2020, Month.JANUARY, 5, 0, 0, 0))
+                .hrComment("")
+                .employee(EmployeeFactory.getEmployee2())
+                .typeOfLeave(TypeOfLeaveFactory.getTypeOfLeave1())
                 .status(LeaveStatus.ACCEPTED)
                 .build();
     }

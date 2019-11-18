@@ -16,5 +16,4 @@ public interface TypeOfLeaveService {
     TypeOfLeaveEntity addTypeOfLeave(TypeOfLeaveEntity typeOfLeave);
     TypeOfLeaveEntity editTypeOfLeave(TypeOfLeaveEntity typeOfLeave);
     void deleteTypeOfLeave(String id);
-    void deleteTypeOfLeave(TypeOfLeaveEntity typeOfLeave);
 }

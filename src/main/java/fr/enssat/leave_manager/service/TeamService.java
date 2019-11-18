@@ -16,5 +16,4 @@ public interface TeamService {
     TeamEntity addTeam(TeamEntity team);
     TeamEntity editTeam(TeamEntity team);
     void deleteTeam(String id);
-    void deleteTeam(TeamEntity team);
 }

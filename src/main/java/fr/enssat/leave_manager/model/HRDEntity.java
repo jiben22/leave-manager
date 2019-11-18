@@ -21,8 +21,14 @@ public class HRDEntity extends PKGenerator implements Serializable {
     private String eid = PKGenerator.generatePK("EMPLOYEE");
 
     @NonNull
-    @OneToOne(optional = false, cascade = CascadeType.ALL, mappedBy = "hrd")
-    @JoinColumn(name = "eid", nullable = false, referencedColumnName = "hrd")
-    @MapsId
+    @OneToOne(optional = false, mappedBy = "hrd")
+    @JoinColumn(name = "eid", nullable = false, unique = true, referencedColumnName = "hrd")
+    @MapsId("eid")
     private EmployeeEntity employee;
+
+    @PreRemove
+    private void preRemove() {
+        // delete 'hrd' field from employee table
+        employee.setHrd(null);
+    }
 }

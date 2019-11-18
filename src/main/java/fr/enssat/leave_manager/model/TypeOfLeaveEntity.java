@@ -32,10 +32,9 @@ public class TypeOfLeaveEntity extends PKGenerator implements Serializable {
     @Column
     @NonNull
     @Builder.Default
-    private Boolean is_archived = false;
+    private Boolean isArchived = false;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "typeOfLeave", cascade = CascadeType.ALL)
-    @NonNull
+    @OneToMany(mappedBy = "typeOfLeave")
     private Set<LeaveRequestEntity> leaveRequests;
 }

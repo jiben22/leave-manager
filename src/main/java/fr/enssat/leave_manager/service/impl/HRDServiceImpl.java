@@ -9,17 +9,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class HRDServiceImpl implements HRDService {
-
-    private final HRDRepository repository;
+    @Autowired
+    private HRDRepository repository;
 
     @Override
     public boolean exists(String id) {
         return repository.existsById(id);
-    }
-
-    @Autowired
-    public HRDServiceImpl(HRDRepository repository) {
-        this.repository = repository;
     }
 
     public HRDEntity getHRD(String id) {
@@ -36,8 +31,8 @@ public class HRDServiceImpl implements HRDService {
     }
 
     @Override
-    public void deleteHRD(HRDEntity hrd) {
-        this.repository.delete(hrd);
+    public void deleteHRD(String eid) {
+        this.repository.deleteById(eid);
     }
 
 }

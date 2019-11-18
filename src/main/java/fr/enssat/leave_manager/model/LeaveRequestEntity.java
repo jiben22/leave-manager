@@ -34,26 +34,26 @@ public class LeaveRequestEntity extends PKGenerator implements Serializable {
     @NonNull
     @PastOrPresent
     @Builder.Default
-    private LocalDateTime creation = LocalDateTime.now();
+    private LocalDateTime creationDate = LocalDateTime.now();
 
     @Column(nullable = false)
     @NonNull
     @PastOrPresent
     @Builder.Default
-    private LocalDateTime last_edition = new Timestamp(System.currentTimeMillis()).toLocalDateTime();
+    private LocalDateTime lastEditionDate = new Timestamp(System.currentTimeMillis()).toLocalDateTime();
 
     @Column(nullable = false)
     @NonNull
     @FutureOrPresent
-    private LocalDateTime starting_date;
+    private LocalDateTime startingDate;
 
     @Column(nullable = false)
     @NonNull
     @FutureOrPresent
-    private LocalDateTime ending_date;
+    private LocalDateTime endingDate;
 
     @Size(max = 255, message = "Le commentaire du RH ne doit pas dépasser les 225 caractères !")
-    private String hr_comment;
+    private String hrComment;
 
     @NonNull
     @ManyToOne(optional = false)

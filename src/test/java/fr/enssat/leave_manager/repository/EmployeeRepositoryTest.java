@@ -1,27 +1,35 @@
-package fr.enssat.leave_manager.service.impl;
+package fr.enssat.leave_manager.repository;
 
 import fr.enssat.leave_manager.factory.EmployeeFactory;
 import fr.enssat.leave_manager.model.EmployeeEntity;
-import fr.enssat.leave_manager.service.exception.EmployeeNotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @RunWith(SpringRunner.class)
-public class EmployeeServiceImplTest {
-    @Mock
-    private EmployeeServiceImpl employeeService;
+@DataJpaTest
+public class EmployeeRepositoryTest {
+    @Autowired
+    private EmployeeRepository repository;
 
     @Test
     public void testGetEmployee() {
-        EmployeeEntity employee = employeeService.getEmployee("EMPLOYEE-157314099170606-0001");
+        Optional<EmployeeEntity> opt_employee = repository.findById("EMPLOYEE-157314099170606-0001");
+
+        assertTrue(opt_employee.isPresent());
+
+        EmployeeEntity employee = opt_employee.get();
 
         assertEquals(employee.getEid(), "EMPLOYEE-157314099170606-0001");
         assertEquals(employee.getFirstname(), "Tony");
@@ -36,14 +44,20 @@ public class EmployeeServiceImplTest {
         assertTrue(employee.matchPassword("ironman"));
     }
 
-    @Test(expected = EmployeeNotFoundException.class)
+    @Test
     public void testGetEmployeeException() {
-        EmployeeEntity employee = employeeService.getEmployee("UNKNOWN ID");
+        Optional<EmployeeEntity> opt_employee = repository.findById("UNKNOWN ID");
+
+        assertFalse(opt_employee.isPresent());
     }
 
     @Test
     public void testGetEmployeeByEmail() {
-        EmployeeEntity employee = employeeService.getEmployeeByEmail("tony.stark@marvel.com");
+        Optional<EmployeeEntity> opt_employee = repository.findByEmail("tony.stark@marvel.com");
+
+        assertTrue(opt_employee.isPresent());
+
+        EmployeeEntity employee = opt_employee.get();
 
         assertEquals(employee.getEid(), "EMPLOYEE-157314099170606-0001");
         assertEquals(employee.getFirstname(), "Tony");
@@ -58,14 +72,16 @@ public class EmployeeServiceImplTest {
         assertTrue(employee.matchPassword("ironman"));
     }
 
-    @Test(expected = EmployeeNotFoundException.class)
+    @Test
     public void testGetEmployeeByEmailException() {
-        EmployeeEntity employee = employeeService.getEmployeeByEmail("UNKNOWN EMAIL");
+        Optional<EmployeeEntity> opt_employee = repository.findByEmail("unknown");
+
+        assertFalse(opt_employee.isPresent());
     }
 
     @Test
     public void testGetEmployeeByFirstname() {
-        List<EmployeeEntity> employee_list = employeeService.getEmployeeByFirstname("Tony");
+        List<EmployeeEntity> employee_list = repository.findByFirstname("Tony");
 
         assertNotNull(employee_list);
         assertNotEquals(employee_list.size(), 0);
@@ -87,7 +103,7 @@ public class EmployeeServiceImplTest {
 
     @Test
     public void testGetEmployeeByLastname() {
-        List<EmployeeEntity> employee_list = employeeService.getEmployeeByLastname("Stark");
+        List<EmployeeEntity> employee_list = repository.findByLastname("Stark");
 
         assertNotNull(employee_list);
         assertNotEquals(employee_list.size(), 0);
@@ -109,33 +125,25 @@ public class EmployeeServiceImplTest {
 
     @Test
     public void testGetEmployees() {
-        List<EmployeeEntity> employee_list = employeeService.getEmployees();
+        List<EmployeeEntity> employee_list = repository.findAll();
 
         assertNotNull(employee_list);
         assertNotEquals(employee_list.size(), 0);
     }
 
     @Test
-    public void testAddEmployee() {
+    public void testSaveEmployee() {
         EmployeeEntity employee = EmployeeFactory.getEmployee();
-        EmployeeEntity added_employe = employeeService.addEmployee(employee);
+        EmployeeEntity added_employe = repository.saveAndFlush(employee);
 
-        assertEquals(employee, added_employe);
+        assertThat(employee).isEqualToComparingFieldByField(added_employe);
+        assertTrue(employee.matchPassword("@Password99"));
     }
 
     @Test
-    public void testEditEmployee() {
-        EmployeeEntity employee = employeeService.getEmployee("EMPLOYEE-157314099170606-0001");
-        employee.setRemaining_leave(20.5);
-        EmployeeEntity edited_employee = employeeService.editEmployee(employee);
+    public void testDeleteEmployeeById() {
+        repository.deleteById("EMPLOYEE-157314099170606-0008");
 
-        assertEquals(employee, edited_employee);
-    }
-
-    @Test
-    public void testDeleteEmploye() {
-        employeeService.deleteEmployee("EMPLOYEE-157314099170606-0004");
-
-        assertFalse(employeeService.exists("EMPLOYEE-157314099170606-0004"));
+        assertFalse(repository.existsById("EMPLOYEE-157314099170606-0008"));
     }
 }
