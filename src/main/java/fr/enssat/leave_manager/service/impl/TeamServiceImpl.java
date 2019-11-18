@@ -37,12 +37,12 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public TeamEntity addTeam(TeamEntity team) {
-        return repository.save(team);
+        return repository.saveAndFlush(team);
     }
 
     @Override
     public TeamEntity editTeam(TeamEntity team) {
-        return repository.save(team);
+        return repository.saveAndFlush(team);
     }
 
     @Override

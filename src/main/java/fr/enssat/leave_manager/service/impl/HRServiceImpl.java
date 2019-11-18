@@ -24,12 +24,7 @@ public class HRServiceImpl implements HRService {
 
     @Override
     public HREntity addHR(HREntity hr) {
-        return this.repository.save(hr);
-    }
-
-    @Override
-    public HREntity editHR(HREntity hr) {
-        return this.repository.save(hr);
+        return this.repository.saveAndFlush(hr);
     }
 
     @Override

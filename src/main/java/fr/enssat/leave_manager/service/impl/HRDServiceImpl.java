@@ -21,13 +21,9 @@ public class HRDServiceImpl implements HRDService {
         return this.repository.findById(id).orElseThrow(()->new EmployeeNotFoundException(id));
     }
 
-    public HRDEntity addHRD(HRDEntity hrd) {
-        return this.repository.save(hrd);
-    }
-
     @Override
-    public HRDEntity editHRD(HRDEntity hrd) {
-        return this.repository.save(hrd);
+    public HRDEntity addHRD(HRDEntity hrd) {
+        return this.repository.saveAndFlush(hrd);
     }
 
     @Override
