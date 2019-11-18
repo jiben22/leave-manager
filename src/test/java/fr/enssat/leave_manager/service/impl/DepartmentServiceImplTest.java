@@ -83,12 +83,13 @@ public class DepartmentServiceImplTest {
     @Test
     public void testAddDepartment() {
         DepartmentEntity department = DepartmentFactory.getDepartment();
-        when(repository.save(department))
+        when(repository.saveAndFlush(department))
                 .thenReturn(department);
 
         DepartmentEntity added_department = departmentService.addDepartment(department);
 
-        assertEquals(department, added_department);
+        assertEquals(department.getId(), added_department.getId());
+        assertEquals(department.getName(), added_department.getName());
     }
 
     @Test
@@ -96,12 +97,13 @@ public class DepartmentServiceImplTest {
         DepartmentEntity department = DepartmentFactory.getDepartment();
         department.setName("Business");
 
-        when(repository.save(department))
+        when(repository.saveAndFlush(department))
                 .thenReturn(department);
 
         DepartmentEntity edited_department = departmentService.editDepartment(department);
 
-        assertEquals(department, edited_department);
+        assertEquals(department.getId(), edited_department.getId());
+        assertEquals(department.getName(), edited_department.getName());
     }
 
     @Test
