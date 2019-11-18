@@ -11,9 +11,9 @@ import java.util.List;
 public interface TypeOfLeaveService {
     boolean exists(String id);
     TypeOfLeaveEntity getTypeOfLeave(String id);
-    List<TypeOfLeaveEntity> getTypeOfLeaveByName(String name);
+    List<TypeOfLeaveEntity> getTypeOfLeaveByNameAndIsArchivedFalse(String name);
     List<TypeOfLeaveEntity> getTypeOfLeaves();
     TypeOfLeaveEntity addTypeOfLeave(TypeOfLeaveEntity typeOfLeave);
     TypeOfLeaveEntity editTypeOfLeave(TypeOfLeaveEntity typeOfLeave);
-    void deleteTypeOfLeave(String id);
+    TypeOfLeaveEntity deleteTypeOfLeave(String id);
 }
