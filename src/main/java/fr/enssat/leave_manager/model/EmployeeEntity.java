@@ -50,7 +50,7 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
     @Column(nullable = false, length = 16)
     @NonNull
     @Size(min = 1, max = 16, message = "Le code postale ne peut pas être vide et ne doit pas dépasser les 16 caractères !")
-    private String post_code;
+    private String postCode;
 
     @Column(nullable = false, length = 128)
     @NonNull
@@ -66,7 +66,7 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
     @NonNull
     @Min(value = 0, message = "Le nombre de congés doit être supérieur ou égale à zero!")
     @Builder.Default
-    private Double remaining_leave = 25.0;
+    private Double remainingLeave = 25.0;
 
     @Column(nullable = false, length = 128, unique = true)
     @NonNull
@@ -133,7 +133,7 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
         return encoder.encode(password);
     }
 
-    // To check that the password match
+    // To check that the password matches
     public boolean matchPassword(String password) {
         return encoder.matches(password, this.password);
     }

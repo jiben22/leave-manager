@@ -101,7 +101,7 @@ public class LeaveRequestServiceImplTest {
     public void testAddLeaveRequest() {
         LeaveRequestEntity leave_request = LeaveRequestFactory.getLeaveRequest();
         EmployeeEntity emp = leave_request.getEmployee();
-        double remaining = emp.getRemaining_leave();
+        double remaining = emp.getRemainingLeave();
         double duration = Duration.between(leave_request.getStartingDate(), leave_request.getEndingDate()).toDays();
 
         when(repository.saveAndFlush(leave_request)).thenReturn(leave_request);
@@ -118,7 +118,7 @@ public class LeaveRequestServiceImplTest {
         assertEquals(leave_request.getStartingDate(), added_leave_request.getStartingDate());
         assertEquals(leave_request.getHrComment(), added_leave_request.getHrComment());
 
-        assertTrue(added_leave_request.getEmployee().getRemaining_leave() == remaining - duration);
+        assertTrue(added_leave_request.getEmployee().getRemainingLeave() == remaining - duration);
     }
 
     @Test(expected = LeaveRequestRemainingLeaveException.class)
@@ -143,7 +143,7 @@ public class LeaveRequestServiceImplTest {
         LeaveRequestEntity old_leave_request = LeaveRequestFactory.getLeaveRequest1();
         LeaveRequestEntity leave_request = LeaveRequestFactory.getLeaveRequest1();
         EmployeeEntity emp = leave_request.getEmployee();
-        double remaining = emp.getRemaining_leave();
+        double remaining = emp.getRemainingLeave();
 
         long old_day = Duration.between(old_leave_request.getStartingDate(), old_leave_request.getEndingDate()).toDays();
         long day = Duration.between(leave_request.getStartingDate(), leave_request.getEndingDate()).toDays();
@@ -167,7 +167,7 @@ public class LeaveRequestServiceImplTest {
         assertEquals(leave_request.getStartingDate(), edited_leave_request.getStartingDate());
         assertEquals(leave_request.getHrComment(), edited_leave_request.getHrComment());
 
-        assertTrue(leave_request.getEmployee().getRemaining_leave()
+        assertTrue(leave_request.getEmployee().getRemainingLeave()
                 == remaining + old_day - day);
     }
 

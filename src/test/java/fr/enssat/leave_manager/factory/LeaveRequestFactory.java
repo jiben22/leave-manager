@@ -16,8 +16,8 @@ public class LeaveRequestFactory {
                 .endingDate(LocalDateTime
                         .of(2019, 11, 25, 23, 59, 0))
                 .hrComment("")
-                .employee(EmployeeFactory.getEmployee2())
-                .typeOfLeave(TypeOfLeaveFactory.getTypeOfLeave1())
+                .employee(EmployeeFactory.getEmployee())
+                .typeOfLeave(TypeOfLeaveFactory.getTypeOfLeave())
                 .status(LeaveStatus.ACCEPTED)
                 .build();
     }
@@ -31,7 +31,7 @@ public class LeaveRequestFactory {
                         .of(2020, 11, 25, 0, 0, 0))
                 .hrComment("")
                 .employee(EmployeeFactory.getEmployee2())
-                .typeOfLeave(TypeOfLeaveFactory.getTypeOfLeave1())
+                .typeOfLeave(TypeOfLeaveFactory.getTypeOfLeave1().get())
                 .status(LeaveStatus.ACCEPTED)
                 .build();
     }
@@ -50,7 +50,7 @@ public class LeaveRequestFactory {
                         .of(2019, 11, 17, 23, 29, 0))
                 .hrComment("Bon courage")
                 .employee(EmployeeFactory.getEmployee3())
-                .typeOfLeave(TypeOfLeaveFactory.getTypeOfLeave1())
+                .typeOfLeave(TypeOfLeaveFactory.getTypeOfLeave1().get())
                 .status(LeaveStatus.ACCEPTED)
                 .build();
     }
@@ -73,7 +73,7 @@ public class LeaveRequestFactory {
                         .of(2019, 11, 28, 23, 29, 0))
                 .hrComment("")
                 .employee(EmployeeFactory.getEmployee1())
-                .typeOfLeave(TypeOfLeaveFactory.getTypeOfLeave1())
+                .typeOfLeave(TypeOfLeaveFactory.getTypeOfLeave1().get())
                 .status(LeaveStatus.PENDING)
                 .build();
     }
@@ -111,7 +111,7 @@ public class LeaveRequestFactory {
                         .of(2019, 11, 25, 23, 29, 0))
                 .hrComment("ce nest pas une raison valable")
                 .employee(EmployeeFactory.getEmployee1())
-                .typeOfLeave(TypeOfLeaveFactory.getTypeOfLeave1())
+                .typeOfLeave(TypeOfLeaveFactory.getTypeOfLeave1().get())
                 .status(LeaveStatus.DECLINED)
                 .build();
     }

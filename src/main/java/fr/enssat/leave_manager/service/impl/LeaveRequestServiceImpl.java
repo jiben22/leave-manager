@@ -53,11 +53,11 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 
         EmployeeEntity emp = lr.getEmployee();
         long day = Duration.between(lr.getStartingDate(), lr.getEndingDate()).toDays();
-        if (emp.getRemaining_leave() - day < 0.0)
-            throw new LeaveRequestRemainingLeaveException(emp.getRemaining_leave(), day);
+        if (emp.getRemainingLeave() - day < 0.0)
+            throw new LeaveRequestRemainingLeaveException(emp.getRemainingLeave(), day);
 
         // remove leave from employee.getRemaining_leave(), day);
-        emp.setRemaining_leave(emp.getRemaining_leave() - day);
+        emp.setRemainingLeave(emp.getRemainingLeave() - day);
         lr.setEmployee(employeeService.editEmployee(emp));
 
         return this.repository.saveAndFlush(lr);
@@ -73,11 +73,11 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 
         long last_day = Duration.between(last_request.getStartingDate(), last_request.getEndingDate()).toDays();
         long day = Duration.between(lr.getStartingDate(), lr.getEndingDate()).toDays();
-        if (emp.getRemaining_leave() + last_day - day < 0.0)
-            throw new LeaveRequestRemainingLeaveException(emp.getRemaining_leave()+last_day, day);
+        if (emp.getRemainingLeave() + last_day - day < 0.0)
+            throw new LeaveRequestRemainingLeaveException(emp.getRemainingLeave()+last_day, day);
 
         // edit leave from employee.getRemaining_leave(), day);
-        emp.setRemaining_leave(emp.getRemaining_leave() + last_day - day);
+        emp.setRemainingLeave(emp.getRemainingLeave() + last_day - day);
         lr.setEmployee(employeeService.editEmployee(emp));
 
         lr.setLastEditionDate(LocalDateTime.now()); // update last edition date
@@ -109,7 +109,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
         // edit leave from employee.getRemaining_leave(), day);
         EmployeeEntity emp = lr.getEmployee();
         long day = Duration.between(lr.getStartingDate(), lr.getEndingDate()).toDays();
-        emp.setRemaining_leave(emp.getRemaining_leave() + day);
+        emp.setRemainingLeave(emp.getRemainingLeave() + day);
         lr.setEmployee(employeeService.editEmployee(emp));
 
         lr.setLastEditionDate(LocalDateTime.now()); // update last edition date
@@ -127,7 +127,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
         // edit leave from employee.getRemaining_leave(), day);
         EmployeeEntity emp = lr.getEmployee();
         long day = Duration.between(lr.getStartingDate(), lr.getEndingDate()).toDays();
-        emp.setRemaining_leave(emp.getRemaining_leave() + day);
+        emp.setRemainingLeave(emp.getRemainingLeave() + day);
         lr.setEmployee(employeeService.editEmployee(emp));
 
         lr.setLastEditionDate(LocalDateTime.now()); // update last edition date

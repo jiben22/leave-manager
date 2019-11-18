@@ -26,13 +26,13 @@ public class EmployeeServiceImplTest {
         assertEquals(employee.getFirstname(), "Tony");
         assertEquals(employee.getLastname(), "Stark");
         assertEquals(employee.getStreet(), "9 rue du chene germain");
-        assertEquals(employee.getPost_code(), "22700");
+        assertEquals(employee.getPostCode(), "22700");
         assertEquals(employee.getCity(), "Lannion");
         assertEquals(employee.getCountry(), "France");
-        assertEquals(employee.getRemaining_leave(), 25.0);
+        assertEquals(employee.getRemainingLeave(), 25.0);
         assertEquals(employee.getEmail(), "tony.stark@marvel.com");
         assertEquals(employee.getPosition(), "Director");
-        assertTrue(employee.matchPassword("ironman"));
+        assertTrue(employee.matchPassword("Ironman12*"));
     }
 
     @Test(expected = EmployeeNotFoundException.class)
@@ -48,10 +48,10 @@ public class EmployeeServiceImplTest {
         assertEquals(employee.getFirstname(), "Tony");
         assertEquals(employee.getLastname(), "Stark");
         assertEquals(employee.getStreet(), "9 rue du chene germain");
-        assertEquals(employee.getPost_code(), "22700");
+        assertEquals(employee.getPostCode(), "22700");
         assertEquals(employee.getCity(), "Lannion");
         assertEquals(employee.getCountry(), "France");
-        assertEquals(employee.getRemaining_leave(), 25.0);
+        assertEquals(employee.getRemainingLeave(), 25.0);
         assertEquals(employee.getEmail(), "tony.stark@marvel.com");
         assertEquals(employee.getPosition(), "Director");
         assertTrue(employee.matchPassword("ironman"));
@@ -75,10 +75,10 @@ public class EmployeeServiceImplTest {
         assertEquals(employee.getFirstname(), "Tony");
         assertEquals(employee.getLastname(), "Stark");
         assertEquals(employee.getStreet(), "9 rue du chene germain");
-        assertEquals(employee.getPost_code(), "22700");
+        assertEquals(employee.getPostCode(), "22700");
         assertEquals(employee.getCity(), "Lannion");
         assertEquals(employee.getCountry(), "France");
-        assertEquals(employee.getRemaining_leave(), 25.0);
+        assertEquals(employee.getRemainingLeave(), 25.0);
         assertEquals(employee.getEmail(), "tony.stark@marvel.com");
         assertEquals(employee.getPosition(), "Director");
         assertTrue(employee.matchPassword("ironman"));
@@ -97,10 +97,10 @@ public class EmployeeServiceImplTest {
         assertEquals(employee.getFirstname(), "Tony");
         assertEquals(employee.getLastname(), "Stark");
         assertEquals(employee.getStreet(), "9 rue du chene germain");
-        assertEquals(employee.getPost_code(), "22700");
+        assertEquals(employee.getPostCode(), "22700");
         assertEquals(employee.getCity(), "Lannion");
         assertEquals(employee.getCountry(), "France");
-        assertEquals(employee.getRemaining_leave(), 25.0);
+        assertEquals(employee.getRemainingLeave(), 25.0);
         assertEquals(employee.getEmail(), "tony.stark@marvel.com");
         assertEquals(employee.getPosition(), "Director");
         assertTrue(employee.matchPassword("ironman"));
@@ -125,7 +125,7 @@ public class EmployeeServiceImplTest {
     @Test
     public void testEditEmployee() {
         EmployeeEntity employee = employeeService.getEmployee("EMPLOYEE-157314099170606-0001");
-        employee.setRemaining_leave(20.5);
+        employee.setRemainingLeave(20.5);
         EmployeeEntity edited_employee = employeeService.editEmployee(employee);
 
         assertEquals(employee, edited_employee);
