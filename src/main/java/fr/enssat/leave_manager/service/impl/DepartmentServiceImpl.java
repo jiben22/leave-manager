@@ -37,12 +37,12 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public DepartmentEntity addDepartment(DepartmentEntity department) {
-        return repository.save(department);
+        return repository.saveAndFlush(department);
     }
 
     @Override
     public DepartmentEntity editDepartment(DepartmentEntity department) {
-        return repository.save(department);
+        return repository.saveAndFlush(department);
     }
 
     @Override

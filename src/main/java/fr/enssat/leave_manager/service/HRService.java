@@ -10,6 +10,5 @@ public interface HRService {
     boolean exists(String id);
     HREntity getHR(String id);
     HREntity addHR(HREntity hr);
-    HREntity editHR(HREntity hr);
     void deleteHR(String eid);
 }

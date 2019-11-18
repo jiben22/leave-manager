@@ -32,12 +32,12 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 
     @Override
     public LeaveRequestEntity addLeaveRequest(LeaveRequestEntity lr) {
-        return this.repository.save(lr);
+        return this.repository.saveAndFlush(lr);
     }
 
     @Override
     public LeaveRequestEntity editLeaveRequest(LeaveRequestEntity lr) {
-        return this.repository.save(lr);
+        return this.repository.saveAndFlush(lr);
     }
 
     @Override

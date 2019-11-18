@@ -40,12 +40,12 @@ public class TypeOfLeaveServiceImpl implements TypeOfLeaveService {
 
     @Override
     public TypeOfLeaveEntity addTypeOfLeave(TypeOfLeaveEntity typeOfLeave) {
-        return repository.save(typeOfLeave);
+        return repository.saveAndFlush(typeOfLeave);
     }
 
     @Override
     public TypeOfLeaveEntity editTypeOfLeave(TypeOfLeaveEntity typeOfLeave) {
-        return repository.save(typeOfLeave);
+        return repository.saveAndFlush(typeOfLeave);
     }
 
     @Override

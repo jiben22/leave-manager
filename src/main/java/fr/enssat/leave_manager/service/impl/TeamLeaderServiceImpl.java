@@ -31,7 +31,7 @@ public class TeamLeaderServiceImpl implements TeamLeaderService {
 
     @Override
     public TeamLeaderEntity addTeamLeader(TeamLeaderEntity teamLeader) {
-        return repository.save(teamLeader);
+        return repository.saveAndFlush(teamLeader);
     }
 
     @Override
