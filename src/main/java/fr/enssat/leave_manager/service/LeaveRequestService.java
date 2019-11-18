@@ -13,6 +13,7 @@ public interface LeaveRequestService {
     boolean exists(String id);
     LeaveRequestEntity getLeaveRequest(String id);
     List<LeaveRequestEntity> getLeaveRequestByStatus(LeaveStatus status);
+    List<LeaveRequestEntity> getLeaveRequests();
     LeaveRequestEntity addLeaveRequest(LeaveRequestEntity lr);
     LeaveRequestEntity editLeaveRequest(LeaveRequestEntity lr);
     LeaveRequestEntity acceptLeaveRequest(LeaveRequestEntity lr);

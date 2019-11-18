@@ -3,7 +3,7 @@ package fr.enssat.leave_manager.service.impl;
 import fr.enssat.leave_manager.model.TeamLeaderEntity;
 import fr.enssat.leave_manager.repository.TeamLeaderRepository;
 import fr.enssat.leave_manager.service.TeamLeaderService;
-import fr.enssat.leave_manager.service.exception.TeamLeaderNotFoundException;
+import fr.enssat.leave_manager.service.exception.not_found.TeamLeaderNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

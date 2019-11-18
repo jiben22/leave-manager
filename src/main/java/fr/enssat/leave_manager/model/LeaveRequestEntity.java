@@ -40,7 +40,7 @@ public class LeaveRequestEntity extends PKGenerator implements Serializable {
     @NonNull
     @PastOrPresent
     @Builder.Default
-    private LocalDateTime lastEditionDate = new Timestamp(System.currentTimeMillis()).toLocalDateTime();
+    private LocalDateTime lastEditionDate = LocalDateTime.now();
 
     @Column(nullable = false)
     @NonNull
