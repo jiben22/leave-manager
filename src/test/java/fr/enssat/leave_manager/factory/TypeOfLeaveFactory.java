@@ -22,4 +22,22 @@ public class TypeOfLeaveFactory {
                 .leaveRequests(new HashSet<>())
                 .build();
     }
+
+    public static TypeOfLeaveEntity getTypeOfLeave2() {
+        return TypeOfLeaveEntity.builder()
+                .id("TYPEOFLEAVE-157314099170606-0002")
+                .name("RTT")
+                .description("Réduction du temps de travail")
+                .leaveRequests(new HashSet<>())
+                .build();
+    }
+
+    public static TypeOfLeaveEntity getTypeOfLeave3() {
+        return TypeOfLeaveEntity.builder()
+                .id("TYPEOFLEAVE-157314099170606-0003")
+                .name("Familliale")
+                .description("enfants, etc..")
+                .leaveRequests(new HashSet<>())
+                .build();
+    }
 }

@@ -2,7 +2,7 @@ package fr.enssat.leave_manager.service.impl;
 
 import fr.enssat.leave_manager.factory.TeamFactory;
 import fr.enssat.leave_manager.model.TeamEntity;
-import fr.enssat.leave_manager.service.exception.TeamNotFoundException;
+import fr.enssat.leave_manager.service.exception.not_found.TeamNotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;

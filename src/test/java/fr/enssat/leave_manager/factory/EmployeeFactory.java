@@ -22,6 +22,23 @@ public class EmployeeFactory {
                 .build();
     }
 
+    public static EmployeeEntity getEmployee1() {
+        return EmployeeEntity.builder()
+                .eid("EMPLOYEE-157314099170606-0001")
+                .firstname("Tony")
+                .lastname("Stark")
+                .street("9 rue du chene germain")
+                .post_code("22700")
+                .city("Lannion")
+                .country("France")
+                .email("tony.stark@marvel.com")
+                .position("Director")
+                .password("Ironman56789*")
+                .teamList(new HashSet<>())
+                .leaveRequestList(new HashSet<>())
+                .build();
+    }
+
     public static EmployeeEntity getEmployee2() {
         return EmployeeEntity.builder()
                 .eid("EMPLOYEE-157314099170606-0002")

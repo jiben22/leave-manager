@@ -2,11 +2,10 @@ package fr.enssat.leave_manager.service.impl;
 
 import fr.enssat.leave_manager.factory.EmployeeFactory;
 import fr.enssat.leave_manager.model.EmployeeEntity;
-import fr.enssat.leave_manager.service.exception.EmployeeNotFoundException;
+import fr.enssat.leave_manager.service.exception.not_found.EmployeeNotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
