@@ -10,7 +10,7 @@
 
 ### Database
 
-1. Install PostgreSQL 10
+1. Install PostgreSQL >= 10
 
 2. Turn on the server with these values (or update `src/main/resources/application.yml` file)
 > Host name: **localhost** \

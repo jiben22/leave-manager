@@ -65,6 +65,9 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 
     @Override
     public LeaveRequestEntity editLeaveRequest(LeaveRequestEntity lr) {
+        if (!this.repository.existsById(lr.getLrid()))
+            throw new LeaveRequestNotFoundException(lr.getLrid());
+
         if (lr.getStatus() != LeaveStatus.PENDING)
             throw new LeaveRequestStatusException(lr.getStatus(), LeaveStatus.PENDING);
 

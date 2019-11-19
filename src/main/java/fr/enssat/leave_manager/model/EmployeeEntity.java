@@ -75,8 +75,9 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
 
     @ToString.Exclude
     @Column(nullable = false)
-    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     @NonNull
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{10,})", message = "Le mot de passe doit contenir au moins une majuscule, une minuscule, un nombre et un caractère spécial (!@#$%^&*). Il doit avoir une taille minimum de 10 caractères !")
     private String password;
 
     // Override Lombok Setter to encode password
@@ -107,6 +108,7 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
     private Set<TeamEntity> teamList;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
+    @NonNull
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
     private Set<LeaveRequestEntity> leaveRequestList;
 
@@ -125,7 +127,17 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
     @JoinColumn(name = "eid", referencedColumnName = "employee")
     private TeamLeaderEntity teamLeader;
 
-
+    public String getRole() {
+        if (this.getHrd() != null) {
+            return "ROLE_HRD";
+        } else if (this.getHr() != null) {
+            return "ROLE_HR";
+        } else if (this.getTeamLeader() != null) {
+            return "ROLE_TEAMLEADER";
+        } else {
+            return "ROLE_EMPLOYEE";
+        }
+    }
     private static BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     // To encode password
@@ -134,7 +146,7 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
     }
 
     // To check that the password matches
-    public boolean matchPassword(String password) {
+    public boolean matchesPassword(String password) {
         return encoder.matches(password, this.password);
     }
 }

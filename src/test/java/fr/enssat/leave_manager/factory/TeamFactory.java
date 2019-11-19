@@ -15,7 +15,7 @@ public class TeamFactory {
 
         return TeamEntity.builder()
                 .name("Avengers")
-                .teamLeader(TeamLeaderFactory.getTeamLeader2())
+                .teamLeader(TeamLeaderFactory.getTeamLeader2().get())
                 .department(DepartmentFactory.getDepartment1().get())
                 .employeeList(employees)
                 .build();

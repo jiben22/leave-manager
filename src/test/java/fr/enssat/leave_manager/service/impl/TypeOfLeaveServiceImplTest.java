@@ -39,10 +39,10 @@ public class TypeOfLeaveServiceImplTest {
 
         Optional<TypeOfLeaveEntity> typeOfLeave1 = TypeOfLeaveFactory.getTypeOfLeave1();
 
-        when(repository.findById("TYPEOFLEAVE-157314099170606-0001"))
+        when(repository.findById(typeOfLeave1.get().getId()))
                 .thenReturn(typeOfLeave1);
 
-        TypeOfLeaveEntity typeOfLeave = typeOfLeaveService.getTypeOfLeave("TYPEOFLEAVE-157314099170606-0001");
+        TypeOfLeaveEntity typeOfLeave = typeOfLeaveService.getTypeOfLeave(typeOfLeave1.get().getId());
 
         assertThat(typeOfLeave).isEqualToComparingFieldByField(typeOfLeave1.get());
     }
@@ -142,11 +142,13 @@ public class TypeOfLeaveServiceImplTest {
     @Test
     public void testEditTypeOfLeave() {
 
-        TypeOfLeaveEntity typeOfLeave = TypeOfLeaveFactory.getTypeOfLeave();
+        TypeOfLeaveEntity typeOfLeave = TypeOfLeaveFactory.getTypeOfLeave2();
         typeOfLeave.setName("CA2");
 
         when(repository.saveAndFlush(typeOfLeave))
                 .thenReturn(typeOfLeave);
+        when(repository.existsById(typeOfLeave.getId()))
+                .thenReturn(true);
 
         TypeOfLeaveEntity editedTypeOfLeave = typeOfLeaveService.editTypeOfLeave(typeOfLeave);
 

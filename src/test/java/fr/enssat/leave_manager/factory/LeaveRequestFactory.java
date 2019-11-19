@@ -16,8 +16,8 @@ public class LeaveRequestFactory {
                 .endingDate(LocalDateTime
                         .of(2019, 11, 25, 23, 59, 0))
                 .hrComment("")
-                .employee(EmployeeFactory.getEmployee())
-                .typeOfLeave(TypeOfLeaveFactory.getTypeOfLeave())
+                .employee(EmployeeFactory.getEmployee1())
+                .typeOfLeave(TypeOfLeaveFactory.getTypeOfLeave2())
                 .status(LeaveStatus.ACCEPTED)
                 .build();
     }
@@ -30,7 +30,7 @@ public class LeaveRequestFactory {
                 .endingDate(LocalDateTime
                         .of(2020, 11, 25, 0, 0, 0))
                 .hrComment("")
-                .employee(EmployeeFactory.getEmployee2())
+                .employee(EmployeeFactory.getEmployee2().get())
                 .typeOfLeave(TypeOfLeaveFactory.getTypeOfLeave1().get())
                 .status(LeaveStatus.ACCEPTED)
                 .build();
