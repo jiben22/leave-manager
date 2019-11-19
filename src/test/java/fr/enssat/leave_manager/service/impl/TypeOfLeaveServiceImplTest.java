@@ -155,21 +155,21 @@ public class TypeOfLeaveServiceImplTest {
         assertThat(editedTypeOfLeave).isEqualToComparingFieldByField(typeOfLeave);
     }
 
-//    @Test
-//    public void testDeleteTypeOfLeave() {
-//
-//        when(repository.findById("TYPEOFLEAVE-157314099170606-0001"))
-//                .thenReturn(TypeOfLeaveFactory.getTypeOfLeave1());
-//
-//        TypeOfLeaveEntity archivedTypeOfLeave = TypeOfLeaveFactory.getTypeOfLeave1().get();
-//        archivedTypeOfLeave.setIsArchived(true);
-//
-//        when(repository.saveAndFlush(archivedTypeOfLeave))
-//                .thenReturn(archivedTypeOfLeave);
-//
-//        TypeOfLeaveEntity deletedTypeOfLeave =
-//                typeOfLeaveService.deleteTypeOfLeave("TYPEOFLEAVE-157314099170606-0001");
-//
-//        assertTrue(deletedTypeOfLeave.getIsArchived());
-//    }
+    @Test
+    public void testDeleteTypeOfLeave() {
+        TypeOfLeaveEntity archivedTypeOfLeave = TypeOfLeaveFactory.getTypeOfLeave1().get();
+        archivedTypeOfLeave.setIsArchived(true);
+
+        when(repository.findById(archivedTypeOfLeave.getId()))
+                .thenReturn(Optional.of(archivedTypeOfLeave));
+        when(repository.existsById(archivedTypeOfLeave.getId()))
+                .thenReturn(true);
+        when(repository.saveAndFlush(archivedTypeOfLeave))
+                .thenReturn(archivedTypeOfLeave);
+
+        TypeOfLeaveEntity deletedTypeOfLeave =
+                typeOfLeaveService.deleteTypeOfLeave("TYPEOFLEAVE-157314099170606-0001");
+
+        assertTrue(deletedTypeOfLeave.getIsArchived());
+    }
 }
