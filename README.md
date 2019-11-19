@@ -1,8 +1,8 @@
 # Leave Manager - Web Application
 
-[![CircleCI](https://circleci.com/gh/jiben22/leave-manager/tree/HEAD.svg?style=svg)](https://circleci.com/gh/jiben22/leave-manager/tree/HEAD)
+[![CircleCI](https://circleci.com/gh/jiben22/leave-manager/tree/database.svg?style=svg)](https://circleci.com/gh/jiben22/leave-manager/tree/database)
 
-[![codecov](https://codecov.io/gh/jiben22/leave-manager/branch/HEAD/graph/badge.svg)](https://codecov.io/gh/jiben22/leave-manager/branch/HEAD)
+[![codecov](https://codecov.io/gh/jiben22/leave-manager/branch/database/graph/badge.svg)](https://codecov.io/gh/jiben22/leave-manager/branch/database)
 
 ## Get started
 
