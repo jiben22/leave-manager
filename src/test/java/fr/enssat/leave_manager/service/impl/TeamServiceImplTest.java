@@ -139,19 +139,9 @@ public class TeamServiceImplTest {
         teamService.editTeam(team);
     }
 
-//    @Test
-//    public void testDeleteTeam() {
-//
-//        teamService.deleteTeam("TEAM-157314099170606-0002");
-//        assertFalse(teamService.exists("TEAM-157314099170606-0002"));
-//    }
-
-    @Test(expected = TeamNotFoundException.class)
-    public void testDeleteTeamException() {
-
-        when(repository.existsById("TEAM-157314099170606-9999"))
-                .thenThrow(TeamNotFoundException.class);
-
-        teamService.deleteTeam("TEAM-157314099170606-9999");
+    @Test
+    public void testDeleteTeam() {
+        teamService.deleteTeam("TEAM-157314099170606-0002");
+        assertFalse(teamService.exists("TEAM-157314099170606-0002"));
     }
 }

@@ -95,16 +95,9 @@ public class TeamLeaderServiceImplTest {
         teamLeaderService.addTeamLeader(teamLeader2);
     }
 
-//    @Test
-//    public void testDeleteTeamLeader() {
-//
-//        teamLeaderService.deleteTeamLeader("EMPLOYEE-157314099170606-0002");
-//        assertFalse(teamLeaderService.exists("EMPLOYEE-157314099170606-0002"));
-//    }
-
-    @Test(expected = TeamLeaderNotFoundException.class)
-    public void testDeleteTeamLeaderException() {
-
-        teamLeaderService.deleteTeamLeader("EMPLOYEE-157314099170606-9999");
+    @Test
+    public void testDeleteTeamLeader() {
+        teamLeaderService.deleteTeamLeader("EMPLOYEE-157314099170606-0002");
+        assertFalse(teamLeaderService.exists("EMPLOYEE-157314099170606-0002"));
     }
 }

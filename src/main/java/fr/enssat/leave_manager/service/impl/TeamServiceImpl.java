@@ -52,8 +52,6 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public void deleteTeam(String id) {
-        if (!exists(id))
-            throw new TeamNotFoundException(id);
         repository.deleteById(id);
     }
 }

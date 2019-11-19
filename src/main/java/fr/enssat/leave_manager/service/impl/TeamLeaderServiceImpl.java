@@ -39,8 +39,6 @@ public class TeamLeaderServiceImpl implements TeamLeaderService {
 
     @Override
     public void deleteTeamLeader(String id) {
-        if (!exists(id))
-            throw new TeamLeaderNotFoundException(id);
         repository.deleteById(id);
     }
 }
