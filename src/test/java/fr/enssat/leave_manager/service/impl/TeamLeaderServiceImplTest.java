@@ -85,11 +85,8 @@ public class TeamLeaderServiceImplTest {
 
     @Test
     public void testDeleteTeamLeader() {
+        teamLeaderService.deleteTeamLeader("EMPLOYEE-157314099170606-0002");
 
-        TeamLeaderEntity teamLeader2 = TeamLeaderFactory.getTeamLeader2().get();
-        when(repository.saveAndFlush(teamLeader2))
-                .thenReturn(teamLeader2);
-
-        teamLeaderService.addTeamLeader(teamLeader2);
+        assertFalse(teamLeaderService.exists("EMPLOYEE-157314099170606-0002"));
     }
 }
