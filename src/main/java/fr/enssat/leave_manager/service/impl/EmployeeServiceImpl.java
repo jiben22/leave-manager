@@ -3,6 +3,7 @@ package fr.enssat.leave_manager.service.impl;
 import fr.enssat.leave_manager.model.EmployeeEntity;
 import fr.enssat.leave_manager.repository.EmployeeRepository;
 import fr.enssat.leave_manager.service.EmployeeService;
+import fr.enssat.leave_manager.service.exception.already_exist.EmployeeAlreadyExistException;
 import fr.enssat.leave_manager.service.exception.not_found.EmployeeNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -47,11 +48,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeEntity addEmployee(EmployeeEntity employee) {
+        if (repository.existsById(employee.getEid()))
+            throw new EmployeeAlreadyExistException(employee);
         return repository.saveAndFlush(employee);
     }
 
     @Override
     public EmployeeEntity editEmployee(EmployeeEntity employee) {
+        if (!repository.existsById(employee.getEid()))
+            throw new EmployeeNotFoundException(employee.getEid());
         return repository.saveAndFlush(employee);
     }
 

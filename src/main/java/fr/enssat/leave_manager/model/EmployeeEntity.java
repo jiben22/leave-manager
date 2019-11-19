@@ -134,7 +134,7 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
     }
 
     // To check that the password matches
-    public boolean matchPassword(String password) {
+    public boolean matchesPassword(String password) {
         return encoder.matches(password, this.password);
     }
 }

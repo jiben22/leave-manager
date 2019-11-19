@@ -93,11 +93,13 @@ public class DepartmentServiceImplTest {
 
     @Test
     public void testEditDepartment() {
-        DepartmentEntity department = DepartmentFactory.getDepartment();
+        DepartmentEntity department = DepartmentFactory.getDepartment1().get();
         department.setName("Business");
 
         when(repository.saveAndFlush(department))
                 .thenReturn(department);
+        when(repository.existsById(department.getId()))
+                .thenReturn(true);
 
         DepartmentEntity edited_department = departmentService.editDepartment(department);
 
