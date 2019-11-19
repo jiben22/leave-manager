@@ -5,6 +5,7 @@ import fr.enssat.leave_manager.model.EmployeeEntity;
 import fr.enssat.leave_manager.model.LeaveRequestEntity;
 import fr.enssat.leave_manager.repository.LeaveRequestRepository;
 import fr.enssat.leave_manager.service.EmployeeService;
+import fr.enssat.leave_manager.service.exception.LeaveRequestCommentException;
 import fr.enssat.leave_manager.service.exception.already_exists.LeaveRequestAlreadyExistsException;
 import fr.enssat.leave_manager.service.exception.not_found.LeaveRequestNotFoundException;
 import fr.enssat.leave_manager.service.exception.LeaveRequestRemainingLeaveException;
@@ -27,8 +28,7 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
@@ -192,5 +192,93 @@ public class LeaveRequestServiceImplTest {
         when(repository.existsById(leave_request.getLrid())).thenReturn(true);
 
         LeaveRequestEntity added_leave_request = leaveRequestService.editLeaveRequest(leave_request);
+    }
+
+    @Test
+    public void testAcceptLeaveRequest() {
+        LeaveRequestEntity leave_request = LeaveRequestFactory.getLeaveRequest1();
+
+        when(repository.saveAndFlush(leave_request)).thenReturn(leave_request);
+
+        LeaveRequestEntity accepted_leave_request = leaveRequestService.acceptLeaveRequest(leave_request);
+
+        assertEquals(leave_request.getLrid(), accepted_leave_request.getLrid());
+        assertEquals(leave_request.getReason(), accepted_leave_request.getReason());
+        assertEquals(leave_request.getStatus(), accepted_leave_request.getStatus());
+        assertEquals(leave_request.getCreationDate(), accepted_leave_request.getCreationDate());
+        assertEquals(leave_request.getLastEditionDate(), accepted_leave_request.getLastEditionDate());
+        assertEquals(leave_request.getStartingDate(), accepted_leave_request.getStartingDate());
+        assertEquals(leave_request.getHrComment(), accepted_leave_request.getHrComment());
+    }
+
+    @Test(expected = LeaveRequestStatusException.class)
+    public void testAcceptLeaveRequestException() {
+        LeaveRequestEntity leave_request = LeaveRequestFactory.getLeaveRequest2();
+
+        leaveRequestService.acceptLeaveRequest(leave_request);
+    }
+
+    @Test
+    public void testDeclineLeaveRequest() {
+        LeaveRequestEntity leave_request = LeaveRequestFactory.getLeaveRequest1();
+        leave_request.setHrComment("Vous pouvez répéter la question ?");
+
+        when(repository.saveAndFlush(leave_request)).thenReturn(leave_request);
+
+        LeaveRequestEntity declined_leave_request = leaveRequestService.acceptLeaveRequest(leave_request);
+
+        assertEquals(leave_request.getLrid(), declined_leave_request.getLrid());
+        assertEquals(leave_request.getReason(), declined_leave_request.getReason());
+        assertEquals(leave_request.getStatus(), declined_leave_request.getStatus());
+        assertEquals(leave_request.getCreationDate(), declined_leave_request.getCreationDate());
+        assertEquals(leave_request.getLastEditionDate(), declined_leave_request.getLastEditionDate());
+        assertEquals(leave_request.getStartingDate(), declined_leave_request.getStartingDate());
+        assertEquals(leave_request.getHrComment(), declined_leave_request.getHrComment());
+    }
+
+    @Test(expected = LeaveRequestStatusException.class)
+    public void testDeclineLeaveRequestException() {
+        LeaveRequestEntity leave_request = LeaveRequestFactory.getLeaveRequest2();
+        leave_request.setHrComment("Vous pouvez répéter la question ?");
+
+        leaveRequestService.acceptLeaveRequest(leave_request);
+    }
+
+    @Test(expected = LeaveRequestCommentException.class)
+    public void testDeclineLeaveRequestWithoutCommentException() {
+        LeaveRequestEntity leave_request = LeaveRequestFactory.getLeaveRequest1();
+
+        leaveRequestService.declineLeaveRequest(leave_request);
+    }
+
+    @Test
+    public void testCancelLeaveRequest() {
+        LeaveRequestEntity leave_request = LeaveRequestFactory.getLeaveRequest1();
+
+        when(repository.saveAndFlush(leave_request)).thenReturn(leave_request);
+
+        LeaveRequestEntity canceled_leave_request = leaveRequestService.acceptLeaveRequest(leave_request);
+
+        assertEquals(leave_request.getLrid(), canceled_leave_request.getLrid());
+        assertEquals(leave_request.getReason(), canceled_leave_request.getReason());
+        assertEquals(leave_request.getStatus(), canceled_leave_request.getStatus());
+        assertEquals(leave_request.getCreationDate(), canceled_leave_request.getCreationDate());
+        assertEquals(leave_request.getLastEditionDate(), canceled_leave_request.getLastEditionDate());
+        assertEquals(leave_request.getStartingDate(), canceled_leave_request.getStartingDate());
+        assertEquals(leave_request.getHrComment(), canceled_leave_request.getHrComment());
+    }
+
+    @Test(expected = LeaveRequestStatusException.class)
+    public void testCancelLeaveRequestException() {
+        LeaveRequestEntity leave_request = LeaveRequestFactory.getLeaveRequest4();
+
+        leaveRequestService.acceptLeaveRequest(leave_request);
+    }
+
+    @Test
+    public void testDeleteDepartment() {
+        leaveRequestService.deleteLeaveRequest("LEAVEREQUEST-157314099170606-0004");
+
+        assertFalse(leaveRequestService.exists("LEAVEREQUEST-157314099170606-0004"));
     }
 }
