@@ -3,6 +3,7 @@ package fr.enssat.leave_manager.service.impl;
 import fr.enssat.leave_manager.model.TypeOfLeaveEntity;
 import fr.enssat.leave_manager.repository.TypeOfLeaveRepository;
 import fr.enssat.leave_manager.service.TypeOfLeaveService;
+import fr.enssat.leave_manager.service.exception.already_exist.TypeOfLeaveAlreadyExistException;
 import fr.enssat.leave_manager.service.exception.not_found.TypeOfLeaveNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,11 +41,15 @@ public class TypeOfLeaveServiceImpl implements TypeOfLeaveService {
 
     @Override
     public TypeOfLeaveEntity addTypeOfLeave(TypeOfLeaveEntity typeOfLeave) {
+        if (repository.existsById(typeOfLeave.getId()))
+            throw new TypeOfLeaveAlreadyExistException(typeOfLeave);
         return repository.saveAndFlush(typeOfLeave);
     }
 
     @Override
     public TypeOfLeaveEntity editTypeOfLeave(TypeOfLeaveEntity typeOfLeave) {
+        if (!repository.existsById(typeOfLeave.getId()))
+            throw new TypeOfLeaveNotFoundException(typeOfLeave.getId());
         return repository.saveAndFlush(typeOfLeave);
     }
 

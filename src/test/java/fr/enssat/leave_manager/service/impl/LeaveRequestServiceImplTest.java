@@ -149,6 +149,7 @@ public class LeaveRequestServiceImplTest {
         long day = Duration.between(leave_request.getStartingDate(), leave_request.getEndingDate()).toDays();
 
         when(repository.saveAndFlush(leave_request)).thenReturn(leave_request);
+        when(repository.existsById(leave_request.getLrid())).thenReturn(true);
         when(employeeService.editEmployee(emp)).thenReturn(emp);
         when(repository.findById(leave_request.getLrid()))
                 .thenReturn(Optional.of(old_leave_request));
@@ -177,6 +178,7 @@ public class LeaveRequestServiceImplTest {
         LeaveRequestEntity leave_request = LeaveRequestFactory.getLeaveRequest1();
         leave_request.setEndingDate(LocalDateTime.of(2020, 11, 23, 0, 0, 0));
 
+        when(repository.existsById(leave_request.getLrid())).thenReturn(true);
         when(repository.findById(leave_request.getLrid()))
                 .thenReturn(Optional.of(old_leave_request));
 
@@ -187,6 +189,7 @@ public class LeaveRequestServiceImplTest {
     public void testEditLeaveRequestExceptionStatus() {
         LeaveRequestEntity leave_request = LeaveRequestFactory.getLeaveRequest3();
         leave_request.setEndingDate(LocalDateTime.of(2019, 11, 23, 0, 0, 0));
+        when(repository.existsById(leave_request.getLrid())).thenReturn(true);
 
         LeaveRequestEntity added_leave_request = leaveRequestService.editLeaveRequest(leave_request);
     }

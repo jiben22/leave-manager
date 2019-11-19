@@ -3,13 +3,14 @@ package fr.enssat.leave_manager.factory;
 import fr.enssat.leave_manager.model.EmployeeEntity;
 
 import java.util.HashSet;
+import java.util.Optional;
 
 public class EmployeeFactory {
 
     public static EmployeeEntity getEmployee() {
         return EmployeeEntity.builder()
-                .lastname("Captain")
-                .firstname("America")
+                .firstname("Captain")
+                .lastname("America")
                 .street("Man")
                 .city("Manhattan")
                 .postCode("10004")
@@ -33,14 +34,14 @@ public class EmployeeFactory {
             .country("France")
             .email("tony.stark@marvel.com")
             .position("Director")
-            .password("Ironman56789*")
+            .password("Ironman12*")
             .teamList(new HashSet<>())
             .leaveRequestList(new HashSet<>())
             .build();
     }
 
-    public static EmployeeEntity getEmployee2() {
-        return EmployeeEntity.builder()
+    public static Optional<EmployeeEntity> getEmployee2() {
+        return Optional.ofNullable(EmployeeEntity.builder()
                 .eid("EMPLOYEE-157314099170606-0002")
                 .firstname("Thor")
                 .lastname("Odinson")
@@ -53,7 +54,7 @@ public class EmployeeFactory {
                 .password("Thor56789*")
                 .teamList(new HashSet<>())
                 .leaveRequestList(new HashSet<>())
-                .build();
+                .build());
     }
 
     public static EmployeeEntity getEmployee3() {

@@ -142,11 +142,13 @@ public class TypeOfLeaveServiceImplTest {
     @Test
     public void testEditTypeOfLeave() {
 
-        TypeOfLeaveEntity typeOfLeave = TypeOfLeaveFactory.getTypeOfLeave();
+        TypeOfLeaveEntity typeOfLeave = TypeOfLeaveFactory.getTypeOfLeave2();
         typeOfLeave.setName("CA2");
 
         when(repository.saveAndFlush(typeOfLeave))
                 .thenReturn(typeOfLeave);
+        when(repository.existsById(typeOfLeave.getId()))
+                .thenReturn(true);
 
         TypeOfLeaveEntity editedTypeOfLeave = typeOfLeaveService.editTypeOfLeave(typeOfLeave);
 

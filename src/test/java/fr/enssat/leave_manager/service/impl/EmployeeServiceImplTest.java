@@ -2,133 +2,210 @@ package fr.enssat.leave_manager.service.impl;
 
 import fr.enssat.leave_manager.factory.EmployeeFactory;
 import fr.enssat.leave_manager.model.EmployeeEntity;
+import fr.enssat.leave_manager.repository.EmployeeRepository;
 import fr.enssat.leave_manager.service.exception.not_found.EmployeeNotFoundException;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 public class EmployeeServiceImplTest {
+
     @Mock
+    private EmployeeRepository repository;
+
+    @InjectMocks
     private EmployeeServiceImpl employeeService;
+
+    @Before
+    public void init() {
+        MockitoAnnotations.initMocks(this);
+    }
 
     @Test
     public void testGetEmployee() {
-        EmployeeEntity employee = employeeService.getEmployee("EMPLOYEE-157314099170606-0001");
+        when(repository.findById("EMPLOYEE-157314099170606-0002"))
+                .thenReturn(EmployeeFactory.getEmployee2());
 
-        assertEquals(employee.getEid(), "EMPLOYEE-157314099170606-0001");
-        assertEquals(employee.getFirstname(), "Tony");
-        assertEquals(employee.getLastname(), "Stark");
-        assertEquals(employee.getStreet(), "9 rue du chene germain");
+        EmployeeEntity employee = employeeService.getEmployee("EMPLOYEE-157314099170606-0002");
+
+        assertEquals(employee.getEid(), "EMPLOYEE-157314099170606-0002");
+        assertEquals(employee.getFirstname(), "Thor");
+        assertEquals(employee.getLastname(), "Odinson");
+        assertEquals(employee.getStreet(), "5 avenue Asgardian");
         assertEquals(employee.getPostCode(), "22700");
         assertEquals(employee.getCity(), "Lannion");
         assertEquals(employee.getCountry(), "France");
-        assertEquals(employee.getRemainingLeave(), 25.0);
-        assertEquals(employee.getEmail(), "tony.stark@marvel.com");
-        assertEquals(employee.getPosition(), "Director");
-        assertTrue(employee.matchPassword("Ironman12*"));
+        assertEquals(employee.getEmail(), "thor@marvel.com");
+        assertEquals(employee.getPosition(), "God");
+        assertTrue(employee.matchesPassword("Thor56789*"));
     }
 
     @Test(expected = EmployeeNotFoundException.class)
     public void testGetEmployeeException() {
-        EmployeeEntity employee = employeeService.getEmployee("UNKNOWN ID");
+        when(repository.findById("Unknown ID")).thenThrow(EmployeeNotFoundException.class);
+        employeeService.getEmployee("Unknown ID");
     }
 
     @Test
     public void testGetEmployeeByEmail() {
-        EmployeeEntity employee = employeeService.getEmployeeByEmail("tony.stark@marvel.com");
+        when(repository.findByEmail("thor@marvel.com")).thenReturn(EmployeeFactory.getEmployee2());
 
-        assertEquals(employee.getEid(), "EMPLOYEE-157314099170606-0001");
-        assertEquals(employee.getFirstname(), "Tony");
-        assertEquals(employee.getLastname(), "Stark");
-        assertEquals(employee.getStreet(), "9 rue du chene germain");
+        EmployeeEntity employee = employeeService.getEmployeeByEmail("thor@marvel.com");
+
+        assertEquals(employee.getEid(), "EMPLOYEE-157314099170606-0002");
+        assertEquals(employee.getFirstname(), "Thor");
+        assertEquals(employee.getLastname(), "Odinson");
+        assertEquals(employee.getStreet(), "5 avenue Asgardian");
         assertEquals(employee.getPostCode(), "22700");
         assertEquals(employee.getCity(), "Lannion");
         assertEquals(employee.getCountry(), "France");
-        assertEquals(employee.getRemainingLeave(), 25.0);
-        assertEquals(employee.getEmail(), "tony.stark@marvel.com");
-        assertEquals(employee.getPosition(), "Director");
-        assertTrue(employee.matchPassword("ironman"));
+        assertEquals(employee.getEmail(), "thor@marvel.com");
+        assertEquals(employee.getPosition(), "God");
+        assertTrue(employee.matchesPassword("Thor56789*"));
     }
 
     @Test(expected = EmployeeNotFoundException.class)
     public void testGetEmployeeByEmailException() {
-        EmployeeEntity employee = employeeService.getEmployeeByEmail("UNKNOWN EMAIL");
+        when(repository.findByEmail("Unknown email")).thenThrow(EmployeeNotFoundException.class);
+        employeeService.getEmployeeByEmail("Unknown email");
     }
 
     @Test
     public void testGetEmployeeByFirstname() {
-        List<EmployeeEntity> employee_list = employeeService.getEmployeeByFirstname("Tony");
+        List<EmployeeEntity> list = new ArrayList<>();
+        list.add(EmployeeFactory.getEmployee());
+        when(repository.findByFirstname("Captain")).thenReturn(list);
+        EmployeeEntity employeeFactory = list.get(0);
 
-        assertNotNull(employee_list);
-        assertNotEquals(employee_list.size(), 0);
+        List<EmployeeEntity> listEmployeeRepo = employeeService.getEmployeeByFirstname("Captain");
 
-        EmployeeEntity employee = employee_list.get(0);
+        assertNotNull(listEmployeeRepo);
+        assertNotEquals(listEmployeeRepo.size(), 0);
 
-        assertEquals(employee.getEid(), "EMPLOYEE-157314099170606-0001");
-        assertEquals(employee.getFirstname(), "Tony");
-        assertEquals(employee.getLastname(), "Stark");
-        assertEquals(employee.getStreet(), "9 rue du chene germain");
-        assertEquals(employee.getPostCode(), "22700");
-        assertEquals(employee.getCity(), "Lannion");
-        assertEquals(employee.getCountry(), "France");
-        assertEquals(employee.getRemainingLeave(), 25.0);
-        assertEquals(employee.getEmail(), "tony.stark@marvel.com");
-        assertEquals(employee.getPosition(), "Director");
-        assertTrue(employee.matchPassword("ironman"));
+        EmployeeEntity employeeRepo = listEmployeeRepo.get(0);
+
+        assertEquals(employeeRepo.getEid(), employeeFactory.getEid());
+        assertEquals(employeeRepo.getFirstname(), employeeFactory.getFirstname());
+        assertEquals(employeeRepo.getLastname(), employeeFactory.getLastname());
+        assertEquals(employeeRepo.getStreet(), employeeFactory.getStreet());
+        assertEquals(employeeRepo.getPostCode(), employeeFactory.getPostCode());
+        assertEquals(employeeRepo.getCity(), employeeFactory.getCity());
+        assertEquals(employeeRepo.getCountry(), employeeFactory.getCountry());
+        assertEquals(employeeRepo.getEmail(), employeeFactory.getEmail());
+        assertEquals(employeeRepo.getPosition(), employeeFactory.getPosition());
+        assertTrue(employeeRepo.matchesPassword("@Password99"));
     }
 
     @Test
     public void testGetEmployeeByLastname() {
-        List<EmployeeEntity> employee_list = employeeService.getEmployeeByLastname("Stark");
+        List<EmployeeEntity> list = new ArrayList<>();
+        list.add(EmployeeFactory.getEmployee());
+        when(repository.findByLastname("America")).thenReturn(list);
+        EmployeeEntity employeeFactory = list.get(0);
 
-        assertNotNull(employee_list);
-        assertNotEquals(employee_list.size(), 0);
+        List<EmployeeEntity> listEmployeeRepo = employeeService.getEmployeeByLastname("America");
 
-        EmployeeEntity employee = employee_list.get(0);
+        assertNotNull(listEmployeeRepo);
+        assertNotEquals(listEmployeeRepo.size(), 0);
 
-        assertEquals(employee.getEid(), "EMPLOYEE-157314099170606-0001");
-        assertEquals(employee.getFirstname(), "Tony");
-        assertEquals(employee.getLastname(), "Stark");
-        assertEquals(employee.getStreet(), "9 rue du chene germain");
-        assertEquals(employee.getPostCode(), "22700");
-        assertEquals(employee.getCity(), "Lannion");
-        assertEquals(employee.getCountry(), "France");
-        assertEquals(employee.getRemainingLeave(), 25.0);
-        assertEquals(employee.getEmail(), "tony.stark@marvel.com");
-        assertEquals(employee.getPosition(), "Director");
-        assertTrue(employee.matchPassword("ironman"));
+        EmployeeEntity employeeRepo = listEmployeeRepo.get(0);
+
+        assertEquals(employeeRepo.getEid(), employeeFactory.getEid());
+        assertEquals(employeeRepo.getFirstname(), employeeFactory.getFirstname());
+        assertEquals(employeeRepo.getLastname(), employeeFactory.getLastname());
+        assertEquals(employeeRepo.getStreet(), employeeFactory.getStreet());
+        assertEquals(employeeRepo.getPostCode(), employeeFactory.getPostCode());
+        assertEquals(employeeRepo.getCity(), employeeFactory.getCity());
+        assertEquals(employeeRepo.getCountry(), employeeFactory.getCountry());
+        assertEquals(employeeRepo.getEmail(), employeeFactory.getEmail());
+        assertEquals(employeeRepo.getPosition(), employeeFactory.getPosition());
+        assertTrue(employeeRepo.matchesPassword("@Password99"));
     }
 
     @Test
     public void testGetEmployees() {
-        List<EmployeeEntity> employee_list = employeeService.getEmployees();
+        List<EmployeeEntity> list = new ArrayList<>();
+        list.add(EmployeeFactory.getEmployee());
+        when(repository.findAll(Sort.by(Sort.Direction.ASC, "lastname"))).thenReturn(list);
 
-        assertNotNull(employee_list);
-        assertNotEquals(employee_list.size(), 0);
+        EmployeeEntity employeeFactory = list.get(0);
+
+        List<EmployeeEntity> employeeList = employeeService.getEmployees();
+
+        assertNotNull(employeeList);
+        assertNotEquals(employeeList.size(), 0);
+
+        EmployeeEntity employeeRepo = employeeList.get(0);
+
+        assertEquals(employeeRepo.getEid(), employeeFactory.getEid());
+        assertEquals(employeeRepo.getFirstname(), employeeFactory.getFirstname());
+        assertEquals(employeeRepo.getLastname(), employeeFactory.getLastname());
+        assertEquals(employeeRepo.getStreet(), employeeFactory.getStreet());
+        assertEquals(employeeRepo.getPostCode(), employeeFactory.getPostCode());
+        assertEquals(employeeRepo.getCity(), employeeFactory.getCity());
+        assertEquals(employeeRepo.getCountry(), employeeFactory.getCountry());
+        assertEquals(employeeRepo.getEmail(), employeeFactory.getEmail());
+        assertEquals(employeeRepo.getPosition(), employeeFactory.getPosition());
+        assertTrue(employeeRepo.matchesPassword("@Password99"));
+
+        List<EmployeeEntity> employee_list = employeeService.getEmployees();
     }
 
     @Test
     public void testAddEmployee() {
-        EmployeeEntity employee = EmployeeFactory.getEmployee();
-        EmployeeEntity added_employe = employeeService.addEmployee(employee);
+        EmployeeEntity employeeFactory = EmployeeFactory.getEmployee();
 
-        assertEquals(employee, added_employe);
+        when(repository.saveAndFlush(employeeFactory)).thenReturn(employeeFactory);
+
+        EmployeeEntity employeeRepo = employeeService.addEmployee(employeeFactory);
+
+        assertEquals(employeeRepo.getEid(), employeeFactory.getEid());
+        assertEquals(employeeRepo.getFirstname(), employeeFactory.getFirstname());
+        assertEquals(employeeRepo.getLastname(), employeeFactory.getLastname());
+        assertEquals(employeeRepo.getStreet(), employeeFactory.getStreet());
+        assertEquals(employeeRepo.getPostCode(), employeeFactory.getPostCode());
+        assertEquals(employeeRepo.getCity(), employeeFactory.getCity());
+        assertEquals(employeeRepo.getCountry(), employeeFactory.getCountry());
+        assertEquals(employeeRepo.getEmail(), employeeFactory.getEmail());
+        assertEquals(employeeRepo.getPosition(), employeeFactory.getPosition());
+        assertTrue(employeeRepo.matchesPassword("@Password99"));
     }
 
     @Test
     public void testEditEmployee() {
-        EmployeeEntity employee = employeeService.getEmployee("EMPLOYEE-157314099170606-0001");
-        employee.setRemainingLeave(20.5);
-        EmployeeEntity edited_employee = employeeService.editEmployee(employee);
+        EmployeeEntity employeeFactory = EmployeeFactory.getEmployee1();
 
-        assertEquals(employee, edited_employee);
+        employeeFactory.setRemainingLeave(20.5);
+
+        when(repository.saveAndFlush(employeeFactory)).thenReturn(employeeFactory);
+        when(repository.existsById(employeeFactory.getEid())).thenReturn(true);
+
+        EmployeeEntity employeeRepo = employeeService.editEmployee(employeeFactory);
+
+        assertEquals(employeeRepo.getEid(), employeeFactory.getEid());
+        assertEquals(employeeRepo.getFirstname(), employeeFactory.getFirstname());
+        assertEquals(employeeRepo.getLastname(), employeeFactory.getLastname());
+        assertEquals(employeeRepo.getStreet(), employeeFactory.getStreet());
+        assertEquals(employeeRepo.getPostCode(), employeeFactory.getPostCode());
+        assertEquals(employeeRepo.getCity(), employeeFactory.getCity());
+        assertEquals(employeeRepo.getCountry(), employeeFactory.getCountry());
+        assertEquals(employeeRepo.getEmail(), employeeFactory.getEmail());
+        assertEquals(employeeRepo.getPosition(), employeeFactory.getPosition());
+        assertTrue(employeeRepo.matchesPassword("Ironman12*"));
     }
 
     @Test
