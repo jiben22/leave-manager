@@ -5,7 +5,7 @@ import fr.enssat.leave_manager.model.EmployeeEntity;
 import fr.enssat.leave_manager.model.LeaveRequestEntity;
 import fr.enssat.leave_manager.repository.LeaveRequestRepository;
 import fr.enssat.leave_manager.service.EmployeeService;
-import fr.enssat.leave_manager.service.exception.already_exist.LeaveRequestAlreadyExistException;
+import fr.enssat.leave_manager.service.exception.already_exists.LeaveRequestAlreadyExistsException;
 import fr.enssat.leave_manager.service.exception.not_found.LeaveRequestNotFoundException;
 import fr.enssat.leave_manager.service.exception.LeaveRequestRemainingLeaveException;
 import fr.enssat.leave_manager.service.exception.LeaveRequestStatusException;
@@ -128,7 +128,7 @@ public class LeaveRequestServiceImplTest {
         LeaveRequestEntity added_leave_request = leaveRequestService.addLeaveRequest(leave_request);
     }
 
-    @Test(expected = LeaveRequestAlreadyExistException.class)
+    @Test(expected = LeaveRequestAlreadyExistsException.class)
     public void testAddLeaveRequestExceptionAlreadyExist() {
         LeaveRequestEntity leave_request = LeaveRequestFactory.getLeaveRequest1();
 
