@@ -44,10 +44,11 @@ public class MainSecurityConfig extends WebSecurityConfigurerAdapter {
         // userInfo page requires login as ROLE_USER or ROLE_ADMIN.
         // If no login, it will redirect to /login page.
         // TODO change PATH
-        http.authorizeRequests().antMatchers("/userInfo").access("hasAnyRole('EMPLOYEE','HR', 'HRD')");
+        //http.authorizeRequests().antMatchers("/userInfo").access("hasRole('ROLE_HR') or hasRole('ROLE_HRD')");
 
         // For HR & HRD only.
-        http.authorizeRequests().antMatchers("/RH/*").access("hasAnyRole('HR','HRD')");
+        http.authorizeRequests().antMatchers("/RH/*").access("hasRole('ROLE_HR') or hasRole('ROLE_HRD')");
+        System.out.println("SLT");
 
         // When the user has logged in as XX.
         // But access a page that requires role YY,
@@ -59,7 +60,7 @@ public class MainSecurityConfig extends WebSecurityConfigurerAdapter {
                 // Submit URL of login page.
                 .loginProcessingUrl("/j_spring_security_check") // Submit URL
                 .loginPage("/login")//
-                .defaultSuccessUrl("/accueil")//
+                .defaultSuccessUrl("/map")//
                 .failureUrl("/login?error=true")//
                 .usernameParameter("username")//
                 .passwordParameter("password")

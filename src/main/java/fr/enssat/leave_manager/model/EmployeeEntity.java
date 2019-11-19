@@ -129,13 +129,13 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
 
     public String getRole() {
         if (this.getHrd() != null) {
-            return "HRD";
+            return "ROLE_HRD";
         } else if (this.getHr() != null) {
-            return "HR";
+            return "ROLE_HR";
         } else if (this.getTeamLeader() != null) {
-            return "TEAMLEADER";
+            return "ROLE_TEAMLEADER";
         } else {
-            return "EMPLOYEE";
+            return "ROLE_EMPLOYEE";
         }
     }
     private static BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

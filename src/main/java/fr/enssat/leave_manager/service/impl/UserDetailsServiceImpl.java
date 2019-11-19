@@ -5,6 +5,7 @@ import fr.enssat.leave_manager.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,6 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Optional<EmployeeEntity> employee = employeeRepository.findByEmail(email);
 
         if (!employee.isPresent()) {
+            /*** DEBUG ***/
             BCryptPasswordEncoder t = new BCryptPasswordEncoder();
             String v = t.encode("ttt");
             System.out.println(v);
@@ -37,6 +39,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         System.out.println("Found mail: " + email);
         // [ROLE_USER, ROLE_ADMIN,..]
         String role = employee.get().getRole(); //this.appRoleDAO.getRoleNames(appUser.getUserId());
+        System.out.println("role : " + role);
 
 
         List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
@@ -47,7 +50,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             grantList.add(authority);
 
         }
+        UserDetails userDetails = (UserDetails) new User(employee.get().getEmail(), employee.get().getPassword(), grantList);
 
-        return new org.springframework.security.core.userdetails.User(employee.get().getEmail(), employee.get().getPassword(), grantList);
+        return userDetails;
     }
 }
