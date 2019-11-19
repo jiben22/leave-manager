@@ -104,7 +104,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
         if (lr.getStatus() != LeaveStatus.PENDING)
             throw new LeaveRequestStatusException(lr.getStatus(), LeaveStatus.DECLINED);
 
-        if (lr.getHrComment() == null)
+        if (lr.getHrComment() == null || lr.getHrComment().trim() == "")
             throw new LeaveRequestCommentException();
 
         lr.setStatus(LeaveStatus.DECLINED);
@@ -122,7 +122,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 
     @Override
     public LeaveRequestEntity cancelLeaveRequest(LeaveRequestEntity lr) {
-        if (lr.getStatus() != LeaveStatus.DECLINED)
+        if (lr.getStatus() == LeaveStatus.DECLINED)
             throw new LeaveRequestStatusException(lr.getStatus(), LeaveStatus.DECLINED);
 
         lr.setStatus(LeaveStatus.CANCELLED);
