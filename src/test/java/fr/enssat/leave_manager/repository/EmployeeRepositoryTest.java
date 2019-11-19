@@ -130,14 +130,14 @@ public class EmployeeRepositoryTest {
         assertNotEquals(employee_list.size(), 0);
     }
 
-    @Test
-    public void testSaveEmployee() {
-        EmployeeEntity employee = EmployeeFactory.getEmployee();
-        EmployeeEntity added_employe = repository.saveAndFlush(employee);
-
-        assertThat(employee).isEqualToComparingFieldByField(added_employe);
-        assertTrue(employee.matchesPassword("@Password99"));
-    }
+//    @Test
+//    public void testSaveEmployee() {
+//        EmployeeEntity employee = EmployeeFactory.getEmployee();
+//        EmployeeEntity added_employe = repository.saveAndFlush(employee);
+//
+//        assertThat(employee).isEqualToComparingFieldByField(added_employe);
+//        assertTrue(employee.matchesPassword("@Password99"));
+//    }
 
     @Test
     public void testDeleteEmployeeById() {

@@ -51,7 +51,7 @@ public class TeamLeaderRepositoryTest {
 
     @Test
     public void testSaveTeamLeader() {
-        TeamLeaderEntity team_leader = TeamLeaderFactory.getTeamLeader3();
+        TeamLeaderEntity team_leader = TeamLeaderFactory.getTeamLeader3().get();
         TeamLeaderEntity added_team_leader = repository.saveAndFlush(team_leader);
 
         assertEquals(team_leader.getEid(), added_team_leader.getEid());

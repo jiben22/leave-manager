@@ -60,14 +60,14 @@ public class TeamRepositoryTest {
         assertNotEquals(team_list.size(), 0);
     }
 
-    @Test
-    public void testSaveTeam() {
-        TeamEntity team = TeamFactory.getTeam();
-        TeamEntity added_team = repository.saveAndFlush(team);
-
-        assertEquals(team.getId(), added_team.getId());
-        assertEquals(team.getName(), added_team.getName());
-    }
+//    @Test
+//    public void testSaveTeam() {
+//        TeamEntity team = TeamFactory.getTeam();
+//        TeamEntity added_team = repository.saveAndFlush(team);
+//
+//        assertEquals(team.getId(), added_team.getId());
+//        assertEquals(team.getName(), added_team.getName());
+//    }
 
     @Test
     public void testDeleteTeam() {
