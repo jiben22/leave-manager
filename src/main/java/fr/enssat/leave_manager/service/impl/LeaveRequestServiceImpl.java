@@ -6,8 +6,8 @@ import fr.enssat.leave_manager.repository.LeaveRequestRepository;
 import fr.enssat.leave_manager.service.EmployeeService;
 import fr.enssat.leave_manager.service.LeaveRequestService;
 import fr.enssat.leave_manager.service.exception.*;
-import fr.enssat.leave_manager.service.exception.already_exist.AlreadyExistException;
-import fr.enssat.leave_manager.service.exception.already_exist.LeaveRequestAlreadyExistException;
+import fr.enssat.leave_manager.service.exception.already_exists.AlreadyExistsException;
+import fr.enssat.leave_manager.service.exception.already_exists.LeaveRequestAlreadyExistsException;
 import fr.enssat.leave_manager.service.exception.not_found.LeaveRequestNotFoundException;
 import fr.enssat.leave_manager.utils.enums.LeaveStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +49,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
     @Override
     public LeaveRequestEntity addLeaveRequest(LeaveRequestEntity lr) {
         if (this.repository.existsById(lr.getLrid()))
-            throw new LeaveRequestAlreadyExistException(lr);
+            throw new LeaveRequestAlreadyExistsException(lr);
 
         EmployeeEntity emp = lr.getEmployee();
         long day = Duration.between(lr.getStartingDate(), lr.getEndingDate()).toDays();
