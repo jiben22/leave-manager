@@ -7,6 +7,8 @@ import fr.enssat.leave_manager.service.exception.not_found.EmployeeNotFoundExcep
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class HRDServiceImpl implements HRDService {
     @Autowired
@@ -19,6 +21,10 @@ public class HRDServiceImpl implements HRDService {
 
     public HRDEntity getHRD(String id) {
         return this.repository.findById(id).orElseThrow(()->new EmployeeNotFoundException(id));
+    }
+
+    public List<HRDEntity> getHRDs() {
+        return this.repository.findAll();
     }
 
     @Override
