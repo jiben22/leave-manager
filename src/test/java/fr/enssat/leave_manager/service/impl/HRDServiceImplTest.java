@@ -47,12 +47,10 @@ public class HRDServiceImplTest {
 
     @Test(expected = HRDNotFoundException.class)
     public void testGetHRDException() {
-        HRDEntity hrd = HRDFactory.getHRD();
-
-        when(repository.findById(hrd.getEid()))
+        when(repository.findById("UNKNOWN ID"))
                 .thenThrow(HRDNotFoundException.class);
 
-        hrdService.getHRD(hrd.getEid());
+        hrdService.getHRD("UNKNOWN ID");
     }
 
     @Test
