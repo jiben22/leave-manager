@@ -2,54 +2,94 @@ package fr.enssat.leave_manager.service.impl;
 
 import fr.enssat.leave_manager.factory.TeamLeaderFactory;
 import fr.enssat.leave_manager.model.TeamLeaderEntity;
+import fr.enssat.leave_manager.repository.TeamLeaderRepository;
 import fr.enssat.leave_manager.service.exception.not_found.TeamLeaderNotFoundException;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 public class TeamLeaderServiceImplTest {
 
     @Mock
+    private TeamLeaderRepository repository;
+
+    @InjectMocks
     private TeamLeaderServiceImpl teamLeaderService;
+
+    @Before
+    public void init() {
+        MockitoAnnotations.initMocks(this);
+    }
 
     @Test
     public void testGetTeamLeader() {
-        TeamLeaderEntity team_leader = teamLeaderService.getTeamLeader("EMPLOYEE-157314099170606-0005");
 
-        assertEquals(team_leader.getEid(), "EMPLOYEE-157314099170606-0005");
+        Optional<TeamLeaderEntity> teamLeader2 = TeamLeaderFactory.getTeamLeader2();
+
+        when(repository.findById(teamLeader2.get().getEid()))
+                .thenReturn(teamLeader2);
+
+        TeamLeaderEntity teamLeader = teamLeaderService.getTeamLeader(teamLeader2.get().getEid());
+
+        assertThat(teamLeader).isEqualToComparingFieldByField(teamLeader2.get());
     }
 
     @Test(expected = TeamLeaderNotFoundException.class)
     public void testGetTeamLeaderException() {
-        TeamLeaderEntity team_leader = teamLeaderService.getTeamLeader("UNKNOWN ID");
+
+        when(repository.findById("Unknown ID")).thenThrow(TeamLeaderNotFoundException.class);
+        teamLeaderService.getTeamLeader("Unknown ID");
     }
 
     @Test
     public void testGetTeamLeaders() {
-        List<TeamLeaderEntity> team_leader_list = teamLeaderService.getTeamLeaders();
 
-        assertNotNull(team_leader_list);
-        assertNotEquals(team_leader_list.size(), 0);
+        List<TeamLeaderEntity> teamLeaderList1 = new ArrayList<>();
+        teamLeaderList1.add(TeamLeaderFactory.getTeamLeader2().get());
+        teamLeaderList1.add(TeamLeaderFactory.getTeamLeader3().get());
+
+        when(repository.findAll())
+                .thenReturn(teamLeaderList1);
+
+        List<TeamLeaderEntity> teamLeaderList = teamLeaderService.getTeamLeaders();
+
+        assertEquals(teamLeaderList.size(), teamLeaderList1.size());
+        assertThat(teamLeaderList.get(0)).isEqualToComparingFieldByField(teamLeaderList1.get(0));
+        assertThat(teamLeaderList.get(1)).isEqualToComparingFieldByField(teamLeaderList1.get(1));
     }
 
     @Test
     public void testAddTeamLeader() {
-        TeamLeaderEntity team_leader = TeamLeaderFactory.getTeamLeader();
-        TeamLeaderEntity added_team_leader = teamLeaderService.addTeamLeader(team_leader);
 
-        assertEquals(team_leader, added_team_leader);
+        TeamLeaderEntity teamLeader2 = TeamLeaderFactory.getTeamLeader2().get();
+        when(repository.saveAndFlush(teamLeader2))
+                .thenReturn(teamLeader2);
+
+        TeamLeaderEntity addedTeamLeader = teamLeaderService.addTeamLeader(teamLeader2);
+
+        assertThat(addedTeamLeader).isEqualToComparingFieldByField(teamLeader2);
     }
 
     @Test
     public void testDeleteTeamLeader() {
-        teamLeaderService.deleteTeamLeader("EMPLOYEE-157314099170606-0007");
 
-        assertFalse(teamLeaderService.exists("EMPLOYEE-157314099170606-0007"));
+        TeamLeaderEntity teamLeader2 = TeamLeaderFactory.getTeamLeader2().get();
+        when(repository.saveAndFlush(teamLeader2))
+                .thenReturn(teamLeader2);
+
+        teamLeaderService.addTeamLeader(teamLeader2);
     }
 }
