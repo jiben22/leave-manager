@@ -38,6 +38,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         System.out.println("Found mail: " + email);
         // [ROLE_USER, ROLE_ADMIN,..]
+        // FIXME, il peut etre TEAMLEADER et HR !!! (et nettoyer un peut ce code)
         String role = employee.get().getRole(); //this.appRoleDAO.getRoleNames(appUser.getUserId());
         System.out.println("role : " + role);
 
