@@ -3,6 +3,7 @@ package fr.enssat.leave_manager.service.impl;
 import fr.enssat.leave_manager.factory.TeamFactory;
 import fr.enssat.leave_manager.model.TeamEntity;
 import fr.enssat.leave_manager.repository.TeamRepository;
+import fr.enssat.leave_manager.service.exception.already_exists.TeamAlreadyExistsException;
 import fr.enssat.leave_manager.service.exception.not_found.TeamNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +20,6 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
@@ -105,12 +105,25 @@ public class TeamServiceImplTest {
         assertThat(addedTeam).isEqualToComparingFieldByField(team);
     }
 
+    @Test(expected = TeamAlreadyExistsException.class)
+    public void testAddTeamException() {
+
+        TeamEntity team = TeamFactory.getTeam2().get();
+
+        when(teamService.exists(team.getId()))
+                .thenThrow(TeamAlreadyExistsException.class);
+
+        teamService.addTeam(team);
+    }
+
     @Test
     public void testEditTeam() {
 
         TeamEntity team = TeamFactory.getTeam2().get();
         team.setName("Name");
 
+        when(repository.existsById(team.getId()))
+                .thenReturn(true);
         when(repository.saveAndFlush(team))
                 .thenReturn(team);
 
@@ -119,10 +132,26 @@ public class TeamServiceImplTest {
         assertThat(editedTeam).isEqualToComparingFieldByField(team);
     }
 
-    @Test
-    public void testDeleteTeam() {
+    @Test(expected = TeamNotFoundException.class)
+    public void testEditTeamException() {
 
-        TeamEntity team = TeamFactory.getTeam2().get();
-        teamService.deleteTeam(team.getId());
+        TeamEntity team = TeamFactory.getTeamNotFound().get();
+        teamService.editTeam(team);
+    }
+
+//    @Test
+//    public void testDeleteTeam() {
+//
+//        teamService.deleteTeam("TEAM-157314099170606-0002");
+//        assertFalse(teamService.exists("TEAM-157314099170606-0002"));
+//    }
+
+    @Test(expected = TeamNotFoundException.class)
+    public void testDeleteTeamException() {
+
+        when(repository.existsById("TEAM-157314099170606-9999"))
+                .thenThrow(TeamNotFoundException.class);
+
+        teamService.deleteTeam("TEAM-157314099170606-9999");
     }
 }

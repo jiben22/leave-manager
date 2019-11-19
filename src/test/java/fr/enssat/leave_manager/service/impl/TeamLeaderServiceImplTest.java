@@ -3,6 +3,7 @@ package fr.enssat.leave_manager.service.impl;
 import fr.enssat.leave_manager.factory.TeamLeaderFactory;
 import fr.enssat.leave_manager.model.TeamLeaderEntity;
 import fr.enssat.leave_manager.repository.TeamLeaderRepository;
+import fr.enssat.leave_manager.service.exception.already_exists.TeamLeaderAlreadyExistsException;
 import fr.enssat.leave_manager.service.exception.not_found.TeamLeaderNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
@@ -83,10 +84,27 @@ public class TeamLeaderServiceImplTest {
         assertThat(addedTeamLeader).isEqualToComparingFieldByField(teamLeader2);
     }
 
-    @Test
-    public void testDeleteTeamLeader() {
-        teamLeaderService.deleteTeamLeader("EMPLOYEE-157314099170606-0002");
+    @Test(expected = TeamLeaderAlreadyExistsException.class)
+    public void testAddTeamLeaderException() {
 
-        assertFalse(teamLeaderService.exists("EMPLOYEE-157314099170606-0002"));
+        TeamLeaderEntity teamLeader2 = TeamLeaderFactory.getTeamLeader2().get();
+
+        when(repository.existsById(teamLeader2.getEid()))
+                .thenThrow(TeamLeaderAlreadyExistsException.class);
+
+        teamLeaderService.addTeamLeader(teamLeader2);
+    }
+
+//    @Test
+//    public void testDeleteTeamLeader() {
+//
+//        teamLeaderService.deleteTeamLeader("EMPLOYEE-157314099170606-0002");
+//        assertFalse(teamLeaderService.exists("EMPLOYEE-157314099170606-0002"));
+//    }
+
+    @Test(expected = TeamLeaderNotFoundException.class)
+    public void testDeleteTeamLeaderException() {
+
+        teamLeaderService.deleteTeamLeader("EMPLOYEE-157314099170606-9999");
     }
 }
