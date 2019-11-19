@@ -75,13 +75,19 @@
                                                 <td>
                                                     <div class="p-3 mb-2 bg-success "></div>
                                                 </td>
-                                                <td>Validé</td>
+                                                <td>Validée</td>
                                             </tr>
                                             <tr>
                                                 <td>
                                                     <div class="p-3 mb-2 bg-warning"></div>
                                                 </td>
                                                 <td>En attente</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="p-3 mb-2 bg-danger"></div>
+                                                </td>
+                                                <td>Refusée</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -153,6 +159,11 @@
                     allDay: !1,
                     description: " ",
                     className: "event-orange "
+                },{
+                    title: "Congé payé ",
+                    start: new Date(y, m, 20),
+                    description: "A fortiori, ton compteur est vide !",
+                    className: "event-red "
                 }],
                 select: function() {
                     $('#addLeaveRequestModal').modal('show');
@@ -167,16 +178,14 @@
                         trigger: 'hover',
                         container: 'body'
                     });
+                },
+                dayClick: function(date, jsEvent, view) {
+                    initValueDatetimepickerCalendar(date);
                 }
             });
         });
     </script>
-    <script>
-        $(document).ready(function() {
-            // initialise Datetimepicker
-            md.initFormExtendedDatetimepickers();
-        });
-    </script>
+
 </body>
 
 </html>

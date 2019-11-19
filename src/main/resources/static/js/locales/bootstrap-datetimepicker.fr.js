@@ -1,21 +1,12 @@
 $(function () {
-
-    var d = new Date();
-
-    var month = d.getMonth()+1;
-    var day = d.getDate();
-
-    var output = (day<10 ? '0' : '') + day + '/' + (month<10 ? '0' : '') + month + '/' + d.getFullYear()
-
-    $(".datepicker").val(output + " 00:00");
-    $('.datepicker').datetimepicker({
+    $('.datepickerCalendar').datetimepicker({
         locale:'fr',
-        format:'DD/MM/YYYY HH:00',
+        format:'DD/MM/YYYY',
         icons: {
             time: "fa fa-clock-o",
             date: "fa fa-calendar",
-            /*up: "fa fa-chevron-up",
-            down: "fa fa-chevron-down",*/
+            up: "fa fa-chevron-up",
+            down: "fa fa-chevron-down",
             previous: "fa fa-chevron-left",
             next: "fa fa-chevron-right",
             today: "fa fa-screenshot",
@@ -25,7 +16,33 @@ $(function () {
         widgetPositioning:{
             horizontal: 'auto',
             vertical: 'bottom'
-        },
-        enabledHours: [0, 12]
+        }
     });
+
+    $('.datepickerUpdate').datetimepicker({
+        locale:'fr',
+        format:'DD/MM/YYYY',
+        icons: {
+            time: "fa fa-clock-o",
+            date: "fa fa-calendar",
+            up: "fa fa-chevron-up",
+            down: "fa fa-chevron-down",
+            previous: "fa fa-chevron-left",
+            next: "fa fa-chevron-right",
+            today: "fa fa-screenshot",
+            clear: "fa fa-trash",
+            close: "fa fa-remove"
+        },
+        widgetPositioning:{
+            horizontal: 'auto',
+            vertical: 'bottom'
+        }
+    });
+    $(".datepickerUpdate").val('01/01/2020');
 });
+
+function initValueDatetimepickerCalendar(date) {
+    day = ((date.toDate().getDate()>10) ? '':'0' ) + date.toDate().getDate();
+    month = (((date.toDate().getMonth()+1)>10) ? '':'0' ) + (date.toDate().getMonth()+1);
+    $(".datepickerCalendar").val(day +"/"+ month +"/"+ date.toDate().getFullYear());
+}
