@@ -3,7 +3,7 @@ package fr.enssat.leave_manager.service.impl;
 import fr.enssat.leave_manager.model.DepartmentEntity;
 import fr.enssat.leave_manager.repository.DepartmentRepository;
 import fr.enssat.leave_manager.service.DepartmentService;
-import fr.enssat.leave_manager.service.exception.DepartmentNotFoundException;
+import fr.enssat.leave_manager.service.exception.not_found.DepartmentNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;

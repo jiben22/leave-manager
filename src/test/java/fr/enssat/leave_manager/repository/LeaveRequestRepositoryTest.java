@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
@@ -56,7 +57,7 @@ public class LeaveRequestRepositoryTest {
 
     @Test
     public void testGetLeaveRequests() {
-        List<LeaveRequestEntity> leave_request_list = repository.findAll();
+        List<LeaveRequestEntity> leave_request_list = repository.findAll(Sort.by(Sort.Direction.ASC, "creationDate"));
 
         assertNotNull(leave_request_list);
         assertNotEquals(leave_request_list.size(), 0);

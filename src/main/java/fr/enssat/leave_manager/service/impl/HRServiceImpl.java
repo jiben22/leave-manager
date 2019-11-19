@@ -3,7 +3,7 @@ package fr.enssat.leave_manager.service.impl;
 import fr.enssat.leave_manager.model.HREntity;
 import fr.enssat.leave_manager.repository.HRRepository;
 import fr.enssat.leave_manager.service.HRService;
-import fr.enssat.leave_manager.service.exception.EmployeeNotFoundException;
+import fr.enssat.leave_manager.service.exception.not_found.EmployeeNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

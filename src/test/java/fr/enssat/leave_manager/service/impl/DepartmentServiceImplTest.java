@@ -3,7 +3,7 @@ package fr.enssat.leave_manager.service.impl;
 import fr.enssat.leave_manager.factory.DepartmentFactory;
 import fr.enssat.leave_manager.model.DepartmentEntity;
 import fr.enssat.leave_manager.repository.DepartmentRepository;
-import fr.enssat.leave_manager.service.exception.DepartmentNotFoundException;
+import fr.enssat.leave_manager.service.exception.not_found.DepartmentNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +31,6 @@ public class DepartmentServiceImplTest {
     public void init() {
         MockitoAnnotations.initMocks(this);
     }
-
 
     @Test
     public void testGetDepartment() {
@@ -69,7 +68,7 @@ public class DepartmentServiceImplTest {
 
     @Test
     public void testGetDepartments() {
-        List<DepartmentEntity> list = new ArrayList<DepartmentEntity>();
+        List<DepartmentEntity> list = new ArrayList<>();
         list.add(DepartmentFactory.getDepartment());
 
         when(repository.findAll(Sort.by(Sort.Direction.ASC, "name"))).thenReturn(list);

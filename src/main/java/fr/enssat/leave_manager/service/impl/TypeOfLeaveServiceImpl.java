@@ -3,7 +3,7 @@ package fr.enssat.leave_manager.service.impl;
 import fr.enssat.leave_manager.model.TypeOfLeaveEntity;
 import fr.enssat.leave_manager.repository.TypeOfLeaveRepository;
 import fr.enssat.leave_manager.service.TypeOfLeaveService;
-import fr.enssat.leave_manager.service.exception.TypeOfLeaveException;
+import fr.enssat.leave_manager.service.exception.not_found.TypeOfLeaveNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +21,11 @@ public class TypeOfLeaveServiceImpl implements TypeOfLeaveService {
 
     @Override
     public TypeOfLeaveEntity getTypeOfLeave(String id) {
-        return repository.findById(id).orElseThrow(() -> new TypeOfLeaveException(id));
+        return repository.findById(id).orElseThrow(() -> new TypeOfLeaveNotFoundException(id));
     }
 
     @Override
-    public List<TypeOfLeaveEntity> getTypeOfLeaveByName(String name) {
+    public List<TypeOfLeaveEntity> getTypeOfLeaveByNameAndIsArchivedFalse(String name) {
         return repository.findByNameAndIsArchivedFalse(name);
     }
 
@@ -49,10 +49,10 @@ public class TypeOfLeaveServiceImpl implements TypeOfLeaveService {
     }
 
     @Override
-    public void deleteTypeOfLeave(String id) {
+    public TypeOfLeaveEntity deleteTypeOfLeave(String id) {
         // Soft delete
-        TypeOfLeaveEntity type_of_leave = this.getTypeOfLeave(id);
+        TypeOfLeaveEntity type_of_leave = getTypeOfLeave(id);
         type_of_leave.setIsArchived(true);
-        this.editTypeOfLeave(type_of_leave);
+        return editTypeOfLeave(type_of_leave);
     }
 }
