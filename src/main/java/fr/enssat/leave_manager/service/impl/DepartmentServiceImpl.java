@@ -3,7 +3,7 @@ package fr.enssat.leave_manager.service.impl;
 import fr.enssat.leave_manager.model.DepartmentEntity;
 import fr.enssat.leave_manager.repository.DepartmentRepository;
 import fr.enssat.leave_manager.service.DepartmentService;
-import fr.enssat.leave_manager.service.exception.already_exist.DepartmentAlreadyExistException;
+import fr.enssat.leave_manager.service.exception.already_exists.DepartmentAlreadyExistsException;
 import fr.enssat.leave_manager.service.exception.not_found.DepartmentNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -39,7 +39,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public DepartmentEntity addDepartment(DepartmentEntity department) {
         if (repository.existsById(department.getId()))
-            throw new DepartmentAlreadyExistException(department);
+            throw new DepartmentAlreadyExistsException(department);
         return repository.saveAndFlush(department);
     }
 
