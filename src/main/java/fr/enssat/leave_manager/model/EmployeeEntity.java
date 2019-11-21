@@ -9,6 +9,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 
@@ -125,16 +127,13 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
     @JoinColumn(name = "eid", referencedColumnName = "employee")
     private TeamLeaderEntity teamLeader;
 
-    public String getRole() {
-        if (this.getHrd() != null) {
-            return "ROLE_HRD";
-        } else if (this.getHr() != null) {
-            return "ROLE_HR";
-        } else if (this.getTeamLeader() != null) {
-            return "ROLE_TEAMLEADER";
-        } else {
-            return "ROLE_EMPLOYEE";
-        }
+    public List<String> getRole() {
+        List<String> roles = new ArrayList<>();
+        roles.add("ROLE_EMPLOYEE");
+        if (this.getHrd() != null) roles.add("ROLE_HRD");
+        else if (this.getHr() != null) roles.add("ROLE_HR");
+        else if (this.getTeamLeader() != null) roles.add("ROLE_TEAMLEADER");
+        return roles;
     }
     private static BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
