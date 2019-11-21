@@ -48,7 +48,6 @@ public class MainSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // For HR & HRD only.
         http.authorizeRequests().antMatchers("/RH/*").access("hasRole('ROLE_HR') or hasRole('ROLE_HRD')");
-        System.out.println("SLT");
 
         // When the user has logged in as XX.
         // But access a page that requires role YY,
