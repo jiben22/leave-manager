@@ -50,4 +50,18 @@ public class TeamFactory {
                 .employeeList(employees)
                 .build());
     }
+
+    public static Optional<TeamEntity> getTeamNotFound() {
+
+        Set<EmployeeEntity> employees = new HashSet<>();
+        employees.add(EmployeeFactory.getEmployee2().get());
+
+        return Optional.ofNullable(TeamEntity.builder()
+                .id("TEAM-157314099170606-9999")
+                .name("Not found")
+                .teamLeader(TeamLeaderFactory.getTeamLeader2().get()) // Bad team leader
+                .department(DepartmentFactory.getDepartment1().get()) // Bad department
+                .employeeList(employees)
+                .build());
+    }
 }
