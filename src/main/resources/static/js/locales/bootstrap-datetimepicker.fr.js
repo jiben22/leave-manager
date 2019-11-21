@@ -42,7 +42,7 @@ $(function () {
 });
 
 function initValueDatetimepickerCalendar(date) {
-    day = ((date.toDate().getDate()>10) ? '':'0' ) + date.toDate().getDate();
-    month = (((date.toDate().getMonth()+1)>10) ? '':'0' ) + (date.toDate().getMonth()+1);
+    day = ((date.toDate().getDate()>9) ? '':'0' ) + date.toDate().getDate();
+    month = (((date.toDate().getMonth()+1)>9) ? '':'0' ) + (date.toDate().getMonth()+1);
     $(".datepickerCalendar").val(day +"/"+ month +"/"+ date.toDate().getFullYear());
 }
