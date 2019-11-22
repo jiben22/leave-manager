@@ -22,4 +22,3 @@
 > Database: **LeaveManager**
 
 4. Launch the application, it will do the rest
->>>>>>> master
