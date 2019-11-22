@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head.html :: head"></head>
+
+<body class="">
+  <div class="wrapper ">
+    <div th:replace="fragments/menu.html :: menu"></div>
+    <div class="main-panel">
+      <div class="content">
+        <div class="container-fluid">
+          <div th:replace="fragments/header.html :: header"></div>
+          <div class="row">
+            <div class="offset-md-11">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addEmployeeModal">
+                +
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">people</i>
+                  </div>
+                  <h4 class="card-title">Liste des employés</h4>
+                </div>
+                <div th:replace="components/employees.html :: employees"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer th:replace="fragments/footer.html :: footer"></footer>
+    </div>
+    <div th:replace="modals/employeeModals.html :: addEmployeeModal"></div>
+    <div th:replace="modals/employeeModals.html :: updateEmployeeModal"></div>
+    <div th:replace="modals/employeeModals.html :: deleteEmployeeModal"></div>
+    <div th:replace="modals/teamModals.html :: addTeamModal"></div>
+    <div th:replace="modals/departmentModals.html :: addDepartmentModal"></div>
+    <script>
+      $(document).ready(function () {
+        $('#datatables').DataTable({
+          "pagingType": "full_numbers",
+          "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "All"]
+          ],
+          responsive: true,
+          language: {
+            "sEmptyTable": "Aucune donnée disponible dans le tableau",
+            "sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+            "sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+            "sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+            "sInfoPostFix": "",
+            "sInfoThousands": ",",
+            "sLengthMenu": "Afficher _MENU_ éléments",
+            "sLoadingRecords": "Chargement...",
+            "sProcessing": "Traitement...",
+            "sSearch": "Rechercher :",
+            "sZeroRecords": "Aucun élément correspondant trouvé",
+            "oPaginate": {
+              "sFirst": "Premier",
+              "sLast": "Dernier",
+              "sNext": "Suivant",
+              "sPrevious": "Précédent"
+            },
+            "oAria": {
+              "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+              "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+            },
+            "select": {
+              "rows": {
+                "_": "%d lignes sélectionnées",
+                "0": "Aucune ligne sélectionnée",
+                "1": "1 ligne sélectionnée"
+              }
+            }
+          }
+        });
+
+        var table = $('#datatable').DataTable();
+      });
+    </script>
+</body>
+
+</html>

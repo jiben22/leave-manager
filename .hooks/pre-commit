@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# Update badges URL with current git branch
+
+# Credentials
+GITHUB_USER="jiben22"
+REPO="leave-manager"
+
+echo "Starting pre-commit hook..."
+echo "Replace badges URL with current git branch\n"
+
+# Get current branch name
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+
+# Circle CI
+# ---------
+CIRCLECI_URL="[![CircleCI](https://circleci.com/gh/$GITHUB_USER/$REPO/tree/$BRANCH.svg?style=svg)](https://circleci.com/gh/$GITHUB_USER/$REPO/tree/$BRANCH)"
+
+echo "$CIRCLECI_URL\n"
+
+# Replace CircleCI URL
+sed -i -- "s#.*\!\[CircleCI\].*#$CIRCLECI_URL#g" README.md
+
+# Codecov
+# -------
+CODECOV_URL="[![codecov](https://codecov.io/gh/$GITHUB_USER/$REPO/branch/$BRANCH/graph/badge.svg)](https://codecov.io/gh/$GITHUB_USER/$REPO/branch/$BRANCH)"
+
+echo "$CODECOV_URL\n"
+
+# Replace Codecov URL
+sed -i -- "s#.*\!\[codecov\].*#$CODECOV_URL#g" README.md
+
+echo "pre-commit hook complete.\n"
+
