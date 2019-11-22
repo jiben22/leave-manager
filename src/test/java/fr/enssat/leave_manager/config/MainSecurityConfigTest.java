@@ -26,10 +26,11 @@ public class MainSecurityConfigTest {
     public void loginWithValidUserThenAuthenticated() throws Exception {
         SecurityMockMvcRequestBuilders.FormLoginRequestBuilder login = SecurityMockMvcRequestBuilders.formLogin()
                 .user("tony.stark@marvel.com")
-                .password("Ironman12*");
+                .password("Ironman12*").loginProcessingUrl("/j_spring_security_check");
 
         mockMvc.perform(login)
-                .andExpect(SecurityMockMvcResultMatchers.authenticated().withUsername("user"));
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/map"))
+                .andExpect(SecurityMockMvcResultMatchers.authenticated().withUsername("tony.stark@marvel.com"));
     }
 
     @Test
@@ -51,24 +52,25 @@ public class MainSecurityConfigTest {
 
     @Test
     public void accessUnsecuredResourceThenOk() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/map"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
     public void accessSecuredResourceUnauthenticatedThenRedirectsToLogin() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/RH/dashboard"))
-                .andExpect(MockMvcResultMatchers.status().isForbidden())
-                .andExpect(MockMvcResultMatchers.redirectedUrl("/403"));
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                .andExpect(MockMvcResultMatchers.redirectedUrl("http://localhost/login"));
                 /*.andExpect(MockMvcResultMatchers.status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers.redirectedUrlPattern("/login"));
             */
     }
 
     @Test
-    @WithMockUser
+    // TODO
+    @WithMockUser(username = "spiderman@marvel.com", password = "Spiderman1*", roles = "HR")
     public void accessSecuredResourceAuthenticatedThenOk() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/hello"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/RH/dashboard"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }
