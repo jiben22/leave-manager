@@ -33,10 +33,10 @@ public class LeaveRequestRepositoryTest {
         assertEquals(leave_request.getLrid(), "LEAVEREQUEST-157314099170606-0001");
         assertEquals(leave_request.getReason(), "vacances");
         assertEquals(leave_request.getStatus(), LeaveStatus.PENDING);
-        assertEquals(leave_request.getCreationDate(), LocalDateTime.of(2019, 11, 17, 18, 10));
-        assertEquals(leave_request.getLastEditionDate(), LocalDateTime.of(2019, 11, 17, 18, 10));
-        assertEquals(leave_request.getStartingDate(), LocalDateTime.of(2019, 11, 20, 0, 0));
-        assertEquals(leave_request.getEndingDate(), LocalDateTime.of(2019, 11, 28, 23, 59));
+        assertEquals(leave_request.getCreationDate(), LocalDateTime.of(2020, 11, 17, 18, 10));
+        assertEquals(leave_request.getLastEditionDate(), LocalDateTime.of(2020, 11, 17, 18, 10));
+        assertEquals(leave_request.getStartingDate(), LocalDateTime.of(2020, 11, 20, 0, 0));
+        assertEquals(leave_request.getEndingDate(), LocalDateTime.of(2020, 11, 28, 23, 59));
         assertEquals(leave_request.getHrComment(), "");
     }
 
