@@ -1,0 +1,30 @@
+# Spring configuration
+spring:
+  profiles:
+    active: test
+  datasource:
+    url: jdbc:h2:mem:LeaveManager;DB_CLOSE_DELAY=-1
+    username: sa
+    password: password
+    driver-class-name: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    generate-ddl: false
+    hibernate:
+      ddl-auto: create # auto create or update database schema
+    database: h2
+    show-sql: true # show all queries
+    properties:
+      hibernate:
+        generate_statistics: true # turn statistics on
+        format_sql: true
+  h2:
+    console:
+      enabled: true # enable H2 console
+
+  # Logging
+logging:
+  level:
+    org:
+      hibernate:
+        stat: debug

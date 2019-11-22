@@ -11,15 +11,15 @@ public class MainSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .antMatchers("/", "/home", "/css/**", "/img/**", "/js/**", "/scss/**").permitAll();
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin()
-//                .loginPage("/login")
-//                .permitAll()
-//                .and()
-//                .logout()
-//                .permitAll();
+            .authorizeRequests()
+            .antMatchers("/", "/home", "/css/**", "/img/**", "/js/**", "/scss/**").permitAll();
+//            .anyRequest().authenticated()
+//            .and()
+//            .formLogin()
+//            .loginPage("/login")
+//            .permitAll()
+//            .and()
+//            .logout()
+//            .permitAll();
     }
 }
