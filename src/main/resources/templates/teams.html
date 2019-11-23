@@ -28,35 +28,38 @@
                                 </div>
                                 <div class="card-body">
                                     <div id="accordion">
-                                        <div class="card">
-                                            <div class="card-header" id="headingOne">
+                                        <div th:each="team: ${teams}" class="card">
+                                            <!-- Team -->
+                                            <div class="card-header">
                                                 <h3 class="mb-0">
-                                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                        <span class="card-icon">
-                                                            <i class="material-icons">people</i>
-                                                        </span>
-                                                        Avangers
-                                                    </button>
+                                                    <button th:text="${team.name}" class="btn btn-link" data-toggle="collapse" th:attr="data-target='#collapse-' + ${team.id}" aria-expanded="true">
+                                                            <span class="card-icon">
+                                                                <i class="material-icons">people</i>
+                                                            </span>
+                                                        </button>
                                                 </h3>
                                             </div>
-                                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                                            <div th:id="'collapse-' + ${team.id}" class="collapse" data-parent="#accordion">
                                                 <div class="card-body">
                                                     <div class="row">
-                                                        <a href="employe/modifier">
+                                                        <a th:attr="href='/equipe/modifier/' + ${team.id}">
                                                             <button type="button" class="btn btn-warning">Modifier</button>
                                                         </a>
-                                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteTeamModal">Supprimer</button>
+                                                        <a th:attr="href='/equipe/supprimer/' + ${team.id}">
+                                                            <button type="button" class="btn btn-danger">Supprimer</button>
+                                                        </a>
                                                     </div>
                                                     <div class="row">
                                                         <div class="offset-md-11">
-                                                            <a href="/employe/ajouter">
+                                                            <a th:attr="href='/equipe/ajouter/' + ${team.id}">
                                                                 <button type="button" class="btn btn-primary">+</button>
                                                             </a>
                                                         </div>
                                                     </div>
-                                                    <div th:replace="components/employees.html :: employees"></div>
+                                                    <div th:replace="components/employees.html :: employees(employees=${team.employeeList})"></div>
                                                 </div>
                                             </div>
+                                            <!-- End Team -->
                                         </div>
                                     </div>
                                 </div>

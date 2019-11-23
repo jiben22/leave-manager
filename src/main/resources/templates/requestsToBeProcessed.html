@@ -73,20 +73,11 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr role="row" class="odd pending">
-                                                            <td tabindex="0" class="sorting_1">Captain</td>
-                                                            <td>America</td>
-                                                            <td>Congé payé</td>
-                                                            <td>En attente</td>
-                                                            <td class="text-right">
-                                                                <a href="#" class="btn btn-link btn-warning btn-just-icon remove" data-toggle="modal" data-target="#checkRequestToBeProcessedModal"><i class="material-icons">dvr</i></a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr role="row" class="even accepted">
-                                                            <td tabindex="0" class="sorting_1">Thor</td>
-                                                            <td></td>
-                                                            <td>Congé payé</td>
-                                                            <td>Validé</td>
+                                                        <tr th:each="leavesRequest, i : ${leavesRequests}" role="row" th:style="${i.odd}? 'odd' : 'even'">
+                                                            <td th:text="${leavesRequest.startingDate}" tabindex="0" class="sorting_1">Starting date</td>
+                                                            <td th:text="${leavesRequest.endingDate}">Ending date</td>
+                                                            <td th:text="${leavesRequest.typeOfLeave.name}">Name of type of leaves</td>
+                                                            <td th:text="${leavesRequest.status}">Status</td>
                                                             <td class="text-right">
                                                                 <a href="#" class="btn btn-link btn-warning btn-just-icon remove" data-toggle="modal" data-target="#checkRequestToBeProcessedModal"><i class="material-icons">dvr</i></a>
                                                             </td>

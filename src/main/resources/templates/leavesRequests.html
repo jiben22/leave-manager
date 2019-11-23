@@ -45,13 +45,11 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr role="row" class="odd pending">
-                                                            <td tabindex="0" class="sorting_1">
-                                                                <a href="#" data-toggle="modal" data-target="#updateLeaveRequestModal">22/12/2019</a>
-                                                            </td>
-                                                            <td>05/01/2020</td>
-                                                            <td>Congé payé</td>
-                                                            <td>En attente</td>
+                                                        <tr th:each="leavesRequest, i : ${leavesRequests}" role="row" th:style="${i.odd}? 'odd' : 'even'">
+                                                            <td th:text="${leavesRequest.startingDate}" tabindex="0" class="sorting_1">Starting date</td>
+                                                            <td th:text="${leavesRequest.endingDate}">Ending date</td>
+                                                            <td th:text="${leavesRequest.typeOfLeave.name}">Name of type of leaves</td>
+                                                            <td th:text="${leavesRequest.status}">Status</td>
                                                             <td class="text-right">
                                                                 <a href="#" class="btn btn-link btn-danger btn-just-icon remove" data-toggle="modal" data-target="#deleteLeaveRequestModal"><i class="material-icons">close</i></a>
                                                             </td>

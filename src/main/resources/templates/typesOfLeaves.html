@@ -44,20 +44,10 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr role="row" class="odd">
-                                                            <td tabindex="0" class="sorting_1">
-                                                                <a href="#" data-toggle="modal" data-target="#updateTypeOfLeaveModal">Congé payé</a>
-                                                            </td>
-                                                            <td>Par défaut 25 par an, renouvellé le 1er janvier</td>
+                                                        <tr th:each="typeOfLeaves, iStat : ${typesOfLeaves}" role="row" th:style="${iStat.odd}? 'odd' : 'even'">
+                                                            <td th:text="${typeOfLeaves.name}" tabindex="0" class="sorting_1">Nom</td>
+                                                            <td th:text="${typeOfLeaves.description}">Description</td>
                                                             <td class="text-right"><input class="form-check-input" type="checkbox" value="" disabled=""></td>
-                                                            <td class="text-right">
-                                                                <a href="#" class="btn btn-link btn-danger btn-just-icon remove" data-toggle="modal" data-target="#archiveTypeOfLeaveModal"><i class="material-icons">archive</i></a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr role="row" class="even">
-                                                            <td tabindex="0" class="sorting_1">RTT</td>
-                                                            <td></td>
-                                                            <td class="text-right"><input class="form-check-input" type="checkbox" value="" checked="" disabled=""></td>
                                                             <td class="text-right">
                                                                 <a href="#" class="btn btn-link btn-danger btn-just-icon remove" data-toggle="modal" data-target="#archiveTypeOfLeaveModal"><i class="material-icons">archive</i></a>
                                                             </td>
