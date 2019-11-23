@@ -5,8 +5,28 @@
           username: postgres
           password: root
           driver-class-name: org.postgresql.Driver
+        # ===============================
+        # = JPA configurations
+        # ===============================
         jpa:
           generate-ddl: false
           hibernate:
             ddl-auto: update # auto create or update database schema
           database: postgresql
+        # ===============================
+        # = MAIL configurations
+        # ===============================
+        mail:
+          default-encoding: UTF-8
+          host: smtp.gmail.com
+          username: username@gmail.com
+          password: secret
+          port: 587
+          properties:
+            mail:
+              smtp:
+                auth: true
+                starttls:
+                  enable: true
+          protocol: smtp
+          test-connection: false

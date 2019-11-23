@@ -77,7 +77,7 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
     @Column(nullable = false)
     @NonNull
     private String password;
-
+/*
     // Override Lombok Setter to encode password
     public void setPassword(String password) {
         this.password = encodePassword(password);
@@ -90,7 +90,7 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
             this.password = encodePassword(password);
             return this;
         }
-    }
+    }*/
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
     @NonNull

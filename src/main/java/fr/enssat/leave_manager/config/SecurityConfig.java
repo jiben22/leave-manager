@@ -1,15 +1,17 @@
 package fr.enssat.leave_manager.config;
 
-import fr.enssat.leave_manager.service.impl.UserDetailsServiceImpl;
+import fr.enssat.leave_manager.service.EmployeeService;
+import fr.enssat.leave_manager.service.impl.EmployeeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -21,10 +23,11 @@ import java.util.Arrays;
 
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserDetailsService userDetailsService;
+    // @Autowired
+    private final EmployeeService userDetailsService;
 
     @Autowired
-    public SecurityConfig(UserDetailsServiceImpl userDetailsService) {
+    public SecurityConfig(EmployeeServiceImpl userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
@@ -61,6 +64,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // AccessDeniedException will be thrown.
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
 
+        http.authorizeRequests()
+                .antMatchers(
+                        "/registration**",
+                        "/forgot-password**",
+                        "/reset-password**").permitAll();
+
         // Config for Login Form
         http.authorizeRequests().and().formLogin()//
                 // Submit URL of login page.
@@ -71,7 +80,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")//
                 .passwordParameter("password")
                 // Config for Logout Page
-                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccessful");
+                .and().logout().invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login?logout")
+                .permitAll();
+        // FIXME test if run correctly otherwise
+        //.logoutUrl("/logout").logoutSuccessUrl("/logoutSuccessful");
     }
 
     @Bean
@@ -85,5 +100,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return source;
+    }
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
+        auth.setUserDetailsService(userDetailsService);
+        auth.setPasswordEncoder(passwordEncoder());
+        return auth;
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider());
     }
 }
