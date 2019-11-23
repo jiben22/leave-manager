@@ -1,6 +1,5 @@
 package fr.enssat.leave_manager.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,7 +24,6 @@ public class HRDEntity extends PKGenerator implements Serializable {
     @OneToOne(optional = false, mappedBy = "hrd")
     @JoinColumn(name = "eid", nullable = false, unique = true, referencedColumnName = "hrd")
     @MapsId("eid")
-    @JsonManagedReference
     private EmployeeEntity employee;
 
     @PreRemove

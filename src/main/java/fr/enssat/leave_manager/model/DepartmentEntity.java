@@ -1,6 +1,5 @@
 package fr.enssat.leave_manager.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,7 +14,6 @@ import java.util.Set;
 @AllArgsConstructor
 @Data
 @Builder
-@JsonIgnoreProperties({"id"})
 public class DepartmentEntity extends PKGenerator implements Serializable {
     @Id
     @Column(length=31, updatable = false)
