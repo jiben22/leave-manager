@@ -1,6 +1,7 @@
 package fr.enssat.leave_manager.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -11,12 +12,16 @@ import java.util.Map;
 public class RequestToBeProcessedController {
 
     @GetMapping("/demandes")
-    public ModelAndView showEmployees() {
+    public String showRequestsToBeProcessed(Model model) {
 
-        String viewName = "requestsToBeProcessed";
-        Map<String,Object> model = new HashMap<>();
-        model.put("title", "Demandes à traiter");
+        model.addAttribute("title", "Demandes à traiter");
+        return "requestsToBeProcessed";
+    }
 
-        return new ModelAndView(viewName, model);
+    @GetMapping("/demande/valider")
+    public String showValidateRequestToBeProcessed(Model model) {
+
+        model.addAttribute("title", "Valider la demande à traiter");
+        return "validateRequestToBeProcessed";
     }
 }

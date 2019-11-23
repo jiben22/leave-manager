@@ -1,119 +1,22 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<div class="modal fade" id="addTypeOfLeaveModal" tabindex="-1" role="dialog" aria-labelledby="addTypeOfLeaveModal"
-  aria-hidden="true" th:fragment="addTypeOfLeaveModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Ajouter un type de congé</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+<div class="modal fade" id="archiveTypeOfLeaveModal" tabindex="-1" role="dialog" aria-labelledby="archiveTypeOfLeaveModal" aria-hidden="true" th:fragment="archiveTypeOfLeaveModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Archiver le type de congé</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
-      <div class="modal-body">
-        <div class="card ">
-          <div class="card-header card-header-primary card-header-icon">
-            <div class="card-icon">
-              <i class="material-icons">library_books</i>
             </div>
-            <h4 class="card-title">Type de congé</h4>
-          </div>
-          <div class="card-body">
-            <form class="form-horizontal">
-              <div class="row">
-                <label class="col-md-2 col-form-label">Nom</label>
-                <div class="col-md-4">
-                  <div class="form-group has-default bmd-form-group">
-                    <input type="text" class="form-control">
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <label class="col-md-2 col-form-label">Description</label>
-                <div class="col-md-8">
-                  <div class="form-group has-default bmd-form-group">
-                    <input type="text" class="form-control">
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-success">Enregistrer</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="updateTypeOfLeaveModal" tabindex="-1" role="dialog" aria-labelledby="updateTypeOfLeaveModal"
-  aria-hidden="true" th:fragment="updateTypeOfLeaveModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modifier le type de congé</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="card ">
-          <div class="card-header card-header-primary card-header-icon">
-            <div class="card-icon">
-              <i class="material-icons">library_books</i>
+            <div class="modal-body">
+                <p>Ëtes-vous sûr d'archiver le type de congé ?</p>
             </div>
-            <h4 class="card-title">Type de congé</h4>
-          </div>
-          <div class="card-body">
-            <form class="form-horizontal">
-              <div class="row">
-                <label class="col-md-2 col-form-label">Nom</label>
-                <div class="col-md-4">
-                  <div class="form-group has-default bmd-form-group">
-                    <input type="text" class="form-control" value="Congé payé">
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <label class="col-md-2 col-form-label">Description</label>
-                <div class="col-md-6">
-                  <div class="form-group has-default bmd-form-group">
-                    <input type="text" class="form-control" value="Par défaut 25 par an, renouvellé le 1er janvier">
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-warning">Archiver</button>
+            </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-warning">Modifier</button>
-      </div>
     </div>
-  </div>
-</div>
-
-<div class="modal fade" id="archiveTypeOfLeaveModal" tabindex="-1" role="dialog"
-  aria-labelledby="archiveTypeOfLeaveModal" aria-hidden="true" th:fragment="archiveTypeOfLeaveModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Archiver le type de congé</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Ëtes-vous sûr d'archiver le type de congé ?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-warning">Archiver</button>
-      </div>
-    </div>
-  </div>
 </div>

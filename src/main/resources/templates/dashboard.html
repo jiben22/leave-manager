@@ -13,9 +13,9 @@
                     <!-- <div th:replace="components/statistics.html :: statistics"></div> -->
                     <div class="row">
                         <div class="offset-md-11">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addLeaveRequestModal">
-                                +
-                            </button>
+                            <a href="/demande-conges/ajouter">
+                                <button type="button" class="btn btn-primary">+</button>
+                            </a>
                         </div>
                     </div>
                     <div class="card card-calendar">
@@ -100,9 +100,6 @@
             </div>
         </div>
     </div>
-    <div th:replace="modals/leaveRequestModals.html :: addLeaveRequestModal"></div>
-    <div th:replace="modals/leaveRequestModals.html :: updateLeaveRequestModal"></div>
-    <div th:replace="modals/leaveRequestModals.html :: deleteLeaveRequestModal"></div>
     <script src="js/plugins/fullcalendar-locales-fr.js "></script>
     <script>
         $(document).ready(function() {
