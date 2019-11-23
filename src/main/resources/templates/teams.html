@@ -42,8 +42,8 @@
                                             <div th:id="'collapse-' + ${team.id}" class="collapse" data-parent="#accordion">
                                                 <div class="card-body">
                                                     <div class="row">
-                                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#updateTeamModal">Modifier</button>
-                                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteTeamModal">Supprimer</button>
+                                                        <button th:attr="data-id=${team.id}" id="btnUpdateTeamModal" type="button" class="btn btn-warning" data-toggle="modal" data-target="#updateTeamModal">Modifier</button>
+                                                        <button th:attr="data-id=${team.id}" id="btnDeleteTeamModal" type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteTeamModal">Supprimer</button>
                                                     </div>
                                                     <div class="row">
                                                         <div class="offset-md-11">
@@ -115,6 +115,64 @@
                 });
 
                 var table = $('#datatable').DataTable();
+            });
+        </script>
+        <script>
+            $(document).ready(function() {
+                $('#btnUpdateTeamModal').click(function() {
+                    // Get team id
+                    var teamId = $(this).data('id');
+
+                    $.ajax({
+                        url: '/api/team/' + teamId,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            console.log(data);
+                            console.log(JSON.stringify(data))
+                            console.log(JSON.parse(JSON.stringify(data)))
+                            addDataToUpdateTeamModal(data);
+                        },
+                        error: function(request, error) {
+                            alert("Request: " + JSON.stringify(request));
+                        }
+                    });
+                });
+
+                function addDataToUpdateTeamModal(jsonTeam, jsonDepartments, jsonTeamLeader, jsonEmployees) {
+
+                    // Get all elements of form
+                    var $name = $('#updateTeamModal form name');
+                    var $departments = $('#updateTeamModal form departments');
+                    var $teamLeaders = $('#updateTeamModal form teamLeaders');
+                    var $employees = $('#updateTeamModal form employees');
+
+                    // Remove all options of select
+                    $departments.empty();
+                    $teamLeaders.empty();
+                    $employees.empty();
+
+                    // Add data fpr elements
+                    $name.val(jsonTeam.name);
+                    // Departments
+                    $.each(jsonDepartments, function(department) {
+                        $departments.append($("<option></option>")
+                            .attr("value", department.id).text(department.name));
+                    });
+                    // Team leaders
+                    $.each(jsonTeamLeaders, function(teamLeader) {
+                        $teamLeaders.append($("<option></option>")
+                            .attr("value", teamLeader.id).text(teamLeader.name));
+                    });
+                    // Employees
+                    $.each(jsonEmployees, function(employee) {
+                        $employees.append($("<option></option>")
+                            .attr("value", employee.id).text(employee.name));
+                    });
+
+                    // Select default option
+                    $departments
+                }
             });
         </script>
 </body>

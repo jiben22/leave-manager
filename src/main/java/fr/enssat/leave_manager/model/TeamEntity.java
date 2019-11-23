@@ -1,5 +1,8 @@
 package fr.enssat.leave_manager.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,6 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Data
 @Builder
+@JsonIgnoreProperties({"id"})
 public class TeamEntity extends PKGenerator implements Serializable {
     @Id
     @Column(length = 25, updatable = false)
@@ -28,10 +32,12 @@ public class TeamEntity extends PKGenerator implements Serializable {
 
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false, name = "leader_id", referencedColumnName = "eid")
+    @JsonManagedReference
     private TeamLeaderEntity teamLeader;
 
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false, name = "dept_id", referencedColumnName = "id")
+    @JsonBackReference
     private DepartmentEntity department;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
@@ -44,5 +50,6 @@ public class TeamEntity extends PKGenerator implements Serializable {
     @JoinTable(name = "EmployeeTeam",
             joinColumns = @JoinColumn(name = "team_id", referencedColumnName = "id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "eid", referencedColumnName = "eid", nullable = false))
+    @JsonManagedReference
     private Set<EmployeeEntity> employeeList;
 }

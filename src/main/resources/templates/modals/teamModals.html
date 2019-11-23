@@ -1,191 +1,188 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<div class="modal fade" id="addTeamModal" tabindex="-1" role="dialog" aria-labelledby="addTeamModal" aria-hidden="true"
-  th:fragment="addTeamModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Ajouter une équipe</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+<div class="modal fade" id="addTeamModal" tabindex="-1" role="dialog" aria-labelledby="addTeamModal" aria-hidden="true" th:fragment="addTeamModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ajouter une équipe</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
-      <div class="modal-body">
-        <div class="card ">
-          <div class="card-header card-header-primary card-header-icon">
-            <div class="card-icon">
-              <i class="material-icons">people</i>
             </div>
-            <h4 class="card-title">Équipe</h4>
-          </div>
-          <div class="card-body">
-            <form class="form-horizontal">
-              <div class="row">
-                <label class="col-md-2 col-form-label">Nom</label>
-                <div class="col-md-4">
-                  <div class="form-group has-default bmd-form-group">
-                    <input type="text" class="form-control">
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <label class="col-md-2 col-form-label">Département</label>
-                <div class="col-md-6">
-                  <div class="form-group bmd-form-group">
-                    <select class="form-control" id="exampleFormControlSelect1">
+            <div class="modal-body">
+                <div class="card ">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">people</i>
+                        </div>
+                        <h4 class="card-title">Équipe</h4>
+                    </div>
+                    <div class="card-body">
+                        <form class="form-horizontal">
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">Nom</label>
+                                <div class="col-md-4">
+                                    <div class="form-group has-default bmd-form-group">
+                                        <input id="name" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">Département</label>
+                                <div class="col-md-6">
+                                    <div class="form-group bmd-form-group">
+                                        <select id="departments" class="form-control">
                       <option>Sauver le monde</option>
                       <option>...</option>
                     </select>
-                  </div>
-                </div>
-                <div class="col-md-2">
-                  <div class="form-group has-default bmd-form-group">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addDepartmentModal">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group has-default bmd-form-group">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addDepartmentModal">
                       +
                     </button>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <label class="col-md-2 col-form-label">Chef d'équipe</label>
-                <div class="col-md-6">
-                  <div class="form-group bmd-form-group">
-                    <select class="form-control" id="exampleFormControlSelect1">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">Chef d'équipe</label>
+                                <div class="col-md-6">
+                                    <div class="form-group bmd-form-group">
+                                        <select id="teamLeaders" class="form-control">
                       <option>Captain America</option>
                       <option>Thor</option>
                       <option>Spider Man</option>
                       <option>...</option>
                     </select>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <label class="col-md-2 col-form-label">Liste des membres</label>
-                <div class="col-md-6">
-                  <div class="form-group bmd-form-group">
-                    <select multiple class="form-control" id="exampleFormControlSelect2" style="min-height: 100px;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">Liste des membres</label>
+                                <div class="col-md-6">
+                                    <div class="form-group bmd-form-group">
+                                        <select id="employees" multiple class="form-control" id="exampleFormControlSelect2" style="min-height: 100px;">
                       <option>Captain America</option>
                       <option>Thor</option>
                       <option>Spider Man</option>
                       <option>...</option>
                     </select>
-                  </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-              </div>
-            </form>
-          </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-success">Enregistrer</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-          <button type="button" class="btn btn-success">Enregistrer</button>
-        </div>
-      </div>
     </div>
-  </div>
 </div>
 
-<div class="modal fade" id="updateTeamModal" tabindex="-1" role="dialog" aria-labelledby="updateTeamModal"
-  aria-hidden="true" th:fragment="updateTeamModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modifier l'équipe</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+<div class="modal fade" id="updateTeamModal" tabindex="-1" role="dialog" aria-labelledby="updateTeamModal" aria-hidden="true" th:fragment="updateTeamModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modifier l'équipe</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
-      <div class="modal-body">
-        <div class="card ">
-          <div class="card-header card-header-primary card-header-icon">
-            <div class="card-icon">
-              <i class="material-icons">person</i>
             </div>
-            <h4 class="card-title">Équipe</h4>
-          </div>
-          <div class="card-body">
-            <form class="form-horizontal">
-              <div class="row">
-                <label class="col-md-2 col-form-label">Nom</label>
-                <div class="col-md-4">
-                  <div class="form-group has-default bmd-form-group">
-                    <input type="text" class="form-control" value="Avengers">
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <label class="col-md-2 col-form-label">Département</label>
-                <div class="col-md-6">
-                  <div class="form-group bmd-form-group">
-                    <select class="form-control" id="exampleFormControlSelect1">
+            <div class="modal-body">
+                <div class="card ">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">person</i>
+                        </div>
+                        <h4 class="card-title">Équipe</h4>
+                    </div>
+                    <div class="card-body">
+                        <form class="form-horizontal">
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">Nom</label>
+                                <div class="col-md-4">
+                                    <div class="form-group has-default bmd-form-group">
+                                        <input id="name" type="text" class="form-control" value="Avengers">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">Département</label>
+                                <div class="col-md-6">
+                                    <div class="form-group bmd-form-group">
+                                        <select id="departments" class="form-control">
                       <option selected>Sauver le monde</option>
                       <option>...</option>
                     </select>
-                  </div>
-                </div>
-                <div class="col-md-2">
-                  <div class="form-group has-default bmd-form-group">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addDepartmentModal">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group has-default bmd-form-group">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addDepartmentModal">
                       +
                     </button>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <label class="col-md-2 col-form-label">Chef d'équipe</label>
-                <div class="col-md-6">
-                  <div class="form-group bmd-form-group">
-                    <select class="form-control" id="exampleFormControlSelect1">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">Chef d'équipe</label>
+                                <div class="col-md-6">
+                                    <div class="form-group bmd-form-group">
+                                        <select id="teamLeaders" class="form-control">
                       <option selected>Captain America</option>
                       <option>Thor</option>
                       <option>Spider Man</option>
                       <option>...</option>
                     </select>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <label class="col-md-2 col-form-label">Liste des membres</label>
-                <div class="col-md-6">
-                  <div class="form-group bmd-form-group">
-                    <select multiple class="form-control" id="exampleFormControlSelect2" style="min-height: 100px;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">Liste des membres</label>
+                                <div class="col-md-6">
+                                    <div class="form-group bmd-form-group">
+                                        <select multiple class="form-control" id="exampleFormControlSelect2" style="min-height: 100px;">
                       <option selected>Captain America</option>
                       <option selected>Thor</option>
                       <option selected>Spider Man</option>
                       <option>...</option>
                     </select>
-                  </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-              </div>
-            </form>
-          </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-warning">Modifier</button>
+            </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-warning">Modifier</button>
-      </div>
     </div>
-  </div>
 </div>
 
-<div class="modal fade" id="deleteTeamModal" tabindex="-1" role="dialog" aria-labelledby="deleteTeamModal"
-  aria-hidden="true" th:fragment="deleteTeamModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Supprimer l'équipe</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<div class="modal fade" id="deleteTeamModal" tabindex="-1" role="dialog" aria-labelledby="deleteTeamModal" aria-hidden="true" th:fragment="deleteTeamModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Supprimer l'équipe</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
-      <div class="modal-body">
-        <p>Ëtes-vous sûr de supprimer l'équipe ?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-danger">Supprimer</button>
-      </div>
+            </div>
+            <div class="modal-body">
+                <p>Ëtes-vous sûr de supprimer l'équipe ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-danger">Supprimer</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

@@ -1,5 +1,8 @@
 package fr.enssat.leave_manager.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -20,6 +23,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Data
 @Builder
+@JsonIgnoreProperties({"eid", "email", "password"})
 public class EmployeeEntity extends PKGenerator implements Serializable {
     @Id
     @Column(length = 29, updatable = false)
@@ -105,26 +109,31 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
     @JoinTable(name = "EmployeeTeam",
             inverseJoinColumns = @JoinColumn(name = "team_id", referencedColumnName = "id", nullable = false),
             joinColumns = @JoinColumn(name = "eid", referencedColumnName = "eid", nullable = false))
+    @JsonBackReference
     private Set<TeamEntity> teamList;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
     @NonNull
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
+    @JsonManagedReference
     private Set<LeaveRequestEntity> leaveRequestList;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "eid", referencedColumnName = "employee")
+    @JsonBackReference
     private HREntity hr;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "eid", referencedColumnName = "employee")
+    @JsonBackReference
     private HRDEntity hrd;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "eid", referencedColumnName = "employee")
+    @JsonBackReference
     private TeamLeaderEntity teamLeader;
 
     public List<String> getRole() {

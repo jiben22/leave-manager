@@ -1,5 +1,6 @@
 package fr.enssat.leave_manager.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,10 +26,12 @@ public class TeamLeaderEntity extends PKGenerator implements Serializable {
     @OneToOne(optional = false, mappedBy = "teamLeader")
     @JoinColumn(name = "eid", nullable = false, unique = true, referencedColumnName = "eid")
     @MapsId("eid")
+    @JsonBackReference
     private EmployeeEntity employee;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "teamLeader")
+    @JsonBackReference
     private Set<TeamEntity> teamList;
 
     @PreRemove
