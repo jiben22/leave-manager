@@ -15,7 +15,6 @@ import java.util.Set;
 @AllArgsConstructor
 @Data
 @Builder
-@JsonIgnoreProperties({"id"})
 public class DepartmentEntity extends PKGenerator implements Serializable {
     @Id
     @Column(length=31, updatable = false)
