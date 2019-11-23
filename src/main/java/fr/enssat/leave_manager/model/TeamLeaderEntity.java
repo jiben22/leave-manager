@@ -16,7 +16,6 @@ import java.util.Set;
 public class TeamLeaderEntity extends PKGenerator implements Serializable {
     @Id
     @Column(length = 29, updatable = false)
-    @Setter(AccessLevel.NONE)
     @Size(min = 29, max = 29)
     @Builder.Default
     private String eid = PKGenerator.generatePK("EMPLOYEE");

@@ -22,7 +22,6 @@ public class LeaveRequestEntity extends PKGenerator implements Serializable {
 
     @Id
     @Column(length = 33, updatable = false)
-    @Setter(AccessLevel.NONE)
     @Size(min = 33, max = 33)
     @Builder.Default
     private String lrid = PKGenerator.generatePK("LEAVEREQUEST");

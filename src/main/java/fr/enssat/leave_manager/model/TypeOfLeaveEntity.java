@@ -16,7 +16,6 @@ import java.util.Set;
 public class TypeOfLeaveEntity extends PKGenerator implements Serializable {
     @Id
     @Column(length = 32, updatable = false)
-    @Setter(AccessLevel.NONE)
     @Size(min = 32, max = 32)
     @Builder.Default
     private String id = PKGenerator.generatePK("TYPEOFLEAVE");

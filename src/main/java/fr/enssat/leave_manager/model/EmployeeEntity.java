@@ -21,7 +21,6 @@ import java.util.Set;
 public class EmployeeEntity extends PKGenerator implements Serializable {
     @Id
     @Column(length = 29, updatable = false)
-    @Setter(AccessLevel.NONE)
     @NonNull
     @Size(min = 29, max = 29)
     @Builder.Default
@@ -58,7 +57,6 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
     private String country;
 
     @Column(nullable = false, length = 45)
-    @Setter(AccessLevel.NONE)
     @Size(max = 45, message = "La fonction ne doit pas dépasser les 45 caractères !")
     private String position;
 
