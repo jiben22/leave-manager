@@ -5,14 +5,14 @@
 
 <body class="">
     <div class="wrapper ">
-        <div th:replace="fragments/menu.html :: menu"></div>
+        <div th:replace="fragments/menus.html :: menu"></div>
         <div class="main-panel">
+            <div th:replace="fragments/menus.html :: logoutMenu"></div>
             <div class="content">
                 <div class="container-fluid">
                     <!-- <div th:replace="components/statistics.html :: statistics"></div> -->
                     <div class="row">
                         <div class="offset-md-11">
-                            <div th:replace="fragments/header.html :: header"></div>
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addLeaveRequestModal">
                                 +
                             </button>
@@ -159,7 +159,7 @@
                     allDay: !1,
                     description: " ",
                     className: "event-orange "
-                },{
+                }, {
                     title: "Congé payé ",
                     start: new Date(y, m, 20),
                     description: "A fortiori, ton compteur est vide !",
