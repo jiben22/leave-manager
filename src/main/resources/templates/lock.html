@@ -4,89 +4,54 @@
 <head th:replace="fragments/head.html :: head"></head>
 
 <body class="off-canvas-sidebar">
-  <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top text-white">
-    <div class="container">
-      <div class="navbar-wrapper">
-        <p class="navbar-brand">Page de verrouillage</p>
-      </div>
-      <div class="collapse navbar-collapse justify-content-end">
-        <ul class="navbar-nav">
-          <li class="nav-item ">
-            <a href="./connexion" class="nav-link">
-              <i class="material-icons">fingerprint</i>Connexion
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <div class="wrapper wrapper-full-page">
-    <div class="page-header lock-page header-filter"
-      style="background-image: url('img/wallpapers/mountain.jpg'); background-size: cover; background-position: top center;">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4 ml-auto mr-auto">
-            <div class="card card-profile text-center card-hidden">
-              <div class="card-header ">
-                <div class="card-avatar">
-                  <a href="#pablo">
-                    <img class="img" src="img/faces/avatar.jpg">
-                  </a>
-                </div>
-              </div>
-              <div class="card-body ">
-                <h4 class="card-title">
-                  <span>Arnold</span> <span>Schwarzenegger</span>
-                </h4>
-                <div class="form-group">
-                  <label for="exampleInput1" class="bmd-label-floating">Entrer le mot de passe</label>
-                  <input type="password" class="form-control" id="exampleInput1">
-                </div>
-              </div>
-              <div class="card-footer justify-content-center">
-                <a href="#pablo" class="btn btn-primary btn-round">Dévérouiller</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <footer class="footer">
+    <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top text-white">
         <div class="container">
-          <nav class="float-left">
-            <ul>
-              <li>
-                <a href="https://www.creative-tim.com">
-                  Creative Tim
-                </a>
-              </li>
-              <li>
-                <a href="https://creative-tim.com/presentation">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="http://blog.creative-tim.com">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="https://www.creative-tim.com/license">
-                  Licenses
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <div class="copyright float-right">
-            &copy;
-            <script>
-              document.write(new Date().getFullYear())
-            </script>, made with <i class="material-icons">favorite</i> by
-            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
-          </div>
+            <div class="navbar-wrapper">
+                <p class="navbar-brand">Page de verrouillage</p>
+            </div>
+            <div class="collapse navbar-collapse justify-content-end">
+                <ul class="navbar-nav">
+                    <li class="nav-item ">
+                        <a href="./connexion" class="nav-link">
+                            <i class="material-icons">fingerprint</i>Connexion
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-      </footer>
+    </nav>
+    <div class="wrapper wrapper-full-page">
+        <div class="page-header lock-page header-filter" style="background-image: url('img/wallpapers/mountain.jpg'); background-size: cover; background-position: top center;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 ml-auto mr-auto">
+                        <div class="card card-profile text-center card-hidden">
+                            <div class="card-header ">
+                                <div class="card-avatar">
+                                    <a href="#pablo">
+                                        <img class="img" src="img/faces/avatar.jpg">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="card-body ">
+                                <h4 class="card-title">
+                                    <span>Arnold</span> <span>Schwarzenegger</span>
+                                </h4>
+                                <div class="form-group">
+                                    <label for="exampleInput1" class="bmd-label-floating">Entrer le mot de passe</label>
+                                    <input name="password" type="password" class="form-control" id="exampleInput1">
+                                </div>
+                            </div>
+                            <div class="card-footer justify-content-center">
+                                <a href="#pablo" class="btn btn-primary btn-round">Dévérouiller</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer th:replace="fragments/footer.html :: footer"></footer>
+        </div>
     </div>
-  </div>
 </body>
 
 </html>
