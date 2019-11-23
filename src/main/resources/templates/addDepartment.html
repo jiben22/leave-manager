@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head.html :: head"></head>
+
+<body class="">
+    <div class="wrapper ">
+        <div th:replace="fragments/menus.html :: menu"></div>
+        <div class="main-panel">
+            <div th:replace="fragments/menus.html :: logoutMenu"></div>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header card-header-primary card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">business</i>
+                            </div>
+                            <h4 class="card-title">Département</h4>
+                        </div>
+                        <div class="card-body">
+                            <form class="form-horizontal">
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Nom</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                <button type="button" class="btn btn-success">Enregistrer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer th:replace="fragments/footer.html :: footer"></footer>
+        </div>
+</body>
+
+</html>

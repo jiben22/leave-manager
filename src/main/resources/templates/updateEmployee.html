@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head.html :: head"></head>
+
+<body class="">
+    <div class="wrapper ">
+        <div th:replace="fragments/menus.html :: menu"></div>
+        <div class="main-panel">
+            <div th:replace="fragments/menus.html :: logoutMenu"></div>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="card ">
+                        <div class="card-header card-header-primary card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">person</i>
+                            </div>
+                            <h4 class="card-title">Employé</h4>
+                        </div>
+                        <div class="card-body">
+                            <form class="form-horizontal">
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Nom</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input type="text" class="form-control" value="Captain">
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2 col-form-label">Prénom</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input type="text" class="form-control" value="America">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Email</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input type="email" class="form-control" value="mail@enssat.fr">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Adresse</label>
+                                    <div class="col-md-10">
+                                        <div class="form-group bmd-form-group">
+                                            <input type="text" class="form-control" value="6 Rue de Kerampont">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Code Postal</label>
+                                    <div class="col-md-2">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input type="text" class="form-control" value="22304">
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2 col-form-label">Ville</label>
+                                    <div class="col-md-2">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input type="text" class="form-control" value="Lannion">
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2 col-form-label">Pays</label>
+                                    <div class="col-md-2">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input type="text" class="form-control" value="France">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Emploi</label>
+                                    <div class="col-md-6">
+                                        <div class="form-group bmd-form-group">
+                                            <input type="text" class="form-control" value="Super héro">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Équipe</label>
+                                    <div class="col-md-8">
+                                        <div class="form-group bmd-form-group">
+                                            <select class="form-control" id="exampleFormControlSelect1">
+                                    <option selected>Avengers</option>
+                                    <option>...</option>
+                                  </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTeamModal">
+                                    +
+                                  </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Nombre de congés</label>
+                                    <div class="col-md-1">
+                                        <div class="form-group bmd-form-group">
+                                            <input type="text" class="form-control" value="25">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer th:replace="fragments/footer.html :: footer"></footer>
+        </div>
+</body>
+
+</html>

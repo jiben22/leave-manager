@@ -42,14 +42,16 @@
                                             <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                                                 <div class="card-body">
                                                     <div class="row">
-                                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#updateTeamModal">Modifier</button>
+                                                        <a href="employe/modifier">
+                                                            <button type="button" class="btn btn-warning">Modifier</button>
+                                                        </a>
                                                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteTeamModal">Supprimer</button>
                                                     </div>
                                                     <div class="row">
                                                         <div class="offset-md-11">
-                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addEmployeeModal">
-                                                                +
-                                                            </button>
+                                                            <a href="/employe/ajouter">
+                                                                <button type="button" class="btn btn-primary">+</button>
+                                                            </a>
                                                         </div>
                                                     </div>
                                                     <div th:replace="components/employees.html :: employees"></div>
@@ -65,13 +67,6 @@
             </div>
             <footer th:replace="fragments/footer.html :: footer"></footer>
         </div>
-        <div th:replace="modals/teamModals.html :: addTeamModal"></div>
-        <div th:replace="modals/teamModals.html :: updateTeamModal"></div>
-        <div th:replace="modals/teamModals.html :: deleteTeamModal"></div>
-        <div th:replace="modals/employeeModals.html :: addEmployeeModal"></div>
-        <div th:replace="modals/employeeModals.html :: updateEmployeeModal"></div>
-        <div th:replace="modals/employeeModals.html :: deleteEmployeeModal"></div>
-        <div th:replace="modals/departmentModals.html :: addDepartmentModal"></div>
         <script>
             $(document).ready(function() {
                 $('#datatables').DataTable({

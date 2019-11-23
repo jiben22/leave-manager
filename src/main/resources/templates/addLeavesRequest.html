@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head.html :: head"></head>
+
+<body class="">
+    <div class="wrapper ">
+        <div th:replace="fragments/menus.html :: menu"></div>
+        <div class="main-panel">
+            <div th:replace="fragments/menus.html :: logoutMenu"></div>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="card ">
+                        <div class="card-header card-header-primary card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">next_week</i>
+                            </div>
+                            <h4 class="card-title">Demande de congé</h4>
+                        </div>
+                        <div class="card-body">
+                            <form class="form-horizontal">
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Date de début</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input type="text" class="form-control datepicker datepickerCalendar">
+                                            <select type="text" class="form-control">
+                                                <option selected>Matin</option>
+                                                <option>Après-midi</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2 col-form-label">Date de fin</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input type="text" class="form-control datepicker datepickerCalendar">
+                                            <select type="text" class="form-control">
+                                                <option selected>Matin</option>
+                                                <option>Après-midi</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Type de congé</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <select type="text" class="form-control">
+                                                <option>Congé payé</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Raison</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Nombre de congés restants</label>
+                                    <div class="col-md-2">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input type="text" class="form-control" value="23" disabled="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer th:replace="fragments/footer.html :: footer"></footer>
+        </div>
+</body>
+
+</html>
