@@ -26,7 +26,7 @@
                                     </div>
                                     <h4 class="card-title">Liste des employés</h4>
                                 </div>
-                                <div th:replace="components/employees.html :: employees"></div>
+                                <div th:replace="components/employees.html :: employees(employees=${employees})"></div>
                             </div>
                         </div>
                     </div>
