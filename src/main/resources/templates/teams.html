@@ -122,59 +122,27 @@
                 $('#btnUpdateTeamModal').click(function() {
                     // Get team id
                     var teamId = $(this).data('id');
-                    var team = null;
-                    var departments = null;
-                    var employees = null;
 
-                    $.when(
-                        $.ajax({
-                            url: '/api/team/' + teamId,
-                            type: 'GET',
-                            dataType: 'json',
-                            success: function(data) {
-                                team = data;
-                            },
-                            error: function(request, error) {
-                                alert("Request: " + JSON.stringify(request));
-                            }
-                        }),
-                        $.ajax({
-                            url: '/api/departments',
-                            type: 'GET',
-                            dataType: 'json',
-                            success: function(data) {
-                                departments = data;
-                            },
-                            error: function(request, error) {
-                                alert("Request: " + JSON.stringify(request));
-                            }
-                        }),
-                        $.ajax({
-                            url: '/api/employees',
-                            type: 'GET',
-                            dataType: 'json',
-                            success: function(data) {
-                                employees = data;
-                            },
-                            error: function(request, error) {
-                                alert("Request: " + JSON.stringify(request));
-                            }
-                        })
-                    ).then(function() {
-                        // Add data to update team modal
-                        addDataToUpdateTeamModal(team, departments, employees);
+                    $.ajax({
+                        url: '/api/team/' + teamId,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            // addDataToUpdateTeamModal(data);
+                        },
+                        error: function(request, error) {
+                            alert("Request: " + JSON.stringify(request));
+                        }
                     });
                 });
 
-                function addDataToUpdateTeamModal(team, departments, employees) {
-
-                    console.log(departments);
+                function addDataToUpdateTeamModal(team, departments, teamLeaders, employees) {
 
                     // Get all elements of form
-                    var $name = $('#updateTeamModal form #name');
-                    var $departments = $('#updateTeamModal form #departments');
-                    var $teamLeaders = $('#updateTeamModal form #teamLeaders');
-                    var $employees = $('#updateTeamModal form #employees');
+                    var $name = $('#updateTeamModal form name');
+                    var $departments = $('#updateTeamModal form departments');
+                    var $teamLeaders = $('#updateTeamModal form teamLeaders');
+                    var $employees = $('#updateTeamModal form employees');
 
                     // Remove all options of select
                     $departments.empty();
@@ -182,28 +150,28 @@
                     $employees.empty();
 
                     // Add data fpr elements
-                    $name.val(team.name);
+                    $name.val(jsonTeam.name);
                     // Departments
                     $.each(departments, function(department) {
                         $departments.append($("<option></option>")
                             .attr("value", department.id).text(department.name));
                     });
                     // Team leaders
-                    $.each(employees, function(employee) {
+                    $.each(teamLeaders, function(teamLeader) {
                         $teamLeaders.append($("<option></option>")
-                            .attr("value", employee.id).text(employee.lastname + ' ' + employee.firstname));
+                            .attr("value", teamLeader.id).text(teamLeader.name));
                     });
                     // Employees
                     $.each(employees, function(employee) {
                         $employees.append($("<option></option>")
-                            .attr("value", employee.id).text(employee.lastname + ' ' + employee.firstname));
+                            .attr("value", employee.id).text(employee.name));
                     });
 
                     // Select default option
-                    $teamLeaders.val(team.teamLeader.lastname + ' ' + team.teamLeader.firstname);
+                    $teamLeaders.val(team.teamLeader.name);
                     $departments.val(team.department.name);
                     $.each(team.employeeList, function(employee) {
-                        $employees.val(employee.lastname + ' ' + employee.firstname);
+                        $employees.val(employee.lastname + " " + employee.firstname);
 
                     });
                 }
