@@ -79,7 +79,7 @@
                                                             <td th:text="${leavesRequest.typeOfLeave.name}">Name of type of leaves</td>
                                                             <td th:text="${leavesRequest.status}">Status</td>
                                                             <td class="text-right">
-                                                                <a href="#" class="btn btn-link btn-warning btn-just-icon remove" data-toggle="modal" data-target="#checkRequestToBeProcessedModal"><i class="material-icons">dvr</i></a>
+                                                                <a th:href="@{/demande/valider/' + ${leavesRequest.id}}" class="btn btn-link btn-warning btn-just-icon remove"><i class="material-icons">dvr</i></a>
                                                             </td>
                                                         </tr>
                                                     </tbody>

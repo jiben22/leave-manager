@@ -42,7 +42,7 @@ public class LeaveRequestController {
     public String showAddLeavesRequest(Model model) {
 
         model.addAttribute("title", "Ajouter une demande de congés");
-        return "leavesRequests";
+        return "addLeavesRequest";
     }
 
     @GetMapping("/demande-conges/modifier")

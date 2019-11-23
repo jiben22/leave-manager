@@ -12,7 +12,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="offset-md-11">
-                            <a href="/equipe/ajouter">
+                            <a th:href="@{/equipe/ajouter}">
                                 <button type="button" class="btn btn-primary">+</button>
                             </a>
                         </div>
@@ -32,7 +32,7 @@
                                             <!-- Team -->
                                             <div class="card-header">
                                                 <h3 class="mb-0">
-                                                    <button th:text="${team.name}" class="btn btn-link" data-toggle="collapse" th:attr="data-target='#collapse-' + ${team.id}" aria-expanded="true">
+                                                    <button th:text="${team.name}" class="btn btn-link">
                                                             <span class="card-icon">
                                                                 <i class="material-icons">people</i>
                                                             </span>
@@ -42,16 +42,16 @@
                                             <div th:id="'collapse-' + ${team.id}" class="collapse" data-parent="#accordion">
                                                 <div class="card-body">
                                                     <div class="row">
-                                                        <a th:attr="href='/equipe/modifier/' + ${team.id}">
+                                                        <a th:href="@{/equipe/modifier/' + ${team.id}}">
                                                             <button type="button" class="btn btn-warning">Modifier</button>
                                                         </a>
-                                                        <a th:attr="href='/equipe/supprimer/' + ${team.id}">
+                                                        <a th:href="@{/equipe/supprimer/' + ${team.id}}">
                                                             <button type="button" class="btn btn-danger">Supprimer</button>
                                                         </a>
                                                     </div>
                                                     <div class="row">
                                                         <div class="offset-md-11">
-                                                            <a th:attr="href='/equipe/ajouter/' + ${team.id}">
+                                                            <a th:href="@{/equipe/ajouter/' + ${team.id}}">
                                                                 <button type="button" class="btn btn-primary">+</button>
                                                             </a>
                                                         </div>
