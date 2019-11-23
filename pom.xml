@@ -64,6 +64,13 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- Spring DevTools -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
 		<!-- Spring Test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -71,11 +78,11 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Spring DevTools -->
+		<!-- Spring Security Test -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 
 		<!-- H2Database -->
