@@ -29,7 +29,7 @@ public class SecurityController {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
 
-        return "redirect:/login";
+        return "redirect:/connexion";
     }
 
     @GetMapping("/demande-mot-de-passe")

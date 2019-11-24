@@ -28,12 +28,11 @@
                                     <p class="card-description text-center">
                                         Accédez à votre espace dédié pour vos demandes de congés.
                                     </p>
-                                    <!-- /login?error=true -->
                                     <div style="color:red;margin:10px 0px;" th:if="${#request.getParameter('error') == 'true'}">
-                                        Login Failed!!!<br/> Reason :
+                                        La connexion à échoué <br/> Raison :
                                         <span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}" th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}">
-           Static summary
-    </span>
+                                            Static summary
+                                        </span>
 
                                     </div>
                                     <span class="bmd-form-group">
