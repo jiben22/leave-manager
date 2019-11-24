@@ -99,6 +99,13 @@
 			<version>${assertj.version}</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- Send emails -->
+		<dependency>
+			<groupId>com.mailjet</groupId>
+			<artifactId>mailjet-client</artifactId>
+			<version>4.2.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
