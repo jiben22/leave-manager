@@ -11,7 +11,7 @@ public class DashboardController {
     @GetMapping("/")
     public String showDashboard(Model model) {
 
-        MailSender.send("test", "Ca marche");
+        //MailSender.send("test", "Ca marche");
 
         model.addAttribute("title", "Vue d'ensemble");
         return "dashboard";
