@@ -26,7 +26,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="employee, i : ${employees}" role="row" th:style="${i.odd}? 'odd' : 'even'" th:class="${employee.lrid}">
+                        <tr th:each="employee, i : ${employees}" role="row" th:style="${i.odd}? 'odd' : 'even'" th:class="${employee.eid}">
                             <td th:text="${employee.lastname}" tabindex="0" class="sorting_1">Lastname</td>
                             <td th:text="${employee.firstname}">Firstname</td>
                             <td th:text="${employee.city}">City</td>

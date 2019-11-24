@@ -10,20 +10,23 @@
             <div th:replace="fragments/menus.html :: logoutMenu"></div>
             <div class="content">
                 <div class="container-fluid">
-                    <div class="card ">
+                    <a th:href="@{/equipe/modifier/} + ${team.id}">
+                        <button type="button" class="btn btn-warning pull-right">Modifier</button>
+                    </a>
+                    <div class="card">
                         <div class="card-header card-header-primary card-header-icon">
                             <div class="card-icon">
-                                <i class="material-icons">person</i>
+                                <i class="material-icons">people</i>
                             </div>
-                            <h4 class="card-title">Équipe</h4>
+                            <h4 class="card-title">Visualiser l'équipe</h4>
                         </div>
                         <div class="card-body">
-                            <form class="form-horizontal">
+                            <form action="#" th:object="${team}" class="form-horizontal">
                                 <div class="row">
                                     <label class="col-md-2 col-form-label">Nom</label>
                                     <div class="col-md-4">
                                         <div class="form-group has-default bmd-form-group">
-                                            <input type="text" class="form-control" value="Avengers">
+                                            <input disabled="" th:field="*{name}" type="text" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -31,16 +34,15 @@
                                     <label class="col-md-2 col-form-label">Département</label>
                                     <div class="col-md-6">
                                         <div class="form-group bmd-form-group">
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                    <option selected>Sauver le monde</option>
-                                    <option>...</option>
-                                  </select>
+                                            <select disabled="" th:field="*{department}" class="form-control">
+                                                <option th:value="${team.department.id}" th:text="${team.department.name}"></option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group has-default bmd-form-group">
-                                            <a th:href="@{/departement/ajouter}">
-                                                <button type="button" class="btn btn-primary">+</button>
+                                            <a>
+                                                <button th:href="@{/departement/ajouter}" type="button" class="btn btn-primary">+</button>
                                             </a>
                                         </div>
                                     </div>
@@ -49,25 +51,25 @@
                                     <label class="col-md-2 col-form-label">Chef d'équipe</label>
                                     <div class="col-md-6">
                                         <div class="form-group bmd-form-group">
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                    <option selected>Captain America</option>
-                                    <option>Thor</option>
-                                    <option>Spider Man</option>
-                                    <option>...</option>
-                                  </select>
+                                            <select disabled="" th:field="*{teamLeader}" class="form-control">
+                                                <option 
+                                                    th:value="${team.teamLeader.employee.eid}" 
+                                                    th:text="${team.teamLeader.employee.lastname} + ' ' + ${team.teamLeader.employee.firstname}">
+                                                </option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label class="col-md-2 col-form-label">Liste des membres</label>
+                                    <label class="col-md-2 col-form-label" style="min-height: 150px;">Liste des membres</label>
                                     <div class="col-md-6">
                                         <div class="form-group bmd-form-group">
-                                            <select multiple class="form-control" id="exampleFormControlSelect2" style="min-height: 100px;">
-                                    <option selected>Captain America</option>
-                                    <option selected>Thor</option>
-                                    <option selected>Spider Man</option>
-                                    <option>...</option>
-                                  </select>
+                                            <select disabled="" multiple th:field="*{employeeList}" class="form-control">
+                                                <option th:each="employee : ${team.employeeList}" 
+                                                        th:value="${employee.eid}" 
+                                                        th:text="${employee.lastname} + ' ' + ${employee.firstname}">
+                                                </option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

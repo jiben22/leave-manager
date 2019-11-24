@@ -10,67 +10,67 @@
             <div th:replace="fragments/menus.html :: logoutMenu"></div>
             <div class="content">
                 <div class="container-fluid">
-                    <h2 th:text="${message}" style="color: #f44336;"></h2>
-                    <div class="row">
-                        <div class="offset-md-11">
-                            <a th:href="@{/employe/ajouter}">
-                                <button type="button" class="btn btn-primary">+</button>
+                    <h2 th:text="${message}" class="text-danger"></h2>
+                    <div class="row ">
+                        <div class="offset-md-11 ">
+                            <a th:href="@{/employe/ajouter} ">
+                                <button type="button " class="btn btn-primary ">+</button>
                             </a>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header card-header-primary card-header-icon">
-                                    <div class="card-icon">
-                                        <i class="material-icons">people</i>
+                    <div class="row ">
+                        <div class="col-md-12 ">
+                            <div class="card ">
+                                <div class="card-header card-header-primary card-header-icon ">
+                                    <div class="card-icon ">
+                                        <i class="material-icons ">people</i>
                                     </div>
-                                    <h4 class="card-title">Liste des employés</h4>
+                                    <h4 class="card-title ">Liste des employés</h4>
                                 </div>
-                                <div th:replace="components/employees.html :: employees(employees=${employees})"></div>
+                                <div th:replace="components/employees.html :: employees(employees=${employees}) "></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <footer th:replace="fragments/footer.html :: footer"></footer>
+            <footer th:replace="fragments/footer.html :: footer "></footer>
         </div>
         <script>
             $(document).ready(function() {
                 $('#datatables').DataTable({
-                    "pagingType": "full_numbers",
-                    "lengthMenu": [
+                    "pagingType ": "full_numbers ",
+                    "lengthMenu ": [
                         [10, 25, 50, -1],
-                        [10, 25, 50, "All"]
+                        [10, 25, 50, "All "]
                     ],
                     responsive: true,
                     language: {
-                        "sEmptyTable": "Aucune donnée disponible dans le tableau",
-                        "sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
-                        "sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
-                        "sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
-                        "sInfoPostFix": "",
-                        "sInfoThousands": ",",
-                        "sLengthMenu": "Afficher _MENU_ éléments",
-                        "sLoadingRecords": "Chargement...",
-                        "sProcessing": "Traitement...",
-                        "sSearch": "Rechercher :",
-                        "sZeroRecords": "Aucun élément correspondant trouvé",
-                        "oPaginate": {
-                            "sFirst": "Premier",
-                            "sLast": "Dernier",
-                            "sNext": "Suivant",
-                            "sPrevious": "Précédent"
+                        "sEmptyTable ": "Aucune donnée disponible dans le tableau ",
+                        "sInfo ": "Affichage de l 'élément _START_ à _END_ sur _TOTAL_ éléments",
+                        "sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément ",
+                        "sInfoFiltered ": "(filtré à partir de _MAX_ éléments au total) ",
+                        "sInfoPostFix ": " ",
+                        "sInfoThousands ": ", ",
+                        "sLengthMenu ": "Afficher _MENU_ éléments ",
+                        "sLoadingRecords ": "Chargement... ",
+                        "sProcessing ": "Traitement... ",
+                        "sSearch ": "Rechercher : ",
+                        "sZeroRecords ": "Aucun élément correspondant trouvé ",
+                        "oPaginate ": {
+                            "sFirst ": "Premier ",
+                            "sLast ": "Dernier ",
+                            "sNext ": "Suivant ",
+                            "sPrevious ": "Précédent "
                         },
-                        "oAria": {
-                            "sSortAscending": ": activer pour trier la colonne par ordre croissant",
-                            "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+                        "oAria ": {
+                            "sSortAscending ": ": activer pour trier la colonne par ordre croissant ",
+                            "sSortDescending ": ": activer pour trier la colonne par ordre décroissant "
                         },
-                        "select": {
-                            "rows": {
-                                "_": "%d lignes sélectionnées",
-                                "0": "Aucune ligne sélectionnée",
-                                "1": "1 ligne sélectionnée"
+                        "select ": {
+                            "rows ": {
+                                "_ ": "%d lignes sélectionnées ",
+                                "0 ": "Aucune ligne sélectionnée ",
+                                "1 ": "1 ligne sélectionnée "
                             }
                         }
                     }
