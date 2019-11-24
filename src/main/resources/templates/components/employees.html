@@ -26,13 +26,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="employee, i : ${employees}" role="row" th:style="${i.odd}? 'odd' : 'even'">
+                        <tr th:each="employee, i : ${employees}" role="row" th:style="${i.odd}? 'odd' : 'even'" th:class="${employee.lrid}">
                             <td th:text="${employee.lastname}" tabindex="0" class="sorting_1">Lastname</td>
                             <td th:text="${employee.firstname}">Firstname</td>
                             <td th:text="${employee.city}">City</td>
                             <!-- <td th:text="${employee.team}">Team</td> -->
                             <td class="text-right">
-                                <a href="#" class="btn btn-link btn-danger btn-just-icon remove" data-toggle="modal" data-target="#deleteEmployeeModal"><i class="material-icons">close</i></a>
+                                <a href="#" class="btn btn-link btn-danger btn-just-icon remove"  data-toggle="modal" data-target="#deleteEmployeeModal"><i class="material-icons">close</i></a>
                             </td>
                         </tr>
                     </tbody>
