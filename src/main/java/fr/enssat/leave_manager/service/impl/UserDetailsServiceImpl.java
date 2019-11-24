@@ -1,7 +1,10 @@
 package fr.enssat.leave_manager.service.impl;
 
+import fr.enssat.leave_manager.controller.TypeOfLeaveController;
 import fr.enssat.leave_manager.model.EmployeeEntity;
 import fr.enssat.leave_manager.repository.EmployeeRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,14 +28,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
+        Logger logger = LoggerFactory.getLogger(UserDetails.class);
+
         Optional<EmployeeEntity> employee = employeeRepository.findByEmail(email);
 
         if (!employee.isPresent()) {
-            /*** DEBUG ***/
-            BCryptPasswordEncoder t = new BCryptPasswordEncoder();
-            String v = t.encode("ttt");
-            System.out.println(v);
-            System.out.println("Mail not found! " + email);
+//            /*** DEBUG ***/
+//            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+//            logger.warn(bCryptPasswordEncoder.encode("password"));
+
+            logger.error("Mail not found! " + email);
             throw new UsernameNotFoundException("User mail " + email + " was not found in the database");
         }
 

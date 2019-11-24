@@ -45,13 +45,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // The pages does not require login
-        http.authorizeRequests().antMatchers("/", "/login", "/logout").permitAll();
-
-        // userInfo page requires login as ROLE_USER or ROLE_ADMIN.
-        // If no login, it will redirect to /login page.
-        // TODO change PATH
-        //http.authorizeRequests().antMatchers("/userInfo").access("hasRole('ROLE_HR') or hasRole('ROLE_HRD')");
 
         // For HR & HRD only.
         http.authorizeRequests().antMatchers("/RH/*").access("hasRole('ROLE_HR') or hasRole('ROLE_HRD')");
@@ -62,16 +55,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
 
         // Config for Login Form
-        http.authorizeRequests().and().formLogin()//
+        http.authorizeRequests()
+                .antMatchers("/css/**", "/img/**", "/js/**", "/scss/**").permitAll()
+                .antMatchers("/connexion*").permitAll()
+                .anyRequest().authenticated()
+                .and().formLogin()//
                 // Submit URL of login page.
                 .loginProcessingUrl("/j_spring_security_check") // Submit URL
-                .loginPage("/login")//
-                .defaultSuccessUrl("/map")//
-                .failureUrl("/login?error=true")//
-                .usernameParameter("username")//
+                .loginPage("/connexion")
+                .defaultSuccessUrl("/")
+                .failureUrl("/connexion?error=true")
+                .usernameParameter("username")
                 .passwordParameter("password")
                 // Config for Logout Page
-                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccessful");
+                .and().logout().logoutUrl("/deconnexion").logoutSuccessUrl("/connexion");
     }
 
     @Bean

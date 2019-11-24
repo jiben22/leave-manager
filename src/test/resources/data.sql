@@ -1,14 +1,14 @@
 INSERT INTO employee (eid, firstname, lastname, street, post_code, city, country, remaining_leave, email, position, password) VALUES
-('EMPLOYEE-157314099170606-0001', 'Tony','Stark','9 rue du chene germain','22700','Lannion','France',25.0,'tony.stark@marvel.com','Director','$2b$12$cI1ewc9itQObrePHZnVQvOHoKu82NoJf1YY9CcoQ53tyWhWspunGS'),
-('EMPLOYEE-157314099170606-0002', 'Thor','Odinson','5 avenue Asgardian ','22700','Lannion','France',25.0,'thor@marvel.com','God','$2b$12$S3c7PCfAOmch.8XMG4XQQeQ3ajOpSlem/jfND97hzMtYom3da0P2y'),
-('EMPLOYEE-157314099170606-0003', 'Henry','Jonathan','rue','0000','Nebraska','USA',15.0,'antman@marvel.com','Ant-man','$2b$12$cuFCZVxl5CJNVQt0wXCnKuqP2qz4bSNJyMWoS/T.9dJMMQzSQlPty'),
-('EMPLOYEE-157314099170606-0004', 'Bruce','Banner','9 rue du labo','58695','Secret','USA',17.0,'hulk@marvel.com','doctor','$2b$12$iWTZi2GkcRwoAjMpBLBlz.ZtYfmJ46fM28st1nySidby0AJ5YxGZW'),
-('EMPLOYEE-157314099170606-0005', 'Steve','Rogers','0 rue du pole nord','0000','PoleNord','Danemark',19.0,'captain@marvel.com','Captain America','$2b$12$DbLRdwA1d/JbH7F.1ryk1.HtVoEPWD8o6f0fCTR.chVVkJcCea07G'),
-('EMPLOYEE-157314099170606-0006', 'Clinton','Barton','5 branche','124578','Arbre','Terre',25.0,'hawkeye@marvel.com','Hawkeye','$2b$12$ZqulVRG.2073WUondlQgke3hPvUr5jyUNjSB3uHxt.E3B1fWNTB3i'),
-('EMPLOYEE-157314099170606-0007', 'T','Challa','1 tour','1234','Wakanda','Africa',5.0,'blackpanther@marvel.com','Black Panther','$2b$12$IdBuTRxm9Mata8s50YNePu0/rbidmqM2hL5dSJ7gUFBG6jI4unRTG'),
-('EMPLOYEE-157314099170606-0008', 'Natasha','Romanoff','1 rue du fantome','4569','Moscou','Russie',25.0,'blackwidow@marvel.com','Black Widow','$2b$12$lG0AKV1ul9UtRv9TK7yaaerSGuTLeox8ZmyJplTJi8JjmwzFtxxgi'),
-('EMPLOYEE-157314099170606-0009', 'Monica','Rambeau','partout','00','dans la','Galaxie',21.0,'captainmarvel@marvel.com','Captain Marvel','$2b$12$fHvwvjCJ3rlFHPAoy3AhVuClMesE8kxJJZ5mcPlMnO6V/MWjLAtFC'),
-('EMPLOYEE-157314099170606-0010', 'Peter','Parker','quelque part','000','New York','USA',23.0,'spiderman@marvel.com','Spider Man','$2b$12$8DTt5J/EZFTIi5iQKcX6HuHvnzSp5zGax4/7EdeSNwOjuMBORbffC');
+('EMPLOYEE-157314099170606-0001', 'Tony','Stark','9 rue du chene germain','22700','Lannion','France',25.0,'tony.stark@marvel.com','Director','$2a$10$TCdrvG6zWUwrryQ.7Id6Qe9lJCWXaykTFH1vfRyrSRkmF5KK0DoCa'),
+('EMPLOYEE-157314099170606-0002', 'Thor','Odinson','5 avenue Asgardian ','22700','Lannion','France',25.0,'thor@marvel.com','God','$2a$10$i/8ECxz8OTwlvVxHwKzEaOq7kWYy/OWNDVo8JcOQsb5yk.Je.9gFW'),
+('EMPLOYEE-157314099170606-0003', 'Henry','Jonathan','rue','0000','Nebraska','USA',15.0,'antman@marvel.com','Ant-man','$2a$10$P0OMU1.5XRSCab/ovZ11JuhBdPsYLaL54CrV9rqVGAAIC23lWvlo2'),
+('EMPLOYEE-157314099170606-0004', 'Bruce','Banner','9 rue du labo','58695','Secret','USA',17.0,'hulk@marvel.com','doctor','$2a$10$X6RV5aiNPFjSQIAbAkQZC.Umatmdsipxs3eB7WqfKn/.MPBouz4pG'),
+('EMPLOYEE-157314099170606-0005', 'Steve','Rogers','0 rue du pole nord','0000','PoleNord','Danemark',19.0,'captain@marvel.com','Captain America','$2a$10$N1CTe4n/D/4/5lbSOiyYyewrGWzSA9elWOI2oi/PnZvWX3J6Me/pO'),
+('EMPLOYEE-157314099170606-0006', 'Clinton','Barton','5 branche','124578','Arbre','Terre',25.0,'hawkeye@marvel.com','Hawkeye','$2a$10$YP8uoFzmus3jmKBXssoQUuunhmzsLbrTqm0UlLMQS0J/40hb9RIEm'),
+('EMPLOYEE-157314099170606-0007', 'T','Challa','1 tour','1234','Wakanda','Africa',5.0,'blackpanther@marvel.com','Black Panther','$2a$10$PnNN.7lBHi7RBzyb8F2k6e4A8LIofAy5fEa.lfv/a5ALnkyi6aaFa'),
+('EMPLOYEE-157314099170606-0008', 'Natasha','Romanoff','1 rue du fantome','4569','Moscou','Russie',25.0,'blackwidow@marvel.com','Black Widow','$2a$10$yaAMX.0ubVOhUarMTTlWGOM2k3dyEseqj4VYzQuZuRRqrxkHK4EUC'),
+('EMPLOYEE-157314099170606-0009', 'Monica','Rambeau','partout','00','dans la','Galaxie',21.0,'captainmarvel@marvel.com','Captain Marvel','$2a$10$mPKK/CRsEA9Wz5K2mw3JGOJVysJV8CM0QSbm6ZLKZWKjhk6oxjOzu'),
+('EMPLOYEE-157314099170606-0010', 'Peter','Parker','quelque part','000','New York','USA',23.0,'spiderman@marvel.com','Spider Man','$2a$10$9xb3/9UAmHG4pbUI8ipsH.cx912tRPr8ybg32Ocr538tURvHoZ7gC');
 
 INSERT INTO hr VALUES
 ('EMPLOYEE-157314099170606-0001'),

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class SecurityController {
 
-    @GetMapping("/login")
+    @GetMapping("/connexion")
     public String showLogin(Model model) {
 
         model.addAttribute("title", "Page de connexion");
@@ -21,7 +21,7 @@ public class SecurityController {
 
     }
 
-    @GetMapping("/logout")
+    @GetMapping("/deconnexion")
     public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -30,5 +30,12 @@ public class SecurityController {
         }
 
         return "redirect:/login";
+    }
+
+    @GetMapping("/demande-mot-de-passe")
+    public String showForgotPassword(Model model) {
+
+        model.addAttribute("title", "Demande de mot de passe");
+        return "forgotPassword";
     }
 }
