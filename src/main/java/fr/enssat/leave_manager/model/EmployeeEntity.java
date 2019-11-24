@@ -9,6 +9,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
 
@@ -84,7 +85,6 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
         this.password = encodePassword(password);
     }
 
-    private Collection<String> roles;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
     @NonNull
@@ -119,17 +119,29 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
     @JoinColumn(name = "eid", referencedColumnName = "employee")
     private TeamLeaderEntity teamLeader;
 
-    public void setRoles(Collection<String> roles) {
-        if (!this.getHr().getEid().isEmpty()) {
-            this.roles.add("ROLE_HR");
+
+    public Collection<String> getRoles() {
+        ArrayList<String> roles = new ArrayList<String>();
+        //System.out.println(this.getHr().getEid());
+
+        if (this.getHr() != null) {
+            System.out.println("role hr");
+
+            roles.add("ROLE_HR");
+
         }
-        if (!this.getHrd().getEid().isEmpty()) {
-            this.roles.add("ROLE_HRD");
+        if (this.getHrd() != null) {
+            roles.add("ROLE_HRD");
+            System.out.println("role hrd");
         }
-        if (!this.getTeamLeader().getEid().isEmpty()) {
-            this.roles.add("ROLE_TEAMLEADER");
+        if (this.getTeamLeader() != null) {
+            roles.add("ROLE_TEAMLEADER");
+            System.out.println("role tl");
         }
-        this.roles.add("ROLES_EMPLOYEE");
+
+        roles.add("ROLE_EMPLOYEE");
+        //System.out.println(roles);
+        return roles;
 
     }
 

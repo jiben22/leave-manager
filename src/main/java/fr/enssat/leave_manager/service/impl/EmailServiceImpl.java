@@ -29,7 +29,9 @@ public class EmailServiceImpl implements EmailService {
 
             Context context = new Context();
             context.setVariables(mail.getModel());
+            System.out.println(context.getVariable("user"));
             String html = templateEngine.process("email/email-template", context);
+            System.out.println(html);
 
             helper.setTo(mail.getTo());
             helper.setText(html, true);

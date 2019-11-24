@@ -1,6 +1,6 @@
 package fr.enssat.leave_manager.config;
 
-import fr.enssat.leave_manager.service.impl.EmployeeServiceImpl;
+import fr.enssat.leave_manager.service.EmployeeService;
 import fr.enssat.leave_manager.web.LoggingAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -24,7 +24,7 @@ import java.util.Arrays;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private EmployeeServiceImpl userDetailsService;
+    private EmployeeService userDetailsService;
     @Autowired
     private LoggingAccessDeniedHandler accessDeniedHandler;
 
@@ -67,8 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers(
-                        "/registration**",
-                        "/forgot-password**",
+                        "/forgotPassword**",
                         "/reset-password**").permitAll();
 
         // Config for Login Form
@@ -77,7 +76,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // Submit URL of login page.
                 .loginProcessingUrl("/j_spring_security_check") // Submit URL
                 .loginPage("/connexion")//
-                .defaultSuccessUrl("/dashboard")//
+                .defaultSuccessUrl("/")//
                 //.failureUrl("/connexion?error=true")//
                 .usernameParameter("username")//
                 .passwordParameter("password")

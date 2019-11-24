@@ -20,13 +20,12 @@ public class PasswordResetToken {
     private String token;
 
     @OneToOne(targetEntity = EmployeeEntity.class, fetch = FetchType.EAGER)
-    // TODO change name
-    @JoinColumn(nullable = false, name = "user_id")
+    @JoinColumn(nullable = false, name = "eid")
+    //@MapsId("eid")
     private EmployeeEntity user;
 
     @Column(nullable = false)
     private Date expiryDate;
-
 
     public void setExpiryDate(int minutes) {
         Calendar now = Calendar.getInstance();

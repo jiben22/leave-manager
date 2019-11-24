@@ -1,11 +1,11 @@
-package fr.enssat.leave_manager.web;
+package fr.enssat.leave_manager.controller;
 
 import fr.enssat.leave_manager.model.EmployeeEntity;
 import fr.enssat.leave_manager.model.Mail;
 import fr.enssat.leave_manager.model.PasswordResetToken;
 import fr.enssat.leave_manager.repository.PasswordResetTokenRepository;
+import fr.enssat.leave_manager.service.EmailService;
 import fr.enssat.leave_manager.service.EmployeeService;
-import fr.enssat.leave_manager.service.impl.EmailServiceImpl;
 import fr.enssat.leave_manager.web.dto.PasswordForgotDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/forgot-password")
+@RequestMapping("/forgotPassword")
 public class PasswordForgotController {
 
     @Autowired
@@ -30,7 +30,7 @@ public class PasswordForgotController {
     @Autowired
     private PasswordResetTokenRepository tokenRepository;
     @Autowired
-    private EmailServiceImpl emailService;
+    private EmailService emailService;
 
     @ModelAttribute("forgotPasswordForm")
     public PasswordForgotDto forgotPasswordDto() {
@@ -39,7 +39,7 @@ public class PasswordForgotController {
 
     @GetMapping
     public String displayForgotPasswordPage() {
-        return "forgot-password";
+        return "forgotPassword";
     }
 
     @PostMapping
@@ -48,35 +48,40 @@ public class PasswordForgotController {
                                             HttpServletRequest request) {
 
         if (result.hasErrors()) {
-            return "forgot-password";
+            return "forgotPassword";
         }
         EmployeeEntity user = userService.getEmployeeByEmail(form.getEmail());
         if (user == null) {
-            result.rejectValue("email", null, "We could not find an account for that e-mail address.");
-            return "forgot-password";
+            result.rejectValue("templates/email", null, "We could not find an account for that e-mail address.");
+            return "forgotPassword";
         }
 
         PasswordResetToken token = new PasswordResetToken();
         token.setToken(UUID.randomUUID().toString());
+        System.out.println(token.getToken());
         token.setUser(user);
+        System.out.println(token.getUser());
         token.setExpiryDate(30);
+        System.out.println(token.getExpiryDate());
+        System.out.println(token.isExpired());
         tokenRepository.save(token);
 
         Mail mail = new Mail();
-        mail.setFrom("no-reply@memorynotfound.com");
+        mail.setFrom("no-reply@leavemanager.com");
         mail.setTo(user.getEmail());
         mail.setSubject("Password reset request");
 
         Map<String, Object> model = new HashMap<>();
         model.put("token", token);
         model.put("user", user);
-        model.put("signature", "https://memorynotfound.com");
+        model.put("signature", "https://leave-manager.com");
         String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
         model.put("resetUrl", url + "/reset-password?token=" + token.getToken());
         mail.setModel(model);
+        System.out.println(mail.getModel());
         emailService.sendEmail(mail);
 
-        return "redirect:/forgot-password?success";
+        return "redirect:/forgotPassword?success";
 
     }
 

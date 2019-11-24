@@ -40,6 +40,7 @@ public class LoginController {
         return new ModelAndView(viewName, model);
     }
 
+    // TODO deplacer dans PasswordForgotC
     @GetMapping("/demande-mot-de-passe")
     public ModelAndView showForgotPassword() {
 
@@ -49,4 +50,5 @@ public class LoginController {
 
         return new ModelAndView(viewName, model);
     }
+
 }

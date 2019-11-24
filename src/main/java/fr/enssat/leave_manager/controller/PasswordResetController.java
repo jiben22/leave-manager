@@ -1,4 +1,4 @@
-package fr.enssat.leave_manager.web;
+package fr.enssat.leave_manager.controller;
 
 import fr.enssat.leave_manager.model.EmployeeEntity;
 import fr.enssat.leave_manager.model.PasswordResetToken;

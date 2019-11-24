@@ -2,12 +2,11 @@ package fr.enssat.leave_manager.service;
 
 import fr.enssat.leave_manager.model.EmployeeEntity;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
+
 @Transactional
 public interface EmployeeService extends UserDetailsService {
     boolean exists(String id);

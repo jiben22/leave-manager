@@ -1,154 +1,132 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<<<<<<< HEAD
+<!--<<<<<<< HEAD-->
 
 <head th:replace="fragments/head.html :: head"></head>
 
 <body class="off-canvas-sidebar">
-    <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top text-white">
-        <div class="container">
-            <div class="navbar-wrapper">
-                <p class="navbar-brand">Page de connexion</p>
-            </div>
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top text-white">
+    <div class="container">
+        <div class="navbar-wrapper">
+            <p class="navbar-brand">Page de connexion</p>
         </div>
-    </nav>
-    <!-- End Navbar -->
-    <div class="wrapper wrapper-full-page">
-        <div class="page-header login-page header-filter" filter-color="black"
-            style="background-image: url('img/wallpapers/mountain.jpg'); background-size: cover; background-position: top center;">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
-                        <form class="form" method="" action="">
-                            <div th:if="${param.error}">
-                                <div class="alert alert-danger">
-                                    Invalid username or password.
-                                </div>
+    </div>
+</nav>
+<!-- End Navbar -->
+<div class="wrapper wrapper-full-page">
+    <div class="page-header login-page header-filter" filter-color="black"
+         style="background-image: url('img/wallpapers/mountain.jpg'); background-size: cover; background-position: top center;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
+                    <form class="form" method="post" th:action="@{/j_spring_security_check}">
+                        <div th:if="${param.error}">
+                            <div class="alert alert-danger">
+                                Invalid username or password.
                             </div>
-                            <div th:if="${param.logout}">
-                                <div class="alert alert-info">
-                                    You have been logged out.
-                                </div>
+                        </div>
+                        <div th:if="${param.logout}">
+                            <div class="alert alert-info">
+                                You have been logged out.
                             </div>
-                            <div class="card card-login card-hidden">
-                                <div class="card-header card-header-primary text-center">
-                                    <h3 class="card-title">
-                                        Bienvenue sur votre espace personnel
-                                    </h3>
-                                </div>
-                                <div class="card-body ">
-                                    <p class="card-description text-center">
-                                        Accédez à votre espace dédié pour vos demandes de congés.
-                                    </p>
-                                    <span class="bmd-form-group">
+                        </div>
+                        <div class="card card-login card-hidden">
+                            <div class="card-header card-header-primary text-center">
+                                <h3 class="card-title">
+                                    Bienvenue sur votre espace personnel
+                                </h3>
+                            </div>
+                            <div class="card-body ">
+                                <p class="card-description text-center">
+                                    Accédez à votre espace dédié pour vos demandes de congés.
+                                </p>
+                                <span class="bmd-form-group">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
                                                     <i class="material-icons">email</i>
                                                 </span>
                                             </div>
-                                            <input type="email" class="form-control" placeholder="Identifiant...">
+                                            <!--<input type="email" class="form-control" placeholder="Identifiant...">-->
+                                            <input autofocus="autofocus"
+                                                   class="form-control"
+                                                   id="username"
+                                                   name="username"
+                                                   placeholder="Identifiant..."
+                                                   type="email"/>
                                         </div>
                                     </span>
-                                    <span class="bmd-form-group">
+                                <span class="bmd-form-group">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
                                                     <i class="material-icons">lock_outline</i>
                                                 </span>
                                             </div>
-                                            <input type="password" class="form-control" placeholder="Mot de passe...">
+                                            <!--<input type="password" class="form-control" placeholder="Mot de passe...">-->
+                                            <input class="form-control"
+                                                   id="password"
+                                                   name="password"
+                                                   placeholder="Mot de passe..."
+                                                   type="password"/>
                                         </div>
                                     </span>
-                                    <hr />
-                                    <label class="form-check-label">
-                                        <a href="./demande-mot-de-passe">Mot de passe oublié ?</a>
-                                    </label>
-                                </div>
-                                <div class="card-footer justify-content-center">
-                                    <a href="#pablo" class="btn btn-primary btn-link btn-lg">Se connecter</a>
-                                </div>
+                                <hr/>
+                                <label class="form-check-label">
+                                    <a href="./demande-mot-de-passe">Mot de passe oublié ?</a>
+                                </label>
                             </div>
-                        </form>
-                    </div>
+                            <div class="card-footer justify-content-center">
+                                <!--<a href="#pablo" class="btn btn-primary btn-link btn-lg">Se connecter</a>-->
+                                <input class="form-control btn btn-info"
+                                       id="login-submit"
+                                       name="login-submit"
+                                       type="submit"
+                                       value="Log In"/>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <footer class="footer">
-                <div class="container">
-                    <nav class="float-left">
-                        <ul>
-                            <li>
-                                <a href="https://www.creative-tim.com">
-                                    Creative Tim
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://creative-tim.com/presentation">
-                                    About Us
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://blog.creative-tim.com">
-                                    Blog
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.creative-tim.com/license">
-                                    Licenses
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <div class="copyright float-right">
-                        &copy;
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script>, made with <i class="material-icons">favorite</i> by
-                        <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
-                    </div>
-                </div>
-            </footer>
         </div>
+        <footer class="footer">
+            <div class="container">
+                <nav class="float-left">
+                    <ul>
+                        <li>
+                            <a href="https://www.creative-tim.com">
+                                Creative Tim
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://creative-tim.com/presentation">
+                                About Us
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://blog.creative-tim.com">
+                                Blog
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.creative-tim.com/license">
+                                Licenses
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="copyright float-right">
+                    &copy;
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script>
+                    , made with <i class="material-icons">favorite</i> by
+                    <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
+                </div>
+            </div>
+        </footer>
     </div>
-=======
-<head>
-    <title>Login</title>
-</head>
-<body>
-<!-- Include _menu.html -->
-
-<h1>Login</h1>
-
-<!-- /login?error=true -->
-<div style="color:red;margin:10px 0px;"
-     th:if="${#request.getParameter('error') == 'true'}">
-    Login Failed!!!<br/>
-    Reason :
-    <span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
-          th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}">
-                Static summary
-         </span>
-
 </div>
-
-<h3>Enter user name and password:</h3>
-<form method='POST' name='f' th:action="@{/j_spring_security_check}">
-    <table>
-        <tr>
-            <td>User:</td>
-            <td><input name='username' type='text' value=''></td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td><input name='password' type='password'/></td>
-        </tr>
-        <tr>
-            <td><input name="submit" type="submit" value="submit"/></td>
-        </tr>
-    </table>
-</form>
-
->>>>>>> login_logout
 </body>
 
 </html>

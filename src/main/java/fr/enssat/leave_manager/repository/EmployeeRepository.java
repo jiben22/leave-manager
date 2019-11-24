@@ -16,7 +16,7 @@ public interface EmployeeRepository extends JpaRepository<EmployeeEntity, String
     List<EmployeeEntity> findByLastname(String lastname);
     Optional<EmployeeEntity> findByEmail(String email);
 
-    @Modifying
-    @Query("update employee e set e.password = :password where e.eid = :id")
-    void updatePassword(@Param("password") String password, @Param("id") String id);
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update employee e set e.password = :password where e.eid = :eid", nativeQuery = true)
+    void updatePassword(@Param("password") String password, @Param("eid") String eid);
 }

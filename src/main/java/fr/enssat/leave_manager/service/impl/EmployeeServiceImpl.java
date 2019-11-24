@@ -20,6 +20,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+
 public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private EmployeeRepository repository;
@@ -36,7 +37,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeEntity getEmployeeByEmail(String email) {
-        return repository.findByEmail(email).orElseThrow(() -> new EmployeeNotFoundException(email));
+        return repository.findByEmail(email).orElse(null); //orElseThrow(() -> new EmployeeNotFoundException(email));
     }
 
     @Override
@@ -77,7 +78,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     //@Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<EmployeeEntity> employee = repository.findByEmail(email);
-
+        System.out.println(email);
         if (!employee.isPresent()) {
             /*** DEBUG ***/
             System.out.println("Mail not found! " + email);
@@ -91,7 +92,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<String> roles) {
         return roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.toString()))
+                .map(role -> new SimpleGrantedAuthority(role))
                 .collect(Collectors.toList());
     }
 
