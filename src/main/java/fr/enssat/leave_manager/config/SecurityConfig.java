@@ -2,6 +2,7 @@ package fr.enssat.leave_manager.config;
 
 import fr.enssat.leave_manager.service.EmployeeService;
 import fr.enssat.leave_manager.service.impl.EmployeeServiceImpl;
+import fr.enssat.leave_manager.web.LoggingAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +26,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     // @Autowired
     private final EmployeeService userDetailsService;
+    @Autowired
+    private LoggingAccessDeniedHandler accessDeniedHandler;
 
     @Autowired
     public SecurityConfig(EmployeeServiceImpl userDetailsService) {
@@ -54,7 +57,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // userInfo page requires login as ROLE_USER or ROLE_ADMIN.
         // If no login, it will redirect to /login page.
         // TODO change PATH
-        //http.authorizeRequests().antMatchers("/userInfo").access("hasRole('ROLE_HR') or hasRole('ROLE_HRD')");
 
         // For HR & HRD only.
         http.authorizeRequests().antMatchers("/RH/*").access("hasRole('ROLE_HR') or hasRole('ROLE_HRD')");
@@ -71,20 +73,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/reset-password**").permitAll();
 
         // Config for Login Form
-        http.authorizeRequests().and().formLogin()//
+        http.authorizeRequests().and()
+                .formLogin()//
                 // Submit URL of login page.
                 .loginProcessingUrl("/j_spring_security_check") // Submit URL
-                .loginPage("/login")//
-                .defaultSuccessUrl("/map")//
-                .failureUrl("/login?error=true")//
+                .loginPage("/connexion")//
+                .defaultSuccessUrl("/dashboard")//
+                //.failureUrl("/connexion?error=true")//
                 .usernameParameter("username")//
                 .passwordParameter("password")
                 // Config for Logout Page
-                .and().logout().invalidateHttpSession(true)
+                .and()
+                .logout()
+                .invalidateHttpSession(true)
                 .clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login?logout")
-                .permitAll();
+                .logoutSuccessUrl("/connexion?logout")
+                .permitAll()
+                .and()
+                .exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler);
+        ;
         // FIXME test if run correctly otherwise
         //.logoutUrl("/logout").logoutSuccessUrl("/logoutSuccessful");
     }

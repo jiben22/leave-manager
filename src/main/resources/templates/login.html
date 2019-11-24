@@ -20,6 +20,16 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
                         <form class="form" method="" action="">
+                            <div th:if="${param.error}">
+                                <div class="alert alert-danger">
+                                    Invalid username or password.
+                                </div>
+                            </div>
+                            <div th:if="${param.logout}">
+                                <div class="alert alert-info">
+                                    You have been logged out.
+                                </div>
+                            </div>
                             <div class="card card-login card-hidden">
                                 <div class="card-header card-header-primary text-center">
                                     <h3 class="card-title">

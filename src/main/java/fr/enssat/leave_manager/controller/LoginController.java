@@ -20,6 +20,16 @@ public class LoginController {
         return new ModelAndView(viewName, model);
     }
 
+    @GetMapping("/access-denied")
+    public ModelAndView accessDenied() {
+        String viewName = "/error/access-denied";
+        Map<String, Object> model = new HashMap<>();
+        model.put("title", "Accès refusé");
+
+        return new ModelAndView(viewName, model);
+    }
+
+
     @GetMapping("/verrouillage")
     public ModelAndView showLock() {
 

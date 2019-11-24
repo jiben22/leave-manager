@@ -30,3 +30,10 @@
                   enable: true
           protocol: smtp
           test-connection: false
+
+      logging:
+        level:
+          root: WARN
+          com.memorynotfound: DEBUG
+          org.springframework.web: INFO
+          org.springframework.security: INFO
