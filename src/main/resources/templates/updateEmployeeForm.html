@@ -15,85 +15,117 @@
                             <div class="card-icon">
                                 <i class="material-icons">person</i>
                             </div>
-                            <h4 class="card-title">Employé</h4>
+                            <h4 class="card-title">Modifier l'employé</h4>
                         </div>
                         <div class="card-body">
-                            <form action="#" method="post" th:action="@{/employe/ajouter}" th:object="${employee}" class="form-horizontal">
+                            <form action="#" method="post" th:action="@{/employe/modifier/} + ${employee.eid}" th:object="${employee}" class="form-horizontal">
+                                <input type="hidden" th:field="*{eid}" />
+                                <span class="text-danger" th:errors="*{global}"> </span>
                                 <div class="row">
-                                    <label class="col-md-2 col-form-label">Nom</label>
-                                    <div class="col-md-4">
-                                        <div class="form-group has-default bmd-form-group">
-                                            <input th:field="*{lastname}" type="text" class="form-control">
-                                        </div>
+                                    <div class="offset-md-2 col-md-4">
                                         <span class="text-danger" th:errors="*{lastname}"> </span>
                                     </div>
-                                    <label class="col-md-2 col-form-label">Prénom</label>
-                                    <div class="col-md-4">
-                                        <div class="form-group has-default bmd-form-group">
-                                            <input th:field="*{firstname}" type="text" class="form-control">
-                                        </div>
+                                    <div class="offset-md-2 col-md-4">
                                         <span class="text-danger" th:errors="*{firstname}"> </span>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label class="col-md-2 col-form-label">Email</label>
+                                    <label for="lastname" class="col-md-2 col-form-label">Nom</label>
                                     <div class="col-md-4">
                                         <div class="form-group has-default bmd-form-group">
-                                            <input th:field="*{email}" type="email" class="form-control">
+                                            <input th:field="*{lastname}" type="text" class="form-control">
                                         </div>
+                                    </div>
+                                    <label for="firstname" class="col-md-2 col-form-label">Prénom</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input th:field="*{firstname}" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="offset-md-2 col-md-4">
                                         <span class="text-danger" th:errors="*{email}"> </span>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label class="col-md-2 col-form-label">Adresse</label>
-                                    <div class="col-md-10">
-                                        <div class="form-group bmd-form-group">
-                                            <input th:field="*{street}" type="text" class="form-control">
+                                    <label for="email" class="col-md-2 col-form-label">Email</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input th:field="*{email}" type="email" class="form-control">
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="offset-md-2 col-md-10">
                                         <span class="text-danger" th:errors="*{street}"> </span>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label class="col-md-2 col-form-label">Code Postal</label>
-                                    <div class="col-md-2">
-                                        <div class="form-group has-default bmd-form-group">
-                                            <input th:field="*{postCode}" type="text" class="form-control">
+                                    <label for="street" class="col-md-2 col-form-label">Adresse</label>
+                                    <div class="col-md-10">
+                                        <div class="form-group bmd-form-group">
+                                            <input th:field="*{street}" type="text" class="form-control">
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="offset-md-2 col-md-2">
                                         <span class="text-danger" th:errors="*{postCode}"> </span>
                                     </div>
-                                    <label class="col-md-2 col-form-label">Ville</label>
-                                    <div class="col-md-2">
-                                        <div class="form-group has-default bmd-form-group">
-                                            <input th:field="*{city}" type="text" class="form-control">
-                                        </div>
+                                    <div class="offset-md-2 col-md-2">
                                         <span class="text-danger" th:errors="*{city}"> </span>
                                     </div>
-                                    <label class="col-md-2 col-form-label">Pays</label>
-                                    <div class="col-md-2">
-                                        <div class="form-group has-default bmd-form-group">
-                                            <input th:field="*{country}" type="text" class="form-control">
-                                        </div>
+                                    <div class="offset-md-2 col-md-2">
                                         <span class="text-danger" th:errors="*{country}"> </span>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label class="col-md-2 col-form-label">Emploi</label>
-                                    <div class="col-md-6">
-                                        <div class="form-group bmd-form-group">
-                                            <input th:field="*{position}" type="text" class="form-control">
+                                    <label for="postCode" class="col-md-2 col-form-label">Code Postal</label>
+                                    <div class="col-md-2">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input th:field="*{postCode}" type="text" class="form-control">
                                         </div>
+                                    </div>
+                                    <label for="city" class="col-md-2 col-form-label">Ville</label>
+                                    <div class="col-md-2">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input th:field="*{city}" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <label for="country" class="col-md-2 col-form-label">Pays</label>
+                                    <div class="col-md-2">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input th:field="*{country}" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="offset-md-2 col-md-6">
                                         <span class="text-danger" th:errors="*{position}"> </span>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label class="col-md-2 col-form-label">Équipe</label>
+                                    <label for="position" class="col-md-2 col-form-label">Emploi</label>
+                                    <div class="col-md-6">
+                                        <div class="form-group bmd-form-group">
+                                            <input th:field="*{position}" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="offset-md-2 col-md-8">
+                                        <span class="text-danger" th:errors="*{teamList}"> </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label for="team" class="col-md-2 col-form-label">Équipe</label>
                                     <div class="col-md-8">
                                         <div class="form-group bmd-form-group">
                                             <select th:field="*{teamList}" class="form-control">
                                                     <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}"></option>
                                             </select>
                                         </div>
-                                        <span class="text-danger" th:errors="*{teamList}"> </span>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group has-default bmd-form-group">
@@ -104,17 +136,21 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label class="col-md-2 col-form-label">Nombre de congés</label>
+                                    <div class="offset-md-2 col-md-1">
+                                        <span class="text-danger" th:errors="*{remainingLeave}"> </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label for="remainingLeave" class="col-md-2 col-form-label">Nombre de congés</label>
                                     <div class="col-md-1">
                                         <div class="form-group bmd-form-group">
                                             <input th:field="*{remainingLeave}" type="text" class="form-control" value="25">
                                         </div>
-                                        <span class="text-danger" th:errors="*{remainingLeave}"> </span>
                                     </div>
                                 </div>
                                 <div class="pull-right">
-                                    <button th:href="@{/equipes}" type="button" class="btn btn-secondary">Annuler</button>
-                                    <button type="submit" class="btn btn-success">Enregistrer</button>
+                                    <button th:href="@{/employes}" type="button" class="btn btn-secondary">Annuler</button>
+                                    <button type="submit" class="btn btn-warning">Modifier</button>
                                 </div>
                             </form>
                         </div>

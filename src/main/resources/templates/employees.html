@@ -10,6 +10,7 @@
             <div th:replace="fragments/menus.html :: logoutMenu"></div>
             <div class="content">
                 <div class="container-fluid">
+                    <h2 th:text="${message}" style="color: #f44336;"></h2>
                     <div class="row">
                         <div class="offset-md-11">
                             <a th:href="@{/employe/ajouter}">

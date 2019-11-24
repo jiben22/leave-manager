@@ -10,96 +10,91 @@
             <div th:replace="fragments/menus.html :: logoutMenu"></div>
             <div class="content">
                 <div class="container-fluid">
+                    <a th:href="@{/employe/modifier/} + ${employee.eid}">
+                        <button type="button" class="btn btn-warning pull-right">Modifier</button>
+                    </a>
                     <div class="card ">
                         <div class="card-header card-header-primary card-header-icon">
                             <div class="card-icon">
                                 <i class="material-icons">person</i>
                             </div>
-                            <h4 class="card-title">Employé</h4>
+                            <h4 class="card-title">Visualiser l'employé</h4>
                         </div>
                         <div class="card-body">
-                            <form class="form-horizontal">
+                            <form action="#" th:object="${employee}" class="form-horizontal">
                                 <div class="row">
-                                    <label class="col-md-2 col-form-label">Nom</label>
+                                    <label for="lastname" class="col-md-2 col-form-label">Nom</label>
                                     <div class="col-md-4">
                                         <div class="form-group has-default bmd-form-group">
-                                            <input type="text" class="form-control" value="Captain">
+                                            <input disabled="" th:field="*{lastname}" type="text" class="form-control">
                                         </div>
                                     </div>
-                                    <label class="col-md-2 col-form-label">Prénom</label>
+                                    <label for="firstname" class="col-md-2 col-form-label">Prénom</label>
                                     <div class="col-md-4">
                                         <div class="form-group has-default bmd-form-group">
-                                            <input type="text" class="form-control" value="America">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <label class="col-md-2 col-form-label">Email</label>
-                                    <div class="col-md-4">
-                                        <div class="form-group has-default bmd-form-group">
-                                            <input type="email" class="form-control" value="mail@enssat.fr">
+                                            <input disabled="" th:field="*{firstname}" type="text" class="form-control">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label class="col-md-2 col-form-label">Adresse</label>
+                                    <label for="email" class="col-md-2 col-form-label">Email</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input disabled="" th:field="*{email}" type="email" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label for="street" class="col-md-2 col-form-label">Adresse</label>
                                     <div class="col-md-10">
                                         <div class="form-group bmd-form-group">
-                                            <input type="text" class="form-control" value="6 Rue de Kerampont">
+                                            <input disabled="" th:field="*{street}" type="text" class="form-control">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label class="col-md-2 col-form-label">Code Postal</label>
+                                    <label for="postCode" class="col-md-2 col-form-label">Code Postal</label>
                                     <div class="col-md-2">
                                         <div class="form-group has-default bmd-form-group">
-                                            <input type="text" class="form-control" value="22304">
+                                            <input disabled="" th:field="*{postCode}" type="text" class="form-control">
                                         </div>
                                     </div>
-                                    <label class="col-md-2 col-form-label">Ville</label>
+                                    <label for="city" class="col-md-2 col-form-label">Ville</label>
                                     <div class="col-md-2">
                                         <div class="form-group has-default bmd-form-group">
-                                            <input type="text" class="form-control" value="Lannion">
+                                            <input disabled="" th:field="*{city}" type="text" class="form-control">
                                         </div>
                                     </div>
-                                    <label class="col-md-2 col-form-label">Pays</label>
+                                    <label for="country" class="col-md-2 col-form-label">Pays</label>
                                     <div class="col-md-2">
                                         <div class="form-group has-default bmd-form-group">
-                                            <input type="text" class="form-control" value="France">
+                                            <input disabled="" th:field="*{country}" type="text" class="form-control">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label class="col-md-2 col-form-label">Emploi</label>
+                                    <label for="position" class="col-md-2 col-form-label">Emploi</label>
                                     <div class="col-md-6">
                                         <div class="form-group bmd-form-group">
-                                            <input type="text" class="form-control" value="Super héro">
+                                            <input disabled="" th:field="*{position}" type="text" class="form-control">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label class="col-md-2 col-form-label">Équipe</label>
+                                    <label for="team" class="col-md-2 col-form-label">Équipe</label>
                                     <div class="col-md-8">
                                         <div class="form-group bmd-form-group">
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                    <option selected>Avengers</option>
-                                    <option>...</option>
-                                  </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group has-default bmd-form-group">
-                                            <a th:href="@{/equipe/ajouter}">
-                                                <button type="button" class="btn btn-primary">+</button>
-                                            </a>
+                                            <select disabled="" th:field="*{teamList}" class="form-control">
+                                                    <option th:each="team : ${employee.teamList}" th:value="${team.id}" th:text="${team.name}"></option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label class="col-md-2 col-form-label">Nombre de congés</label>
+                                    <label for="remainingLeave" class="col-md-2 col-form-label">Nombre de congés</label>
                                     <div class="col-md-1">
                                         <div class="form-group bmd-form-group">
-                                            <input type="text" class="form-control" value="25">
+                                            <input disabled="" th:field="*{remainingLeave}" type="text" class="form-control" value="25">
                                         </div>
                                     </div>
                                 </div>

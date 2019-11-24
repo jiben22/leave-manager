@@ -72,8 +72,6 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
     private String email;
 
     @ToString.Exclude
-    @Column(nullable = false)
-    @NonNull
     private String password;
 
     // Override Lombok Setter to encode password

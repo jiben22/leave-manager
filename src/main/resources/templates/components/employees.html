@@ -22,7 +22,7 @@
                             <!-- <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;" aria-label="Office: activate to sort column ascending">
                                 Équipe
                             </th> -->
-                            <th class="disabled-sorting text-right sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 50px;" aria-label="Actions: activate to sort column ascending"></th>
+                            <th class="disabled-sorting text-right sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 70px;" aria-label="Actions: activate to sort column ascending"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,7 +32,9 @@
                             <td th:text="${employee.city}">City</td>
                             <!-- <td th:text="${employee.team}">Team</td> -->
                             <td class="text-right">
-                                <a href="#" class="btn btn-link btn-danger btn-just-icon remove" data-toggle="modal" data-target="#deleteEmployeeModal"><i class="material-icons">close</i></a>
+                                <!-- <a th:href="@{/employe/modifier/} + ${employee.eid}" class="btn btn-link btn-info btn-just-icon"><i class="material-icons">edit</i></a> -->
+                                <a th:href="@{/employe/} + ${employee.eid}" class="btn btn-link btn-warning btn-just-icon"><i class="material-icons">dvr</i></a>
+                                <a href="#" class="btn btn-link btn-danger btn-just-icon" data-toggle="modal" data-target="#deleteEmployeeModal"><i class="material-icons">close</i></a>
                             </td>
                         </tr>
                     </tbody>

@@ -15,8 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -50,6 +50,20 @@ public class EmployeeController {
         return "employees";
     }
 
+    @GetMapping("/employe/{id}")
+    public String showEmployeById(@PathVariable String id, Model model) {
+
+        logger.debug("GET /employe/" + id);
+
+        model.addAttribute("title", "Visualiser l'employé");
+
+        // Get employe by id
+        EmployeeEntity employee = employeeService.getEmployee(id);
+        model.addAttribute("employee", employee);
+
+        return "showEmployee";
+    }
+
     @GetMapping("/employe/ajouter")
     public String showAddEmployeeForm(Model model) {
 
@@ -62,35 +76,87 @@ public class EmployeeController {
         List<TeamEntity> teams =  teamService.getTeams();
         model.addAttribute("teams", teams);
 
-        return "addEmployee";
+        return "addEmployeeForm";
     }
 
     @PostMapping("/employe/ajouter")
-    public String submitAddEmployeeForm(@Valid EmployeeEntity employee, BindingResult result) {
+    public String submitAddEmployeeForm(@Valid @ModelAttribute("employee") EmployeeEntity employee,
+                                        BindingResult result, Model model,
+                                        RedirectAttributes redirectAttributes) {
 
         logger.debug("POST /employe/ajouter");
 
         if (result.hasErrors()) {
-            return "redirect:/employe/ajouter";
+            logger.info(result.toString());
+
+            // Get teams
+            List<TeamEntity> teams =  teamService.getTeams();
+            model.addAttribute("teams", teams);
+
+            // Return form with errors
+            return "addEmployeeForm";
         } else {
             try {
-                // Add default password
-                employee.setPassword("aChanger@2019");
                 // Save employee
-                employeeService.addEmployee(employee);
+                employee = employeeService.addEmployee(employee);
             } catch (Exception e) {
                 logger.error(e.getMessage() + e.getCause());
+                redirectAttributes.addFlashAttribute("message", "Impossible d'enregister l'employé.");
+
                 return "redirect:/employes";
             }
         }
 
-        return "redirect:/employes";
+        return "redirect:/employe/" + employee.getEid();
     }
 
-    @GetMapping("/employe/modifier")
-    public String showUpdateEmployeeForm(Model model) {
+    @GetMapping("/employe/modifier/{id}")
+    public String showUpdateEmployeeForm(@PathVariable String id, Model model) {
+
+        logger.debug("GET /employe/modifier/" + id);
 
         model.addAttribute("title", "Modifier l'employé");
-        return "updateEmployee";
+
+        // Get employee by id
+        EmployeeEntity employee = employeeService.getEmployee(id);
+        model.addAttribute("employee", employee);
+
+        // Get teams
+        List<TeamEntity> teams =  teamService.getTeams();
+        model.addAttribute("teams", teams);
+
+        return "updateEmployeeForm";
+    }
+
+    @PostMapping("/employe/modifier/{id}")
+    public String submitUpdateEmployeeForm(@PathVariable String id,
+                                           @Valid @ModelAttribute("employee") EmployeeEntity employee,
+                                           BindingResult result, Model model,
+                                           RedirectAttributes redirectAttributes) {
+
+        logger.debug("POST /employe/modifier/" + id);
+
+        if (result.hasErrors()) {
+            logger.info(result.toString());
+
+            // Get teams
+            List<TeamEntity> teams =  teamService.getTeams();
+            model.addAttribute("teams", teams);
+
+            // Return form with errors
+            return "updateEmployeeForm";
+        } else {
+            try {
+                // Save employee
+                employeeService.editEmployee(employee);
+            } catch (Exception e) {
+                logger.error(e.getMessage() + e.getCause());
+                redirectAttributes.addFlashAttribute("message", "Impossible de modifier l'employé.");
+
+                return "redirect:/employes";
+            }
+        }
+
+        return "redirect:/employe/" + employee.getEid();
     }
 }
