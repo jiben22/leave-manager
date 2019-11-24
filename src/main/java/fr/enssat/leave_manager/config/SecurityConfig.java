@@ -1,6 +1,5 @@
 package fr.enssat.leave_manager.config;
 
-import fr.enssat.leave_manager.service.EmployeeService;
 import fr.enssat.leave_manager.service.impl.EmployeeServiceImpl;
 import fr.enssat.leave_manager.web.LoggingAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +23,15 @@ import java.util.Arrays;
 
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    // @Autowired
-    private final EmployeeService userDetailsService;
+    @Autowired
+    private EmployeeServiceImpl userDetailsService;
     @Autowired
     private LoggingAccessDeniedHandler accessDeniedHandler;
 
-    @Autowired
+    /*@Autowired
     public SecurityConfig(EmployeeServiceImpl userDetailsService) {
         this.userDetailsService = userDetailsService;
-    }
+    }*/
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {

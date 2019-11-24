@@ -9,6 +9,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Set;
 
 
@@ -77,20 +78,13 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
     @Column(nullable = false)
     @NonNull
     private String password;
-/*
+
     // Override Lombok Setter to encode password
     public void setPassword(String password) {
         this.password = encodePassword(password);
     }
 
-    // Override Builder 'password' function to encode password
-    public static class EmployeeEntityBuilder {
-        private String password;
-        public EmployeeEntityBuilder password(String password) {
-            this.password = encodePassword(password);
-            return this;
-        }
-    }*/
+    private Collection<String> roles;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
     @NonNull
@@ -125,15 +119,27 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
     @JoinColumn(name = "eid", referencedColumnName = "employee")
     private TeamLeaderEntity teamLeader;
 
-    public String getRole() {
-        if (getHrd() != null) {
-            return "ROLE_HRD";
-        } else if (getHr() != null) {
-            return "ROLE_HR";
-        } else if (getTeamLeader() != null) {
-            return "ROLE_TEAMLEADER";
-        } else {
-            return "ROLE_EMPLOYEE";
+    public void setRoles(Collection<String> roles) {
+        if (!this.getHr().getEid().isEmpty()) {
+            this.roles.add("ROLE_HR");
+        }
+        if (!this.getHrd().getEid().isEmpty()) {
+            this.roles.add("ROLE_HRD");
+        }
+        if (!this.getTeamLeader().getEid().isEmpty()) {
+            this.roles.add("ROLE_TEAMLEADER");
+        }
+        this.roles.add("ROLES_EMPLOYEE");
+
+    }
+
+    // Override Builder 'password' function to encode password
+    public static class EmployeeEntityBuilder {
+        private String password;
+
+        public EmployeeEntityBuilder password(String password) {
+            this.password = encodePassword(password);
+            return this;
         }
     }
     private static BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
