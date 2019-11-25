@@ -29,13 +29,13 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label for="lastname" class="col-md-2 col-form-label">Nom</label>
+                                    <label class="col-md-2 col-form-label">Nom</label>
                                     <div class="col-md-4">
                                         <div class="form-group has-default bmd-form-group">
                                             <input th:field="*{lastname}" type="text" class="form-control">
                                         </div>
                                     </div>
-                                    <label for="firstname" class="col-md-2 col-form-label">Prénom</label>
+                                    <label class="col-md-2 col-form-label">Prénom</label>
                                     <div class="col-md-4">
                                         <div class="form-group has-default bmd-form-group">
                                             <input th:field="*{firstname}" type="text" class="form-control">
@@ -48,7 +48,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label for="email" class="col-md-2 col-form-label">Email</label>
+                                    <label class="col-md-2 col-form-label">Email</label>
                                     <div class="col-md-4">
                                         <div class="form-group has-default bmd-form-group">
                                             <input th:field="*{email}" type="email" class="form-control">
@@ -61,7 +61,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label for="street" class="col-md-2 col-form-label">Adresse</label>
+                                    <label class="col-md-2 col-form-label">Adresse</label>
                                     <div class="col-md-10">
                                         <div class="form-group bmd-form-group">
                                             <input th:field="*{street}" type="text" class="form-control">
@@ -80,19 +80,19 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label for="postCode" class="col-md-2 col-form-label">Code Postal</label>
+                                    <label class="col-md-2 col-form-label">Code Postal</label>
                                     <div class="col-md-2">
                                         <div class="form-group has-default bmd-form-group">
                                             <input th:field="*{postCode}" type="text" class="form-control">
                                         </div>
                                     </div>
-                                    <label for="city" class="col-md-2 col-form-label">Ville</label>
+                                    <label class="col-md-2 col-form-label">Ville</label>
                                     <div class="col-md-2">
                                         <div class="form-group has-default bmd-form-group">
                                             <input th:field="*{city}" type="text" class="form-control">
                                         </div>
                                     </div>
-                                    <label for="country" class="col-md-2 col-form-label">Pays</label>
+                                    <label class="col-md-2 col-form-label">Pays</label>
                                     <div class="col-md-2">
                                         <div class="form-group has-default bmd-form-group">
                                             <input th:field="*{country}" type="text" class="form-control">
@@ -105,7 +105,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label for="position" class="col-md-2 col-form-label">Emploi</label>
+                                    <label class="col-md-2 col-form-label">Emploi</label>
                                     <div class="col-md-6">
                                         <div class="form-group bmd-form-group">
                                             <input th:field="*{position}" type="text" class="form-control">
@@ -118,7 +118,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label for="team" class="col-md-2 col-form-label">Équipe</label>
+                                    <label class="col-md-2 col-form-label">Équipe</label>
                                     <div class="col-md-8">
                                         <div class="form-group bmd-form-group">
                                             <select th:field="*{teamList}" class="form-control">
@@ -140,7 +140,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label for="remainingLeave" class="col-md-2 col-form-label">Nombre de congés</label>
+                                    <label class="col-md-2 col-form-label">Nombre de congés</label>
                                     <div class="col-md-1">
                                         <div class="form-group bmd-form-group">
                                             <input th:field="*{remainingLeave}" type="text" class="form-control" value="25">
@@ -148,7 +148,9 @@
                                     </div>
                                 </div>
                                 <div class="pull-right">
-                                    <button th:href="@{/employes}" type="button" class="btn btn-secondary">Annuler</button>
+                                    <a th:href="@{/employes}">
+                                        <button type="button" class="btn btn-secondary">Annuler</button>
+                                    </a>
                                     <button type="submit" class="btn btn-success">Enregistrer</button>
                                 </div>
                             </form>

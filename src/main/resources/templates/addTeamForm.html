@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head.html :: head"></head>
+
+<body class="">
+    <div class="wrapper ">
+        <div th:replace="fragments/menus.html :: menu"></div>
+        <div class="main-panel">
+            <div th:replace="fragments/menus.html :: logoutMenu"></div>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header card-header-primary card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">people</i>
+                            </div>
+                            <h4 class="card-title">Ajouter une équipe</h4>
+                        </div>
+                        <div class="card-body">
+                            <form action="#" method="post" th:action="@{/equipe/ajouter}" th:object="${team}" class="form-horizontal">
+                                <span class="text-danger" th:errors="*{global}"> </span>
+                                <div class="row">
+                                    <div class="offset-md-2 col-md-4">
+                                        <span class="text-danger" th:errors="*{name}"> </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Nom</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input th:field="*{name}" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="offset-md-2 col-md-6">
+                                        <span class="text-danger" th:errors="*{department}"> </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Département</label>
+                                    <div class="col-md-6">
+                                        <div class="form-group bmd-form-group">
+                                            <select th:field="*{department}" class="form-control">
+                                                <option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.name}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <a>
+                                                <button th:href="@{/departement/ajouter}" type="button" class="btn btn-primary">+</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="offset-md-2 col-md-6">
+                                        <span class="text-danger" th:errors="*{teamLeader}"> </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Chef d'équipe</label>
+                                    <div class="col-md-6">
+                                        <div class="form-group bmd-form-group">
+                                            <select th:field="*{teamLeader}" class="form-control">
+                                                <option th:each="employee : ${employees}" 
+                                                        th:value="${employee.eid}" 
+                                                        th:text="${employee.lastname} + ' ' + ${employee.firstname}">
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="offset-md-2 col-md-6">
+                                        <span class="text-danger" th:errors="*{employeeList}"> </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label" style="min-height: 150px;">Liste des membres</label>
+                                    <div class="col-md-6">
+                                        <div class="form-group bmd-form-group">
+                                            <select multiple th:field="*{employeeList}" class="form-control">
+                                                <option th:each="employee : ${employees}" 
+                                                        th:value="${employee.eid}" 
+                                                        th:text="${employee.lastname} + ' ' + ${employee.firstname}">
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pull-right">
+                                    <a th:href="@{/equipes}">
+                                        <button type="button" class="btn btn-secondary">Annuler</button>
+                                    </a>
+                                    <button type="submit" class="btn btn-success">Enregistrer</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer th:replace="fragments/footer.html :: footer"></footer>
+        </div>
+</body>
+
+</html>

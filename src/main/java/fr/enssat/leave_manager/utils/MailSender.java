@@ -20,7 +20,7 @@ public class MailSender {
         MailjetClient client;
         MailjetRequest request;
         MailjetResponse response;
-        client = new MailjetClient("04f169a80cfa6b1d92ddd1b298925b1e", "141e3e2f61e28dc6f067f13d844a139b");
+        client = new MailjetClient(System.getenv("API_KEY"), System.getenv("API_KEY_SECRET"));
         request = new MailjetRequest(Email.resource)
                 .property(Email.FROMEMAIL, "leavemanagerjee@outlook.com")
                 .property(Email.FROMNAME, "Application de gestion des congés")
