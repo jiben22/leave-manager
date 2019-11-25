@@ -5,8 +5,8 @@ import fr.enssat.leave_manager.model.LeaveRequestEntity;
 import fr.enssat.leave_manager.repository.LeaveRequestRepository;
 import fr.enssat.leave_manager.service.EmployeeService;
 import fr.enssat.leave_manager.service.LeaveRequestService;
+import fr.enssat.leave_manager.service.TimeTableService;
 import fr.enssat.leave_manager.service.exception.*;
-import fr.enssat.leave_manager.service.exception.already_exists.AlreadyExistsException;
 import fr.enssat.leave_manager.service.exception.already_exists.LeaveRequestAlreadyExistsException;
 import fr.enssat.leave_manager.service.exception.not_found.LeaveRequestNotFoundException;
 import fr.enssat.leave_manager.utils.enums.LeaveStatus;
@@ -25,6 +25,9 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 
     @Autowired
     private EmployeeService employeeService;
+
+    @Autowired
+    private TimeTableService timeTableService;
 
     @Override
     public boolean exists(String id) {
@@ -56,6 +59,10 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
         if (emp.getRemainingLeave() - day < 0.0)
             throw new LeaveRequestRemainingLeaveException(emp.getRemainingLeave(), day);
 
+        // check employee timetable
+        if (!timeTableService.isAvailable(emp, lr.getStartingDate(), lr.getEndingDate()))
+            throw new TimeTableDateNotAvailableException(emp, lr.getStartingDate(), lr.getEndingDate());
+
         // remove leave from employee.getRemaining_leave(), day);
         emp.setRemainingLeave(emp.getRemainingLeave() - day);
         lr.setEmployee(employeeService.editEmployee(emp));
@@ -78,6 +85,10 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
         long day = Duration.between(lr.getStartingDate(), lr.getEndingDate()).toDays();
         if (emp.getRemainingLeave() + last_day - day < 0.0)
             throw new LeaveRequestRemainingLeaveException(emp.getRemainingLeave()+last_day, day);
+
+        // check employee timetable
+        if (!timeTableService.isAvailable(emp, lr.getStartingDate(), lr.getEndingDate()))
+            throw new TimeTableDateNotAvailableException(emp, lr.getStartingDate(), lr.getEndingDate());
 
         // edit leave from employee.getRemaining_leave(), day);
         emp.setRemainingLeave(emp.getRemainingLeave() + last_day - day);
