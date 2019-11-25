@@ -30,6 +30,11 @@
                                 You have been logged out.
                             </div>
                         </div>
+                        <div th:if="${param.resetSuccess}">
+                            <div class="alert alert-info">
+                                You successfully reset your password.
+                            </div>
+                        </div>
                         <div class="card card-login card-hidden">
                             <div class="card-header card-header-primary text-center">
                                 <h3 class="card-title">
@@ -73,7 +78,7 @@
                                     </span>
                                 <hr/>
                                 <label class="form-check-label">
-                                    <a href="./demande-mot-de-passe">Mot de passe oublié ?</a>
+                                    <a href="./reinitialisation-mot-de-passe">Mot de passe oublié ?</a>
                                 </label>
                             </div>
                             <div class="card-footer justify-content-center">

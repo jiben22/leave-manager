@@ -62,6 +62,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return repository.saveAndFlush(employee);
     }
 
+
     @Override
     public EmployeeEntity editEmployee(EmployeeEntity employee) {
         if (!repository.existsById(employee.getEid()))
@@ -96,8 +97,8 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .collect(Collectors.toList());
     }
 
-    @Override
+    /*@Override
     public void updatePassword(String password, String userId) {
         repository.updatePassword(password, userId);
-    }
+    }*/
 }

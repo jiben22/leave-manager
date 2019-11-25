@@ -30,13 +30,13 @@ public class PasswordForgotIT {
     public void submitPasswordForgotSuccess() throws Exception {
         this.mockMvc
                 .perform(
-                        post("/forgotPassword")
+                        post("/reinitialisation-mot-de-passe")
                                 .with(csrf())
                                 .param("templates/email", "info@leavemanager.com")
                 )
                 .andExpect(model().hasNoErrors())
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/forgotPassword?success"));
+                .andExpect(redirectedUrl("/reinitialisation-mot-de-passe?success"));
 
         MimeMessage[] receivedMessages = smtpServerRule.getMessages();
         assertEquals(1, receivedMessages.length);
@@ -49,7 +49,7 @@ public class PasswordForgotIT {
     public void submitPasswordForgotInvalidEmail() throws Exception {
         this.mockMvc
                 .perform(
-                        post("/forgotPassword")
+                        post("/reinitialisation-mot-de-passe")
                                 .with(csrf())
                                 .param("templates/email", "invalid@email.com")
                 )
