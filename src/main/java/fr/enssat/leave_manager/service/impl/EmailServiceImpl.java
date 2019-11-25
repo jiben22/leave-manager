@@ -12,6 +12,7 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import javax.mail.internet.MimeMessage;
 import java.nio.charset.StandardCharsets;
 
+
 @Service
 public class EmailServiceImpl implements EmailService {
     @Autowired
@@ -27,9 +28,15 @@ public class EmailServiceImpl implements EmailService {
                     MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
                     StandardCharsets.UTF_8.name());
 
+
             Context context = new Context();
-            context.setVariables(mail.getModel());
-            System.out.println(context.getVariable("user"));
+
+            mail.getModel().forEach((k, v) -> {
+                context.setVariable(k, v);
+            });
+            //context.setVariable("test","hello");//mail.getModel());
+            //System.out.println("test :"+context.getVariable("test"));
+            //System.out.println("user"+context.getVariable("user"));
             String html = templateEngine.process("email/email-template", context);
             System.out.println(html);
 

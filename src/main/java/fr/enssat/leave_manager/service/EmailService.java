@@ -5,4 +5,6 @@ import fr.enssat.leave_manager.model.Mail;
 
 public interface EmailService {
     void sendEmail(Mail mail);
+
 }
+
