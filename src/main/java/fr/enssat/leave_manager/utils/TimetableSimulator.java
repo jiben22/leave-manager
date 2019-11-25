@@ -1,7 +1,5 @@
 package fr.enssat.leave_manager.utils;
 
-import fr.enssat.leave_manager.model.EmployeeEntity;
-
 import java.time.LocalDateTime;
 import java.util.Random;
 
@@ -11,9 +9,9 @@ public class TimetableSimulator {
     private static int mapsize = 366;
     private static Random random = new Random();
 
-    public static boolean isAvailable(EmployeeEntity emp, LocalDateTime start_date, LocalDateTime end_date) {
+    public static boolean isAvailable(String eid, LocalDateTime start_date, LocalDateTime end_date) {
         //EMPLOYEE-157314099170606-1920
-        String[] parts = emp.getEid().split("-");
+        String[] parts = eid.split("-");
         long id = Long.valueOf(parts[1]) *1000 + Long.valueOf(parts[2]);
         random.setSeed(id); // to always have sale timetable per employee
 
@@ -24,15 +22,16 @@ public class TimetableSimulator {
 
     private static boolean inner(int start, int end) {
         double[] timetable = sumOfNoises();
+
         for (int day=start ; day<=end ; day++)
-            if (Math.abs(timetable[day]) >= maxVal)
+            if (Math.abs(timetable[day-1]) >= maxVal)
                 return false;
         return true;
     }
 
     private static double[] sumOfNoises() {
         double[] amplitudes = frequencies;
-        double[][] noises = {};
+        double[][] noises = new double[frequencies.length][mapsize];
         for (int i=0 ; i<frequencies.length ; i++)
             noises[i] = noise(frequencies[i]);
 
@@ -40,19 +39,20 @@ public class TimetableSimulator {
     }
 
     private static double[] weightedSum(double[] amplitudes, double[][] noises) {
-        double[] output = {};
+        double[] output = new double[mapsize];
         for (int i=0 ; i<mapsize ; i++) output[i] = 0.0;
 
         for (int k=0 ; k<noises.length ; k++)
             for (int x=0; x<mapsize ; x++)
-                output[x] += amplitudes[k] * noises[k][x];
+                output[x] += amplitudes[k]
+                        * noises[k][x];
 
         return output;
     }
 
     private static double[] noise(double freq) {
         double phase = Math.PI*2 *2 *random.nextDouble();
-        double[] noise = {};
+        double[] noise = new double[mapsize];
         for (int i=0 ; i<mapsize ; i++)
             noise[i] = Math.sin(Math.PI *2 * freq*i/mapsize + phase);
         return noise;

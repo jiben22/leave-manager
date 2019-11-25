@@ -110,7 +110,7 @@ public class LeaveRequestServiceImplTest {
 
         when(repository.saveAndFlush(leave_request)).thenReturn(leave_request);
         when(employeeService.editEmployee(emp)).thenReturn(emp);
-        when(timeTableService.isAvailable(emp, leave_request.getStartingDate(), leave_request.getEndingDate())).thenReturn(true);
+        when(timeTableService.isAvailable(emp.getEid(), leave_request.getStartingDate(), leave_request.getEndingDate())).thenReturn(true);
 
         // Test
         LeaveRequestEntity added_leave_request = leaveRequestService.addLeaveRequest(leave_request);
@@ -156,7 +156,7 @@ public class LeaveRequestServiceImplTest {
         when(repository.saveAndFlush(leave_request)).thenReturn(leave_request);
         when(repository.existsById(leave_request.getLrid())).thenReturn(true);
         when(employeeService.editEmployee(emp)).thenReturn(emp);
-        when(timeTableService.isAvailable(emp, leave_request.getStartingDate(), leave_request.getEndingDate())).thenReturn(true);
+        when(timeTableService.isAvailable(emp.getEid(), leave_request.getStartingDate(), leave_request.getEndingDate())).thenReturn(true);
         when(repository.findById(leave_request.getLrid()))
                 .thenReturn(Optional.of(old_leave_request));
 

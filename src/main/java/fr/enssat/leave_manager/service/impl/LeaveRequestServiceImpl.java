@@ -60,7 +60,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
             throw new LeaveRequestRemainingLeaveException(emp.getRemainingLeave(), day);
 
         // check employee timetable
-        if (!timeTableService.isAvailable(emp, lr.getStartingDate(), lr.getEndingDate()))
+        if (!timeTableService.isAvailable(emp.getEid(), lr.getStartingDate(), lr.getEndingDate()))
             throw new TimeTableDateNotAvailableException(emp, lr.getStartingDate(), lr.getEndingDate());
 
         // remove leave from employee.getRemaining_leave(), day);
@@ -87,7 +87,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
             throw new LeaveRequestRemainingLeaveException(emp.getRemainingLeave()+last_day, day);
 
         // check employee timetable
-        if (!timeTableService.isAvailable(emp, lr.getStartingDate(), lr.getEndingDate()))
+        if (!timeTableService.isAvailable(emp.getEid(), lr.getStartingDate(), lr.getEndingDate()))
             throw new TimeTableDateNotAvailableException(emp, lr.getStartingDate(), lr.getEndingDate());
 
         // edit leave from employee.getRemaining_leave(), day);
