@@ -24,6 +24,8 @@
 		<jacoco.version>0.8.2</jacoco.version>
 	</properties>
 
+
+    <!-- Spring Context support -->
 	<dependencies>
 		<!-- Spring Web -->
 		<dependency>
@@ -41,6 +43,13 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
+		<!-- Thymeleaf extra security -->
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
+			<version>3.0.4.RELEASE</version>
 		</dependency>
 
 		<!-- Spring Data JPA -->
@@ -106,6 +115,40 @@
 			<artifactId>mailjet-client</artifactId>
 			<version>4.2.0</version>
 		</dependency>
+        <!-- ice green -->
+        <dependency>
+            <groupId>com.icegreen</groupId>
+            <artifactId>greenmail</artifactId>
+            <version>1.5.11</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Spring mail-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
+        <!-- common bean utils -->
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.9.4</version>
+        </dependency>
+
+        <!-- Spring Context Support -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>5.2.1.RELEASE</version>
+        </dependency>
+
+        <!-- javax mail -->
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.2</version>
+        </dependency>
 	</dependencies>
 
 	<build>

@@ -9,15 +9,23 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
-
-    private final EmployeeRepository repository;
+    @Autowired
+    private EmployeeRepository repository;
 
     @Override
     public boolean exists(String id) {
@@ -31,7 +39,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeEntity getEmployeeByEmail(String email) {
-        return repository.findByEmail(email).orElseThrow(() -> new EmployeeNotFoundException(email));
+        return repository.findByEmail(email).orElse(null); //orElseThrow(() -> new EmployeeNotFoundException(email));
     }
 
     @Override
@@ -66,5 +74,27 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void deleteEmployee(String id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    //@Transactional(readOnly = true)
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Optional<EmployeeEntity> employee = repository.findByEmail(email);
+        System.out.println(email);
+        if (!employee.isPresent()) {
+            /*** DEBUG ***/
+            System.out.println("Mail not found! " + email);
+            throw new UsernameNotFoundException("User mail " + email + " was not found in the database");
+        }
+
+        System.out.println("Found mail: " + email);
+        // [ROLE_USER, ROLE_ADMIN,..]
+        return new User(employee.get().getEmail(), employee.get().getPassword(), mapRolesToAuthorities(employee.get().getRoles()));
+    }
+
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<String> roles) {
+        return roles.stream()
+                .map(role -> new SimpleGrantedAuthority(role))
+                .collect(Collectors.toList());
     }
 }

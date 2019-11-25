@@ -9,6 +9,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Set;
 
 
@@ -79,14 +81,6 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
         this.password = encodePassword(password);
     }
 
-    // Override Builder 'password' function to encode password
-    public static class EmployeeEntityBuilder {
-        private String password;
-        public EmployeeEntityBuilder password(String password) {
-            this.password = encodePassword(password);
-            return this;
-        }
-    }
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
     @NonNull
@@ -121,15 +115,32 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
     @JoinColumn(name = "eid", referencedColumnName = "employee")
     private TeamLeaderEntity teamLeader;
 
-    public String getRole() {
-        if (getHrd() != null) {
-            return "ROLE_HRD";
-        } else if (getHr() != null) {
-            return "ROLE_HR";
-        } else if (getTeamLeader() != null) {
-            return "ROLE_TEAMLEADER";
-        } else {
-            return "ROLE_EMPLOYEE";
+
+    public Collection<String> getRoles() {
+        ArrayList<String> roles = new ArrayList<String>();
+
+        if (this.getHr() != null) {
+            roles.add("ROLE_HR");
+        }
+        if (this.getHrd() != null) {
+            roles.add("ROLE_HRD");
+        }
+        if (this.getTeamLeader() != null) {
+            roles.add("ROLE_TEAMLEADER");
+        }
+
+        roles.add("ROLE_EMPLOYEE");
+        return roles;
+
+    }
+
+    // Override Builder 'password' function to encode password
+    public static class EmployeeEntityBuilder {
+        private String password;
+
+        public EmployeeEntityBuilder password(String password) {
+            this.password = encodePassword(password);
+            return this;
         }
     }
     private static BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

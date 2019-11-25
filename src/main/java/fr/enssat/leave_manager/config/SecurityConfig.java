@@ -1,15 +1,18 @@
 package fr.enssat.leave_manager.config;
 
-import fr.enssat.leave_manager.service.impl.UserDetailsServiceImpl;
+import fr.enssat.leave_manager.service.EmployeeService;
+import fr.enssat.leave_manager.web.LoggingAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -21,12 +24,15 @@ import java.util.Arrays;
 
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserDetailsService userDetailsService;
-
     @Autowired
-    public SecurityConfig(UserDetailsServiceImpl userDetailsService) {
+    private EmployeeService userDetailsService;
+    @Autowired
+    private LoggingAccessDeniedHandler accessDeniedHandler;
+
+    /*@Autowired
+    public SecurityConfig(EmployeeServiceImpl userDetailsService) {
         this.userDetailsService = userDetailsService;
-    }
+    }*/
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -45,6 +51,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // The pages does not require login
+        http.authorizeRequests().antMatchers("/", "/login", "/logout").permitAll();
+
+        // userInfo page requires login as ROLE_USER or ROLE_ADMIN.
+        // If no login, it will redirect to /login page.
+        // TODO change PATH
 
         // For HR & HRD only.
         http.authorizeRequests().antMatchers("/RH/*").access("hasRole('ROLE_HR') or hasRole('ROLE_HRD')");
@@ -54,21 +66,35 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // AccessDeniedException will be thrown.
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
 
-        // Config for Login Form
         http.authorizeRequests()
-                .antMatchers("/css/**", "/img/**", "/js/**", "/scss/**").permitAll()
-                .antMatchers("/connexion*").permitAll()
-                .anyRequest().authenticated()
-                .and().formLogin()//
+                .antMatchers(
+                        "/reinitialisation-mot-de-passe**",
+                        "/reset-password**").permitAll();
+
+        // Config for Login Form
+        http.authorizeRequests().and()
+                .formLogin()//
                 // Submit URL of login page.
                 .loginProcessingUrl("/j_spring_security_check") // Submit URL
-                .loginPage("/connexion")
-                .defaultSuccessUrl("/")
-                .failureUrl("/connexion?error=true")
-                .usernameParameter("username")
+                .loginPage("/connexion")//
+                .defaultSuccessUrl("/")//
+                //.failureUrl("/connexion?error=true")//
+                .usernameParameter("username")//
                 .passwordParameter("password")
                 // Config for Logout Page
-                .and().logout().logoutUrl("/deconnexion").logoutSuccessUrl("/connexion");
+                .and()
+                .logout()
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/connexion?logout")
+                .permitAll()
+                .and()
+                .exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler);
+        ;
+        // FIXME test if run correctly otherwise
+        //.logoutUrl("/logout").logoutSuccessUrl("/logoutSuccessful");
     }
 
     @Bean
@@ -82,5 +108,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return source;
+    }
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
+        auth.setUserDetailsService(userDetailsService);
+        auth.setPasswordEncoder(passwordEncoder());
+        return auth;
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider());
     }
 }

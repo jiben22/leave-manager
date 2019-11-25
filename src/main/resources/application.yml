@@ -1,8 +1,3 @@
-# Logger
-logging:
-  level:
-    root: INFO
-
 # Spring configuration
 spring:
   datasource:
@@ -10,8 +5,36 @@ spring:
     username: postgres
     password: root
     driver-class-name: org.postgresql.Driver
+  # ===============================
+  # = JPA configurations
+  # ===============================
   jpa:
     generate-ddl: false
     hibernate:
       ddl-auto: update # auto create or update database schema
     database: postgresql
+  # ===============================
+  # = MAIL configurations
+  # ===============================
+  mail:
+    default-encoding: UTF-8
+    host: smtp.gmail.com
+    username: klozinn@gmail.com
+    password: Kwgum$i2020
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    protocol: smtp
+    test-connection: false
+
+# Logger
+logging:
+  level:
+    root: WARN
+    com.memorynotfound: DEBUG
+    org.springframework.web: INFO
+    org.springframework.security: INFO

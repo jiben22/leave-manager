@@ -16,8 +16,23 @@
         <div class="page-header login-page header-filter" filter-color="black" style="background-image: url('img/wallpapers/mountain.jpg'); background-size: cover; background-position: top center;">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
+                    <span class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
                         <form class="form" name='f' th:action="@{/j_spring_security_check}" method="POST">
+                            <div th:if="${param.error}">
+                                <div class="alert alert-danger">
+                                    Invalid username or password.
+                                </div>
+                            </div>
+                            <div th:if="${param.logout}">
+                                <div class="alert alert-info">
+                                    You have been logged out.
+                                </div>
+                            </div>
+                            <div th:if="${param.resetSuccess}">
+                                <div class="alert alert-info">
+                                    You successfully reset your password.
+                                </div>
+                            </div>
                             <div class="card card-login card-hidden">
                                 <div class="card-header card-header-primary text-center">
                                     <h3 class="card-title">
@@ -33,7 +48,6 @@
                                         <span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}" th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}">
                                             Static summary
                                         </span>
-
                                     </div>
                                     <span class="bmd-form-group">
                                         <div class="input-group">
@@ -41,34 +55,85 @@
                                                 <span class="input-group-text">
                                                     <i class="material-icons">email</i>
                                                 </span>
+                                            </div>
+                                        </div>
+                                    </span>
                                 </div>
                                 <input name="username" type="email" class="form-control" placeholder="Identifiant..." />
                             </div>
+                            <span class="bmd-form-group">
+                                <!--<input type="email" class="form-control" placeholder="Identifiant...">-->
+                                <input autofocus="autofocus"
+                                       class="form-control"
+                                       id="username"
+                                       name="username"
+                                       placeholder="Identifiant..."
+                                       type="email"/>
                             </span>
                             <span class="bmd-form-group">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="material-icons">lock_outline</i>
-                                                </span>
-                    </div>
-                    <input name="password" type="password" class="form-control" placeholder="Mot de passe..." />
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="material-icons">lock_outline</i>
+                                        </span>
+                                    </div>
+                                    <!--<input type="password" class="form-control" placeholder="Mot de passe...">-->
+                                    <input class="form-control"
+                                           id="password"
+                                           name="password"
+                                           placeholder="Mot de passe..."
+                                           type="password"/>
+                                </div>
+                            </span>
+                            <hr />
+                            <label class="form-check-label">
+                                <a href="./demande-mot-de-passe">Mot de passe oublié ?</a>
+                            </label>
+                            <div class="card-footer justify-content-center">
+                                <button name="submit" type="submit" value="submit" class="btn btn-primary btn-link btn-lg">Se connecter</button>
+                            </div>
+                        </form>
+                    </span>
                 </div>
-                </span>
-                <hr />
-                <label class="form-check-label">
-                                        <a href="./demande-mot-de-passe">Mot de passe oublié ?</a>
-                                    </label>
-            </div>
-            <div class="card-footer justify-content-center">
-                <button name="submit" type="submit" value="submit" class="btn btn-primary btn-link btn-lg">Se connecter</button>
             </div>
         </div>
-        </form>
-    </div>
-    </div>
-    </div>
-    <footer th:replace="fragments/footer.html :: footer"></footer>
+<!--    <footer th:replace="fragments/footer.html :: footer"></footer>-->
+        <footer class="footer">
+            <div class="container">
+                <nav class="float-left">
+                    <ul>
+                        <li>
+                            <a href="https://www.creative-tim.com">
+                                Creative Tim
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://creative-tim.com/presentation">
+                                About Us
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://blog.creative-tim.com">
+                                Blog
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.creative-tim.com/license">
+                                Licenses
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="copyright float-right">
+                    &copy;
+                    <script>
+                    document.write(new Date().getFullYear())
+                </script>
+                    , made with <i class="material-icons">favorite</i> by
+                    <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
+                </div>
+            </div>
+        </footer>
     </div>
     </div>
 </body>
