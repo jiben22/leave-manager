@@ -5,6 +5,7 @@ import fr.enssat.leave_manager.model.EmployeeEntity;
 import fr.enssat.leave_manager.model.LeaveRequestEntity;
 import fr.enssat.leave_manager.repository.LeaveRequestRepository;
 import fr.enssat.leave_manager.service.EmployeeService;
+import fr.enssat.leave_manager.service.TimeTableService;
 import fr.enssat.leave_manager.service.exception.LeaveRequestCommentException;
 import fr.enssat.leave_manager.service.exception.already_exists.LeaveRequestAlreadyExistsException;
 import fr.enssat.leave_manager.service.exception.not_found.LeaveRequestNotFoundException;
@@ -38,6 +39,9 @@ public class LeaveRequestServiceImplTest {
 
     @Mock
     private EmployeeService employeeService;
+
+    @Mock
+    private TimeTableService timeTableService;
 
     @InjectMocks
     private LeaveRequestServiceImpl leaveRequestService;
@@ -106,6 +110,7 @@ public class LeaveRequestServiceImplTest {
 
         when(repository.saveAndFlush(leave_request)).thenReturn(leave_request);
         when(employeeService.editEmployee(emp)).thenReturn(emp);
+        when(timeTableService.isAvailable(emp.getEid(), leave_request.getStartingDate(), leave_request.getEndingDate())).thenReturn(true);
 
         // Test
         LeaveRequestEntity added_leave_request = leaveRequestService.addLeaveRequest(leave_request);
@@ -151,6 +156,7 @@ public class LeaveRequestServiceImplTest {
         when(repository.saveAndFlush(leave_request)).thenReturn(leave_request);
         when(repository.existsById(leave_request.getLrid())).thenReturn(true);
         when(employeeService.editEmployee(emp)).thenReturn(emp);
+        when(timeTableService.isAvailable(emp.getEid(), leave_request.getStartingDate(), leave_request.getEndingDate())).thenReturn(true);
         when(repository.findById(leave_request.getLrid()))
                 .thenReturn(Optional.of(old_leave_request));
 
