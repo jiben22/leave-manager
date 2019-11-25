@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/forgotPassword")
+@RequestMapping("/reinitialisation-mot-de-passe")
 public class PasswordForgotController {
 
     @Autowired
@@ -42,6 +42,7 @@ public class PasswordForgotController {
         return "forgotPassword";
     }
 
+
     @PostMapping
     public String processForgotPasswordForm(@ModelAttribute("forgotPasswordForm") @Valid PasswordForgotDto form,
                                             BindingResult result,
@@ -52,7 +53,7 @@ public class PasswordForgotController {
         }
         EmployeeEntity user = userService.getEmployeeByEmail(form.getEmail());
         if (user == null) {
-            result.rejectValue("templates/email", null, "We could not find an account for that e-mail address.");
+            result.rejectValue("email", null, "We could not find an account for that e-mail address.");
             return "forgotPassword";
         }
 
@@ -69,7 +70,7 @@ public class PasswordForgotController {
         Mail mail = new Mail();
         mail.setFrom("no-reply@leavemanager.com");
         mail.setTo(user.getEmail());
-        mail.setSubject("Password reset request");
+        mail.setSubject("Demande de réinitialisation de mot de passe");
 
         Map<String, Object> model = new HashMap<>();
         model.put("token", token);
@@ -81,7 +82,7 @@ public class PasswordForgotController {
         //System.out.println(mail.getModel());
         emailService.sendEmail(mail);
 
-        return "redirect:/forgotPassword?success";
+        return "redirect:/reinitialisation-mot-de-passe?success";
 
     }
 

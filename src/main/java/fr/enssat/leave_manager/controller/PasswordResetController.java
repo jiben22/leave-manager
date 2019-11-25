@@ -62,11 +62,13 @@ public class PasswordResetController {
 
         PasswordResetToken token = tokenRepository.findByToken(form.getToken());
         EmployeeEntity user = token.getUser();
-        String updatedPassword = passwordEncoder.encode(form.getPassword());
-        userService.updatePassword(updatedPassword, user.getEid());
+        //String updatedPassword = passwordEncoder.encode(form.getPassword());
+        //userService.updatePassword(updatedPassword, user.getEid());
+        user.setPassword(form.getPassword());
+        userService.editEmployee(user);
         tokenRepository.delete(token);
 
-        return "redirect:/login?resetSuccess";
+        return "redirect:/connexion?resetSuccess";
     }
 
 }

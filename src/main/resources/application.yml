@@ -19,8 +19,8 @@
         mail:
           default-encoding: UTF-8
           host: smtp.gmail.com
-          username: username@gmail.com
-          password: secret
+          username: klozinn@gmail.com
+          password: Kwgum$i2020
           port: 587
           properties:
             mail:
