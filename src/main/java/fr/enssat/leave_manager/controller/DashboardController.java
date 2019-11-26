@@ -19,6 +19,9 @@ public class DashboardController {
 
         model.addAttribute("title", "Vue d'ensemble");
         model.addAttribute("leaveByStatus", statisticsService.getLeaveByStatus());
+        model.addAttribute("LeaveByTypes", statisticsService.getLeaveByTypes());
+        model.addAttribute("AcceptedLeaveByYear", statisticsService.getAcceptedLeaveByYear());
+        model.addAttribute("TreatedLeaveRequestByHR", statisticsService.getTreatedLeaveRequestByHR());
 
         return "dashboard";
     }
