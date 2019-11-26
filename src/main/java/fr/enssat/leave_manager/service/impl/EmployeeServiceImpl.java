@@ -38,7 +38,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeEntity getEmployeeByEmail(String email) {
-        return repository.findByEmail(email).orElse(null); //orElseThrow(() -> new EmployeeNotFoundException(email));
+        return repository.findByEmail(email).orElseThrow(() -> new EmployeeNotFoundException(email));
     }
 
     @Override

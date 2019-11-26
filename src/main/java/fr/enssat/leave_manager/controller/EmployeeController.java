@@ -8,6 +8,7 @@ import fr.enssat.leave_manager.repository.PasswordResetTokenRepository;
 import fr.enssat.leave_manager.service.EmailService;
 import fr.enssat.leave_manager.service.EmployeeService;
 import fr.enssat.leave_manager.service.TeamService;
+import fr.enssat.leave_manager.service.exception.not_found.EmployeeNotFoundException;
 import fr.enssat.leave_manager.service.impl.EmployeeServiceImpl;
 import fr.enssat.leave_manager.service.impl.TeamServiceImpl;
 import org.slf4j.Logger;
@@ -98,24 +99,44 @@ public class EmployeeController {
 
         logger.debug("POST /employe/ajouter");
 
+        // Get teams
+        List<TeamEntity> teams =  teamService.getTeams();
+        model.addAttribute("teams", teams);
+
+        // Check if form has errors
         if (result.hasErrors()) {
             logger.info(result.toString());
-
-            // Get teams
-            List<TeamEntity> teams =  teamService.getTeams();
-            model.addAttribute("teams", teams);
 
             // Return form with errors
             return "addEmployeeForm";
         } else {
-            try {
-                // Save employee
-                employee = employeeService.addEmployee(employee);
-            } catch (Exception e) {
-                logger.error(e.getMessage() + e.getCause());
-                redirectAttributes.addFlashAttribute("message", "Impossible d'enregister l'employé.");
+            // Check if emails already exists
+            if ( !employee.getEmail().isEmpty() ) {
+                try {
+                    EmployeeEntity existedEmployee =
+                            employeeService.getEmployeeByEmail(employee.getEmail());
 
-                return "redirect:/employes";
+                    if ( existedEmployee != null ) {
+                        result.rejectValue("email", "employee.email",
+                                "L'email est déjà utilisé pour un autre employé");
+
+                        // Return form with errors
+                        return "addEmployeeForm";
+                    }
+                } catch (EmployeeNotFoundException e) {
+
+                    logger.debug("Email doesn't exist: " + employee.getEmail());
+
+                    try {
+                        // Save employee
+                        employee = employeeService.addEmployee(employee);
+                    } catch (Exception e1) {
+                        logger.error(e1.getMessage() + e1.getCause());
+                        redirectAttributes.addFlashAttribute("message", "Impossible d'enregister l'employé");
+
+                        return "redirect:/employes";
+                    }
+                }
             }
         }
 

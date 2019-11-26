@@ -26,13 +26,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private EmployeeService userDetailsService;
-    @Autowired
-    private LoggingAccessDeniedHandler accessDeniedHandler;
-
-    /*@Autowired
-    public SecurityConfig(EmployeeServiceImpl userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }*/
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -54,10 +47,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // The pages does not require login
         http.authorizeRequests().antMatchers("/", "/login", "/logout").permitAll();
 
-        // userInfo page requires login as ROLE_USER or ROLE_ADMIN.
-        // If no login, it will redirect to /login page.
-        // TODO change PATH
-
         // For HR & HRD only.
         http.authorizeRequests().antMatchers("/RH/*").access("hasRole('ROLE_HR') or hasRole('ROLE_HRD')");
 
@@ -70,18 +59,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/connexion**", "/deconnexion***", "/reinitialisation-mot-de-passe**").permitAll();
 
         // Config for Login Form
-        http.authorizeRequests()
-                .anyRequest().authenticated()
-                .and().formLogin()
-                // Submit URL of login page.
-                .loginProcessingUrl("/j_spring_security_check") // Submit URL
-                .loginPage("/connexion")
-                .defaultSuccessUrl("/")
-                .failureUrl("/connexion?error=true")
-                .usernameParameter("username")
-                .passwordParameter("password")
-                // Config for Logout Page
-                .and().logout().logoutUrl("/deconnexion").logoutSuccessUrl("/connexion");
+//        http.authorizeRequests()
+//                .anyRequest().authenticated()
+//                .and().formLogin()
+//                // Submit URL of login page.
+//                .loginProcessingUrl("/j_spring_security_check") // Submit URL
+//                .loginPage("/connexion")
+//                .defaultSuccessUrl("/")
+//                .failureUrl("/connexion?error=true")
+//                .usernameParameter("username")
+//                .passwordParameter("password")
+//                // Config for Logout Page
+//                .and().logout().logoutUrl("/deconnexion").logoutSuccessUrl("/connexion");
     }
 
     @Bean
