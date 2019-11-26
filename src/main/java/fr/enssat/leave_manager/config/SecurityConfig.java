@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -44,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests().antMatchers("xos45.mjt.lu/**").permitAll();
         // The pages does not require login
         http.authorizeRequests().antMatchers("/", "/login", "/logout").permitAll();
 
@@ -54,23 +56,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/css/**", "/img/**", "/js/**", "/scss/**").permitAll();
 
+
         // Authorize pages
         http.authorizeRequests()
                 .antMatchers("/connexion**", "/deconnexion***", "/reinitialisation-mot-de-passe**").permitAll();
 
         // Config for Login Form
-//        http.authorizeRequests()
-//                .anyRequest().authenticated()
-//                .and().formLogin()
-//                // Submit URL of login page.
-//                .loginProcessingUrl("/j_spring_security_check") // Submit URL
-//                .loginPage("/connexion")
-//                .defaultSuccessUrl("/")
-//                .failureUrl("/connexion?error=true")
-//                .usernameParameter("username")
-//                .passwordParameter("password")
-//                // Config for Logout Page
-//                .and().logout().logoutUrl("/deconnexion").logoutSuccessUrl("/connexion");
+        http.authorizeRequests()
+                .anyRequest().authenticated()
+                .and().formLogin()
+                // Submit URL of login page.
+                .loginProcessingUrl("/j_spring_security_check") // Submit URL
+                .loginPage("/connexion")
+                .defaultSuccessUrl("/")
+                .failureUrl("/connexion?error=true")
+                .usernameParameter("username")
+                .passwordParameter("password")
+                // Config for Logout Page
+                .and().logout().logoutUrl("/deconnexion").logoutSuccessUrl("/connexion");
     }
 
     @Bean
