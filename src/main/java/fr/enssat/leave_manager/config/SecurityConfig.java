@@ -61,40 +61,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // For HR & HRD only.
         http.authorizeRequests().antMatchers("/RH/*").access("hasRole('ROLE_HR') or hasRole('ROLE_HRD')");
 
-        // When the user has logged in as XX.
-        // But access a page that requires role YY,
-        // AccessDeniedException will be thrown.
-        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
-
+        // Authorize resources
         http.authorizeRequests()
-                .antMatchers(
-                        "/reinitialisation-mot-de-passe**",
-                        "/reset-password**").permitAll();
+                .antMatchers("/css/**", "/img/**", "/js/**", "/scss/**").permitAll();
+
+        // Authorize pages
+        http.authorizeRequests()
+                .antMatchers("/connexion**", "/deconnexion***", "/reinitialisation-mot-de-passe**").permitAll();
 
         // Config for Login Form
-        http.authorizeRequests().and()
-                .formLogin()//
+        http.authorizeRequests()
+                .anyRequest().authenticated()
+                .and().formLogin()
                 // Submit URL of login page.
                 .loginProcessingUrl("/j_spring_security_check") // Submit URL
-                .loginPage("/connexion")//
-                .defaultSuccessUrl("/")//
-                //.failureUrl("/connexion?error=true")//
-                .usernameParameter("username")//
+                .loginPage("/connexion")
+                .defaultSuccessUrl("/")
+                .failureUrl("/connexion?error=true")
+                .usernameParameter("username")
                 .passwordParameter("password")
                 // Config for Logout Page
-                .and()
-                .logout()
-                .invalidateHttpSession(true)
-                .clearAuthentication(true)
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/connexion?logout")
-                .permitAll()
-                .and()
-                .exceptionHandling()
-                .accessDeniedHandler(accessDeniedHandler);
-        ;
-        // FIXME test if run correctly otherwise
-        //.logoutUrl("/logout").logoutSuccessUrl("/logoutSuccessful");
+                .and().logout().logoutUrl("/deconnexion").logoutSuccessUrl("/connexion");
     }
 
     @Bean

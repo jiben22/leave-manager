@@ -6,8 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
-@Transactional
 public interface EmployeeService extends UserDetailsService {
     boolean exists(String id);
     EmployeeEntity getEmployee(String id);

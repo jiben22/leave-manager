@@ -19,20 +19,20 @@
                     <span class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
                         <form class="form" name='f' th:action="@{/j_spring_security_check}" method="POST">
                             <div th:if="${param.error}">
-                                <div class="alert alert-danger">
-                                    Invalid username or password.
+                                    <div class="alert alert-danger">
+                                        Identifiant ou mot de passe invalide
+                                    </div>
                                 </div>
-                            </div>
-                            <div th:if="${param.logout}">
-                                <div class="alert alert-info">
-                                    You have been logged out.
+                                <div th:if="${param.logout}">
+                                    <div class="alert alert-info">
+                                        Vous avez été déconnecté
+                                    </div>
                                 </div>
-                            </div>
-                            <div th:if="${param.resetSuccess}">
-                                <div class="alert alert-info">
-                                    You successfully reset your password.
+                                <div th:if="${param.resetSuccess}">
+                                    <div class="alert alert-info">
+                                        Demande de réinitialisation de mot de passe envoyé
+                                    </div>
                                 </div>
-                            </div>
                             <div class="card card-login card-hidden">
                                 <div class="card-header card-header-primary text-center">
                                     <h3 class="card-title">
@@ -40,100 +40,43 @@
                                     </h3>
                                 </div>
                                 <div class="card-body">
-                                    <p class="card-description text-center">
-                                        Accédez à votre espace dédié pour vos demandes de congés.
-                                    </p>
-                                    <div style="color:red;margin:10px 0px;" th:if="${#request.getParameter('error') == 'true'}">
-                                        La connexion à échoué <br/> Raison :
-                                        <span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}" th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}">
-                                            Static summary
-                                        </span>
-                                    </div>
-                                    <span class="bmd-form-group">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="material-icons">email</i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </span>
-                                </div>
-                                <input name="username" type="email" class="form-control" placeholder="Identifiant..." />
-                            </div>
-                            <span class="bmd-form-group">
-                                <!--<input type="email" class="form-control" placeholder="Identifiant...">-->
-                                <input autofocus="autofocus"
-                                       class="form-control"
-                                       id="username"
-                                       name="username"
-                                       placeholder="Identifiant..."
-                                       type="email"/>
-                            </span>
-                            <span class="bmd-form-group">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="material-icons">lock_outline</i>
-                                        </span>
-                                    </div>
-                                    <!--<input type="password" class="form-control" placeholder="Mot de passe...">-->
-                                    <input class="form-control"
-                                           id="password"
-                                           name="password"
-                                           placeholder="Mot de passe..."
-                                           type="password"/>
-                                </div>
-                            </span>
-                            <hr />
-                            <label class="form-check-label">
-                                <a href="./demande-mot-de-passe">Mot de passe oublié ?</a>
-                            </label>
-                            <div class="card-footer justify-content-center">
-                                <button name="submit" type="submit" value="submit" class="btn btn-primary btn-link btn-lg">Se connecter</button>
-                            </div>
-                        </form>
-                    </span>
+                                        <p class="card-description text-center">
+                                            Accédez à votre espace dédié pour vos demandes de congés.
+                                        </p>
+                <span class="bmd-form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="material-icons">email</i>
+                                                    </span>
                 </div>
+                <input name="username" type="email" class="form-control" placeholder="Identifiant..." />
             </div>
+            </span>
+            <span class="bmd-form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="material-icons">lock_outline</i>
+                                                    </span>
         </div>
-<!--    <footer th:replace="fragments/footer.html :: footer"></footer>-->
-        <footer class="footer">
-            <div class="container">
-                <nav class="float-left">
-                    <ul>
-                        <li>
-                            <a href="https://www.creative-tim.com">
-                                Creative Tim
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://creative-tim.com/presentation">
-                                About Us
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://blog.creative-tim.com">
-                                Blog
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.creative-tim.com/license">
-                                Licenses
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="copyright float-right">
-                    &copy;
-                    <script>
-                    document.write(new Date().getFullYear())
-                </script>
-                    , made with <i class="material-icons">favorite</i> by
-                    <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
-                </div>
-            </div>
-        </footer>
+        <input name="password" type="password" class="form-control" placeholder="Mot de passe..." />
+    </div>
+    </span>
+    <hr />
+    <label class="form-check-label">
+                                            <a th:href="@{/reinitialisation-mot-de-passe}">Mot de passe oublié ?</a>
+                                        </label>
+    </div>
+    <div class="card-footer justify-content-center">
+        <button name="submit" type="submit" value="submit" class="btn btn-primary btn-link btn-lg">Se connecter</button>
+    </div>
+    </div>
+    </form>
+    </div>
+    </div>
+    </div>
+    <footer th:replace="fragments/footer.html :: footer"></footer>
     </div>
     </div>
 </body>

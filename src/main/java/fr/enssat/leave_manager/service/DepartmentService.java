@@ -6,8 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
-@Transactional
 public interface DepartmentService {
     boolean exists(String id);
     DepartmentEntity getDepartment(String id);

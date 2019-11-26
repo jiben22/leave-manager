@@ -1,54 +1,34 @@
 package fr.enssat.leave_manager.controller;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class LoginController {
 
     @GetMapping("/connexion")
-    public ModelAndView showLogin() {
+    public String showLogin(Model model) {
 
-        String viewName = "login";
-        Map<String, Object> model = new HashMap<>();
-        model.put("title", "Connexion");
+        model.addAttribute("title", "Page de connexion");
+        return "login";
 
-        return new ModelAndView(viewName, model);
     }
 
-    @GetMapping("/access-denied")
-    public ModelAndView accessDenied() {
-        String viewName = "/error/access-denied";
-        Map<String, Object> model = new HashMap<>();
-        model.put("title", "Accès refusé");
+    @GetMapping("/deconnexion")
+    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
 
-        return new ModelAndView(viewName, model);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+
+        return "redirect:/connexion";
     }
-
-
-    @GetMapping("/verrouillage")
-    public ModelAndView showLock() {
-
-        String viewName = "lock";
-        Map<String, Object> model = new HashMap<>();
-        model.put("title", "Verrouillage");
-
-        return new ModelAndView(viewName, model);
-    }
-
-    /*// TODO deplacer dans PasswordForgotC
-    @GetMapping("/demande-mot-de-passe")
-    public ModelAndView showForgotPassword() {
-
-        String viewName = "forgotPassword";
-        Map<String, Object> model = new HashMap<>();
-        model.put("title", "Demande de mot de passe");
-
-        return new ModelAndView(viewName, model);
-    }*/
-
 }

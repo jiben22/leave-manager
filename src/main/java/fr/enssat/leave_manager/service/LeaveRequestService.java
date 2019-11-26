@@ -7,8 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
-@Transactional
 public interface LeaveRequestService {
     boolean exists(String id);
     LeaveRequestEntity getLeaveRequest(String id);
