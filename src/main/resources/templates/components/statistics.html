@@ -52,18 +52,42 @@
                     <div id="LeaveRequestByHR" class="ct-chart">
                         <!-- multiple bar chart (3bar: en attente, refusé, validé, annulé -->
                     </div>
+                    <div id="LeaveRequestByHR_legend" class="card-category">
+                        <span th:each="type: ${leaveByStatus.keySet()}" th:text="${type}"></span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <style>
+    <style th:inline="text"
+           th:with="colors=${ {'#00bcd4','#f44336','#ff9800','#4caf50','#6a1b9a','#26c6da','#ffee58','#5d4037','#263238'} }, alphabet=${ {'a','b','c','d','e','f','g','h','i'} }">
+        #LeaveRequestByHR_legend span::before {
+            content: "";
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin-right: 5px;
+        }
+        /*[# th:each="i : ${#numbers.sequence(1, 9)}"]*/
+        #LeaveRequestByHR_legend span:nth-child([[@{(${i})}]])::before { background-color: [[${colors[i-1]}]] }
+
+        .ct-series-[[${alphabet[i-1]}]] .ct-bar { stroke: [[${colors[i-1]}]] }
+        /*[/]*/
+
+        #LeaveRequestByHR_legend {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+
          #LeaveByStatus .ct-label.ct-horizontal,
          #LeaveByType .ct-label.ct-horizontal {
             text-align: center;
+             line-height: 1;
+             justify-content: center;
             align-items: center;
-            line-height: 1;
-        }
+         }
     </style>
 
     <script th:inline="javascript">
@@ -77,29 +101,25 @@
 
         // Initialize a Bar chart in the container with the ID LeaveByType
         new Chartist.Bar('#LeaveByType', {
-            labels: [1, 2, 3, 4],
+            labels: /*[[${LeaveByTypes.keySet()}]]*/ [],
             series: [
-                [5, 2, 8, 3]
+                /*[[${LeaveByTypes.values()}]]*/ []
             ]
         });
 
         // Initialize a Straight Lines Chart in the container with the ID AcceptedLeaveByYear
         new Chartist.Line('#AcceptedLeaveByYear', {
-            labels: [1, 2, 3, 4],
+            labels: /*[[${AcceptedLeaveByYear.get(0)}]]*/ [],
             series: [
-                [5, 2, 8, 3]
+                /*[[${AcceptedLeaveByYear.get(1)}]]*/ []
             ]
         });
 
         // Initialize a multiple Bar Chart in the container with the ID LeaveRequestByHR
         new Chartist.Bar('#LeaveRequestByHR', {
-            labels: [1, 2, 3, 4],
-            series: [
-                [5, 2, 8, 3],
-                [5, 2, 8, 3],
-                [5, 2, 8, 3],
-                [5, 2, 8, 3]
-            ]
+            labels: /*[[${TreatedLeaveRequestByHR.keySet()}]]*/ [],
+            series: /*[[${TreatedLeaveRequestByHR.values()}]]*/ []
         });
+
     </script>
 </div>
