@@ -10,8 +10,8 @@
             <div th:replace="fragments/menus.html :: logoutMenu"></div>
             <div class="content">
                 <div class="container-fluid">
-                    <!-- FIXME only RH can viw statistics-->
-                    <div th:replace="components/statistics.html :: statistics"></div>
+                    <!-- FIXME only RH can view statistics (else calendar) -->
+                    <div th:if="true" th:replace="components/statistics.html :: statistics"></div>
                     <div class="row">
                         <div class="offset-md-11">
                             <a th:href="@{/demande-conges/ajouter}">
