@@ -6,11 +6,11 @@
         <div class="col-md-4">
             <div class="card card-chart">
                 <div class="card-header card-header-rose">
-                    <div id="LeaveByStatus" class="ct-chart"><!-- Bar chart --></div>
+                    <div id="EffectiveByYear" class="ct-chart"><!-- Line chart --></div>
                 </div>
                 <div class="card-body">
-                    <h4 class="card-title">Congés posés par états</h4>
-                    <p class="card-category">durant le dernier mois</p>
+                    <h4 class="card-title">Effectif disponible</h4>
+                    <p class="card-category">durant l'année courante</p>
                 </div>
             </div>
         </div>
@@ -20,7 +20,7 @@
                     <div id="LeaveByType" class="ct-chart"><!-- Bar chart --></div>
                 </div>
                 <div class="card-body">
-                    <h4 class="card-title">Congés posés par types</h4>
+                    <h4 class="card-title">Congés posés par type</h4>
                     <p class="card-category">durant le dernier mois</p>
                 </div>
             </div>
@@ -38,6 +38,87 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-md-3">
+            <div class="card card-stats">
+                <div class="card-header card-header-icon">
+                    <div class="card-icon" style="background-color: #00bcd4;">
+                        <i class="material-icons">post_add</i>
+                    </div>
+                    <p class="card-category">Demande en attente</p>
+                    <h3 class="card-title" th:text="${metrics.pending_leave_request}">?</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card-stats">
+                <div class="card-header card-header-icon">
+                    <div class="card-icon" style="background-color: #4caf50;">
+                        <i class="material-icons">check</i>
+                    </div>
+                    <p class="card-category">Demande accepté</p>
+                    <h3 class="card-title" th:text="${metrics.accepted_leave_request}">?</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card-stats">
+                <div class="card-header card-header-icon">
+                    <div class="card-icon" style="background-color: #f44336;">
+                        <i class="material-icons">delete_forever</i>
+                    </div>
+                    <p class="card-category">Demande refusée</p>
+                    <h3 class="card-title" th:text="${metrics.declined_leave_request}">?</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card-stats">
+                <div class="card-header card-header-icon">
+                    <div class="card-icon" style="background-color: #ff9800;">
+                        <i class="material-icons">close</i>
+                    </div>
+                    <p class="card-category">Demande annulé</p>
+                    <h3 class="card-title" th:text="${metrics.cancelled_leave_request}">?</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="offset-md-2 col-md-3">
+            <div class="card card-stats">
+                <div class="card-header card-header-icon card-header-danger">
+                    <div class="card-icon">
+                        <i class="material-icons">person</i>
+                    </div>
+                    <p class="card-category">Nombre d'employés</p>
+                    <h3 class="card-title" th:text="${metrics.nb_employee}">?</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card-stats">
+                <div class="card-header card-header-icon card-header-success">
+                    <div class="card-icon">
+                        <i class="material-icons">people</i>
+                    </div>
+                    <p class="card-category">Nombre d'équipes</p>
+                    <h3 class="card-title" th:text="${metrics.nb_team}">?</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card-stats">
+                <div class="card-header card-header-icon card-header-rose">
+                    <div class="card-icon">
+                        <i class="material-icons">apartment</i>
+                    </div>
+                    <p class="card-category">Nombre de départments</p>
+                    <h3 class="card-title" th:text="${metrics.nb_department}">?</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header card-header-icon card-header-danger">
@@ -49,11 +130,9 @@
                     </h4>
                 </div>
                 <div class="card-body">
-                    <div id="LeaveRequestByHR" class="ct-chart">
-                        <!-- multiple bar chart (3bar: en attente, refusé, validé, annulé -->
-                    </div>
+                    <div id="LeaveRequestByHR" class="ct-chart"><!-- multiple bar chart --></div>
                     <div id="LeaveRequestByHR_legend" class="card-category">
-                        <span th:each="type: ${leaveByStatus.keySet()}" th:text="${type}"></span>
+                        <span th:each="type: ${status}" th:text="${type}"></span>
                     </div>
                 </div>
             </div>
@@ -61,7 +140,7 @@
     </div>
 
     <style th:inline="text"
-           th:with="colors=${ {'#00bcd4','#f44336','#ff9800','#4caf50','#6a1b9a','#26c6da','#ffee58','#5d4037','#263238'} }, alphabet=${ {'a','b','c','d','e','f','g','h','i'} }">
+           th:with="colors=${ {'#00bcd4','#ff9800','#4caf50','#f44336'} }, alphabet=${ {'a','b','c','d'} }">
         #LeaveRequestByHR_legend span::before {
             content: "";
             display: inline-block;
@@ -69,10 +148,11 @@
             height: 10px;
             margin-right: 5px;
         }
-        /*[# th:each="i : ${#numbers.sequence(1, 9)}"]*/
+
+        /*[# th:each="i : ${#numbers.sequence(1, 4)}"]*/
         #LeaveRequestByHR_legend span:nth-child([[@{(${i})}]])::before { background-color: [[${colors[i-1]}]] }
 
-        .ct-series-[[${alphabet[i-1]}]] .ct-bar { stroke: [[${colors[i-1]}]] }
+        #LeaveRequestByHR .ct-series-[[${alphabet[i-1]}]] .ct-bar { stroke: [[${colors[i-1]}]] !important}
         /*[/]*/
 
         #LeaveRequestByHR_legend {
@@ -81,7 +161,6 @@
             justify-content: space-around;
         }
 
-         #LeaveByStatus .ct-label.ct-horizontal,
          #LeaveByType .ct-label.ct-horizontal {
             text-align: center;
              line-height: 1;
@@ -91,11 +170,11 @@
     </style>
 
     <script th:inline="javascript">
-        // Initialize a Bar chart in the container with the ID LeaveByStatus
-        new Chartist.Bar('#LeaveByStatus', {
-            labels: /*[[${leaveByStatus.keySet()}]]*/ [],
+        // Initialize a Bar chart in the container with the ID EffectiveByYear
+        new Chartist.Line('#EffectiveByYear', {
+            labels: /*[[${EffectiveByYear.get(0)}]]*/ [],
             series: [
-                /*[[${leaveByStatus.values()}]]*/ []
+                /*[[${EffectiveByYear.get(1)}]]*/ []
             ]
          });
 
@@ -120,6 +199,5 @@
             labels: /*[[${TreatedLeaveRequestByHR.keySet()}]]*/ [],
             series: /*[[${TreatedLeaveRequestByHR.values()}]]*/ []
         });
-
     </script>
 </div>

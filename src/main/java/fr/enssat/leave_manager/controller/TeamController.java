@@ -191,4 +191,10 @@ public class TeamController {
 
         return "redirect:/equipe/" + team.getId();
     }
+
+    @GetMapping("/equipe/supprimer/{id}")
+    public String submitUpdateTeamForm(@PathVariable String id) {
+        teamService.deleteTeam(id);
+        return "redirect:/equipes";
+    }
 }

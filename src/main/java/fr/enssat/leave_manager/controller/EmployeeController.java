@@ -193,6 +193,16 @@ public class EmployeeController {
         return "redirect:/employe/" + employee.getEid();
     }
 
+    @GetMapping("/employe/supprimer/{id}")
+    public String submitUpdateTeamForm(@PathVariable String id) {
+        if(employeeService.exists(id)) {
+            employeeService.deleteEmployee(id);
+        } else {
+            logger.error("Employee doesn't exist");
+        }
+        return "redirect:/employes";
+    }
+
     // @galliou FIXME
     @PostMapping
     public String processSetPasswordForm(EmployeeEntity user,

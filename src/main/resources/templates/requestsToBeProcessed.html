@@ -74,8 +74,8 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr th:each="leavesRequest, i : ${leavesRequests}" role="row" th:style="${i.odd}? 'odd' : 'even'">
-                                                            <td th:text="${leavesRequest.startingDate}" tabindex="0" class="sorting_1">Starting date</td>
-                                                            <td th:text="${leavesRequest.endingDate}">Ending date</td>
+                                                            <td th:text="${leavesRequest.employee.lastname}" tabindex="0" class="sorting_1">Nom</td>
+                                                            <td th:text="${leavesRequest.employee.firstname}">Prénom</td>
                                                             <td th:text="${leavesRequest.typeOfLeave.name}">Name of type of leaves</td>
                                                             <td th:text="${leavesRequest.status}">Status</td>
                                                             <td class="text-right">
