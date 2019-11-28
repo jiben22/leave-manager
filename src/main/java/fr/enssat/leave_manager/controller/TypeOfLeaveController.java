@@ -10,10 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -68,6 +65,25 @@ public class TypeOfLeaveController {
 
             return "redirect:/type-conges/" + typeOfLeave.getId();
         }
+    }
+
+    @GetMapping("/type-conges/archive/{id}")
+    public String archive(@PathVariable("id") String id) {
+
+        typeOfLeaveService.deleteTypeOfLeave(id);
+
+        return "redirect:/type-conges";
+    }
+
+    @GetMapping("/type-conges/unarchive/{id}")
+    public String unarchive(@PathVariable("id") String id) {
+
+        TypeOfLeaveEntity tol = typeOfLeaveService.getTypeOfLeave(id);
+        tol.setIsArchived(false);
+        typeOfLeaveService.editTypeOfLeave(tol);
+
+        return "redirect:/type-conges";
+
     }
 
     @GetMapping("/types-conges/modifier")

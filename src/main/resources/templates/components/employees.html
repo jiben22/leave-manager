@@ -46,14 +46,15 @@
     <script>
 
         (function($) {
+            let that;
             $(".remove").click(function() {
-                let eid = $(this).parent().parent()[0].dataset.id;
-                let tr = $(this).parent().parent()[0];
+                that = $(this);
                 $(".remove-modal-btn").click(function(){
-                    console.log(eid);
+                    let tr = that.parent().parent()[0];
+                    let eid = tr.dataset.id;
                     $(tr).fadeOut();
+                    $.get("employe/supprimer/"+eid);
                 });
-                $.get("employe/supprimer/"+eid);
             });
         })(jQuery);
 
