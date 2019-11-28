@@ -63,25 +63,71 @@
                                                 <table id="datatables" class="table table-striped table-no-bordered table-hover dataTable dtr-inline" style="width: 100%;" role="grid" aria-describedby="datatables_info" width="100%" cellspacing="0">
                                                     <thead>
                                                         <tr role="row">
-                                                            <th class="sorting_asc" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;" aria-sort="ascending" aria-label="Name: activate to sort column descending">
+                                                            <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;" aria-label="Name: activate to sort column ascending">
                                                                 Nom</th>
                                                             <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;" aria-label="Position: activate to sort column ascending">
                                                                 Prénom</th>
                                                             <th class="disabled-sorting sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;" aria-label="Actions: activate to sort column ascending">Type de congé</th>
-                                                            <th class="disabled-sorting sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;" aria-label="Actions: activate to sort column ascending">Statut</th>
+                                                            <th class="sorting_asc" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;" aria-sort="ascending" aria-label="Actions: activate to sort column descending">Statut</th>
                                                             <th class="disabled-sorting text-right sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 80px;" aria-label="Actions: activate to sort column ascending"></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr th:each="leavesRequest, i : ${leavesRequests}" role="row" th:style="${i.odd}? 'odd' : 'even'">
-                                                            <td th:text="${leavesRequest.employee.lastname}" tabindex="0" class="sorting_1">Nom</td>
+                                                        <tr th:each="leavesRequest, i : ${pendingLeaveRequests}" role="row" th:style="${i.odd}? 'odd' : 'even'">
+                                                            <td th:text="${leavesRequest.employee.lastname}">Nom</td>
                                                             <td th:text="${leavesRequest.employee.firstname}">Prénom</td>
                                                             <td th:text="${leavesRequest.typeOfLeave.name}">Name of type of leaves</td>
-                                                            <td th:text="${leavesRequest.status}">Status</td>
+                                                            <td th:text="${leavesRequest.status}" tabindex="0" class="sorting_1">Status</td>
                                                             <td class="text-right">
                                                                 <a th:href="@{/demande/valider/' + ${leavesRequest.id}}" class="btn btn-link btn-warning btn-just-icon remove"><i class="material-icons">dvr</i></a>
                                                             </td>
                                                         </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-primary card-header-icon">
+                                    <div class="card-icon">
+                                        <i class="material-icons">assignment</i>
+                                    </div>
+                                    <h4 class="card-title">Toutes les demandes</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="toolbar">
+                                    </div>
+                                    <div class="material-datatables">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <table id="alldatatables" class="table table-striped table-no-bordered table-hover dataTable dtr-inline" style="width: 100%;" role="grid" aria-describedby="datatables_info" width="100%" cellspacing="0">
+                                                    <thead>
+                                                    <tr role="row">
+                                                        <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;" aria-label="Name: activate to sort column ascending">
+                                                            Nom</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;" aria-label="Position: activate to sort column ascending">
+                                                            Prénom</th>
+                                                        <th class="disabled-sorting sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;" aria-label="Actions: activate to sort column ascending">Type de congé</th>
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;" aria-sort="ascending" aria-label="Actions: activate to sort column descending">Statut</th>
+                                                        <th class="disabled-sorting text-right sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 80px;" aria-label="Actions: activate to sort column ascending"></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr th:each="leavesRequest, i : ${leavesRequests}" role="row" th:style="${i.odd}? 'odd' : 'even'">
+                                                        <td th:text="${leavesRequest.employee.lastname}">Nom</td>
+                                                        <td th:text="${leavesRequest.employee.firstname}">Prénom</td>
+                                                        <td th:text="${leavesRequest.typeOfLeave.name}">Name of type of leaves</td>
+                                                        <td th:text="${leavesRequest.status}" tabindex="0" class="sorting_1">Status</td>
+                                                        <td class="text-right">
+                                                            <a th:href="@{/demande/valider/' + ${leavesRequest.id}}" class="btn btn-link btn-warning btn-just-icon remove"><i class="material-icons">dvr</i></a>
+                                                        </td>
+                                                    </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -97,7 +143,7 @@
         </div>
         <script>
             $(document).ready(function() {
-                $('#datatables').DataTable({
+                var __local_dt = {
                     "pagingType": "full_numbers",
                     "lengthMenu": [
                         [10, 25, 50, -1],
@@ -134,9 +180,12 @@
                             }
                         }
                     }
-                });
+                };
+                $('#datatables').DataTable(__local_dt);
+                $('#alldatatables').DataTable(__local_dt);
 
                 var table = $('#datatable').DataTable();
+                var table = $('#alldatatables').DataTable();
             });
         </script>
 </body>
