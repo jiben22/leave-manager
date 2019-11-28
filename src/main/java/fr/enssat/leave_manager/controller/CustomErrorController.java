@@ -6,7 +6,6 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -22,9 +21,9 @@ public class CustomErrorController implements ErrorController {
     }
 
     @GetMapping("/error")
-    public String handleError(HttpServletRequest request, Model model) {
-
+    public String handleError(Exception ex, HttpServletRequest request, Model model) {
         Object statusCode = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+
         logger.error("Error with status code " + statusCode + " happened");
         model.addAttribute("statusCode", statusCode.toString());
 
