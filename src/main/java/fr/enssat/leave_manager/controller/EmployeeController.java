@@ -201,7 +201,6 @@ public class EmployeeController {
         } else {
             logger.error("Employee doesn't exist");
         }
-
         return "redirect:/employes";
     }
 
