@@ -199,7 +199,7 @@ public class TeamController {
 
         // Add employee to team leader if doesn't exist
         TeamLeaderEntity teamLeader;
-        if ( !teamLeaderService.exists(teamLeaderId) ) {
+        if (!teamLeaderService.exists(teamLeaderId)) {
             // Get employee
             EmployeeEntity employee =
                     employeeService.getEmployee(teamLeaderId);
@@ -218,5 +218,11 @@ public class TeamController {
         team.setTeamLeader(teamLeader);
         // Add team leader to employees list if doesn't exist
         team.getEmployeeList().add(teamLeader.getEmployee());
+    }
+
+    @GetMapping("/equipe/supprimer/{id}")
+    public String submitUpdateTeamForm(@PathVariable String id) {
+        teamService.deleteTeam(id);
+        return "redirect:/equipes";
     }
 }

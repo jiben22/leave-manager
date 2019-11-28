@@ -11,25 +11,31 @@ import com.mailjet.client.resource.Emailv31;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.stereotype.Component;
+
+import java.util.Map;
 
 @Slf4j
 public class MailSender {
 
-    public static boolean send(String subject, String body) {
+    public static boolean sendForgottenPasswordEmail(Map<String, String> mailContent) {
         MailjetClient client;
         MailjetRequest request;
         MailjetResponse response;
-        client = new MailjetClient(System.getenv("API_KEY"), System.getenv("API_KEY_SECRET"));
+        client = new MailjetClient("04f169a80cfa6b1d92ddd1b298925b1e", "890ffa85010c0c52a309aa190084528d");
+
         request = new MailjetRequest(Email.resource)
                 .property(Email.FROMEMAIL, "leavemanagerjee@outlook.com")
                 .property(Email.FROMNAME, "Application de gestion des congés")
-                .property(Email.SUBJECT, subject)
-                .property(Email.TEXTPART, body)
-                //.property(Email.HTMLPART, "<h3>Dear passenger, welcome to <a href=\"https://www.mailjet.com/\">Mailjet</a>!<br />May the delivery force be with you!")
                 .property(Email.RECIPIENTS, new JSONArray()
                         .put(new JSONObject()
-                                .put("Email", "lucasrollin@yahoo.com")));
+                                //.put("Email", "lucasrollin@yahoo.com")))
+                                .put("Email", mailContent.get("recipient"))))
+                .property(Email.MJTEMPLATEID, 1107554)
+                .property(Email.MJTEMPLATELANGUAGE, true)
+                .property(Email.VARS, new JSONObject()
+                        .put("firstname", mailContent.get("firstname"))
+                        .put("resetUrl", mailContent.get("resetUrl"))
+                        .put("subject", mailContent.get("subject")));
 
         try {
             response = client.post(request);
@@ -43,8 +49,6 @@ public class MailSender {
 
         return false;
 
-
-
-
     }
+
 }

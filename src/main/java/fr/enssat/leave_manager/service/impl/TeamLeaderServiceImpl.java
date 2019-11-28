@@ -8,6 +8,7 @@ import fr.enssat.leave_manager.service.TeamLeaderService;
 import fr.enssat.leave_manager.service.exception.already_exists.TeamLeaderAlreadyExistsException;
 import fr.enssat.leave_manager.service.exception.not_found.TeamLeaderNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -34,6 +35,7 @@ public class TeamLeaderServiceImpl implements TeamLeaderService {
         return repository.findAll();
     }
 
+    @Secured("ROLE_HRD")
     @Override
     public TeamLeaderEntity addTeamLeader(TeamLeaderEntity teamLeader) {
         if (exists(teamLeader.getEid()))
@@ -41,6 +43,7 @@ public class TeamLeaderServiceImpl implements TeamLeaderService {
         return repository.saveAndFlush(teamLeader);
     }
 
+    @Secured("ROLE_HRD")
     @Override
     public TeamLeaderEntity addEmployeeToTeamLeader(EmployeeEntity employee) {
 

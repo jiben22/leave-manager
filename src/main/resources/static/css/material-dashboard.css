@@ -21222,3 +21222,33 @@ a.fc-more:hover {
     font-size: 22px;
   }
 }
+
+.red {
+    color:red;
+}
+
+.green {
+    color:green;
+}
+
+.form-check-input {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgba(0,0,0,.54);
+    overflow: hidden;
+    z-index: 1;
+    border-radius: 3px;
+}
+
+.form-check-label span {
+    display: block;
+    position: absolute;
+    left: -1px;
+    top: -1px;
+    transition-duration: .2s;
+}
+.navbarDropdownLogout {
+    cursor:pointer;
+}

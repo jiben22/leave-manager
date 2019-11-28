@@ -19,10 +19,11 @@ public class CustomErrorController implements ErrorController {
     }
 
     @GetMapping("/error")
-    public String handleError(HttpServletRequest request, Model model) {
-
+    public String handleError(Exception ex, HttpServletRequest request, Model model) {
         Object statusCode = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+
         log.error("Error with status code " + statusCode + " happened");
+
         model.addAttribute("statusCode", statusCode.toString());
 
         return "error";

@@ -1,27 +1,21 @@
 package fr.enssat.leave_manager.config;
 
 import fr.enssat.leave_manager.service.EmployeeService;
-import fr.enssat.leave_manager.web.LoggingAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
-
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -35,7 +29,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-
         // Setting Service to find User in the database.
         // And Setting PassswordEncoder
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
@@ -44,11 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // The pages does not require login
-        http.authorizeRequests().antMatchers("/", "/login", "/logout").permitAll();
-
-        // For HR & HRD only.
-        http.authorizeRequests().antMatchers("/RH/*").access("hasRole('ROLE_HR') or hasRole('ROLE_HRD')");
+        http.authorizeRequests().antMatchers("xos45.mjt.lu/**").permitAll();
 
         // Authorize resources
         http.authorizeRequests()
@@ -56,34 +45,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // Authorize pages
         http.authorizeRequests()
-                .antMatchers("/connexion**", "/deconnexion***", "/reinitialisation-mot-de-passe**").permitAll();
+                .antMatchers("/connexion**", "/deconnexion**", "/reinitialisation-mot-de-passe**").permitAll();
 
         // Config for Login Form
-//        http.authorizeRequests()
-//                .anyRequest().authenticated()
-//                .and().formLogin()
-//                // Submit URL of login page.
-//                .loginProcessingUrl("/j_spring_security_check") // Submit URL
-//                .loginPage("/connexion")
-//                .defaultSuccessUrl("/")
-//                .failureUrl("/connexion?error=true")
-//                .usernameParameter("username")
-//                .passwordParameter("password")
-//                // Config for Logout Page
-//                .and().logout().logoutUrl("/deconnexion").logoutSuccessUrl("/connexion");
-    }
-
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList("*")); // FIXME do not do this on production
-        config.setAllowedMethods(Arrays.asList("*"));
-        config.setAllowedHeaders(Arrays.asList("*"));
-        config.setAllowCredentials(true);
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
-        return source;
+        http.authorizeRequests()
+                .anyRequest().authenticated()
+                .and().formLogin()
+                // Submit URL of login page.
+                .loginPage("/connexion")
+                .defaultSuccessUrl("/", true) // always use it
+                .failureUrl("/connexion?error=true")
+                .usernameParameter("username")
+                .passwordParameter("password")
+                // Config for Logout PageexceptionHandling
+                .and().logout()
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .logoutRequestMatcher(new AntPathRequestMatcher("/deconnexion"))
+                .logoutSuccessUrl("/connexion?logout")
+                .permitAll();
     }
 
     @Bean

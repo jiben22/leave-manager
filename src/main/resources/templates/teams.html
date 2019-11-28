@@ -46,9 +46,9 @@
                                                         <a th:href="@{/equipe/modifier/} + ${team.id}">
                                                             <button type="button" class="btn btn-warning">Modifier</button>
                                                         </a>
-                                                        <a th:href="@{/equipe/supprimer/} + ${team.id}">
-                                                            <button type="button" class="btn btn-danger">Supprimer</button>
-                                                        </a>
+
+                                                        <button data-target="#deleteEmployeeModal" data-toggle="modal" type="button" class="btn btn-danger">Supprimer</button>
+
                                                     </div>
                                                     <div class="row">
                                                         <div class="offset-md-11">
@@ -57,6 +57,7 @@
                                                             </a>
                                                         </div>
                                                     </div>
+
                                                     <div th:replace="components/employees.html :: employees(employees=${team.employeeList})"></div>
                                                 </div>
                                             </div>
@@ -69,6 +70,7 @@
                     </div>
                 </div>
             </div>
+            <!--<div th:replace="modals/teamModals.html :: deleteEmployeeModal"></div>-->
             <footer th:replace="fragments/footer.html :: footer"></footer>
         </div>
         <script>

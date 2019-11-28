@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -31,13 +32,11 @@ public class TypeOfLeaveController {
     public String showTypesOfLeaves(Model model) {
 
         log.info("GET /types-conges");
-
         model.addAttribute("title", "Liste des types de congés");
 
         // Get types of leaves
-        List<TypeOfLeaveEntity> typeOfLeaves = typeOfLeaveService.getTypeOfLeaves();
+        List<TypeOfLeaveEntity> typeOfLeaves = typeOfLeaveService.getAllTypeofLeaves();
         model.addAttribute("typesOfLeaves", typeOfLeaves);
-
         return "typesOfLeaves";
     }
 
@@ -67,9 +66,22 @@ public class TypeOfLeaveController {
         }
     }
 
+    @GetMapping("/type-conges/archive/{id}")
+    public String archive(@PathVariable String id) {
+        typeOfLeaveService.deleteTypeOfLeave(id);
+        return "redirect:/types-conges";
+    }
+
+    @GetMapping("/type-conges/unarchive/{id}")
+    public String unarchive(@PathVariable String id) {
+        TypeOfLeaveEntity typeOfLeave = typeOfLeaveService.getTypeOfLeave(id);
+        typeOfLeave.setIsArchived(false);
+        typeOfLeaveService.editTypeOfLeave(typeOfLeave);
+        return null;
+    }
+
     @GetMapping("/types-conges/modifier")
     public String showUpdateTypeOfLeaves(Model model) {
-
         model.addAttribute("title", "Modifier un type de congés");
         return "updateTypeOfLeaves";
     }

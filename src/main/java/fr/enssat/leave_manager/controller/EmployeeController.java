@@ -7,21 +7,28 @@ import fr.enssat.leave_manager.service.EmployeeService;
 import fr.enssat.leave_manager.service.TeamService;
 import fr.enssat.leave_manager.service.exception.not_found.EmployeeNotFoundException;
 import fr.enssat.leave_manager.service.exception.not_found.TeamNotFoundException;
-import fr.enssat.leave_manager.service.impl.EmployeeServiceImpl;
-import fr.enssat.leave_manager.service.impl.TeamServiceImpl;
+import fr.enssat.leave_manager.service.impl.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @Controller
 @Slf4j
@@ -33,8 +40,8 @@ public class EmployeeController {
 
     @Autowired
     private PasswordResetTokenRepository tokenRepository;
-    @Autowired
 
+    @Autowired
     private EmailService emailService;
 
     @Autowired
@@ -43,6 +50,7 @@ public class EmployeeController {
         this.teamService = teamService;
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_HRD','ROLE_HR','ROLE_TEAMLEADER')")
     @GetMapping("/employes")
     public String showEmployees(Model model) {
 
@@ -57,20 +65,29 @@ public class EmployeeController {
         return "employees";
     }
 
+    //@PreAuthorize("hasAnyRole('ROLE_HRD','ROLE_HR','ROLE_TEAMLEADER')")
     @GetMapping("/employe/{id}")
-    public String showEmployeById(@PathVariable String id, Model model) {
+    public String showEmployeById(@PathVariable String id, Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+        EmployeeEntity user = (EmployeeEntity) session.getAttribute("employee");
+        if (user.getEid().equals(id) || request.isUserInRole("ROLE_TEAMLEADER") || request.isUserInRole("ROLE_HR")) {
 
-        log.info("GET /employe/" + id);
+            log.info("GET /employe/" + id);
 
-        model.addAttribute("title", "Visualiser l'employé");
+            model.addAttribute("title", "Visualiser l'employé");
 
-        // Get employe by id
-        EmployeeEntity employee = employeeService.getEmployee(id);
-        model.addAttribute("employee", employee);
+            // Get employe by id
+            EmployeeEntity employee = employeeService.getEmployee(id);
+            model.addAttribute("employee", employee);
 
-        return "showEmployee";
+            return "showEmployee";
+        }
+        response.setStatus(403);
+        return "error";
+
+
     }
 
+    @PreAuthorize("hasRole('ROLE_HRD')")
     @GetMapping("/employe/ajouter")
     public String showAddEmployeeForm(Model model) {
 
@@ -86,6 +103,7 @@ public class EmployeeController {
         return "addEmployeeForm";
     }
 
+    @PreAuthorize("hasRole('ROLE_HRD')")
     @PostMapping("/employe/ajouter")
     public String submitAddEmployeeForm(@Valid @ModelAttribute("employee") EmployeeEntity employee,
                                         BindingResult result, Model model,
@@ -137,6 +155,7 @@ public class EmployeeController {
         return "redirect:/employe/" + employee.getEid();
     }
 
+    @PreAuthorize("hasRole('ROLE_HR')")
     @GetMapping("/employe/modifier/{id}")
     public String showUpdateEmployeeForm(@PathVariable String id, Model model) {
 
@@ -155,6 +174,7 @@ public class EmployeeController {
         return "updateEmployeeForm";
     }
 
+    @PreAuthorize("hasRole('ROLE_HR')")
     @PostMapping("/employe/modifier/{id}")
     public String submitUpdateEmployeeForm(@PathVariable String id,
                                            @Valid @ModelAttribute("employee") EmployeeEntity employee,
@@ -237,7 +257,7 @@ public class EmployeeController {
         model.addAttribute("title", "Ajouter un employé dans l'équipe");
 
         // Set team in the list
-        List<TeamEntity> teams =  new ArrayList<>();
+        List<TeamEntity> teams = new ArrayList<>();
         teams.add(team);
         model.addAttribute("teams", teams);
 
@@ -263,6 +283,17 @@ public class EmployeeController {
         return "redirect:/equipe/" + team.getId();
     }
 
+    @PreAuthorize("hasRole('ROLE_HRD')")
+    @GetMapping("/employe/supprimer/{id}")
+    public String submitUpdateTeamForm(@PathVariable String id) {
+        if(employeeService.exists(id)) {
+            employeeService.deleteEmployee(id);
+        } else {
+            log.error("Employee doesn't exist");
+        }
+        return "redirect:/employes";
+    }
+
     // @galliou FIXME
     @PostMapping
     public String processSetPasswordForm(EmployeeEntity user,
@@ -272,11 +303,6 @@ public class EmployeeController {
         if (result.hasErrors()) {
             return "addEmployee";
         }
-        /*EmployeeEntity user = employeeService.getEmployeeByEmail(form.getEmail());
-        if (user == null) {
-            result.rejectValue("email", null, "We could not find an account for that e-mail address.");
-            return "addEmployee";
-        }*/
 
         PasswordResetToken token = new PasswordResetToken();
         token.setToken(UUID.randomUUID().toString());
@@ -298,7 +324,7 @@ public class EmployeeController {
         model.put("user", user);
         model.put("signature", "https://leave-manager.com");
         String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        model.put("resetUrl", url + "/reset-password?token=" + token.getToken());
+        model.put("resetUrl", url + "/resetPassword?token=" + token.getToken());
         mail.setModel(model);
         //System.out.println(mail.getModel());
         emailService.sendEmail(mail);

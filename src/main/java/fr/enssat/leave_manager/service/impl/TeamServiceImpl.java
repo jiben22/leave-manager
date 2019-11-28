@@ -7,6 +7,7 @@ import fr.enssat.leave_manager.service.exception.already_exists.TeamAlreadyExist
 import fr.enssat.leave_manager.service.exception.not_found.TeamNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,6 +37,7 @@ public class TeamServiceImpl implements TeamService {
         return repository.findAll(Sort.by(Sort.Direction.ASC, "name"));
     }
 
+    @Secured("ROLE_HRD")
     @Override
     public TeamEntity addTeam(TeamEntity team) {
         if (exists(team.getId()))
@@ -43,6 +45,7 @@ public class TeamServiceImpl implements TeamService {
         return repository.saveAndFlush(team);
     }
 
+    @Secured("ROLE_HRD")
     @Override
     public TeamEntity editTeam(TeamEntity team) {
         if (!exists(team.getId()))

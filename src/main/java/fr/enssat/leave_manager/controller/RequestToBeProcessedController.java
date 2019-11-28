@@ -30,8 +30,8 @@ public class RequestToBeProcessedController {
         model.addAttribute("title", "Demandes à traiter");
 
         // Get pending request to be processed
-        List<LeaveRequestEntity> leavesRequests = leaveRequestService.getLeaveRequests();
-        model.addAttribute("leavesRequests", leavesRequests);
+        model.addAttribute("pendingLeaveRequests", leaveRequestService.getLeaveRequestByStatus(LeaveStatus.PENDING));
+        model.addAttribute("leavesRequests", leaveRequestService.getLeaveRequests());
 
         return "requestsToBeProcessed";
     }

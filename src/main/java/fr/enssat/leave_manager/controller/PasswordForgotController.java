@@ -1,11 +1,11 @@
 package fr.enssat.leave_manager.controller;
 
 import fr.enssat.leave_manager.model.EmployeeEntity;
-import fr.enssat.leave_manager.model.Mail;
 import fr.enssat.leave_manager.model.PasswordResetToken;
 import fr.enssat.leave_manager.repository.PasswordResetTokenRepository;
 import fr.enssat.leave_manager.service.EmailService;
 import fr.enssat.leave_manager.service.EmployeeService;
+import fr.enssat.leave_manager.utils.MailSender;
 import fr.enssat.leave_manager.web.dto.PasswordForgotDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -31,6 +33,9 @@ public class PasswordForgotController {
     private PasswordResetTokenRepository tokenRepository;
     @Autowired
     private EmailService emailService;
+    @Autowired
+    private SpringTemplateEngine templateEngine;
+    Context context = new Context();
 
     @ModelAttribute("forgotPasswordForm")
     public PasswordForgotDto forgotPasswordDto() {
@@ -67,7 +72,7 @@ public class PasswordForgotController {
         System.out.println(token.isExpired());
         tokenRepository.save(token);
 
-        Mail mail = new Mail();
+        /*Mail mail = new Mail();
         mail.setFrom("no-reply@leavemanager.com");
         mail.setTo(user.getEmail());
         mail.setSubject("Demande de réinitialisation de mot de passe");
@@ -77,10 +82,19 @@ public class PasswordForgotController {
         model.put("user", user);
         model.put("signature", "https://leave-manager.com");
         String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        model.put("resetUrl", url + "/reset-password?token=" + token.getToken());
+        model.put("resetUrl", url + "/resetPassword?token=" + token.getToken());
         mail.setModel(model);
-        //System.out.println(mail.getModel());
-        emailService.sendEmail(mail);
+        System.out.println(mail.getModel());
+        emailService.sendEmail(mail);*/
+
+        Map <String, String> mailContent = new HashMap<>();
+        mailContent.put("recipient", user.getEmail());
+        mailContent.put("firstname", user.getFirstname());
+        mailContent.put("subject", "Demande de réinitialisation de mot de passe");
+        String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        mailContent.put("resetUrl", url + "/reset-password?token=" + token.getToken());
+
+        MailSender.sendForgottenPasswordEmail(mailContent);
 
         return "redirect:/reinitialisation-mot-de-passe?success";
 

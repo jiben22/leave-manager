@@ -26,7 +26,7 @@ public class PasswordResetIT {
     public void accessPasswordResetWithoutToken() throws Exception {
         this.mockMvc
                 .perform(
-                        get("/reset-password")
+                        get("/resetPassword")
                 )
                 .andExpect(model().attributeExists("error"))
                 .andExpect(status().isOk());
@@ -36,7 +36,7 @@ public class PasswordResetIT {
     public void accessPasswordResetWithInvalidToken() throws Exception {
         this.mockMvc
                 .perform(
-                        get("/reset-password?token=invalid-token")
+                        get("/resetPassword?token=invalid-token")
                 )
                 .andExpect(model().attributeExists("error"))
                 .andExpect(status().isOk());
@@ -46,7 +46,7 @@ public class PasswordResetIT {
     public void accessPasswordResetWithExpiredToken() throws Exception {
         this.mockMvc
                 .perform(
-                        get("/reset-password?token=expired-token")
+                        get("/resetPassword?token=expired-token")
                 )
                 .andExpect(model().attributeExists("error"))
                 .andExpect(status().isOk());
@@ -56,7 +56,7 @@ public class PasswordResetIT {
     public void submitPasswordResetSuccess() throws Exception {
         this.mockMvc
                 .perform(
-                        post("/reset-password")
+                        post("/resetPassword")
                                 .with(csrf())
                                 .param("password", "password")
                                 .param("confirmPassword", "password")
@@ -71,14 +71,14 @@ public class PasswordResetIT {
     public void submitPasswordResetPasswordDoNotMatch() throws Exception {
         this.mockMvc
                 .perform(
-                        post("/reset-password")
+                        post("/resetPassword")
                                 .with(csrf())
                                 .param("password", "password")
                                 .param("confirmPassword", "invalid-password")
                                 .param("token", "valid-token")
                 )
                 .andExpect(flash().attributeExists(BindingResult.class.getName() + ".passwordResetForm"))
-                .andExpect(redirectedUrl("/reset-password?token=valid-token"))
+                .andExpect(redirectedUrl("/resetPassword?token=valid-token"))
                 .andExpect(status().is3xxRedirection());
     }
 

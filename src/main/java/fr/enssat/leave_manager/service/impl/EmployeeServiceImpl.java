@@ -8,10 +8,9 @@ import fr.enssat.leave_manager.service.EmployeeService;
 import fr.enssat.leave_manager.service.exception.already_exists.EmployeeAlreadyExistException;
 import fr.enssat.leave_manager.service.exception.not_found.EmployeeNotFoundException;
 import fr.enssat.leave_manager.service.exception.not_found.TeamNotFoundException;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -62,6 +61,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return repository.findAll(Sort.by(Sort.Direction.ASC, "lastname"));
     }
 
+    @Secured("ROLE_HRD")
     @Override
     public EmployeeEntity addEmployee(EmployeeEntity employee) {
         if (repository.existsById(employee.getEid()))
@@ -69,6 +69,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return repository.saveAndFlush(employee);
     }
 
+    @Secured("ROLE_HR")
     @Override
     public EmployeeEntity editEmployee(EmployeeEntity employee) {
         if (!repository.existsById(employee.getEid()))
@@ -76,12 +77,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         return repository.saveAndFlush(employee);
     }
 
+    @Secured("ROLE_HRD")
     @Override
     public void deleteEmployee(String id) {
         repository.deleteById(id);
     }
 
-    @Override
+    @Secured("ROLE_HR")
     public void addEmployeeToTeam(String teamId, EmployeeEntity employee) {
         Optional<TeamEntity> team = teamRepository.findById(teamId);
 
@@ -92,13 +94,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    //@Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
         Optional<EmployeeEntity> employee = repository.findByEmail(email);
-        System.out.println(email);
         if (!employee.isPresent()) {
-            /*** DEBUG ***/
-            System.out.println("Mail not found! " + email);
             throw new UsernameNotFoundException("User mail " + email + " was not found in the database");
         }
 
@@ -109,7 +108,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<String> roles) {
         return roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role))
+                .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
 }

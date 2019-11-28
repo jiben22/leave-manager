@@ -26,7 +26,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="employee, i : ${employees}" role="row" th:style="${i.odd}? 'odd' : 'even'" th:class="${employee.eid}">
+                        <tr th:each="employee, i : ${employees}" th:data-id="${employee.eid}" role="row" th:style="${i.odd}? 'odd' : 'even'" th:class="${employee.eid}">
                             <td th:text="${employee.lastname}" tabindex="0" class="sorting_1">Lastname</td>
                             <td th:text="${employee.firstname}">Firstname</td>
                             <td th:text="${employee.city}">City</td>
@@ -34,12 +34,30 @@
                             <td class="text-right">
                                 <!-- <a th:href="@{/employe/modifier/} + ${employee.eid}" class="btn btn-link btn-info btn-just-icon"><i class="material-icons">edit</i></a> -->
                                 <a th:href="@{/employe/} + ${employee.eid}" class="btn btn-link btn-warning btn-just-icon"><i class="material-icons">dvr</i></a>
-                                <a href="#" class="btn btn-link btn-danger btn-just-icon remove" data-toggle="modal" data-target="#deleteEmployeeModal"><i class="material-icons">close</i></a>
+                                <button class="btn btn-link btn-danger btn-just-icon remove" data-target="#deleteEmployeeModal" data-toggle="modal"><i class="material-icons">close</i></button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
+        <div th:replace="modals/employeeModals.html :: deleteEmployeeModal"></div>
     </div>
+    <script>
+
+        (function($) {
+            let that;
+            $(".remove").click(function() {
+                that = $(this);
+                $(".remove-modal-btn").click(function(){
+                    let tr = that.parent().parent()[0];
+                    let eid = tr.dataset.id;
+                    $(tr).fadeOut();
+                    $.get("employe/supprimer/"+eid);
+                });
+            });
+        })(jQuery);
+
+    </script>
 </div>
+

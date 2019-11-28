@@ -1,36 +1,35 @@
 package fr.enssat.leave_manager.controller;
 
+import fr.enssat.leave_manager.model.EmployeeEntity;
 import fr.enssat.leave_manager.model.LeaveRequestEntity;
-import fr.enssat.leave_manager.service.LeaveRequestService;
-import fr.enssat.leave_manager.service.impl.LeaveRequestServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import fr.enssat.leave_manager.service.impl.EmployeeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.List;
+import javax.servlet.http.HttpSession;
+import java.util.Set;
 
 @Controller
 @Slf4j
 public class LeaveRequestController {
 
-    private final LeaveRequestService leaveRequestService;
-
     @Autowired
-    public LeaveRequestController(LeaveRequestServiceImpl leaveRequestService) {
-        this.leaveRequestService = leaveRequestService;
-    }
+    private EmployeeServiceImpl employeeService;
 
     @GetMapping("/demandes-conges")
-    public String showLeavesRequests(Model model) {
+    public String showLeavesRequests(Model model, HttpSession session) {
+        EmployeeEntity session_employee = (EmployeeEntity) session.getAttribute("employee");
+        EmployeeEntity employee = employeeService.getEmployee(session_employee.getEid());
 
         log.info("GET /demandes-conges");
 
         model.addAttribute("title", "Mes demandes de congés");
 
         // Get leaves requests
-        List<LeaveRequestEntity> leavesRequests = leaveRequestService.getLeaveRequests();
+        Set<LeaveRequestEntity> leavesRequests = employee.getLeaveRequestList();
         model.addAttribute("leavesRequests", leavesRequests);
 
         return "leavesRequests";

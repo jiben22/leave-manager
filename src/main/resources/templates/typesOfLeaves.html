@@ -44,12 +44,24 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr th:each="typeOfLeaves, iStat : ${typesOfLeaves}" role="row" th:style="${iStat.odd}? 'odd' : 'even'">
+                                                        <tr th:each="typeOfLeaves, iStat : ${typesOfLeaves}" role="row" th:style="${iStat.odd}? 'odd' : 'even'" th:data-id="${typeOfLeaves.id}" th:data-archived="${typeOfLeaves.isArchived}" data-tr="tol">
                                                             <td th:text="${typeOfLeaves.name}" tabindex="0" class="sorting_1">Nom</td>
                                                             <td th:text="${typeOfLeaves.description}">Description</td>
                                                             <td class="text-right"><input class="form-check-input disabled" type="checkbox" value="" disabled=""></td>
                                                             <td class="text-right">
-                                                                <a href="#" class="btn btn-link btn-danger btn-just-icon remove" data-toggle="modal" data-target="#archiveTypeOfLeaveModal"><i class="material-icons">archive</i></a>
+                                                                <label class="form-check-label">
+                                                                        <input th:if="${typeOfLeaves.isArchived}" class="form-check-input" type="checkbox" value="" checked="" disabled="">
+                                                                        <input th:if="${!typeOfLeaves.isArchived}" class="form-check-input" type="checkbox" value="" disabled="">
+                                                                        <span class="form-check-sign">
+                                                                            <span class="check"></span>
+                                                                        </span>
+                                                                </label>
+                                                            </td>
+                                                            <td class="text-right">
+
+                                                                <a href="#" th:if="${!typeOfLeaves.isArchived}" class="btn btn-link btn-danger btn-just-icon remove mr-3" data-toggle="modal" data-target="#archiveTypeOfLeaveModal"><i class="material-icons red">archive</i></a>
+
+                                                                <a href="#" th:if="${typeOfLeaves.isArchived}" class="btn btn-link btn-success btn-just-icon remove mr-3" data-toggle="modal" data-target="#unarchiveTypeOfLeaveModal"><i class="material-icons green">unarchive</i></a>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -64,8 +76,34 @@
                 </div>
             </div>
             <footer th:replace="fragments/footer.html :: footer"></footer>
+            <div th:replace="modals/typeOfLeaveModals.html :: archiveTypeOfLeaveModal"></div>
+            <div th:replace="modals/typeOfLeaveModals.html :: unarchiveTypeOfLeaveModal"></div>
         </div>
         <script>
+            (function($) {
+                let that;
+                $("tr[data-tr='tol']").click(function() {
+                    that = $(this);
+                    $(".unarchive-modal-btn").click(function() {
+                        let tolId = that.data("id");
+                        that.find(".form-check-input").prop("checked", false);
+                        that.find("i").css("color", "red");
+                        that.find("i").html("archive");
+                        that.find("a").attr("data-target", "#archiveTypeOfLeaveModal");
+                        $.get("type-conges/unarchive/" + tolId);
+                    });
+                    $(".archive-modal-btn").click(function() {
+                        let tolId = that.data("id");
+                        that.find(".form-check-input").prop("checked", true);
+                        that.find("i").css("color", "green");
+                        that.find("i").html("unarchive");
+                        that.find("a").attr("data-target", "#unarchiveTypeOfLeaveModal");
+                        $.get("type-conges/archive/" + tolId);
+                    });
+                });
+
+            })(jQuery);
+
             $(document).ready(function() {
                 $('#datatables').DataTable({
                     "pagingType": "full_numbers",
