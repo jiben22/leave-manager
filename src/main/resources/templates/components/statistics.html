@@ -84,6 +84,26 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-icon card-header-danger">
+                    <div class="card-icon">
+                        <i class="material-icons">insert_chart</i>
+                    </div>
+                    <h4 class="card-title">Demande de congés traité par membre RH
+                        <small>- durant le dernier mois</small>
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div id="LeaveRequestByHR" class="ct-chart"><!-- multiple bar chart --></div>
+                    <div id="LeaveRequestByHR_legend" class="card-category">
+                        <span th:each="type: ${status}" th:text="${type}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="offset-md-2 col-md-3">
             <div class="card card-stats">
                 <div class="card-header card-header-icon card-header-danger">
@@ -114,26 +134,6 @@
                     </div>
                     <p class="card-category">Nombre de départments</p>
                     <h3 class="card-title" th:text="${metrics.nb_department}">?</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header card-header-icon card-header-danger">
-                    <div class="card-icon">
-                        <i class="material-icons">insert_chart</i>
-                    </div>
-                    <h4 class="card-title">Demande de congés traité par membre RH
-                        <small>- durant le dernier mois</small>
-                    </h4>
-                </div>
-                <div class="card-body">
-                    <div id="LeaveRequestByHR" class="ct-chart"><!-- multiple bar chart --></div>
-                    <div id="LeaveRequestByHR_legend" class="card-category">
-                        <span th:each="type: ${status}" th:text="${type}"></span>
-                    </div>
                 </div>
             </div>
         </div>

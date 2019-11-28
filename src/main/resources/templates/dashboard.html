@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments/head.html :: head"></head>
 
@@ -10,8 +10,7 @@
             <div th:replace="fragments/menus.html :: logoutMenu"></div>
             <div class="content">
                 <div class="container-fluid">
-                    <!-- FIXME only RH can view statistics (else calendar) -->
-                    <div th:if="true" th:replace="components/statistics.html :: statistics"></div>
+                    <div sec:authorize="hasRole('ROLE_HR')" th:replace="components/statistics.html :: statistics"></div>
                     <div class="row">
                         <div class="offset-md-11">
                             <a th:href="@{/demande-conges/ajouter}">

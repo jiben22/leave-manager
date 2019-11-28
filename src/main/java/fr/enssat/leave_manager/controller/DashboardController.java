@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 
 @Controller
@@ -16,11 +17,11 @@ public class DashboardController {
     private StatisticsServiceImpl statisticsService;
 
     @GetMapping("/")
-    public String showDashboard(Model model) {
+    public String showDashboard(Model model, HttpServletRequest request) {
 
         model.addAttribute("title", "Vue d'ensemble");
 
-        if (true) { // FIXME if user is HR !
+        if (request.isUserInRole("ROLE_HR")) {
             model.addAttribute("LeaveByTypes", statisticsService.getLeaveByTypes());
             model.addAttribute("AcceptedLeaveByYear", statisticsService.getAcceptedLeaveByYear());
             model.addAttribute("TreatedLeaveRequestByHR", statisticsService.getTreatedLeaveRequestByHR());
