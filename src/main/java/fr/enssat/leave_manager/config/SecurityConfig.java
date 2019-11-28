@@ -52,33 +52,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // Authorize pages
         http.authorizeRequests()
-                .antMatchers("/connexion**", "/deconnexion***", "/reinitialisation-mot-de-passe**").permitAll();
+                .antMatchers("/connexion**", "/deconnexion**", "/reinitialisation-mot-de-passe**").permitAll();
 
         // Config for Login Form
-        http.authorizeRequests().and()
-                .formLogin()//
+        http.authorizeRequests()
+                .anyRequest().authenticated()
+                .and().formLogin()
                 // Submit URL of login page.
                 //.loginProcessingUrl("/j_spring_security_check") // Submit URL
-                .loginPage("/connexion")//
-                .defaultSuccessUrl("/")//
-                //.failureUrl("/connexion?error=true")//
-                .usernameParameter("username")//
+                .loginPage("/connexion")
+                .loginProcessingUrl("/connexion")
+                .defaultSuccessUrl("/")
+                .failureUrl("/connexion?error=true")
+                .usernameParameter("username")
                 .passwordParameter("password")
                 // Config for Logout Page
-                .and()
-                .logout()
+                .and().logout()
                 .invalidateHttpSession(true)
                 .clearAuthentication(true)
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutRequestMatcher(new AntPathRequestMatcher("/deconnexion"))
                 .logoutSuccessUrl("/connexion?logout")
                 .permitAll()
                 .and()
                 .exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler);
-        ;
     }
-
-
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {

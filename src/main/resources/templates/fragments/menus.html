@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns:th="http://www.thymeleaf.org">
 
 <div th:fragment="menu">
     <div class="sidebar" data-color="azure" data-background-color="white" data-image="img/sidebar-1.jpg">
@@ -13,8 +13,7 @@
                 <div class="card card-profile">
                     <i class="material-icons" style="font-size: 6em;">account_circle</i>
                     <h4 class="card-title">
-                        <span th:text="${session.employee.lastname}"
-                              th:unless="${session.employee == null}">Arnold</span> <span>Schwarzenegger</span>
+                        Bonjour <span th:text="${session.employee.lastname + ' ' + session.employee.firstname}" th:unless="${session.employee == null}"></span>
                     </h4>
                 </div>
             </div>
@@ -25,25 +24,25 @@
                         <p>Vue d'ensemble</p>
                     </a>
                 </li>
-                <li class="nav-item" th:classappend="${title == 'Demandes à traiter' ? 'active' : ''}">
+                <li sec:authorize="hasRole('ROLE_HR')" class="nav-item" th:classappend="${title == 'Demandes à traiter' ? 'active' : ''}">
                     <a class="nav-link" th:href="@{/demandes}">
                         <i class="material-icons">assignment</i>
                         <p>Demandes à traiter</p>
                     </a>
                 </li>
-                <li class="nav-item" th:classappend="${title == 'Liste des équipes' ? 'active' : ''}">
+                <li sec:authorize="hasRole('ROLE_HR') || hasRole('ROLE_TEAMLEADER')" class="nav-item" th:classappend="${title == 'Liste des équipes' ? 'active' : ''}">
                     <a class="nav-link" th:href="@{/equipes}">
                         <i class="material-icons">people</i>
                         <p>Liste des équipes</p>
                     </a>
                 </li>
-                <li class="nav-item" th:classappend="${title == 'Liste des employés' ? 'active' : ''}">
+                <li sec:authorize="hasRole('ROLE_HR')" class="nav-item" th:classappend="${title == 'Liste des employés' ? 'active' : ''}">
                     <a class="nav-link" th:href="@{/employes}">
                         <i class="material-icons">person</i>
                         <p>Liste des employés</p>
                     </a>
                 </li>
-                <li class="nav-item" th:classappend="${title == 'Liste des types de congés' ? 'active' : ''}">
+                <li sec:authorize="hasRole('ROLE_HR')" class="nav-item" th:classappend="${title == 'Liste des types de congés' ? 'active' : ''}">
                     <a class="nav-link" th:href="@{/types-conges}">
                         <i class="material-icons">library_books</i>
                         <p>Liste des types de congés</p>
