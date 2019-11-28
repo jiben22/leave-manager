@@ -11,11 +11,31 @@
         </button>
             </div>
             <div class="modal-body">
-                <p>Ëtes-vous sûr d'archiver le type de congé ?</p>
+                <p>Êtes-vous sûr d'archiver le type de congé ?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                <button type="button" class="btn btn-warning">Archiver</button>
+                <button type="button" class="btn btn-danger archive-modal-btn" data-dismiss="modal">Archiver</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="unarchiveTypeOfLeaveModal" tabindex="-1" role="dialog" aria-labelledby="archiveTypeOfLeaveModal" aria-hidden="true" th:fragment="unarchiveTypeOfLeaveModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Restaurer le type de congé</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Êtes-vous sûr de vouloir restaurer le type de congé ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-success unarchive-modal-btn" data-dismiss="modal">Restaurer</button>
             </div>
         </div>
     </div>

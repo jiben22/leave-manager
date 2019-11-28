@@ -39,6 +39,10 @@ public class TypeOfLeaveServiceImpl implements TypeOfLeaveService {
         return repository.findAllByIsArchivedTrue();
     }
 
+    public List<TypeOfLeaveEntity> getAllTypeofLeaves() {
+        return repository.findAll();
+    }
+
     @Override
     public TypeOfLeaveEntity addTypeOfLeave(TypeOfLeaveEntity typeOfLeave) {
         if (repository.existsById(typeOfLeave.getId()))

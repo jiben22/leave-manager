@@ -11,6 +11,7 @@ public interface TypeOfLeaveService {
     TypeOfLeaveEntity getTypeOfLeave(String id);
     List<TypeOfLeaveEntity> getTypeOfLeaveByNameAndIsArchivedFalse(String name);
     List<TypeOfLeaveEntity> getTypeOfLeaves();
+    List<TypeOfLeaveEntity> getAllTypeofLeaves();
     TypeOfLeaveEntity addTypeOfLeave(TypeOfLeaveEntity typeOfLeave);
     TypeOfLeaveEntity editTypeOfLeave(TypeOfLeaveEntity typeOfLeave);
     TypeOfLeaveEntity deleteTypeOfLeave(String id);
