@@ -1,5 +1,6 @@
 package fr.enssat.leave_manager.controller;
 
+import fr.enssat.leave_manager.model.EmployeeEntity;
 import fr.enssat.leave_manager.service.EmployeeService;
 import fr.enssat.leave_manager.service.impl.StatisticsServiceImpl;
 import fr.enssat.leave_manager.utils.enums.LeaveStatus;
@@ -39,6 +40,10 @@ public class DashboardController {
             model.addAttribute("EffectiveByYear", statisticsService.getEffectiveByYear());
             model.addAttribute("metrics", statisticsService.getMetrics());
         }
+
+        // set calendar
+        EmployeeEntity employee = employeeService.getEmployeeByEmail(auth.getName());
+        model.addAttribute("employeeLeaveRequest", employee.getLeaveRequestList());
 
         return "dashboard";
     }

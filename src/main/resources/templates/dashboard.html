@@ -79,7 +79,7 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <div class="p-3 mb-2 bg-warning"></div>
+                                                    <div class="p-3 mb-2" style="Background-color: #00bcd4;"></div>
                                                 </td>
                                                 <td>En attente</td>
                                             </tr>
@@ -88,6 +88,12 @@
                                                     <div class="p-3 mb-2 bg-danger"></div>
                                                 </td>
                                                 <td>Refusée</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="p-3 mb-2" style="background-color: #ff9800"></div>
+                                                </td>
+                                                <td>Annulé</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -101,13 +107,36 @@
         </div>
     </div>
     <script src="js/plugins/fullcalendar-locales-fr.js "></script>
-    <script>
+    <script th:inline="javascript">
         $(document).ready(function() {
             //Get date of today
             today = new Date();
             y = today.getFullYear();
             m = today.getMonth();
             d = today.getDate();
+
+            // Employee LeaveRequests
+            var employee_calendar = [];
+            let _style = "blue";
+            let status = "PENDING";
+
+            /*[# th:each="leaveRequest : ${employeeLeaveRequest}"]*/
+            _style = "blue";
+            status = /*[[${leaveRequest.status}]]*/ "PENDING";
+            if (status == "CANCELLED") _style = "orange";
+            else if (status == "DECLINED") _style = "red";
+            else if (status == "ACCEPTED") _style = "green";
+
+            employee_calendar.push({
+                id: /*[[${leaveRequest.lrid}]]*/ "",
+                title: /*[[${leaveRequest.typeOfLeave.name}]]*/ "",
+                start: new Date(/*[[${leaveRequest.startingDate}]]*/ ),
+                end: new Date(/*[[${leaveRequest.endingDate}]]*/ ),
+                description: (/*[[${reason}]]*/ "") || "",
+                color: _style
+            });
+            /*[/]*/
+
             // initialise FullCalendar
             let calendar = $("#fullCalendar ").fullCalendar({
                 viewRender: function(e, a) {
@@ -121,7 +150,6 @@
                 locale: 'fr',
                 header: {
                     left: "title ",
-                    center: "month ",
                     right: "prev,next,today "
                 },
                 defaultDate: today,
@@ -134,39 +162,12 @@
                 },
                 //editable: !0,
                 //eventLimit: !0,
-                events: [{
-                    title: "Congé payé ",
-                    start: new Date(y, m, 1),
-                    description: "Vacances ",
-                    className: "event-green "
-                }, {
-                    title: "Congé payé ",
-                    start: new Date(y, m, 2),
-                    description: "Vacances ",
-                    className: "event-green "
-                }, {
-                    title: "Congé payé ",
-                    start: new Date(y, m, 3),
-                    description: "Vacances ",
-                    className: "event-green "
-                }, {
-                    id: 999,
-                    title: "RTT ",
-                    start: new Date(y, m, d - 4, 6, 0),
-                    allDay: !1,
-                    description: " ",
-                    className: "event-orange "
-                }, {
-                    title: "Congé payé ",
-                    start: new Date(y, m, 20),
-                    description: "A fortiori, ton compteur est vide !",
-                    className: "event-red "
-                }],
+                events: employee_calendar,
                 select: function() {
-                    $('#addLeaveRequestModal').modal('show');
+                    window.location.href= "/demande-conges/ajouter";
                 },
                 eventClick: function(info) {
-                    $('#updateLeaveRequestModal').modal('show');
+                    window.location.href= "/demande-conges/"+info.id;
                 },
                 eventRender: function(event, element) {
                     $(element).tooltip({
@@ -175,9 +176,6 @@
                         trigger: 'hover',
                         container: 'body'
                     });
-                },
-                dayClick: function(date, jsEvent, view) {
-                    initValueDatetimepickerCalendar(date);
                 }
             });
         });
