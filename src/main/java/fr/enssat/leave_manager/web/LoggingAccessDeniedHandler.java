@@ -27,11 +27,11 @@ public class LoggingAccessDeniedHandler implements AccessDeniedHandler {
 
         if (auth != null) {
             log.info(auth.getName()
-                    + " was trying to access protected resource: "
+                    + "a essayé d'acceder à la ressource protégé : "
                     + request.getRequestURI());
         }
 
-        response.sendRedirect(request.getContextPath() + "/access-denied");
+        response.sendRedirect(request.getContextPath() + "/error");
 
     }
 }

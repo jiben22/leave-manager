@@ -5,9 +5,7 @@ import fr.enssat.leave_manager.repository.EmployeeRepository;
 import fr.enssat.leave_manager.service.EmployeeService;
 import fr.enssat.leave_manager.service.exception.already_exists.EmployeeAlreadyExistException;
 import fr.enssat.leave_manager.service.exception.not_found.EmployeeNotFoundException;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -77,9 +75,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     //@Transactional(readOnly = true)
+    //FIXME , HttpSession session
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
         Optional<EmployeeEntity> employee = repository.findByEmail(email);
-        System.out.println(email);
         if (!employee.isPresent()) {
             /*** DEBUG ***/
             System.out.println("Mail not found! " + email);
@@ -88,6 +87,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         System.out.println("Found mail: " + email);
         // [ROLE_USER, ROLE_ADMIN,..]
+        //TODO com a suppr
+        //session.setAttribute("employee",employee);
         return new User(employee.get().getEmail(), employee.get().getPassword(), mapRolesToAuthorities(employee.get().getRoles()));
     }
 

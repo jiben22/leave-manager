@@ -2,7 +2,6 @@ package fr.enssat.leave_manager.service;
 
 import fr.enssat.leave_manager.model.EmployeeEntity;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

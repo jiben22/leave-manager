@@ -1,12 +1,15 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Access Denied</title>
-</head>
-<body>
-<div th:remove="tag">
-    <h1>Access denied</h1>
-    <p><a href="/" th:href="@{/dashboard}">Back to home page</a></p>
+
+<head th:replace="fragments/head.html :: head"></head>
+
+<div id="notfound">
+    <div class="notfound">
+        <div class="notfound-404">
+            <!--<h1 th:text="${statusCode}">404</h1>-->
+        </div>
+        <h2>Acces refusé</h2>
+        <a th:href="@{/}">Retourner à l'accueil</a>
+    </div>
 </div>
-</body>
 </html>

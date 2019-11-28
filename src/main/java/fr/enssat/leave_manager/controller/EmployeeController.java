@@ -1,9 +1,9 @@
 package fr.enssat.leave_manager.controller;
 
 import fr.enssat.leave_manager.model.EmployeeEntity;
-import fr.enssat.leave_manager.model.TeamEntity;
 import fr.enssat.leave_manager.model.Mail;
 import fr.enssat.leave_manager.model.PasswordResetToken;
+import fr.enssat.leave_manager.model.TeamEntity;
 import fr.enssat.leave_manager.repository.PasswordResetTokenRepository;
 import fr.enssat.leave_manager.service.EmailService;
 import fr.enssat.leave_manager.service.EmployeeService;
@@ -17,13 +17,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -238,7 +239,7 @@ public class EmployeeController {
         model.put("user", user);
         model.put("signature", "https://leave-manager.com");
         String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        model.put("resetUrl", url + "/reset-password?token=" + token.getToken());
+        model.put("resetUrl", url + "/resetPassword?token=" + token.getToken());
         mail.setModel(model);
         //System.out.println(mail.getModel());
         emailService.sendEmail(mail);
