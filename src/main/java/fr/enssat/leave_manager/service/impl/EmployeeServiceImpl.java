@@ -74,21 +74,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    //@Transactional(readOnly = true)
-    //FIXME , HttpSession session
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         Optional<EmployeeEntity> employee = repository.findByEmail(email);
         if (!employee.isPresent()) {
-            /*** DEBUG ***/
-            System.out.println("Mail not found! " + email);
             throw new UsernameNotFoundException("User mail " + email + " was not found in the database");
         }
 
         System.out.println("Found mail: " + email);
         // [ROLE_USER, ROLE_ADMIN,..]
-        //TODO com a suppr
-        //session.setAttribute("employee",employee);
         return new User(employee.get().getEmail(), employee.get().getPassword(), mapRolesToAuthorities(employee.get().getRoles()));
     }
 

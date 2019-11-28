@@ -18,30 +18,12 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
     @Autowired
     EmployeeServiceImpl userService;
+
     @GetMapping("/connexion")
     public String showLogin(Model model) {
-        //model.addAttribute("employee", new EmployeeEntity());
-
         model.addAttribute("title", "Page de connexion");
 
         return "login";
-
-    }
-
-    @PostMapping("/connexion")
-    public String showLogin(/*@Valid @ModelAttribute("employee") EmployeeEntity employee,
-                            BindingResult result,*/ Model model, HttpSession session) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println("test");
-        if (auth != null) {
-            System.out.println("auth :" + auth.getName());
-            session.setAttribute("employee", userService.getEmployeeByEmail(auth.getName()));
-        }
-
-        model.addAttribute("title", "Page de connexion");
-
-        return "login";
-
     }
 
     @GetMapping("/deconnexion")
