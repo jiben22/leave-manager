@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/reset-password")
+@RequestMapping("/resetPassword")
 public class PasswordResetController {
 
     @Autowired
@@ -45,7 +45,7 @@ public class PasswordResetController {
             model.addAttribute("token", resetToken.getToken());
         }
 
-        return "reset-password";
+        return "resetPassword";
     }
 
     @PostMapping
@@ -57,7 +57,7 @@ public class PasswordResetController {
         if (result.hasErrors()) {
             redirectAttributes.addFlashAttribute(BindingResult.class.getName() + ".passwordResetForm", result);
             redirectAttributes.addFlashAttribute("passwordResetForm", form);
-            return "redirect:/reset-password?token=" + form.getToken();
+            return "redirect:/resetPassword?token=" + form.getToken();
         }
 
         PasswordResetToken token = tokenRepository.findByToken(form.getToken());

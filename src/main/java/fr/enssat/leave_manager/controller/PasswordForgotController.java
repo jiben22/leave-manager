@@ -1,7 +1,6 @@
 package fr.enssat.leave_manager.controller;
 
 import fr.enssat.leave_manager.model.EmployeeEntity;
-import fr.enssat.leave_manager.model.Mail;
 import fr.enssat.leave_manager.model.PasswordResetToken;
 import fr.enssat.leave_manager.repository.PasswordResetTokenRepository;
 import fr.enssat.leave_manager.service.EmailService;
@@ -83,7 +82,7 @@ public class PasswordForgotController {
         model.put("user", user);
         model.put("signature", "https://leave-manager.com");
         String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        model.put("resetUrl", url + "/reset-password?token=" + token.getToken());
+        model.put("resetUrl", url + "/resetPassword?token=" + token.getToken());
         mail.setModel(model);
         System.out.println(mail.getModel());
         emailService.sendEmail(mail);*/

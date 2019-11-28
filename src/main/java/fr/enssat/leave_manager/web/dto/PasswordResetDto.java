@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 
 @Getter
 @Setter
-@FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match")
+@FieldMatch(first = "password", second = "confirmPassword", message = "Les mots de passe doivent correspondre")
 public class PasswordResetDto {
 
     @NotEmpty
