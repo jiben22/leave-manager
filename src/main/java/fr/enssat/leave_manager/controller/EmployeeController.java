@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
@@ -51,6 +53,7 @@ public class EmployeeController {
         this.teamService = teamService;
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_HRD','ROLE_HR','ROLE_TEAMLEADER')")
     @GetMapping("/employes")
     public String showEmployees(Model model) {
 
@@ -65,18 +68,26 @@ public class EmployeeController {
         return "employees";
     }
 
+    //@PreAuthorize("hasAnyRole('ROLE_HRD','ROLE_HR','ROLE_TEAMLEADER')")
     @GetMapping("/employe/{id}")
-    public String showEmployeById(@PathVariable String id, Model model) {
+    public String showEmployeById(@PathVariable String id, Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+        EmployeeEntity user = (EmployeeEntity) session.getAttribute("employee");
+        if (user.getEid().equals(id) || request.isUserInRole("ROLE_TEAMLEADER") || request.isUserInRole("ROLE_HR")) {
 
-        logger.debug("GET /employe/" + id);
+            logger.debug("GET /employe/" + id);
 
-        model.addAttribute("title", "Visualiser l'employé");
+            model.addAttribute("title", "Visualiser l'employé");
 
-        // Get employe by id
-        EmployeeEntity employee = employeeService.getEmployee(id);
-        model.addAttribute("employee", employee);
+            // Get employe by id
+            EmployeeEntity employee = employeeService.getEmployee(id);
+            model.addAttribute("employee", employee);
 
-        return "showEmployee";
+            return "showEmployee";
+        }
+        response.setStatus(403);
+        return "error";
+
+
     }
 
     @PreAuthorize("hasRole('ROLE_HRD')")
@@ -95,6 +106,7 @@ public class EmployeeController {
         return "addEmployeeForm";
     }
 
+    @PreAuthorize("hasRole('ROLE_HRD')")
     @PostMapping("/employe/ajouter")
     public String submitAddEmployeeForm(@Valid @ModelAttribute("employee") EmployeeEntity employee,
                                         BindingResult result, Model model,
@@ -146,6 +158,7 @@ public class EmployeeController {
         return "redirect:/employe/" + employee.getEid();
     }
 
+    @PreAuthorize("hasRole('ROLE_HR')")
     @GetMapping("/employe/modifier/{id}")
     public String showUpdateEmployeeForm(@PathVariable String id, Model model) {
 
@@ -164,6 +177,7 @@ public class EmployeeController {
         return "updateEmployeeForm";
     }
 
+    @PreAuthorize("hasRole('ROLE_HR')")
     @PostMapping("/employe/modifier/{id}")
     public String submitUpdateEmployeeForm(@PathVariable String id,
                                            @Valid @ModelAttribute("employee") EmployeeEntity employee,
@@ -196,6 +210,7 @@ public class EmployeeController {
         return "redirect:/employe/" + employee.getEid();
     }
 
+    @PreAuthorize("hasRole('ROLE_HRD')")
     @GetMapping("/employe/supprimer/{id}")
     public String submitUpdateTeamForm(@PathVariable String id) {
         if(employeeService.exists(id)) {
@@ -215,11 +230,6 @@ public class EmployeeController {
         if (result.hasErrors()) {
             return "addEmployee";
         }
-        /*EmployeeEntity user = employeeService.getEmployeeByEmail(form.getEmail());
-        if (user == null) {
-            result.rejectValue("email", null, "We could not find an account for that e-mail address.");
-            return "addEmployee";
-        }*/
 
         PasswordResetToken token = new PasswordResetToken();
         token.setToken(UUID.randomUUID().toString());
