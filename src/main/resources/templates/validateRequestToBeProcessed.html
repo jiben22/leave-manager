@@ -23,21 +23,13 @@
                                     <label class="col-md-2 col-form-label">Nom</label>
                                     <div class="col-md-4">
                                         <div class="form-group has-default bmd-form-group">
-                                            <input type="text" class="form-control" value="Captain" disabled="">
+                                            <input type="text" class="form-control" th:value="${leaveRequest.employee.lastname}" disabled="">
                                         </div>
                                     </div>
                                     <label class="col-md-2 col-form-label">Prénom</label>
                                     <div class="col-md-4">
                                         <div class="form-group has-default bmd-form-group">
-                                            <input type="text" class="form-control" value="America" disabled="">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <label class="col-md-2 col-form-label">Équipe</label>
-                                    <div class="col-md-4">
-                                        <div class="form-group has-default bmd-form-group">
-                                            <input type="text" class="form-control" value="Avengers" disabled="">
+                                            <input type="text" class="form-control" th:value="${leaveRequest.employee.firstname}" disabled="">
                                         </div>
                                     </div>
                                 </div>
@@ -45,13 +37,13 @@
                                     <label class="col-md-2 col-form-label">Date de création</label>
                                     <div class="col-md-4">
                                         <div class="form-group has-default bmd-form-group">
-                                            <input type="text" class="form-control" value="15/12/2019 10H32" disabled="">
+                                            <input type="text" class="form-control" th:value="${leaveRequest.creationDate}" disabled="">
                                         </div>
                                     </div>
                                     <label class="col-md-2 col-form-label">Date de la dernière modification</label>
                                     <div class="col-md-4">
                                         <div class="form-group has-default bmd-form-group">
-                                            <input type="text" class="form-control" value="15/12/2019 10H32" disabled="">
+                                            <input type="text" class="form-control" th:value="${leaveRequest.lastEditionDate}" disabled="">
                                         </div>
                                     </div>
                                 </div>
@@ -59,13 +51,13 @@
                                     <label class="col-md-2 col-form-label">Date de début</label>
                                     <div class="col-md-4">
                                         <div class="form-group has-default bmd-form-group">
-                                            <input type="text" class="form-control" value="22/12/2019" disabled="">
+                                            <input type="text" class="form-control" th:value="${leaveRequest.startingDate}" disabled="">
                                         </div>
                                     </div>
                                     <label class="col-md-2 col-form-label">Date de fin</label>
                                     <div class="col-md-4">
                                         <div class="form-group has-default bmd-form-group">
-                                            <input type="text" class="form-control" value="05/01/2020" disabled="">
+                                            <input type="text" class="form-control" th:value="${leaveRequest.endingDate}" disabled="">
                                         </div>
                                     </div>
                                 </div>
@@ -73,7 +65,7 @@
                                     <label class="col-md-2 col-form-label">Type de congé</label>
                                     <div class="col-md-4">
                                         <div class="form-group has-default bmd-form-group">
-                                            <input type="text" class="form-control" value="Congé payé" disabled="">
+                                            <input type="text" class="form-control" th:value="${leaveRequest.typeOfLeave.name}" disabled="">
                                         </div>
                                     </div>
                                 </div>
@@ -81,7 +73,7 @@
                                     <label class="col-md-2 col-form-label">Raison</label>
                                     <div class="col-md-4">
                                         <div class="form-group has-default bmd-form-group">
-                                            <input type="text" class="form-control" value="Vacances" disabled="">
+                                            <input type="text" class="form-control" th:value="${leaveRequest.reason}" disabled="">
                                         </div>
                                     </div>
                                 </div>
@@ -89,7 +81,7 @@
                                     <label class="col-md-2 col-form-label">Mon commentaire</label>
                                     <div class="col-md-6">
                                         <div class="form-group has-default bmd-form-group">
-                                            <textarea class="form-control" rows="3"></textarea>
+                                            <textarea class="form-control" rows="3" th:text="${leaveRequest.hrComment}"></textarea>
                                         </div>
                                     </div>
                                 </div>
