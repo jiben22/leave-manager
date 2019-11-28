@@ -1,7 +1,6 @@
 package fr.enssat.leave_manager.web;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,9 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
+@Slf4j
 public class LoggingAccessDeniedHandler implements AccessDeniedHandler {
-
-    private static Logger log = LoggerFactory.getLogger(LoggingAccessDeniedHandler.class);
 
     @Override
     public void handle(HttpServletRequest request,

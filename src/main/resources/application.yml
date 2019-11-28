@@ -20,7 +20,7 @@ spring:
     default-encoding: UTF-8
     host: smtp.gmail.com
     username: klozinn@gmail.com
-    password: Kwgum$i2020
+    password: Jafdlml2511
     port: 587
     properties:
       mail:
@@ -34,7 +34,7 @@ spring:
 # Logger
 logging:
   level:
-    root: WARN
+    root: INFO
     com.memorynotfound: DEBUG
     org.springframework.web: INFO
     org.springframework.security: INFO

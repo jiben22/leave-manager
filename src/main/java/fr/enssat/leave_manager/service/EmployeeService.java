@@ -16,4 +16,5 @@ public interface EmployeeService extends UserDetailsService {
     EmployeeEntity addEmployee(EmployeeEntity employee);
     EmployeeEntity editEmployee(EmployeeEntity employee);
     void deleteEmployee(String id);
+    void addEmployeeToTeam(String teamId, EmployeeEntity employee);
 }

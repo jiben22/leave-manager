@@ -8,29 +8,25 @@ import fr.enssat.leave_manager.service.DepartmentService;
 import fr.enssat.leave_manager.service.EmployeeService;
 import fr.enssat.leave_manager.service.TeamLeaderService;
 import fr.enssat.leave_manager.service.TeamService;
+import fr.enssat.leave_manager.service.exception.not_found.TeamLeaderNotFoundException;
 import fr.enssat.leave_manager.service.impl.DepartmentServiceImpl;
 import fr.enssat.leave_manager.service.impl.EmployeeServiceImpl;
 import fr.enssat.leave_manager.service.impl.TeamLeaderServiceImpl;
 import fr.enssat.leave_manager.service.impl.TeamServiceImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@Slf4j
 public class TeamController {
-
-    Logger logger = LoggerFactory.getLogger(TeamController.class);
 
     private final TeamService teamService;
 
@@ -52,7 +48,7 @@ public class TeamController {
     @GetMapping("/equipes")
     public String showTeams(Model model) {
 
-        logger.debug("GET /equipes");
+        log.info("GET /equipes");
 
         model.addAttribute("title", "Liste des équipes");
 
@@ -66,7 +62,7 @@ public class TeamController {
     @GetMapping("/equipe/ajouter")
     public String showAddTeamForm(Model model) {
 
-        logger.debug("GET /equipe/ajouter");
+        log.info("GET /equipe/ajouter");
 
         model.addAttribute("title", "Ajouter une équipe");
         model.addAttribute("team", new TeamEntity());
@@ -85,7 +81,7 @@ public class TeamController {
     @GetMapping("/equipe/{id}")
     public String showTeamById(@PathVariable String id, Model model) {
 
-        logger.debug("GET /equipe/" + id);
+        log.info("GET /equipe/" + id);
 
         model.addAttribute("title", "Visualiser l'équipe");
 
@@ -98,13 +94,16 @@ public class TeamController {
 
     @PostMapping("/equipe/ajouter")
     public String submitAddTeamForm(@Valid @ModelAttribute("team") TeamEntity team,
-                                        BindingResult result, Model model,
-                                        RedirectAttributes redirectAttributes) {
+                                    @RequestParam("teamLeader") String teamLeaderId,
+                                    BindingResult result, Model model,
+                                    RedirectAttributes redirectAttributes) {
 
-        logger.debug("POST /equipe/ajouter");
+        log.info("POST /equipe/ajouter");
+
+        model.addAttribute("title", "Ajouter une équipe");
 
         if (result.hasErrors()) {
-            logger.info(result.toString());
+            log.info(result.toString());
 
             // Get employees
             List<EmployeeEntity> employees =  employeeService.getEmployees();
@@ -116,27 +115,28 @@ public class TeamController {
 
             // Return form with errors
             return "addTeamForm";
-        } else {
-            try {
-                logger.error(team.getTeamLeader().toString());
-                team.setTeamLeader(team.getTeamLeader());
-                // Save team
-                team = teamService.addTeam(team);
-            } catch (Exception e) {
-                logger.error(e.getMessage() + e.getCause());
-                redirectAttributes.addFlashAttribute("message", "Impossible d'enregister l'équipe");
+        }
 
-                return "redirect:/equipes";
-            }
+        addEmployeeToTeamLeader(teamLeaderId, team);
+
+        try {
+            // Save team
+            team = teamService.addTeam(team);
+        } catch (Exception e) {
+            log.error(e.getMessage() + e.getCause());
+            redirectAttributes.addFlashAttribute("message", "Impossible d'enregister l'équipe");
+
+            return "redirect:/equipes";
         }
 
         return "redirect:/equipe/" + team.getId();
     }
 
     @GetMapping("/equipe/modifier/{id}")
-    public String showUpdateTeamForm(@PathVariable String id, Model model) {
+    public String showUpdateTeamForm(@PathVariable String id,
+                                     Model model) {
 
-        logger.debug("GET /equipe/modifier/" + id);
+        log.info("GET /equipe/modifier/" + id);
 
         model.addAttribute("title", "Modifier l'équipe");
 
@@ -157,14 +157,15 @@ public class TeamController {
 
     @PostMapping("/equipe/modifier/{id}")
     public String submitUpdateTeamForm(@PathVariable String id,
-                                           @Valid @ModelAttribute("team") TeamEntity team,
-                                           BindingResult result, Model model,
-                                           RedirectAttributes redirectAttributes) {
+                                       @RequestParam("teamLeader") String teamLeaderId,
+                                       @Valid @ModelAttribute("team") TeamEntity team,
+                                       BindingResult result, Model model,
+                                       RedirectAttributes redirectAttributes) {
 
-        logger.debug("POST /equipe/modifier/" + id);
+        log.info("POST /equipe/modifier/" + id);
 
         if (result.hasErrors()) {
-            logger.info(result.toString());
+            log.info(result.toString());
 
             // Get employees
             List<EmployeeEntity> employees =  employeeService.getEmployees();
@@ -176,19 +177,46 @@ public class TeamController {
 
             // Return form with errors
             return "updateTeamForm";
-        } else {
-            try {
+        }
 
-                // Save team
-                team = teamService.editTeam(team);
-            } catch (Exception e) {
-                logger.error(e.getMessage() + e.getCause());
-                redirectAttributes.addFlashAttribute("message", "Impossible de modifier l'équipe.");
+        addEmployeeToTeamLeader(teamLeaderId, team);
 
-                return "redirect:/equipes";
-            }
+        try {
+            // Save team
+            team = teamService.editTeam(team);
+        } catch (Exception e) {
+            log.error(e.getMessage() + e.getCause());
+            redirectAttributes.addFlashAttribute("message", "Impossible de modifier l'équipe.");
+
+            return "redirect:/equipes";
         }
 
         return "redirect:/equipe/" + team.getId();
+    }
+
+    // Add employee to team leader
+    public void addEmployeeToTeamLeader(String teamLeaderId, TeamEntity team) {
+
+        // Add employee to team leader if doesn't exist
+        TeamLeaderEntity teamLeader;
+        if ( !teamLeaderService.exists(teamLeaderId) ) {
+            // Get employee
+            EmployeeEntity employee =
+                    employeeService.getEmployee(teamLeaderId);
+
+            // Save employee as team leader
+            teamLeader =
+                    teamLeaderService.addEmployeeToTeamLeader(employee);
+
+            log.info("Add team leader: " + teamLeader.getEid());
+        } else {
+            // Get team leader
+            teamLeader = teamLeaderService.getTeamLeader(teamLeaderId);
+        }
+
+        // Set team leader to team
+        team.setTeamLeader(teamLeader);
+        // Add team leader to employees list if doesn't exist
+        team.getEmployeeList().add(teamLeader.getEmployee());
     }
 }
