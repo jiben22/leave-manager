@@ -3,22 +3,23 @@ package fr.enssat.leave_manager.controller;
 import fr.enssat.leave_manager.model.TypeOfLeaveEntity;
 import fr.enssat.leave_manager.service.TypeOfLeaveService;
 import fr.enssat.leave_manager.service.impl.TypeOfLeaveServiceImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@Slf4j
 public class TypeOfLeaveController {
-
-    Logger logger = LoggerFactory.getLogger(TypeOfLeaveController.class);
 
     private final TypeOfLeaveService typeOfLeaveService;
 
@@ -30,7 +31,7 @@ public class TypeOfLeaveController {
     @GetMapping("/types-conges")
     public String showTypesOfLeaves(Model model) {
 
-        logger.debug("GET /types-conges");
+        log.info("GET /types-conges");
         model.addAttribute("title", "Liste des types de congés");
 
         // Get types of leaves
@@ -51,7 +52,7 @@ public class TypeOfLeaveController {
     public String submitAddTypeOfLeaveForm(@Valid @ModelAttribute TypeOfLeaveEntity typeOfLeave,
                                  BindingResult result,  ModelMap model) {
 
-        logger.debug("submitAddTypeOfLeaveForm() : {}", typeOfLeave);
+        log.info("submitAddTypeOfLeaveForm() : {}", typeOfLeave);
 
         if (result.hasErrors()) {
             return "/type-conges/ajouter";

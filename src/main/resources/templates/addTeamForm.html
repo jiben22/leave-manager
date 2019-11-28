@@ -15,11 +15,11 @@
                             <div class="card-icon">
                                 <i class="material-icons">people</i>
                             </div>
-                            <h4 class="card-title">Ajouter une équipe</h4>
+                            <h4 th:text="${title}" class="card-title">Ajouter une équipe</h4>
                         </div>
                         <div class="card-body">
-                            <form action="#" method="post" th:action="@{/equipe/ajouter}" th:object="${team}" class="form-horizontal">
-                                <span class="text-danger" th:errors="*{global}"> </span>
+                            <form action="#" method="post" th:action="${title == 'Ajouter une équipe'} ? @{/equipe/ajouter} : @{/employe/ajouter/} + ${team.id}" th:object="${team}" class="form-horizontal">
+                                <input type="hidden" th:field="*{id}" />
                                 <div class="row">
                                     <div class="offset-md-2 col-md-4">
                                         <span class="text-danger" th:errors="*{name}"> </span>
@@ -29,7 +29,7 @@
                                     <label class="col-md-2 col-form-label">Nom</label>
                                     <div class="col-md-4">
                                         <div class="form-group has-default bmd-form-group">
-                                            <input th:field="*{name}" type="text" class="form-control">
+                                            <input th:field="*{name}" type="text" class="form-control" th:disabled="${title != 'Ajouter une équipe'}">
                                         </div>
                                     </div>
                                 </div>
@@ -42,12 +42,12 @@
                                     <label class="col-md-2 col-form-label">Département</label>
                                     <div class="col-md-6">
                                         <div class="form-group bmd-form-group">
-                                            <select th:field="*{department}" class="form-control">
+                                            <select th:field="*{department}" class="form-control" th:disabled="${title != 'Ajouter une équipe'}">
                                                 <option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.name}"></option>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div th:if="${title == 'Ajouter une équipe'}" class="col-md-2">
                                         <div class="form-group has-default bmd-form-group">
                                             <a>
                                                 <button th:href="@{/departement/ajouter}" type="button" class="btn btn-primary">+</button>
@@ -64,7 +64,7 @@
                                     <label class="col-md-2 col-form-label">Chef d'équipe</label>
                                     <div class="col-md-6">
                                         <div class="form-group bmd-form-group">
-                                            <select th:field="*{teamLeader}" class="form-control">
+                                            <select name="teamLeader" class="form-control" th:disabled="${title != 'Ajouter une équipe'}">
                                                 <option th:each="employee : ${employees}" 
                                                         th:value="${employee.eid}" 
                                                         th:text="${employee.lastname} + ' ' + ${employee.firstname}">
@@ -79,10 +79,10 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label class="col-md-2 col-form-label" style="min-height: 150px;">Liste des membres</label>
+                                    <label class="col-md-2 col-form-label">Liste des membres</label>
                                     <div class="col-md-6">
                                         <div class="form-group bmd-form-group">
-                                            <select multiple th:field="*{employeeList}" class="form-control">
+                                            <select multiple th:field="*{employeeList}" class="form-control" style="height: 100%;">
                                                 <option th:each="employee : ${employees}" 
                                                         th:value="${employee.eid}" 
                                                         th:text="${employee.lastname} + ' ' + ${employee.firstname}">

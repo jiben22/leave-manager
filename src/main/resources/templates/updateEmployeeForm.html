@@ -20,7 +20,6 @@
                         <div class="card-body">
                             <form action="#" method="post" th:action="@{/employe/modifier/} + ${employee.eid}" th:object="${employee}" class="form-horizontal">
                                 <input type="hidden" th:field="*{eid}" />
-                                <span class="text-danger" th:errors="*{global}"> </span>
                                 <div class="row">
                                     <div class="offset-md-2 col-md-4">
                                         <span class="text-danger" th:errors="*{lastname}"> </span>

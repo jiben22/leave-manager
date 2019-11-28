@@ -34,7 +34,7 @@ spring:
 # Logger
 logging:
   level:
-    root: WARN
+    root: INFO
     com.memorynotfound: DEBUG
     org.springframework.web: INFO
     org.springframework.security: INFO

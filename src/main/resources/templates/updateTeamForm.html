@@ -20,7 +20,6 @@
                         <div class="card-body">
                             <form action="#" method="post" th:action="@{/equipe/modifier/} + ${team.id}" th:object="${team}" class="form-horizontal">
                                 <input type="hidden" th:field="*{id}" />
-                                <span class="text-danger" th:errors="*{global}"> </span>
                                 <div class="row">
                                     <div class="offset-md-2 col-md-4">
                                         <span class="text-danger" th:errors="*{name}"> </span>
@@ -80,10 +79,10 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label class="col-md-2 col-form-label" style="min-height: 150px;">Liste des membres</label>
+                                    <label class="col-md-2 col-form-label">Liste des membres</label>
                                     <div class="col-md-6">
                                         <div class="form-group bmd-form-group">
-                                            <select multiple th:field="*{employeeList}" class="form-control">
+                                            <select multiple th:field="*{employeeList}" class="form-control" style="height: 100%;">
                                                 <option th:each="employee : ${employees}" 
                                                         th:value="${employee.eid}" 
                                                         th:text="${employee.lastname} + ' ' + ${employee.firstname}">

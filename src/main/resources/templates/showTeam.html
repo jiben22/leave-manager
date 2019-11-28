@@ -22,11 +22,12 @@
                         </div>
                         <div class="card-body">
                             <form action="#" th:object="${team}" class="form-horizontal">
+                                <input type="hidden" th:field="*{id}" />
                                 <div class="row">
                                     <label class="col-md-2 col-form-label">Nom</label>
                                     <div class="col-md-4">
                                         <div class="form-group has-default bmd-form-group">
-                                            <input disabled="" th:field="*{name}" type="text" class="form-control">
+                                            <input disabled="" th:field="*{name}" type="text" class="form-control disabled">
                                         </div>
                                     </div>
                                 </div>
@@ -34,7 +35,7 @@
                                     <label class="col-md-2 col-form-label">Département</label>
                                     <div class="col-md-6">
                                         <div class="form-group bmd-form-group">
-                                            <select disabled="" th:field="*{department}" class="form-control">
+                                            <select disabled="" th:field="*{department}" class="form-control disabled">
                                                 <option th:value="${team.department.id}" th:text="${team.department.name}"></option>
                                             </select>
                                         </div>
@@ -51,7 +52,7 @@
                                     <label class="col-md-2 col-form-label">Chef d'équipe</label>
                                     <div class="col-md-6">
                                         <div class="form-group bmd-form-group">
-                                            <select disabled="" th:field="*{teamLeader}" class="form-control">
+                                            <select disabled="" th:field="*{teamLeader}" class="form-control disabled">
                                                 <option 
                                                     th:value="${team.teamLeader.employee.eid}" 
                                                     th:text="${team.teamLeader.employee.lastname} + ' ' + ${team.teamLeader.employee.firstname}">
@@ -61,10 +62,10 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label class="col-md-2 col-form-label" style="min-height: 150px;">Liste des membres</label>
+                                    <label class="col-md-2 col-form-label">Liste des membres</label>
                                     <div class="col-md-6">
                                         <div class="form-group bmd-form-group">
-                                            <select disabled="" multiple th:field="*{employeeList}" class="form-control">
+                                            <select disabled="" multiple th:field="*{employeeList}" class="form-control disabled" style="height: 100%;">
                                                 <option th:each="employee : ${team.employeeList}" 
                                                         th:value="${employee.eid}" 
                                                         th:text="${employee.lastname} + ' ' + ${employee.firstname}">

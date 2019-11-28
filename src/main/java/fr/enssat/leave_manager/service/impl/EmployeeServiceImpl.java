@@ -1,10 +1,13 @@
 package fr.enssat.leave_manager.service.impl;
 
 import fr.enssat.leave_manager.model.EmployeeEntity;
+import fr.enssat.leave_manager.model.TeamEntity;
 import fr.enssat.leave_manager.repository.EmployeeRepository;
+import fr.enssat.leave_manager.repository.TeamRepository;
 import fr.enssat.leave_manager.service.EmployeeService;
 import fr.enssat.leave_manager.service.exception.already_exists.EmployeeAlreadyExistException;
 import fr.enssat.leave_manager.service.exception.not_found.EmployeeNotFoundException;
+import fr.enssat.leave_manager.service.exception.not_found.TeamNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.annotation.Secured;
@@ -24,6 +27,9 @@ import java.util.stream.Collectors;
 public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private EmployeeRepository repository;
+
+    @Autowired
+    private TeamRepository teamRepository;
 
     @Override
     public boolean exists(String id) {
@@ -77,6 +83,16 @@ public class EmployeeServiceImpl implements EmployeeService {
         repository.deleteById(id);
     }
 
+    @Secured("ROLE_HR")
+    public void addEmployeeToTeam(String teamId, EmployeeEntity employee) {
+        Optional<TeamEntity> team = teamRepository.findById(teamId);
+
+        if (!team.isPresent())
+            throw new TeamNotFoundException(teamId);
+
+        team.get().getEmployeeList().add(employee);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
@@ -92,7 +108,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<String> roles) {
         return roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role))
+                .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
 }

@@ -22,17 +22,18 @@
                         </div>
                         <div class="card-body">
                             <form action="#" th:object="${employee}" class="form-horizontal">
+                                <input type="hidden" th:field="*{eid}" />
                                 <div class="row">
                                     <label class="col-md-2 col-form-label">Nom</label>
                                     <div class="col-md-4">
                                         <div class="form-group has-default bmd-form-group">
-                                            <input disabled="" th:field="*{lastname}" type="text" class="form-control">
+                                            <input disabled="" th:field="*{lastname}" type="text" class="form-control disabled">
                                         </div>
                                     </div>
                                     <label class="col-md-2 col-form-label">Prénom</label>
                                     <div class="col-md-4">
                                         <div class="form-group has-default bmd-form-group">
-                                            <input disabled="" th:field="*{firstname}" type="text" class="form-control">
+                                            <input disabled="" th:field="*{firstname}" type="text" class="form-control disabled">
                                         </div>
                                     </div>
                                 </div>
@@ -40,7 +41,7 @@
                                     <label class="col-md-2 col-form-label">Email</label>
                                     <div class="col-md-4">
                                         <div class="form-group has-default bmd-form-group">
-                                            <input disabled="" th:field="*{email}" type="email" class="form-control">
+                                            <input disabled="" th:field="*{email}" type="email" class="form-control disabled">
                                         </div>
                                     </div>
                                 </div>
@@ -48,7 +49,7 @@
                                     <label class="col-md-2 col-form-label">Adresse</label>
                                     <div class="col-md-10">
                                         <div class="form-group bmd-form-group">
-                                            <input disabled="" th:field="*{street}" type="text" class="form-control">
+                                            <input disabled="" th:field="*{street}" type="text" class="form-control disabled">
                                         </div>
                                     </div>
                                 </div>
@@ -56,19 +57,19 @@
                                     <label class="col-md-2 col-form-label">Code Postal</label>
                                     <div class="col-md-2">
                                         <div class="form-group has-default bmd-form-group">
-                                            <input disabled="" th:field="*{postCode}" type="text" class="form-control">
+                                            <input disabled="" th:field="*{postCode}" type="text" class="form-control disabled">
                                         </div>
                                     </div>
                                     <label class="col-md-2 col-form-label">Ville</label>
                                     <div class="col-md-2">
                                         <div class="form-group has-default bmd-form-group">
-                                            <input disabled="" th:field="*{city}" type="text" class="form-control">
+                                            <input disabled="" th:field="*{city}" type="text" class="form-control disabled">
                                         </div>
                                     </div>
                                     <label class="col-md-2 col-form-label">Pays</label>
                                     <div class="col-md-2">
                                         <div class="form-group has-default bmd-form-group">
-                                            <input disabled="" th:field="*{country}" type="text" class="form-control">
+                                            <input disabled="" th:field="*{country}" type="text" class="form-control disabled">
                                         </div>
                                     </div>
                                 </div>
@@ -76,7 +77,7 @@
                                     <label class="col-md-2 col-form-label">Emploi</label>
                                     <div class="col-md-6">
                                         <div class="form-group bmd-form-group">
-                                            <input disabled="" th:field="*{position}" type="text" class="form-control">
+                                            <input disabled="" th:field="*{position}" type="text" class="form-control disabled">
                                         </div>
                                     </div>
                                 </div>
@@ -84,7 +85,7 @@
                                     <label class="col-md-2 col-form-label">Équipe</label>
                                     <div class="col-md-8">
                                         <div class="form-group bmd-form-group">
-                                            <select disabled="" th:field="*{teamList}" class="form-control">
+                                            <select disabled="" th:field="*{teamList}" class="form-control disabled">
                                                     <option th:each="team : ${employee.teamList}" th:value="${team.id}" th:text="${team.name}"></option>
                                             </select>
                                         </div>
@@ -94,7 +95,7 @@
                                     <label class="col-md-2 col-form-label">Nombre de congés</label>
                                     <div class="col-md-1">
                                         <div class="form-group bmd-form-group">
-                                            <input disabled="" th:field="*{remainingLeave}" type="text" class="form-control" value="25">
+                                            <input disabled="" th:field="*{remainingLeave}" type="text" class="form-control disabled" value="25">
                                         </div>
                                     </div>
                                 </div>
