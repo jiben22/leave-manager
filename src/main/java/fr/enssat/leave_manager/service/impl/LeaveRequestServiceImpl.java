@@ -6,12 +6,16 @@ import fr.enssat.leave_manager.repository.LeaveRequestRepository;
 import fr.enssat.leave_manager.service.EmployeeService;
 import fr.enssat.leave_manager.service.LeaveRequestService;
 import fr.enssat.leave_manager.service.TimeTableService;
-import fr.enssat.leave_manager.service.exception.*;
+import fr.enssat.leave_manager.service.exception.LeaveRequestCommentException;
+import fr.enssat.leave_manager.service.exception.LeaveRequestRemainingLeaveException;
+import fr.enssat.leave_manager.service.exception.LeaveRequestStatusException;
+import fr.enssat.leave_manager.service.exception.TimeTableDateNotAvailableException;
 import fr.enssat.leave_manager.service.exception.already_exists.LeaveRequestAlreadyExistsException;
 import fr.enssat.leave_manager.service.exception.not_found.LeaveRequestNotFoundException;
 import fr.enssat.leave_manager.utils.enums.LeaveStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -99,6 +103,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
         return this.repository.saveAndFlush(lr);
     }
 
+    @Secured("ROLE_HR")
     @Override
     public LeaveRequestEntity acceptLeaveRequest(LeaveRequestEntity lr) {
         if (lr.getStatus() != LeaveStatus.PENDING)
@@ -110,6 +115,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
         return this.repository.saveAndFlush(lr);
     }
 
+    @Secured("ROLE_HR")
     @Override
     public LeaveRequestEntity declineLeaveRequest(LeaveRequestEntity lr) {
         if (lr.getStatus() != LeaveStatus.PENDING)

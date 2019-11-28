@@ -10,6 +10,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
 
@@ -120,13 +121,13 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
         ArrayList<String> roles = new ArrayList<String>();
 
         if (this.getHr() != null) {
-            roles.add("ROLE_HR");
+            roles.addAll(Arrays.asList("ROLE_HR", "ROLE_EMPLOYEE"));
         }
         if (this.getHrd() != null) {
-            roles.add("ROLE_HRD");
+            roles.addAll(Arrays.asList("ROLE_HRD", "ROLE_HR", "ROLE_TEAMLEADER", "ROLE_EMPLOYEE"));
         }
         if (this.getTeamLeader() != null) {
-            roles.add("ROLE_TEAMLEADER");
+            roles.addAll(Arrays.asList("ROLE_TEAMLEADER", "ROLE_EMPLOYEE"));
         }
 
         roles.add("ROLE_EMPLOYEE");

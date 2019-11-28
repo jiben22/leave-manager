@@ -6,6 +6,7 @@ import fr.enssat.leave_manager.service.TypeOfLeaveService;
 import fr.enssat.leave_manager.service.exception.already_exists.TypeOfLeaveAlreadyExistsException;
 import fr.enssat.leave_manager.service.exception.not_found.TypeOfLeaveNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,10 +40,12 @@ public class TypeOfLeaveServiceImpl implements TypeOfLeaveService {
         return repository.findAllByIsArchivedTrue();
     }
 
+
     public List<TypeOfLeaveEntity> getAllTypeofLeaves() {
         return repository.findAll();
     }
 
+    @Secured("ROLE_HRD")
     @Override
     public TypeOfLeaveEntity addTypeOfLeave(TypeOfLeaveEntity typeOfLeave) {
         if (repository.existsById(typeOfLeave.getId()))
@@ -50,6 +53,7 @@ public class TypeOfLeaveServiceImpl implements TypeOfLeaveService {
         return repository.saveAndFlush(typeOfLeave);
     }
 
+    @Secured("ROLE_HRD")
     @Override
     public TypeOfLeaveEntity editTypeOfLeave(TypeOfLeaveEntity typeOfLeave) {
         if (!repository.existsById(typeOfLeave.getId()))
@@ -57,6 +61,7 @@ public class TypeOfLeaveServiceImpl implements TypeOfLeaveService {
         return repository.saveAndFlush(typeOfLeave);
     }
 
+    @Secured("ROLE_HRD")
     @Override
     public TypeOfLeaveEntity deleteTypeOfLeave(String id) {
         // Soft delete

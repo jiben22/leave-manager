@@ -25,6 +25,10 @@ public class CustomErrorController implements ErrorController {
         Object statusCode = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
         logger.error("Error with status code " + statusCode + " happened");
+        logger.error(request.getRequestURI());
+        logger.error(request.getContextPath());
+        logger.error(request.getPathTranslated());
+
         model.addAttribute("statusCode", statusCode.toString());
 
         return "error";

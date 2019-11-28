@@ -7,6 +7,7 @@ import fr.enssat.leave_manager.service.exception.already_exists.EmployeeAlreadyE
 import fr.enssat.leave_manager.service.exception.not_found.EmployeeNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -54,6 +55,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return repository.findAll(Sort.by(Sort.Direction.ASC, "lastname"));
     }
 
+    @Secured("ROLE_HRD")
     @Override
     public EmployeeEntity addEmployee(EmployeeEntity employee) {
         if (repository.existsById(employee.getEid()))
@@ -61,6 +63,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return repository.saveAndFlush(employee);
     }
 
+    @Secured("ROLE_HR")
     @Override
     public EmployeeEntity editEmployee(EmployeeEntity employee) {
         if (!repository.existsById(employee.getEid()))
@@ -68,6 +71,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return repository.saveAndFlush(employee);
     }
 
+    @Secured("ROLE_HRD")
     @Override
     public void deleteEmployee(String id) {
         repository.deleteById(id);
