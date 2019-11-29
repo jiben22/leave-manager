@@ -81,20 +81,41 @@
                                     <label class="col-md-2 col-form-label">Mon commentaire</label>
                                     <div class="col-md-6">
                                         <div class="form-group has-default bmd-form-group">
-                                            <textarea class="form-control" rows="3" th:text="${leaveRequest.hrComment}"></textarea>
+                                            <textarea id="hrCommentLR" class="form-control" rows="3" th:text="${leaveRequest.hrComment}"></textarea>
                                         </div>
+                                        <small id="errorMsg" class="text-danger" style="display:none">
+                                            Le commentaire ne peut pas être vide lors d'un refus de demande !
+                                        </small>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">Annuler</button>
-                                <button type="button" class="btn btn-danger">Refuser</button>
-                                <button type="button" class="btn btn-success">Valider</button>
+                                <button type="button" class="btn btn-secondary mr-auto" onclick="window.location.href='/demandes'">Annuler</button>
+                                <button id="declineLR" type="button" class="btn btn-danger">Refuser</button>
+                                <button id="validateLR" type="button" class="btn btn-success">Valider</button>
                             </form>
+                            <script th:inline="javascript">
+                                submit_lr = function(str) {
+                                    let id = /*[[${leaveRequest.lrid}]]*/ '';
+                                    $.get('/demande/'+str+'/'+id+'?comment='+$("textarea#hrCommentLR").val(),
+                                        function( data ) {
+                                            window.location.href = "/demandes";
+                                    });
+                                }
+
+                                $("#declineLR").click(function() {
+                                    if ($("textarea#hrCommentLR").val().trim() == "") $('#errorMsg').show();
+                                    else submit_lr("refuser");
+                                });
+                                $("#validateLR").click(function() {
+                                    submit_lr("valider");
+                                });
+                            </script>
                         </div>
                     </div>
                 </div>
             </div>
             <footer th:replace="fragments/footer.html :: footer"></footer>
         </div>
+    </div>
 </body>
 
 </html>
