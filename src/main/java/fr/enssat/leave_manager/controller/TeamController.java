@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @Slf4j
@@ -48,17 +49,26 @@ public class TeamController {
         this.teamLeaderService = teamLeaderService;
     }
 
-    @PreAuthorize("hasRole('ROLE_HR')")
+    @PreAuthorize("hasRole('ROLE_HR') || hasRole('ROLE_TEAMLEADER')")
     @GetMapping("/equipes")
-    public String showTeams(Model model) {
+    public String showTeams(Model model, HttpServletRequest request, HttpSession session) {
 
         log.info("GET /equipes");
 
         model.addAttribute("title", "Liste des équipes");
 
-        // Get teams
-        List<TeamEntity> teams = teamService.getTeams();
-        model.addAttribute("teams", teams);
+        if (!request.isUserInRole("ROLE_HR") && request.isUserInRole("ROLE_TEAMLEADER")) {
+            String eid = ((EmployeeEntity) session.getAttribute("employee")).getEid();
+            TeamLeaderEntity leader = teamLeaderService.getTeamLeader(eid);
+
+            Set<TeamEntity> teams = leader.getTeamList();
+            model.addAttribute("teams", teams);
+        } else {
+
+            // Get teams
+            List<TeamEntity> teams = teamService.getTeams();
+            model.addAttribute("teams", teams);
+        }
 
         return "teams";
     }
@@ -87,7 +97,8 @@ public class TeamController {
     public String showTeamById(@PathVariable String id, Model model, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
         EmployeeEntity user = employeeService.getEmployee( ((EmployeeEntity) session.getAttribute("employee")).getEid() );
         TeamEntity team = teamService.getTeam(id);
-        if (user.getTeamList().contains(team) || request.isUserInRole("ROLE_TEAMLEADER") || request.isUserInRole("ROLE_HR")) {
+        //user.getTeamList().contains(team) ||
+        if (request.isUserInRole("ROLE_TEAMLEADER") || request.isUserInRole("ROLE_HR")) {
             log.info("GET /equipe/" + id);
 
             model.addAttribute("title", "Visualiser l'équipe");

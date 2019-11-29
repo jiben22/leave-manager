@@ -78,7 +78,7 @@ public class StatisticsServiceImpl implements StatisticService {
         Integer effective = employeeRepository.countAll();
         int year = LocalDateTime.now().getYear();
         for (int i=1 ; i<=12 ; i++) {
-            Integer r = leaveRequestRepository.countAllByStatusAndLastEditionDateBetweenAndGroupByEmployee(
+            Integer r = leaveRequestRepository.countAllByStatusAndStartingDateBetweenAndGroupByEmployee(
                     LeaveStatus.ACCEPTED,
                     LocalDateTime.of(year, i, 1, 0, 0),
                     LocalDateTime.of(i+1<=12 ? year : year+1, i%12 +1, 1, 0, 0));

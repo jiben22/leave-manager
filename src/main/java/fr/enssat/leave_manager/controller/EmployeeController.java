@@ -355,15 +355,23 @@ public class EmployeeController {
     public String submitAddEmployeeToTeamForm(@PathVariable String teamId,
                                               @Valid @ModelAttribute("team") TeamEntity team,
                                               BindingResult result, Model model,
-                                              RedirectAttributes redirectAttributes) {
+                                              RedirectAttributes redirectAttributes, HttpSession session) {
 
         log.info("POST /employe/ajouter/" + teamId);
+
+        EmployeeEntity opt_emp = (EmployeeEntity) session.getAttribute("employee");
+        EmployeeEntity emp = employeeService.getEmployeeByEmail(opt_emp.getEmail());
 
         model.addAttribute("title", "Ajouter un employé dans l'équipe");
 
         // Set team in the list
+        System.err.println(team);
+//        team = teamService.getTeam(teamId);
+//        Set<EmployeeEntity> list = team.getEmployeeList();
+//        list.add(emp);
+//        team.setEmployeeList(list);
         List<TeamEntity> teams = new ArrayList<>();
-        teams.add(team);
+//        teams.add(team);
         model.addAttribute("teams", teams);
 
         // Check if form has errors

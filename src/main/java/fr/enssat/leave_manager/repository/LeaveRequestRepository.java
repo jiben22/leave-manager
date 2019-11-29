@@ -24,8 +24,8 @@ public interface LeaveRequestRepository extends JpaRepository<LeaveRequestEntity
 
     Integer countAllByHrAndStatusAndCreationDateAfter(HREntity hr, LeaveStatus status, LocalDateTime creation);
 
-    @Query("SELECT count(*) FROM LeaveRequestEntity l WHERE l.status = :status AND l.lastEditionDate BETWEEN :start AND :end GROUP BY l.employee")
-    Integer countAllByStatusAndLastEditionDateBetweenAndGroupByEmployee(
+    @Query("SELECT count(*) FROM LeaveRequestEntity l WHERE l.status = :status AND l.startingDate BETWEEN :start AND :end GROUP BY l.employee")
+    Integer countAllByStatusAndStartingDateBetweenAndGroupByEmployee(
             @Param("status") LeaveStatus status,
             @Param("start") LocalDateTime start,
             @Param("end") LocalDateTime end);
