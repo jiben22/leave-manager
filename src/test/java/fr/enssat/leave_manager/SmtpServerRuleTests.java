@@ -6,12 +6,12 @@ import org.junit.rules.ExternalResource;
 
 import javax.mail.internet.MimeMessage;
 
-public class SmtpServerRule extends ExternalResource {
+public class SmtpServerRuleTests extends ExternalResource {
 
     private GreenMail smtpServer;
     private int port;
 
-    public SmtpServerRule(int port) {
+    public SmtpServerRuleTests(int port) {
         this.port = port;
     }
 
