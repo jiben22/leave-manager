@@ -11,13 +11,6 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="offset-md-11">
-                            <a th:href="@{/demande-conges/ajouter}">
-                                <button type="button" class="btn btn-primary">+</button>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-primary card-header-icon">
@@ -25,6 +18,11 @@
                                         <i class="material-icons">next_week</i>
                                     </div>
                                     <h4 class="card-title">Mes demandes de congés</h4>
+                                </div>
+                                <div class="offset-md-11">
+                                    <a th:href="@{/demande-conges/ajouter}">
+                                        <button type="button" class="btn btn-primary">+</button>
+                                    </a>
                                 </div>
                                 <div class="card-body">
                                     <div class="toolbar">
@@ -41,11 +39,11 @@
                                                                 Date de fin</th>
                                                             <th class="disabled-sorting sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;" aria-label="Actions: activate to sort column ascending">Type de congé</th>
                                                             <th class="disabled-sorting sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;" aria-label="Actions: activate to sort column ascending">Statut</th>
-                                                            <th class="disabled-sorting text-right sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 80px;" aria-label="Actions: activate to sort column ascending"></th>
+                                                            <th class="disabled-sorting sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 80px;" aria-label="Actions: activate to sort column ascending">Annuler</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr th:each="leavesRequest, i : ${leavesRequests}" role="row" th:style="${i.odd}? 'odd' : 'even'">
+                                                        <tr th:each="leavesRequest, i : ${leavesRequests}" role="row" th:style="${i.odd}? 'odd' : 'even'" th:data-id="${leavesRequest.lrid}">
                                                             <td th:text="${leavesRequest.startingDate}" tabindex="0" class="sorting_1">Starting date</td>
                                                             <td th:text="${leavesRequest.endingDate}">Ending date</td>
                                                             <td th:text="${leavesRequest.typeOfLeave.name}">Name of type of leaves</td>
@@ -66,8 +64,23 @@
                 </div>
             </div>
             <footer th:replace="fragments/footer.html :: footer"></footer>
+            <div th:replace="modals/leaveRequestModals.html :: deleteLeaveRequestModal"></div>
         </div>
         <script>
+
+            (function($){
+                let that;
+                $(".remove").click(function() {
+                    that = $(this);
+                    $(".remove-modal-btn").click(function(){
+                        let tr = that.parent().parent()[0];
+                        let lrid = tr.dataset.id;
+                        $(tr).fadeOut();
+                        $.get("/demande-conges/supprimer/"+lrid);
+                    });
+                });
+
+            })(jQuery);
             $(document).ready(function() {
                 $('#datatables').DataTable({
                     "pagingType": "full_numbers",

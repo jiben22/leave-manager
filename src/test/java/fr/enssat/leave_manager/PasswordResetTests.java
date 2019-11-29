@@ -36,7 +36,7 @@ public class PasswordResetTests {
     public void accessPasswordResetWithInvalidToken() throws Exception {
         this.mockMvc
                 .perform(
-                        get("/resetPassword?token=invalid-token")
+                        get("/resetPassword/pwd/?token=invalid-token")
                 )
                 .andExpect(model().attributeExists("error"))
                 .andExpect(status().isOk());
@@ -46,7 +46,7 @@ public class PasswordResetTests {
     public void accessPasswordResetWithExpiredToken() throws Exception {
         this.mockMvc
                 .perform(
-                        get("/resetPassword?token=expired-token")
+                        get("/resetPassword/pwd/?token=expired-token")
                 )
                 .andExpect(model().attributeExists("error"))
                 .andExpect(status().isOk());
@@ -63,7 +63,7 @@ public class PasswordResetTests {
                                 .param("token", "valid-token")
                 )
                 .andExpect(model().hasNoErrors())
-                .andExpect(redirectedUrl("/resetPassword?token=valid-token"))
+                .andExpect(redirectedUrl("/resetPassword/pwd/?token=valid-token"))
                 .andExpect(status().is3xxRedirection());
     }
 
@@ -78,7 +78,7 @@ public class PasswordResetTests {
                                 .param("token", "valid-token")
                 )
                 .andExpect(flash().attributeExists(BindingResult.class.getName() + ".passwordResetForm"))
-                .andExpect(redirectedUrl("/resetPassword?token=valid-token"))
+                .andExpect(redirectedUrl("/resetPassword/pwd/?token=valid-token"))
                 .andExpect(status().is3xxRedirection());
     }
 

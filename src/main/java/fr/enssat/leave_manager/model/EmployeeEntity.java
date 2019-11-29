@@ -102,6 +102,11 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
     private Set<LeaveRequestEntity> leaveRequestList;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @Builder.Default
+    private Set<PasswordResetToken> tokenResetList = null;
+
+    @ToString.Exclude @EqualsAndHashCode.Exclude
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "eid", referencedColumnName = "employee")
     private HREntity hr;

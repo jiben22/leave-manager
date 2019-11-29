@@ -11,11 +11,6 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="offset-md-11">
-                            <a th:href="@{/type-conges/ajouter}">
-                                <button type="button" class="btn btn-primary">+</button>
-                            </a>
-                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -25,6 +20,11 @@
                                         <i class="material-icons">library_books</i>
                                     </div>
                                     <h4 class="card-title">Liste des types de congés</h4>
+                                </div>
+                                <div class="offset-md-11">
+                                    <a th:href="@{/type-conges/ajouter}">
+                                        <button type="button" class="btn btn-primary">+</button>
+                                    </a>
                                 </div>
                                 <div class="card-body">
                                     <div class="toolbar">
@@ -39,7 +39,7 @@
                                                                 Nom</th>
                                                             <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;" aria-label="Position: activate to sort column ascending">
                                                                 Description</th>
-                                                            <th class="disabled-sorting text-right sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 80px;" aria-label="Actions: activate to sort column ascending">Archivé</th>
+                                                            <th class="disabled-sorting sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 40px;" aria-label="Actions: activate to sort column ascending">Archivé</th>
                                                             <th class="disabled-sorting text-right sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 80px;" aria-label="Actions: activate to sort column ascending"></th>
                                                         </tr>
                                                     </thead>

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpSession;
 import java.util.Set;
@@ -47,5 +48,11 @@ public class LeaveRequestController {
 
         model.addAttribute("title", "Modifier une demande de congés");
         return "updateLeavesRequest";
+    }
+
+    @GetMapping("/demande-conges/supprimer/{lrid}")
+    public String deleteLeaveRequest(@PathVariable String lrid) {
+        //leaveRequestService.deleteLeaveRequest(lrid);
+        return "redirect:/demande-conges";
     }
 }
