@@ -30,7 +30,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div id="accordion">
-                                        <div th:each="team: ${teams}" class="card">
+                                        <div  th:each="team: ${teams}" th:data-id="${team.id}" class="card">
 
                                             <!-- Team -->
                                             <div class="card-header">
@@ -45,7 +45,7 @@
                                                                 <button type="button" class="btn btn-warning ">Modifier</button>
                                                             </a>
 
-                                                            <button data-target="#deleteEmployeeModal" data-toggle="modal" type="button" class="btn btn-danger">Supprimer</button>
+                                                            <button data-target="#deleteTeamModal" data-toggle="modal" type="button" class="btn btn-danger remove-btn">Supprimer</button>
                                                         </span>
 
                                             </div>
@@ -73,10 +73,24 @@
                     </div>
                 </div>
             </div>
-            <!--<div th:replace="modals/teamModals.html :: deleteEmployeeModal"></div>-->
+            <div th:replace="modals/teamModals.html :: deleteTeamModal"></div>
             <footer th:replace="fragments/footer.html :: footer"></footer>
         </div>
         <script>
+
+            (function($){
+
+                let that;
+                $("div[data-id]").click(function() {
+                    that = $(this);
+                    let id = $(this).data("id");
+                    $(".remove-modal-btn").click(function(){
+                        $(that).fadeOut();
+                        $.get("/equipe/supprimer/"+id);
+                    });
+                });
+
+            })(jQuery);
             $(document).ready(function() {
                 $('#datatables').DataTable({
                     "pagingType": "full_numbers",
