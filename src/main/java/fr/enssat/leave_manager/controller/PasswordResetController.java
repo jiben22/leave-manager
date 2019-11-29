@@ -1,10 +1,10 @@
 package fr.enssat.leave_manager.controller;
 
 import fr.enssat.leave_manager.model.EmployeeEntity;
+import fr.enssat.leave_manager.model.PasswordResetDto;
 import fr.enssat.leave_manager.model.PasswordResetToken;
 import fr.enssat.leave_manager.repository.PasswordResetTokenRepository;
 import fr.enssat.leave_manager.service.EmployeeService;
-import fr.enssat.leave_manager.web.dto.PasswordResetDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -62,8 +62,7 @@ public class PasswordResetController {
 
         PasswordResetToken token = tokenRepository.findByToken(form.getToken());
         EmployeeEntity user = token.getUser();
-        //String updatedPassword = passwordEncoder.encode(form.getPassword());
-        //userService.updatePassword(updatedPassword, user.getEid());
+
         user.setPassword(form.getPassword());
         userService.editEmployee(user);
         tokenRepository.delete(token);

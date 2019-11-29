@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @RunWith(SpringJUnit4ClassRunner.class)
-public class PasswordResetIT {
+public class PasswordResetTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -63,7 +63,7 @@ public class PasswordResetIT {
                                 .param("token", "valid-token")
                 )
                 .andExpect(model().hasNoErrors())
-                .andExpect(redirectedUrl("/login?resetSuccess"))
+                .andExpect(redirectedUrl("/resetPassword?token=valid-token"))
                 .andExpect(status().is3xxRedirection());
     }
 

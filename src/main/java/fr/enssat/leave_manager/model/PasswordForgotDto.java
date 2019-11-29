@@ -1,4 +1,4 @@
-package fr.enssat.leave_manager.web.dto;
+package fr.enssat.leave_manager.model;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;

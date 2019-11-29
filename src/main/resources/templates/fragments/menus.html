@@ -13,7 +13,7 @@
                 <div class="card card-profile">
                     <i class="material-icons" style="font-size: 6em;">account_circle</i>
                     <h4 class="card-title">
-                        Bonjour <span th:text="${session.employee.lastname + ' ' + session.employee.firstname}" th:unless="${session.employee == null}"></span>
+                        <span th:text="${session.employee.firstname + ' ' + session.employee.lastname}" th:unless="${session.employee == null}"></span>
                     </h4>
                 </div>
             </div>

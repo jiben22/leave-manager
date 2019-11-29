@@ -1,12 +1,12 @@
 package fr.enssat.leave_manager.controller;
 
 import fr.enssat.leave_manager.model.EmployeeEntity;
+import fr.enssat.leave_manager.model.PasswordForgotDto;
 import fr.enssat.leave_manager.model.PasswordResetToken;
 import fr.enssat.leave_manager.repository.PasswordResetTokenRepository;
 import fr.enssat.leave_manager.service.EmailService;
 import fr.enssat.leave_manager.service.EmployeeService;
 import fr.enssat.leave_manager.utils.MailSender;
-import fr.enssat.leave_manager.web.dto.PasswordForgotDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;

@@ -8,13 +8,13 @@ import fr.enssat.leave_manager.service.DepartmentService;
 import fr.enssat.leave_manager.service.EmployeeService;
 import fr.enssat.leave_manager.service.TeamLeaderService;
 import fr.enssat.leave_manager.service.TeamService;
-import fr.enssat.leave_manager.service.exception.not_found.TeamLeaderNotFoundException;
 import fr.enssat.leave_manager.service.impl.DepartmentServiceImpl;
 import fr.enssat.leave_manager.service.impl.EmployeeServiceImpl;
 import fr.enssat.leave_manager.service.impl.TeamLeaderServiceImpl;
 import fr.enssat.leave_manager.service.impl.TeamServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -45,6 +45,7 @@ public class TeamController {
         this.teamLeaderService = teamLeaderService;
     }
 
+    @PreAuthorize("hasRole('ROLE_HR')")
     @GetMapping("/equipes")
     public String showTeams(Model model) {
 
@@ -59,6 +60,7 @@ public class TeamController {
         return "teams";
     }
 
+    @PreAuthorize("hasRole('ROLE_HRD')")
     @GetMapping("/equipe/ajouter")
     public String showAddTeamForm(Model model) {
 

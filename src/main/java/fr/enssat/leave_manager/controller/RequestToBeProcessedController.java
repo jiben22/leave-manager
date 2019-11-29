@@ -6,6 +6,7 @@ import fr.enssat.leave_manager.service.impl.LeaveRequestServiceImpl;
 import fr.enssat.leave_manager.utils.enums.LeaveStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ public class RequestToBeProcessedController {
         this.leaveRequestService = leaveRequestService;
     }
 
+    @PreAuthorize("hasRole('ROLE_HR')")
     @GetMapping("/demandes")
     public String showRequestsToBeProcessed(Model model) {
 
