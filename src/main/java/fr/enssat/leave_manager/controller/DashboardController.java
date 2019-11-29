@@ -42,8 +42,10 @@ public class DashboardController {
         }
 
         // set calendar
-        EmployeeEntity employee = employeeService.getEmployeeByEmail(auth.getName());
-        model.addAttribute("employeeLeaveRequest", employee.getLeaveRequestList());
+        if (auth.getName() != "anonymousUser") {
+            EmployeeEntity employee = employeeService.getEmployeeByEmail(auth.getName());
+            model.addAttribute("employeeLeaveRequest", employee.getLeaveRequestList());
+        }
 
         return "dashboard";
     }
