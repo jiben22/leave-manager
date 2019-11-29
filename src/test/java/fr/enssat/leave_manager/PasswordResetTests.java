@@ -26,7 +26,7 @@ public class PasswordResetTests {
     public void accessPasswordResetWithoutToken() throws Exception {
         this.mockMvc
                 .perform(
-                        get("/resetPassword")
+                        get("/resetPassword/pwd")
                 )
                 .andExpect(model().attributeExists("error"))
                 .andExpect(status().isOk());

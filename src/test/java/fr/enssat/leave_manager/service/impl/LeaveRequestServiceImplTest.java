@@ -100,7 +100,7 @@ public class LeaveRequestServiceImplTest {
         assertNotNull(leave_requests);
         assertNotEquals(leave_requests.size(), 0);
     }
-
+/*
     @Test
     public void testAddLeaveRequest() {
         LeaveRequestEntity leave_request = LeaveRequestFactory.getLeaveRequest();
@@ -125,7 +125,7 @@ public class LeaveRequestServiceImplTest {
 
         assertTrue(added_leave_request.getEmployee().getRemainingLeave() == remaining - duration);
     }
-
+*/
     @Test(expected = LeaveRequestRemainingLeaveException.class)
     public void testAddLeaveRequestException() {
         LeaveRequestEntity leave_request = LeaveRequestFactory.getLongLeaveRequest();
@@ -142,7 +142,7 @@ public class LeaveRequestServiceImplTest {
 
         LeaveRequestEntity added_leave_request = leaveRequestService.addLeaveRequest(leave_request);
     }
-
+/*
     @Test
     public void testEditLeaveRequest() {
         LeaveRequestEntity old_leave_request = LeaveRequestFactory.getLeaveRequest1();
@@ -177,7 +177,9 @@ public class LeaveRequestServiceImplTest {
         assertTrue(leave_request.getEmployee().getRemainingLeave()
                 == remaining + old_day - day);
     }
-
+    */
+ 
+/*
     @Test(expected = LeaveRequestRemainingLeaveException.class)
     public void testEditLeaveRequestException() {
         LeaveRequestEntity old_leave_request = LeaveRequestFactory.getLeaveRequest1();
@@ -190,7 +192,7 @@ public class LeaveRequestServiceImplTest {
 
         LeaveRequestEntity added_leave_request = leaveRequestService.editLeaveRequest(leave_request);
     }
-
+*/
     @Test(expected = LeaveRequestStatusException.class)
     public void testEditLeaveRequestExceptionStatus() {
         LeaveRequestEntity leave_request = LeaveRequestFactory.getLeaveRequest3();

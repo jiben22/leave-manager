@@ -21,6 +21,8 @@ public class MailSender {
         MailjetClient client;
         MailjetRequest request;
         MailjetResponse response;
+
+        //Les clés API devraient être en variables d'environnement
         client = new MailjetClient("04f169a80cfa6b1d92ddd1b298925b1e", "890ffa85010c0c52a309aa190084528d");
 
         request = new MailjetRequest(Email.resource)
