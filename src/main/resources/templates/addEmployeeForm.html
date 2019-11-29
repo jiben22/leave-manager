@@ -124,15 +124,13 @@
                                             <select th:field="*{teamList}" class="form-control">
                                                     <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}"></option>
                                             </select>
+                                                <a th:href="@{/equipe/ajouter}" class="btn btn-primary">
+                                                    <i class="material-icons" style="font-size:30px;">group_add</i>
+                                                </a>
                                         </div>
+
                                     </div>
-                                    <div class="container">
-                                        <div class="offset-md-11">
-                                            <a th:href="@{/equipe/ajouter}" class="btn btn-primary">
-                                                <i class="material-icons" style="font-size:30px;">person_add</i>
-                                            </a>
-                                        </div>
-                                    </div>
+
                                 </div>
                                 <div class="row">
                                     <label class="col-md-2 col-form-label">Role</label>
