@@ -135,6 +135,17 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <label class="col-md-2 col-form-label">Role</label>
+                                    <div class="col-md-8">
+                                        <div class="form-group bmd-form-group">
+                                            <select id="role" name="role" class="form-control">
+                                                <option th:if="${role == employee_role}" th:each="role : ${roles}" th:value="${role}" th:text="${role}" selected></option>
+                                                <option th:unless="${role == employee_role}" th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="offset-md-2 col-md-1">
                                         <span class="text-danger" th:errors="*{remainingLeave}"> </span>
                                     </div>
