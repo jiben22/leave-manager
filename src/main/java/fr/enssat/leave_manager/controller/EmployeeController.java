@@ -69,7 +69,9 @@ public class EmployeeController {
     //@PreAuthorize("hasAnyRole('ROLE_HRD','ROLE_HR','ROLE_TEAMLEADER')")
     @GetMapping("/employe/{id}")
     public String showEmployeById(@PathVariable String id, Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+
         EmployeeEntity user = (EmployeeEntity) session.getAttribute("employee");
+
         if (user.getEid().equals(id) || request.isUserInRole("ROLE_TEAMLEADER") || request.isUserInRole("ROLE_HR")) {
 
             log.info("GET /employe/" + id);
@@ -82,10 +84,9 @@ public class EmployeeController {
 
             return "showEmployee";
         }
+
         response.setStatus(403);
         return "error";
-
-
     }
 
     @PreAuthorize("hasRole('ROLE_HRD')")

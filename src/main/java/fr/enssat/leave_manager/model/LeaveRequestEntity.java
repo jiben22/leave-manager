@@ -2,6 +2,7 @@ package fr.enssat.leave_manager.model;
 
 import fr.enssat.leave_manager.utils.enums.LeaveStatus;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.FutureOrPresent;

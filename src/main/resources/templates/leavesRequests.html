@@ -39,7 +39,7 @@
                                                                 Date de fin</th>
                                                             <th class="disabled-sorting sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;" aria-label="Actions: activate to sort column ascending">Type de congé</th>
                                                             <th class="disabled-sorting sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;" aria-label="Actions: activate to sort column ascending">Statut</th>
-                                                            <th class="disabled-sorting sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 80px;" aria-label="Actions: activate to sort column ascending">Annuler</th>
+                                                            <th class="disabled-sorting sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 120px;" aria-label="Actions: activate to sort column ascending"></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -49,6 +49,7 @@
                                                             <td th:text="${leavesRequest.typeOfLeave.name}">Name of type of leaves</td>
                                                             <td th:text="${leavesRequest.status}">Status</td>
                                                             <td class="text-right">
+                                                                <a th:href="@{/demande-conges/} + ${leavesRequest.lrid}" class="btn btn-link btn-warning btn-just-icon"><i class="material-icons">dvr</i></a>
                                                                 <a href="#" class="btn btn-link btn-danger btn-just-icon remove" data-toggle="modal" data-target="#deleteLeaveRequestModal"><i class="material-icons">close</i></a>
                                                             </td>
                                                         </tr>
@@ -67,16 +68,15 @@
             <div th:replace="modals/leaveRequestModals.html :: deleteLeaveRequestModal"></div>
         </div>
         <script>
-
-            (function($){
+            (function($) {
                 let that;
                 $(".remove").click(function() {
                     that = $(this);
-                    $(".remove-modal-btn").click(function(){
+                    $(".remove-modal-btn").click(function() {
                         let tr = that.parent().parent()[0];
                         let lrid = tr.dataset.id;
                         $(tr).fadeOut();
-                        $.get("/demande-conges/supprimer/"+lrid);
+                        $.get("/demande-conges/supprimer/" + lrid);
                     });
                 });
 
