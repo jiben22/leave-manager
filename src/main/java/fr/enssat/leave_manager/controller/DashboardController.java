@@ -28,7 +28,7 @@ public class DashboardController {
         model.addAttribute("title", "Vue d'ensemble");
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth.isAuthenticated() && auth.getName() != "anonymousUser" && session.getAttribute("employee") == null) {
+        if (auth.isAuthenticated() && auth.getName() != "anonymousUser") {
             session.setAttribute("employee", employeeService.getEmployeeByEmail(auth.getName()));
         }
 
