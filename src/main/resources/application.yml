@@ -1,10 +1,10 @@
 # Spring configuration
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/LeaveManager
-    username: postgres
+    url: jdbc:mysql://127.0.0.1/LeaveManager
+    username: root
     password: root
-    driver-class-name: org.postgresql.Driver
+    driver-class-name: com.mysql.jdbc.Driver
   # ===============================
   # = JPA configurations
   # ===============================
@@ -12,7 +12,7 @@ spring:
     generate-ddl: false
     hibernate:
       ddl-auto: update # auto create or update database schema
-    database: postgresql
+    database: mysql
   # ===============================
   # = MAIL configurations
   # ===============================

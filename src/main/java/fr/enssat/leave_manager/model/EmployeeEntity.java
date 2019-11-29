@@ -85,7 +85,7 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
     @NonNull
-    @ManyToMany(cascade = {
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {
             CascadeType.DETACH,
             CascadeType.MERGE,
             CascadeType.REFRESH,

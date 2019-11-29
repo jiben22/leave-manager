@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -95,10 +96,18 @@ public class TeamController {
 
     @GetMapping("/equipe/{id}")
     public String showTeamById(@PathVariable String id, Model model, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
-        EmployeeEntity user = employeeService.getEmployee( ((EmployeeEntity) session.getAttribute("employee")).getEid() );
+        EmployeeEntity user = (EmployeeEntity) session.getAttribute("employee");
         TeamEntity team = teamService.getTeam(id);
-        //user.getTeamList().contains(team) ||
-        if (request.isUserInRole("ROLE_TEAMLEADER") || request.isUserInRole("ROLE_HR")) {
+        Iterator<TeamEntity> iterator = user.getTeamList().iterator();
+        boolean isTeamMember = false;
+        while (iterator.hasNext()) {
+            TeamEntity myteam = iterator.next();
+
+            if (myteam.getId().equals(id) && myteam.getTeamLeader().getEid().equals(user.getEid())) {
+                isTeamMember = true;
+            }
+        }
+        if (isTeamMember || request.isUserInRole("ROLE_HR")) {
             log.info("GET /equipe/" + id);
 
             model.addAttribute("title", "Visualiser l'équipe");
