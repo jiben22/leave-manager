@@ -6,6 +6,7 @@ import fr.enssat.leave_manager.model.TypeOfLeaveEntity;
 import fr.enssat.leave_manager.service.EmployeeService;
 import fr.enssat.leave_manager.service.LeaveRequestService;
 import fr.enssat.leave_manager.service.TypeOfLeaveService;
+import fr.enssat.leave_manager.service.exception.TimeTableDateNotAvailableException;
 import fr.enssat.leave_manager.service.impl.LeaveRequestServiceImpl;
 import fr.enssat.leave_manager.service.impl.TypeOfLeaveServiceImpl;
 import fr.enssat.leave_manager.utils.enums.LeaveStatus;
@@ -116,6 +117,11 @@ public class LeaveRequestController {
         // Save leave request
         try {
             leaveRequestService.addLeaveRequest(leaveRequest);
+        } catch(TimeTableDateNotAvailableException te) {
+            log.error(te.getMessage(), te.getCause());
+
+            redirectAttributes.addAttribute("message", "Vous avez un rendez-vous à cette date !");
+            return "redirect:/demandes-conges";
         } catch (Exception e) {
             System.err.println(leaveRequest);
             log.error(e.getMessage(), e.getCause());
