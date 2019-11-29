@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // Config for Login Form
         http.authorizeRequests()
-                .anyRequest().permitAll()
+                .anyRequest().authenticated()
                 .and().formLogin()
                 // Submit URL of login page.
                 .loginPage("/connexion")
