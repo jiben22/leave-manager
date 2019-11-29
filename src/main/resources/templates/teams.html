@@ -30,26 +30,28 @@
                                 <div class="card-body">
                                     <div id="accordion">
                                         <div th:each="team: ${teams}" class="card">
+
                                             <!-- Team -->
                                             <div class="card-header">
-                                                <h3 class="mb-0">
                                                     <button th:text="${team.name}" class="btn btn-link" data-toggle="collapse" th:attr="data-target='#collapse-' + ${team.id}">
                                                             <span class="card-icon">
                                                                 <i class="material-icons">people</i>
                                                             </span>
+
                                                         </button>
-                                                </h3>
+                                                    <span class="pull-right">
+                                                            <a th:href="@{/equipe/modifier/} + ${team.id}">
+                                                                <button type="button" class="btn btn-warning ">Modifier</button>
+                                                            </a>
+
+                                                            <button data-target="#deleteEmployeeModal" data-toggle="modal" type="button" class="btn btn-danger">Supprimer</button>
+                                                        </span>
+
                                             </div>
+
                                             <div th:id="'collapse-' + ${team.id}" class="collapse" data-parent="#accordion">
                                                 <div class="card-body">
-                                                    <div class="row">
-                                                        <a th:href="@{/equipe/modifier/} + ${team.id}">
-                                                            <button type="button" class="btn btn-warning">Modifier</button>
-                                                        </a>
 
-                                                        <button data-target="#deleteEmployeeModal" data-toggle="modal" type="button" class="btn btn-danger">Supprimer</button>
-
-                                                    </div>
                                                     <div class="row">
                                                         <div class="offset-md-11">
                                                             <a th:href="@{/employe/ajouter/} + ${team.id}">

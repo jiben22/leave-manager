@@ -46,7 +46,7 @@ public class PasswordResetTests {
     public void accessPasswordResetWithExpiredToken() throws Exception {
         this.mockMvc
                 .perform(
-                        get("/resetPassword/pwd/?token=expired-token")
+                        get("/resetPassword/pwd?token=expired-token")
                 )
                 .andExpect(model().attributeExists("error"))
                 .andExpect(status().isOk());
@@ -56,14 +56,14 @@ public class PasswordResetTests {
     public void submitPasswordResetSuccess() throws Exception {
         this.mockMvc
                 .perform(
-                        post("/resetPassword")
+                        post("/resetPassword/pwd")
                                 .with(csrf())
                                 .param("password", "password")
                                 .param("confirmPassword", "password")
                                 .param("token", "valid-token")
                 )
                 .andExpect(model().hasNoErrors())
-                .andExpect(redirectedUrl("/resetPassword/pwd/?token=valid-token"))
+                .andExpect(redirectedUrl("/resetPassword/pwd?token=valid-token"))
                 .andExpect(status().is3xxRedirection());
     }
 
@@ -71,14 +71,14 @@ public class PasswordResetTests {
     public void submitPasswordResetPasswordDoNotMatch() throws Exception {
         this.mockMvc
                 .perform(
-                        post("/resetPassword")
+                        post("/resetPassword/pwd")
                                 .with(csrf())
                                 .param("password", "password")
                                 .param("confirmPassword", "invalid-password")
                                 .param("token", "valid-token")
                 )
                 .andExpect(flash().attributeExists(BindingResult.class.getName() + ".passwordResetForm"))
-                .andExpect(redirectedUrl("/resetPassword/pwd/?token=valid-token"))
+                .andExpect(redirectedUrl("/resetPassword/pwd?token=valid-token"))
                 .andExpect(status().is3xxRedirection());
     }
 
