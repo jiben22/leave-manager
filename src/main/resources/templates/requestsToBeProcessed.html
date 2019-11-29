@@ -79,7 +79,7 @@
                                                             <td th:text="${leavesRequest.typeOfLeave.name}">Name of type of leaves</td>
                                                             <td th:text="${leavesRequest.status}" tabindex="0" class="sorting_1">Status</td>
                                                             <td class="text-right">
-                                                                <a th:href="@{/demande/valider/' + ${leavesRequest.id}}" class="btn btn-link btn-warning btn-just-icon remove"><i class="material-icons">dvr</i></a>
+                                                                <a th:href="'/demande/valider/' + ${leavesRequest.lrid}" class="btn btn-link btn-warning btn-just-icon remove"><i class="material-icons">dvr</i></a>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -115,7 +115,6 @@
                                                             Prénom</th>
                                                         <th class="disabled-sorting sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;" aria-label="Actions: activate to sort column ascending">Type de congé</th>
                                                         <th class="sorting_asc" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;" aria-sort="ascending" aria-label="Actions: activate to sort column descending">Statut</th>
-                                                        <th class="disabled-sorting text-right sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 80px;" aria-label="Actions: activate to sort column ascending"></th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -124,9 +123,6 @@
                                                         <td th:text="${leavesRequest.employee.firstname}">Prénom</td>
                                                         <td th:text="${leavesRequest.typeOfLeave.name}">Name of type of leaves</td>
                                                         <td th:text="${leavesRequest.status}" tabindex="0" class="sorting_1">Status</td>
-                                                        <td class="text-right">
-                                                            <a th:href="@{/demande/valider/' + ${leavesRequest.id}}" class="btn btn-link btn-warning btn-just-icon remove"><i class="material-icons">dvr</i></a>
-                                                        </td>
                                                     </tr>
                                                     </tbody>
                                                 </table>

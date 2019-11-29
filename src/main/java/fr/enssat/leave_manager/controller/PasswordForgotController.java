@@ -92,7 +92,7 @@ public class PasswordForgotController {
         mailContent.put("firstname", user.getFirstname());
         mailContent.put("subject", "Demande de réinitialisation de mot de passe");
         String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        mailContent.put("resetUrl", url + "/reset-password?token=" + token.getToken());
+        mailContent.put("resetUrl", url + "/resetPassword?token=" + token.getToken());
 
         MailSender.sendForgottenPasswordEmail(mailContent);
 

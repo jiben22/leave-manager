@@ -45,11 +45,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // Authorize pages
         http.authorizeRequests()
-                .antMatchers("/connexion**", "/deconnexion**", "/reinitialisation-mot-de-passe**").permitAll();
+                .antMatchers("/connexion**", "/deconnexion**", "/reinitialisation-mot-de-passe**", "/resetPassword**").permitAll();
 
         // Config for Login Form
         http.authorizeRequests()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and().formLogin()
                 // Submit URL of login page.
                 .loginPage("/connexion")
