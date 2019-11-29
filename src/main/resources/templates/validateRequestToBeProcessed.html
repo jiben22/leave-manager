@@ -88,17 +88,19 @@
                                         </small>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-secondary mr-auto" onclick="window.location.href='/demandes'">Annuler</button>
-                                <button id="declineLR" type="button" class="btn btn-danger">Refuser</button>
-                                <button id="validateLR" type="button" class="btn btn-success">Valider</button>
+                                <br/>
+                                <div class="pull-right">
+                                    <button id="declineLR" type="button" class="btn btn-danger">Refuser</button>
+                                    <button id="validateLR" type="button" class="btn btn-success">Valider</button>
+                                </div>
                             </form>
                             <script th:inline="javascript">
                                 submit_lr = function(str) {
                                     let id = /*[[${leaveRequest.lrid}]]*/ '';
-                                    $.get('/demande/'+str+'/'+id+'?comment='+$("textarea#hrCommentLR").val(),
-                                        function( data ) {
+                                    $.get('/demande/' + str + '/' + id + '?comment=' + $("textarea#hrCommentLR").val(),
+                                        function(data) {
                                             window.location.href = "/demandes";
-                                    });
+                                        });
                                 }
 
                                 $("#declineLR").click(function() {
