@@ -126,11 +126,21 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group has-default bmd-form-group">
-                                            <a th:href="@{/equipe/ajouter}">
-                                                <button type="button" class="btn btn-primary">+</button>
+                                    <div class="container">
+                                        <div class="offset-md-11">
+                                            <a th:href="@{/equipe/ajouter}" class="btn btn-primary">
+                                                <i class="material-icons" style="font-size:30px;">person_add</i>
                                             </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Role</label>
+                                    <div class="col-md-8">
+                                        <div class="form-group bmd-form-group">
+                                            <select id="role" name="role" class="form-control">
+                                                <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -160,6 +170,7 @@
             </div>
             <footer th:replace="fragments/footer.html :: footer"></footer>
         </div>
+    </div>
 </body>
 
 </html>

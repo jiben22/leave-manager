@@ -9,18 +9,17 @@ import fr.enssat.leave_manager.service.exception.not_found.EmployeeNotFoundExcep
 import fr.enssat.leave_manager.service.exception.not_found.TeamNotFoundException;
 import fr.enssat.leave_manager.service.impl.*;
 import fr.enssat.leave_manager.utils.MailSender;
+import fr.enssat.leave_manager.utils.enums.RoleEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.management.relation.Role;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import javax.servlet.http.HttpServletResponse;
@@ -44,6 +43,13 @@ public class EmployeeController {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private HRServiceImpl hrService;
+    @Autowired
+    private HRDServiceImpl hrdService;
+    @Autowired
+    private TeamLeaderServiceImpl teamLeaderService;
 
     @Autowired
     public EmployeeController(EmployeeServiceImpl employeeService, TeamServiceImpl teamService) {
@@ -81,6 +87,15 @@ public class EmployeeController {
             // Get employe by id
             EmployeeEntity employee = employeeService.getEmployee(id);
             model.addAttribute("employee", employee);
+            Collection<String> roles = employee.getRoles();
+            if (roles.contains("ROLE_HRD")) {
+                roles.remove("ROLE_HR");
+                roles.remove("ROLE_TEAMLEADER");
+            }
+            model.addAttribute("employee_role", RoleEnum.valueOf(
+                    String.valueOf(
+                            Arrays.asList(roles.toArray()).get(0)
+                    ).replace("ROLE_", "")).toString());
 
             return "showEmployee";
         }
@@ -102,12 +117,15 @@ public class EmployeeController {
         List<TeamEntity> teams =  teamService.getTeams();
         model.addAttribute("teams", teams);
 
+        model.addAttribute("roles", RoleEnum.values());
+
         return "addEmployeeForm";
     }
 
     @PreAuthorize("hasRole('ROLE_HRD')")
     @PostMapping("/employe/ajouter")
     public String submitAddEmployeeForm(@Valid @ModelAttribute("employee") EmployeeEntity employee,
+                                        @RequestParam("role") String role,
                                         BindingResult result, Model model,
                                         RedirectAttributes redirectAttributes, HttpServletRequest request) {
 
@@ -116,6 +134,8 @@ public class EmployeeController {
         // Get teams
         List<TeamEntity> teams =  teamService.getTeams();
         model.addAttribute("teams", teams);
+
+        model.addAttribute("roles", RoleEnum.values());
 
         // Check if form has errors
         if (result.hasErrors()) {
@@ -145,6 +165,30 @@ public class EmployeeController {
                 try {
                     // Save employee
                     employee = employeeService.addEmployee(employee);
+                    if (role.equalsIgnoreCase(RoleEnum.HRD.toString())) {
+                        hrService.addHR(HREntity.builder()
+                                .eid(employee.getEid())
+                                .employee(employee)
+                                .build());
+                        teamLeaderService.addTeamLeader(TeamLeaderEntity.builder()
+                                .eid(employee.getEid())
+                                .employee(employee)
+                                .build());
+                        hrdService.addHRD(HRDEntity.builder()
+                                .eid(employee.getEid())
+                                .employee(employee)
+                                .build());
+                    } else if (role.equalsIgnoreCase(RoleEnum.HR.toString())) {
+                        hrService.addHR(HREntity.builder()
+                                .eid(employee.getEid())
+                                .employee(employee)
+                                .build());
+                    } else if (role.equalsIgnoreCase(RoleEnum.TEAMLEADER.toString())) {
+                        teamLeaderService.addTeamLeader(TeamLeaderEntity.builder()
+                                .eid(employee.getEid())
+                                .employee(employee)
+                                .build());
+                    }
 
                     PasswordResetToken token = new PasswordResetToken();
                     token.setToken(UUID.randomUUID().toString());
@@ -188,10 +232,21 @@ public class EmployeeController {
         // Get employee by id
         EmployeeEntity employee = employeeService.getEmployee(id);
         model.addAttribute("employee", employee);
+        Collection<String> roles = employee.getRoles();
+        if (roles.contains("ROLE_HRD")) {
+            roles.remove("ROLE_HR");
+            roles.remove("ROLE_TEAMLEADER");
+        }
+        model.addAttribute("employee_role", RoleEnum.valueOf(
+                String.valueOf(
+                        Arrays.asList(roles.toArray()).get(0)
+                ).replace("ROLE_", "")).toString());
 
         // Get teams
         List<TeamEntity> teams =  teamService.getTeams();
         model.addAttribute("teams", teams);
+
+        model.addAttribute("roles", RoleEnum.values());
 
         return "updateEmployeeForm";
     }
@@ -200,6 +255,7 @@ public class EmployeeController {
     @PostMapping("/employe/modifier/{id}")
     public String submitUpdateEmployeeForm(@PathVariable String id,
                                            @Valid @ModelAttribute("employee") EmployeeEntity employee,
+                                           @RequestParam("role") String role,
                                            BindingResult result, Model model,
                                            RedirectAttributes redirectAttributes) {
 
@@ -220,6 +276,34 @@ public class EmployeeController {
 
         try {
             // Save employee
+            if (role.equalsIgnoreCase(RoleEnum.HRD.toString())) {
+                try{hrService.addHR(HREntity.builder()
+                        .eid(employee.getEid())
+                        .employee(employee)
+                        .build());} catch (Exception e) {}
+                try{teamLeaderService.addTeamLeader(TeamLeaderEntity.builder()
+                        .eid(employee.getEid())
+                        .employee(employee)
+                        .build());} catch (Exception e) {}
+                hrdService.addHRD(HRDEntity.builder()
+                        .eid(employee.getEid())
+                        .employee(employee)
+                        .build());
+            } else if (role.equalsIgnoreCase(RoleEnum.HR.toString())) {
+                try{hrdService.deleteHRD(employee.getEid()); } catch (Exception e) {}
+                try{teamLeaderService.deleteTeamLeader(employee.getEid()); } catch (Exception e) {}
+                hrService.addHR(HREntity.builder()
+                        .eid(employee.getEid())
+                        .employee(employee)
+                        .build());
+            } else if (role.equalsIgnoreCase(RoleEnum.TEAMLEADER.toString())) {
+                try {hrdService.deleteHRD(employee.getEid()); } catch (Exception e) {}
+                try {hrService.deleteHR(employee.getEid()); } catch (Exception e) {}
+                teamLeaderService.addTeamLeader(TeamLeaderEntity.builder()
+                        .eid(employee.getEid())
+                        .employee(employee)
+                        .build());
+            }
             employeeService.editEmployee(employee);
         } catch (Exception e) {
             log.error(e.getMessage() + e.getCause());
@@ -258,7 +342,6 @@ public class EmployeeController {
         // Get employees
         List<EmployeeEntity> employees =  employeeService.getEmployees();
         model.addAttribute("employees", employees);
-        // TODO: add all employees to list
 
         // Set department to the list
         List<DepartmentEntity> departments = new ArrayList<>();
@@ -346,7 +429,7 @@ public class EmployeeController {
         model.put("user", user);
         model.put("signature", "https://leave-manager.com");
         String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        model.put("resetUrl", url + "/resetPassword/pwd/?token=" + token.getToken());
+        model.put("resetUrl", url + "/resetPassword/pwd?token=" + token.getToken());
         mail.setModel(model);
         //System.out.println(mail.getModel());
         emailService.sendEmail(mail);

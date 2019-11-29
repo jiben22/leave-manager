@@ -49,9 +49,11 @@
                                     </div>
                                     <div th:if="${title == 'Ajouter une équipe'}" class="col-md-2">
                                         <div class="form-group has-default bmd-form-group">
-                                            <a th:href="@{/departement/ajouter}">
-                                                <button type="button" class="btn btn-primary">+</button>
-                                            </a>
+                                            <div class="container">
+                                                    <a th:href="@{/department/ajouter}" class="btn btn-primary">
+                                                        <i class="material-icons" style="font-size:30px;">add</i>
+                                                    </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -104,6 +106,7 @@
             </div>
             <footer th:replace="fragments/footer.html :: footer"></footer>
         </div>
+    </div>
 </body>
 
 </html>
