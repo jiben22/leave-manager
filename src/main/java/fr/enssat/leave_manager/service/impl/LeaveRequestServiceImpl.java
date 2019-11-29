@@ -59,6 +59,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
             throw new LeaveRequestAlreadyExistsException(lr);
 
         EmployeeEntity emp = lr.getEmployee();
+        lr.setEndingDate(lr.getEndingDate().plusDays(1));
         long day = Duration.between(lr.getStartingDate(), lr.getEndingDate()).toDays();
         if (emp.getRemainingLeave() - day < 0.0)
             throw new LeaveRequestRemainingLeaveException(emp.getRemainingLeave(), day);
@@ -84,6 +85,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 
         LeaveRequestEntity last_request = this.getLeaveRequest(lr.getLrid());
         EmployeeEntity emp = lr.getEmployee();
+        lr.setEndingDate(lr.getEndingDate().plusDays(1));
 
         long last_day = Duration.between(last_request.getStartingDate(), last_request.getEndingDate()).toDays();
         long day = Duration.between(lr.getStartingDate(), lr.getEndingDate()).toDays();

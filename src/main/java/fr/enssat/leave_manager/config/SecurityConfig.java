@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // Authorize pages
         http.authorizeRequests()
-                .antMatchers("/connexion**", "/deconnexion**", "/reinitialisation-mot-de-passe**", "/resetPassword/pwd**").permitAll();
+                .antMatchers("/connexion**", "/deconnexion**", "/reinitialisation-mot-de-passe**", "/resetPassword/**").permitAll();
 
         // Config for Login Form
         http.authorizeRequests()

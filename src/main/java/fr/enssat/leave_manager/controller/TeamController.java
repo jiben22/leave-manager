@@ -85,7 +85,7 @@ public class TeamController {
 
     @GetMapping("/equipe/{id}")
     public String showTeamById(@PathVariable String id, Model model, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
-        EmployeeEntity user = (EmployeeEntity) session.getAttribute("employee");
+        EmployeeEntity user = employeeService.getEmployee( ((EmployeeEntity) session.getAttribute("employee")).getEid() );
         TeamEntity team = teamService.getTeam(id);
         if (user.getTeamList().contains(team) || request.isUserInRole("ROLE_TEAMLEADER") || request.isUserInRole("ROLE_HR")) {
             log.info("GET /equipe/" + id);
