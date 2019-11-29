@@ -345,7 +345,7 @@ public class EmployeeController {
         model.put("user", user);
         model.put("signature", "https://leave-manager.com");
         String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        model.put("resetUrl", url + "/resetPassword/pwd/?token=" + token.getToken());
+        model.put("resetUrl", url + "/resetPassword/pwd?token=" + token.getToken());
         mail.setModel(model);
         //System.out.println(mail.getModel());
         emailService.sendEmail(mail);

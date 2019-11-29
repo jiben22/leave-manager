@@ -5,6 +5,7 @@ import fr.enssat.leave_manager.model.PasswordResetDto;
 import fr.enssat.leave_manager.model.PasswordResetToken;
 import fr.enssat.leave_manager.repository.PasswordResetTokenRepository;
 import fr.enssat.leave_manager.service.EmployeeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/resetPassword")
+@Slf4j
+@RequestMapping("/resetPassword/{option}")
 public class PasswordResetController {
 
     @Autowired
@@ -31,14 +33,13 @@ public class PasswordResetController {
     public PasswordResetDto passwordReset() {
         return new PasswordResetDto();
     }
-
-    @GetMapping("/{option}")
+    @GetMapping
     public String displayResetPasswordPage(@RequestParam(required = false) String token,
                                            Model model, @PathVariable String option) {
 
         PasswordResetToken resetToken = tokenRepository.findByToken(token);
         if (resetToken == null) {
-            model.addAttribute("error", "Could not find password reset token.");
+            model.addAttribute("error", "Token invalide.");
         } else if (resetToken.isExpired()) {
             model.addAttribute("error", "Token has expired, please request a new password reset.");
         } else {
@@ -49,11 +50,14 @@ public class PasswordResetController {
             model.addAttribute("title", "Création de mot de passe");
             model.addAttribute("description", "Choisissez votre mot de passe");
             model.addAttribute("submit", "CRÉER MON MOT DE PASSE");
+            model.addAttribute("option", "new");
 
         } else {
             model.addAttribute("title", "Réinitialisation de mot de passe");
             model.addAttribute("description", "Entrez votre nouveau mot de passe");
             model.addAttribute("submit", "RÉINITIALISER LE MOT DE PASSE");
+            model.addAttribute("option", "pwd");
+
 
         }
         return "resetPassword";
@@ -63,17 +67,20 @@ public class PasswordResetController {
     @Transactional
     public String handlePasswordReset(@ModelAttribute("passwordResetForm") @Valid PasswordResetDto form,
                                       BindingResult result,
-                                      RedirectAttributes redirectAttributes) {
+                                      RedirectAttributes redirectAttributes, @PathVariable String option) {
+
 
         if (result.hasErrors()) {
             redirectAttributes.addFlashAttribute(BindingResult.class.getName() + ".passwordResetForm", result);
             redirectAttributes.addFlashAttribute("passwordResetForm", form);
-            return "redirect:/resetPassword/pwd/?token=" + form.getToken();
+            return "redirect:/resetPassword/"+option+"?token=" + form.getToken();
         }
+        log.info("coucou");
 
         PasswordResetToken token = tokenRepository.findByToken(form.getToken());
         EmployeeEntity user = token.getUser();
 
+        System.out.println("pwd" + form.getPassword());
         user.setPassword(form.getPassword());
         userService.editEmployee(user);
         tokenRepository.delete(token);

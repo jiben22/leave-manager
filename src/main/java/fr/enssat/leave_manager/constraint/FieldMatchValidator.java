@@ -1,10 +1,11 @@
 package fr.enssat.leave_manager.constraint;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-
+@Slf4j
 public class FieldMatchValidator implements ConstraintValidator<FieldMatch, Object> {
 
     private String firstFieldName;
