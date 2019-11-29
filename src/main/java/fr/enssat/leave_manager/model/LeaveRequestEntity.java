@@ -73,5 +73,6 @@ public class LeaveRequestEntity extends PKGenerator implements Serializable {
     @Column(length = 16, nullable = false)
     @Enumerated(EnumType.STRING)
     @NotNull
-    private LeaveStatus status;
+    @Builder.Default
+    private LeaveStatus status = LeaveStatus.PENDING;
 }

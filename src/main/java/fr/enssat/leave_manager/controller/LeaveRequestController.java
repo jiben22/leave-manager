@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -79,16 +80,17 @@ public class LeaveRequestController {
 
         return "addLeavesRequest";
     }
-
+//@Valid @ModelAttribute("leaveRequest") LeaveRequestEntity leaveRequest,
     @PostMapping("/demande-conges/ajouter")
-    public String submitAddLeavesRequest(@Valid @ModelAttribute("leaveRequest") LeaveRequestEntity leaveRequest,
+    public String submitAddLeavesRequest(@RequestParam("reason") String reason,
+                                         @RequestParam("typeOfLeave") String typeOfLeave,
                                          @RequestParam("startingDate") String startingDate,
                                          @RequestParam("endingDate") String endingDate,
-                                         BindingResult result,
                                          HttpSession session, Model model,
                                          RedirectAttributes redirectAttributes) {
 
         log.info("POST /demande-conges/ajouter");
+        LeaveRequestEntity leaveRequest = new LeaveRequestEntity();
 
         model.addAttribute("title", "Ajouter une demande de congés");
 
@@ -102,18 +104,20 @@ public class LeaveRequestController {
         model.addAttribute("remainingLeave", employee.getRemainingLeave());
 
         // Convert string date to LocalDateTime
-        leaveRequest.setStartingDate( LocalDateTime.parse(startingDate) );
-        leaveRequest.setStartingDate( LocalDateTime.parse(endingDate) );
+        leaveRequest.setStartingDate( LocalDate.parse(startingDate, DateTimeFormatter.ofPattern("dd/MM/yyyy")).atStartOfDay() ); //29/11/2019
+        leaveRequest.setEndingDate( LocalDate.parse(endingDate, DateTimeFormatter.ofPattern("dd/MM/yyyy")).atStartOfDay() );
+
+        leaveRequest.setReason(reason);
+        leaveRequest.setTypeOfLeave(typeOfLeaveService.getTypeOfLeave(typeOfLeave));
 
         // Set employee of leave request
         leaveRequest.setEmployee(employee);
-        // Set status of leave request
-        leaveRequest.setStatus(LeaveStatus.PENDING);
 
         // Save leave request
         try {
             leaveRequestService.addLeaveRequest(leaveRequest);
         } catch (Exception e) {
+            System.err.println(leaveRequest);
             log.error(e.getMessage(), e.getCause());
 
             redirectAttributes.addAttribute("message", "Impossible d'enregistrer la demande de congés");

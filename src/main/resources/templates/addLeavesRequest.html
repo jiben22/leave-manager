@@ -18,9 +18,8 @@
                             <h4 class="card-title">Ajouter une demande de congés</h4>
                         </div>
                         <div class="card-body">
-                            <form action="#" method="post" th:action="@{/demande-conges/ajouter}" th:object="${leaveRequest}" class="form-horizontal">
-                                <input type="hidden" th:field="*{lrid}" />
-                                <div class="row">
+                            <form action="#" method="post" th:action="@{/demande-conges/ajouter}"  class="form-horizontal"> <!--th:object="${leaveRequest}"-->
+                                <!-- <div class="row">
                                     <div class="offset-md-2 col-md-4">
                                         <span class="text-danger" th:errors="*{startingDate}"> </span>
 
@@ -28,31 +27,31 @@
                                     <div class="offset-md-2 col-md-4">
                                         <span class="text-danger" th:errors="*{endingDate}"> </span>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="row">
                                     <label class="col-md-2 col-form-label">Date de début</label>
                                     <div class="col-md-4">
                                         <div class="form-group has-default bmd-form-group">
-                                            <input th:value="*{startingDate}" name="startingDate" type="text" class="form-control datepicker datepickerCalendar">
+                                            <input name="startingDate" type="text" class="form-control datepicker datepickerCalendar">
                                         </div>
                                     </div>
                                     <label class="col-md-2 col-form-label">Date de fin</label>
                                     <div class="col-md-4">
                                         <div class="form-group has-default bmd-form-group">
-                                            <input th:value="*{startingDate}" name="endingDate" type="text" class="form-control datepicker datepickerCalendar">
+                                            <input name="endingDate" type="text" class="form-control datepicker datepickerCalendar">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="offset-md-2 col-md-4 ">
-                                        <span class="text-danger" th:errors="*{typeOfLeave}"> </span>
+                                        <span class="text-danger" > </span><!--th:errors="*{typeOfLeave}"-->
                                     </div>
                                 </div>
                                 <div class="row">
                                     <label class="col-md-2 col-form-label">Type de congé</label>
                                     <div class="col-md-4">
                                         <div class="form-group has-default bmd-form-group">
-                                            <select th:field="*{typeOfLeave}" type="text" class="form-control ">
+                                            <select name="typeOfLeave" type="text" class="form-control "><!--th:field="*{typeOfLeave}"-->
                                                     <option th:each="typeOfLeave : ${typesOfLeaves}" 
                                                     th:value="${typeOfLeave.id}" 
                                                     th:text="${typeOfLeave.name}">
@@ -62,14 +61,14 @@
                                 </div>
                                 <div class="row">
                                     <div class="offset-md-2 col-md-4">
-                                        <span class="text-danger" th:errors="*{reason}"> </span>
+                                        <span class="text-danger" > </span><!--th:errors="*{reason}"-->
                                     </div>
                                 </div>
                                 <div class="row">
                                     <label class="col-md-2 col-form-label">Raison</label>
                                     <div class="col-md-4 ">
                                         <div class="form-group has-default bmd-form-group ">
-                                            <input th:field="*{reason}" type="text" class="form-control">
+                                            <input name="reason" type="text" class="form-control"><!--th:field="*{reason}"-->
                                         </div>
                                     </div>
                                 </div>
