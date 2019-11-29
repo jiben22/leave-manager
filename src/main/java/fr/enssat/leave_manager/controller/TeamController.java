@@ -208,7 +208,7 @@ public class TeamController {
 
 
     // Add employee to team leader
-    public void addEmployeeToTeamLeader(String teamLeaderId, TeamEntity team) {
+    private void addEmployeeToTeamLeader(String teamLeaderId, TeamEntity team) {
 
         // Add employee to team leader if doesn't exist
         TeamLeaderEntity teamLeader;
