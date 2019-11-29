@@ -11,13 +11,6 @@
             <div class="content">
                 <div class="container-fluid">
                     <div sec:authorize="hasRole('ROLE_HR')" th:replace="components/statistics.html :: statistics"></div>
-                    <div class="row">
-                        <div class="offset-md-11">
-                            <a th:href="@{/demande-conges/ajouter}">
-                                <button type="button" class="btn btn-primary">+</button>
-                            </a>
-                        </div>
-                    </div>
                     <div class="card card-calendar">
                         <div class="card-body ">
                             <div id="fullCalendar" class="fc fc-unthemed fc-ltr"></div>

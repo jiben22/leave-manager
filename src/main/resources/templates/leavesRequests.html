@@ -19,10 +19,12 @@
                                     </div>
                                     <h4 class="card-title">Mes demandes de congés</h4>
                                 </div>
-                                <div class="offset-md-11">
-                                    <a th:href="@{/demande-conges/ajouter}">
-                                        <button type="button" class="btn btn-primary">+</button>
-                                    </a>
+                                <div class="container">
+                                    <div class="offset-md-11">
+                                        <a th:href="@{/demande-conges/ajouter}" class="btn btn-primary">
+                                            <i class="material-icons" style="font-size:30px;">add_circle_outline</i>
+                                        </a>
+                                    </div>
                                 </div>
                                 <div class="card-body">
                                     <div class="toolbar">
@@ -130,6 +132,7 @@
                 md.initFormExtendedDatetimepickers();
             });
         </script>
+    </div>
 </body>
 
 </html>
