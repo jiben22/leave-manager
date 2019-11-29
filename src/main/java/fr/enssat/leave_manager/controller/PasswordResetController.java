@@ -32,9 +32,9 @@ public class PasswordResetController {
         return new PasswordResetDto();
     }
 
-    @GetMapping
+    @GetMapping("/{option}")
     public String displayResetPasswordPage(@RequestParam(required = false) String token,
-                                           Model model) {
+                                           Model model, @PathVariable String option) {
 
         PasswordResetToken resetToken = tokenRepository.findByToken(token);
         if (resetToken == null) {
@@ -45,6 +45,17 @@ public class PasswordResetController {
             model.addAttribute("token", resetToken.getToken());
         }
 
+        if(option.equals("new")) {
+            model.addAttribute("title", "Création de mot de passe");
+            model.addAttribute("description", "Choisissez votre mot de passe");
+            model.addAttribute("submit", "CRÉER MON MOT DE PASSE");
+
+        } else {
+            model.addAttribute("title", "Réinitialisation de mot de passe");
+            model.addAttribute("description", "Entrez votre nouveau mot de passe");
+            model.addAttribute("submit", "RÉINITIALISER LE MOT DE PASSE");
+
+        }
         return "resetPassword";
     }
 
@@ -57,7 +68,7 @@ public class PasswordResetController {
         if (result.hasErrors()) {
             redirectAttributes.addFlashAttribute(BindingResult.class.getName() + ".passwordResetForm", result);
             redirectAttributes.addFlashAttribute("passwordResetForm", form);
-            return "redirect:/resetPassword?token=" + form.getToken();
+            return "redirect:/resetPassword/pwd/?token=" + form.getToken();
         }
 
         PasswordResetToken token = tokenRepository.findByToken(form.getToken());

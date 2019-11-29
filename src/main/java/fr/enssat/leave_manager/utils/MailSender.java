@@ -17,7 +17,7 @@ import java.util.Map;
 @Slf4j
 public class MailSender {
 
-    public static boolean sendForgottenPasswordEmail(Map<String, String> mailContent) {
+    public static boolean sendMail(Map<String, String> mailContent) {
         MailjetClient client;
         MailjetRequest request;
         MailjetResponse response;
@@ -26,11 +26,11 @@ public class MailSender {
         request = new MailjetRequest(Email.resource)
                 .property(Email.FROMEMAIL, "leavemanagerjee@outlook.com")
                 .property(Email.FROMNAME, "Application de gestion des congés")
+                .property(Email.SUBJECT, mailContent.get("subject"))
                 .property(Email.RECIPIENTS, new JSONArray()
                         .put(new JSONObject()
-                                //.put("Email", "lucasrollin@yahoo.com")))
                                 .put("Email", mailContent.get("recipient"))))
-                .property(Email.MJTEMPLATEID, 1107554)
+                .property(Email.MJTEMPLATEID, Integer.valueOf(mailContent.get("templateId")))
                 .property(Email.MJTEMPLATELANGUAGE, true)
                 .property(Email.VARS, new JSONObject()
                         .put("firstname", mailContent.get("firstname"))

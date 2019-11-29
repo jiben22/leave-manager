@@ -8,6 +8,7 @@ import fr.enssat.leave_manager.service.TeamService;
 import fr.enssat.leave_manager.service.exception.not_found.EmployeeNotFoundException;
 import fr.enssat.leave_manager.service.exception.not_found.TeamNotFoundException;
 import fr.enssat.leave_manager.service.impl.*;
+import fr.enssat.leave_manager.utils.MailSender;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -107,7 +108,7 @@ public class EmployeeController {
     @PostMapping("/employe/ajouter")
     public String submitAddEmployeeForm(@Valid @ModelAttribute("employee") EmployeeEntity employee,
                                         BindingResult result, Model model,
-                                        RedirectAttributes redirectAttributes) {
+                                        RedirectAttributes redirectAttributes, HttpServletRequest request) {
 
         log.info("POST /employe/ajouter");
 
@@ -143,13 +144,33 @@ public class EmployeeController {
                 try {
                     // Save employee
                     employee = employeeService.addEmployee(employee);
+
+                    PasswordResetToken token = new PasswordResetToken();
+                    token.setToken(UUID.randomUUID().toString());
+                    token.setUser(employee);
+                    token.setExpiryDate(30);
+                    tokenRepository.save(token);
+
+                    // send mail
+                    Map <String, String> mailContent = new HashMap<>();
+                    mailContent.put("recipient", employee.getEmail());
+                    mailContent.put("firstname", employee.getFirstname());
+                    mailContent.put("subject", "Bienvenue dans l'entreprise " + employee.getFirstname());
+                    String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+                    mailContent.put("resetUrl", url + "/resetPassword/new/?token=" + token.getToken());
+                    mailContent.put("templateId", "1112887");
+                    MailSender.sendMail(mailContent);
+
                 } catch (Exception e1) {
                     log.error(e1.getMessage() + e1.getCause());
                     redirectAttributes.addFlashAttribute("message", "Impossible d'enregister l'employé");
 
                     return "redirect:/employes";
                 }
+
+
             }
+
         }
 
         return "redirect:/employe/" + employee.getEid();
@@ -324,7 +345,7 @@ public class EmployeeController {
         model.put("user", user);
         model.put("signature", "https://leave-manager.com");
         String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        model.put("resetUrl", url + "/resetPassword?token=" + token.getToken());
+        model.put("resetUrl", url + "/resetPassword/pwd/?token=" + token.getToken());
         mail.setModel(model);
         //System.out.println(mail.getModel());
         emailService.sendEmail(mail);

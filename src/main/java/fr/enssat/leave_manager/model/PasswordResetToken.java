@@ -19,7 +19,7 @@ public class PasswordResetToken {
     @Column(nullable = false, unique = true)
     private String token;
 
-    @OneToOne(targetEntity = EmployeeEntity.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = EmployeeEntity.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "eid")
     //@MapsId("eid")
     private EmployeeEntity user;
