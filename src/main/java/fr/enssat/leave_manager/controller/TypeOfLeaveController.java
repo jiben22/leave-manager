@@ -5,14 +5,15 @@ import fr.enssat.leave_manager.service.TypeOfLeaveService;
 import fr.enssat.leave_manager.service.impl.TypeOfLeaveServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -28,6 +29,7 @@ public class TypeOfLeaveController {
         this.typeOfLeaveService = typeOfLeaveService;
     }
 
+    @PreAuthorize("hasRole('ROLE_HR')")
     @GetMapping("/types-conges")
     public String showTypesOfLeaves(Model model) {
 
@@ -40,6 +42,7 @@ public class TypeOfLeaveController {
         return "typesOfLeaves";
     }
 
+    @PreAuthorize("hasRole('ROLE_HR')")
     @GetMapping("/type-conges/ajouter")
     public String showAddTypeOfLeaves(Model model) {
 
@@ -48,9 +51,10 @@ public class TypeOfLeaveController {
         return "addTypeOfLeaves";
     }
 
+    @PreAuthorize("hasRole('ROLE_HR')")
     @PostMapping("/type-conges/ajouter")
     public String submitAddTypeOfLeaveForm(@Valid @ModelAttribute TypeOfLeaveEntity typeOfLeave,
-                                 BindingResult result,  ModelMap model) {
+                                           BindingResult result, ModelMap model) {
 
         log.info("submitAddTypeOfLeaveForm() : {}", typeOfLeave);
 
@@ -66,12 +70,14 @@ public class TypeOfLeaveController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_HR')")
     @GetMapping("/type-conges/archive/{id}")
     public String archive(@PathVariable String id) {
         typeOfLeaveService.deleteTypeOfLeave(id);
         return "redirect:/types-conges";
     }
 
+    @PreAuthorize("hasRole('ROLE_HR')")
     @GetMapping("/type-conges/unarchive/{id}")
     public String unarchive(@PathVariable String id) {
         TypeOfLeaveEntity typeOfLeave = typeOfLeaveService.getTypeOfLeave(id);
@@ -80,21 +86,4 @@ public class TypeOfLeaveController {
         return null;
     }
 
-    @GetMapping("/types-conges/modifier")
-    public String showUpdateTypeOfLeaves(Model model) {
-        model.addAttribute("title", "Modifier un type de congés");
-        return "updateTypeOfLeaves";
-    }
-
-//    @GetMapping("/types-conges/{id}")
-//    public String showTypeOfLeavesById(@RequestParam String id, Model model) {
-//
-//        model.addAttribute("title", "Afficher un type de congés");
-//
-//        // Get type of leaves
-//        TypeOfLeaveEntity typeOfLeave = typeOfLeaveService.getTypeOfLeave(id);
-//        model.addAttribute("typeOfLeave", typeOfLeave);
-//
-//        return "showTypeOfLeaves";
-//    }
 }

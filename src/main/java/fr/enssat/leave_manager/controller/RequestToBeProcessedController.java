@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @Slf4j
@@ -37,6 +39,7 @@ public class RequestToBeProcessedController {
         return "requestsToBeProcessed";
     }
 
+    @PreAuthorize("hasRole('ROLE_HR')")
     @GetMapping("/demande/traiter/{lrid}")
     public String showTreatRequestToBeProcessed(@PathVariable String lrid, Model model) {
 
@@ -45,6 +48,7 @@ public class RequestToBeProcessedController {
         return "validateRequestToBeProcessed";
     }
 
+    @PreAuthorize("hasRole('ROLE_HR')")
     @GetMapping("/demande/valider/{lrid}")
     public String showValidateRequestToBeProcessed(@PathVariable String lrid, @RequestParam String comment, Model model) {
         LeaveRequestEntity leaveRequest = leaveRequestService.getLeaveRequest(lrid);
@@ -53,6 +57,7 @@ public class RequestToBeProcessedController {
         return "redirect:/demandes";
     }
 
+    @PreAuthorize("hasRole('ROLE_HR')")
     @GetMapping("/demande/refuser/{lrid}")
     public String showDeclineRequestToBeProcessed(@PathVariable String lrid, @RequestParam String comment, Model model) {
         LeaveRequestEntity leaveRequest = leaveRequestService.getLeaveRequest(lrid);

@@ -21,6 +21,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -81,19 +84,24 @@ public class TeamController {
     }
 
     @GetMapping("/equipe/{id}")
-    public String showTeamById(@PathVariable String id, Model model) {
-
-        log.info("GET /equipe/" + id);
-
-        model.addAttribute("title", "Visualiser l'équipe");
-
-        // Get team by id
+    public String showTeamById(@PathVariable String id, Model model, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+        EmployeeEntity user = (EmployeeEntity) session.getAttribute("employee");
         TeamEntity team = teamService.getTeam(id);
-        model.addAttribute("team", team);
+        if (user.getTeamList().contains(team) || request.isUserInRole("ROLE_TEAMLEADER") || request.isUserInRole("ROLE_HR")) {
+            log.info("GET /equipe/" + id);
 
-        return "showTeam";
+            model.addAttribute("title", "Visualiser l'équipe");
+
+            model.addAttribute("team", team);
+
+            return "showTeam";
+        }
+        response.setStatus(403);
+        return "error";
+
     }
 
+    @PreAuthorize("hasRole('ROLE_HRD')")
     @PostMapping("/equipe/ajouter")
     public String submitAddTeamForm(@Valid @ModelAttribute("team") TeamEntity team,
                                     @RequestParam("teamLeader") String teamLeaderId,
@@ -134,6 +142,7 @@ public class TeamController {
         return "redirect:/equipe/" + team.getId();
     }
 
+    @PreAuthorize("hasRole('ROLE_HRD')")
     @GetMapping("/equipe/modifier/{id}")
     public String showUpdateTeamForm(@PathVariable String id,
                                      Model model) {
@@ -157,6 +166,7 @@ public class TeamController {
         return "updateTeamForm";
     }
 
+    @PreAuthorize("hasRole('ROLE_HRD')")
     @PostMapping("/equipe/modifier/{id}")
     public String submitUpdateTeamForm(@PathVariable String id,
                                        @RequestParam("teamLeader") String teamLeaderId,
@@ -196,6 +206,7 @@ public class TeamController {
         return "redirect:/equipe/" + team.getId();
     }
 
+
     // Add employee to team leader
     public void addEmployeeToTeamLeader(String teamLeaderId, TeamEntity team) {
 
@@ -222,6 +233,7 @@ public class TeamController {
         team.getEmployeeList().add(teamLeader.getEmployee());
     }
 
+    @PreAuthorize("hasRole('ROLE_HRD')")
     @GetMapping("/equipe/supprimer/{id}")
     public String submitUpdateTeamForm(@PathVariable String id) {
         teamService.deleteTeam(id);
