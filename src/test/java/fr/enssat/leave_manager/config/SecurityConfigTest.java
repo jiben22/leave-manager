@@ -55,19 +55,4 @@ public class SecurityConfigTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/connexion"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
-
-//    @Test
-//    public void accessSecuredResourceUnauthenticatedThenRedirectsToLogin() throws Exception {
-//        mockMvc.perform(MockMvcRequestBuilders.get("/equipes"))
-//                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
-//                .andExpect(MockMvcResultMatchers.redirectedUrl("http://localhost/login"));
-//    }
-
-//    @Test
-//    // TODO
-//    @WithMockUser(username = "spiderman@marvel.com", password = "Spiderman1*", roles = "HR")
-//    public void accessSecuredResourceAuthenticatedThenOk() throws Exception {
-//        mockMvc.perform(MockMvcRequestBuilders.get("/RH/dashboard"))
-//                .andExpect(MockMvcResultMatchers.status().isOk());
-//    }
 }

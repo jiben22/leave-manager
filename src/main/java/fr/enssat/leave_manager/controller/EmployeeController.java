@@ -407,7 +407,6 @@ public class EmployeeController {
         return "redirect:/employes";
     }
 
-    // @galliou FIXME
     @PostMapping
     public String processSetPasswordForm(EmployeeEntity user,
                                          BindingResult result,
@@ -419,12 +418,8 @@ public class EmployeeController {
 
         PasswordResetToken token = new PasswordResetToken();
         token.setToken(UUID.randomUUID().toString());
-        System.out.println(token.getToken());
         token.setUser(user);
-        System.out.println(token.getUser());
         token.setExpiryDate(30);
-        System.out.println(token.getExpiryDate());
-        System.out.println(token.isExpired());
         tokenRepository.save(token);
 
         Mail mail = new Mail();
@@ -441,7 +436,6 @@ public class EmployeeController {
         mail.setModel(model);
         //System.out.println(mail.getModel());
         emailService.sendEmail(mail);
-        // TODO add une div html pour success voir page login.html
         return "redirect:/employe/ajouter?success";
 
     }
