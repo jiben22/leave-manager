@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -45,25 +46,35 @@ public class TypeOfLeaveController {
 
         model.addAttribute("title", "Ajouter un type de congés");
         model.addAttribute("typeOfLeave", new TypeOfLeaveEntity());
+
         return "addTypeOfLeaves";
     }
 
     @PostMapping("/type-conges/ajouter")
-    public String submitAddTypeOfLeaveForm(@Valid @ModelAttribute TypeOfLeaveEntity typeOfLeave,
-                                 BindingResult result,  ModelMap model) {
+    public String submitAddTypeOfLeaveForm(@Valid @ModelAttribute ("typeOfLeave") TypeOfLeaveEntity typeOfLeave,
+                                           BindingResult result,  ModelMap model,
+                                           RedirectAttributes redirectAttributes) {
 
         log.info("submitAddTypeOfLeaveForm() : {}", typeOfLeave);
 
+        model.addAttribute("title", "Ajouter un type de congés");
+
         if (result.hasErrors()) {
-            return "/type-conges/ajouter";
-        } else {
-            // Add message to flash scope
+            log.info(result.toString());
 
-            // Save the new type of leaves
-            typeOfLeaveService.addTypeOfLeave(typeOfLeave);
-
-            return "redirect:/type-conges/" + typeOfLeave.getId();
+            return "addTypeOfLeaves";
         }
+
+        // Save the new type of leaves
+        try {
+            typeOfLeaveService.addTypeOfLeave(typeOfLeave);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e.getCause());
+
+            redirectAttributes.addFlashAttribute("message", "Impossible d'enregister le type de congés");
+        }
+
+        return "redirect:/types-conges";
     }
 
     @GetMapping("/type-conges/archive/{id}")
@@ -79,22 +90,4 @@ public class TypeOfLeaveController {
         typeOfLeaveService.editTypeOfLeave(typeOfLeave);
         return null;
     }
-
-    @GetMapping("/types-conges/modifier")
-    public String showUpdateTypeOfLeaves(Model model) {
-        model.addAttribute("title", "Modifier un type de congés");
-        return "updateTypeOfLeaves";
-    }
-
-//    @GetMapping("/types-conges/{id}")
-//    public String showTypeOfLeavesById(@RequestParam String id, Model model) {
-//
-//        model.addAttribute("title", "Afficher un type de congés");
-//
-//        // Get type of leaves
-//        TypeOfLeaveEntity typeOfLeave = typeOfLeaveService.getTypeOfLeave(id);
-//        model.addAttribute("typeOfLeave", typeOfLeave);
-//
-//        return "showTypeOfLeaves";
-//    }
 }

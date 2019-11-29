@@ -18,7 +18,7 @@
                             <h4 class="card-title">Demande de congé</h4>
                         </div>
                         <div class="card-body">
-                            <form class="form-horizontal">
+                            <form action="#" method="post" th:action="@{/type-/ajouter}" th:object="${employee}" class="form-horizontal">
                                 <div class="row">
                                     <label class="col-md-2 col-form-label">Date de début</label>
                                     <div class="col-md-4">

@@ -21,25 +21,37 @@
                             <form action="#" th:action="@{/type-conges/ajouter}" th:object="${typeOfLeave}" method="post" class="form-horizontal">
                                 <input type="hidden" th:field="*{id}" />
                                 <div class="row">
+                                    <div class="offset-md-2 col-md-4">
+                                        <span class="text-danger" th:errors="*{name}"> </span>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <label class="col-md-2 col-form-label">Nom</label>
                                     <div class="col-md-4">
                                         <div class="form-group has-default bmd-form-group">
-                                            <form th:field="*{name}" type="text" class="form-control" />
+                                            <input th:field="*{name}" type="text" class="form-control">
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="offset-md-2 col-md-8">
+                                        <span class="text-danger" th:errors="*{description}"> </span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <label class="col-md-2 col-form-label">Description</label>
                                     <div class="col-md-8">
                                         <div class="form-group has-default bmd-form-group">
-                                            <form th:field="*{description}" type="text" class="form-control" />
+                                            <input th:field="*{description}" type="text" class="form-control">
                                         </div>
                                     </div>
                                 </div>
-                                <a th:href="@{/types-conges}">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                </a>
-                                <button type="submit" class="btn btn-success">Enregistrer</button>
+                                <div class="pull-right">
+                                    <a th:href="@{/types-conges}">
+                                        <button type="button" class="btn btn-secondary">Annuler</button>
+                                    </a>
+                                    <button type="submit" class="btn btn-success">Enregistrer</button>
+                                </div>
                             </form>
                         </div>
                     </div>
