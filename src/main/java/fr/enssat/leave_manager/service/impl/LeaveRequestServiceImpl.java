@@ -5,13 +5,17 @@ import fr.enssat.leave_manager.model.LeaveRequestEntity;
 import fr.enssat.leave_manager.repository.LeaveRequestRepository;
 import fr.enssat.leave_manager.service.EmployeeService;
 import fr.enssat.leave_manager.service.LeaveRequestService;
-import fr.enssat.leave_manager.service.exception.*;
-import fr.enssat.leave_manager.service.exception.already_exists.AlreadyExistsException;
+import fr.enssat.leave_manager.service.TimeTableService;
+import fr.enssat.leave_manager.service.exception.LeaveRequestCommentException;
+import fr.enssat.leave_manager.service.exception.LeaveRequestRemainingLeaveException;
+import fr.enssat.leave_manager.service.exception.LeaveRequestStatusException;
+import fr.enssat.leave_manager.service.exception.TimeTableDateNotAvailableException;
 import fr.enssat.leave_manager.service.exception.already_exists.LeaveRequestAlreadyExistsException;
 import fr.enssat.leave_manager.service.exception.not_found.LeaveRequestNotFoundException;
 import fr.enssat.leave_manager.utils.enums.LeaveStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -25,6 +29,9 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 
     @Autowired
     private EmployeeService employeeService;
+
+    @Autowired
+    private TimeTableService timeTableService;
 
     @Override
     public boolean exists(String id) {
@@ -52,9 +59,14 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
             throw new LeaveRequestAlreadyExistsException(lr);
 
         EmployeeEntity emp = lr.getEmployee();
+        lr.setEndingDate(lr.getEndingDate().plusDays(1));
         long day = Duration.between(lr.getStartingDate(), lr.getEndingDate()).toDays();
         if (emp.getRemainingLeave() - day < 0.0)
             throw new LeaveRequestRemainingLeaveException(emp.getRemainingLeave(), day);
+
+        // check employee timetable
+        if (!timeTableService.isAvailable(emp.getEid(), lr.getStartingDate(), lr.getEndingDate()))
+            throw new TimeTableDateNotAvailableException(emp, lr.getStartingDate(), lr.getEndingDate());
 
         // remove leave from employee.getRemaining_leave(), day);
         emp.setRemainingLeave(emp.getRemainingLeave() - day);
@@ -73,11 +85,16 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 
         LeaveRequestEntity last_request = this.getLeaveRequest(lr.getLrid());
         EmployeeEntity emp = lr.getEmployee();
+        lr.setEndingDate(lr.getEndingDate().plusDays(1));
 
         long last_day = Duration.between(last_request.getStartingDate(), last_request.getEndingDate()).toDays();
         long day = Duration.between(lr.getStartingDate(), lr.getEndingDate()).toDays();
         if (emp.getRemainingLeave() + last_day - day < 0.0)
             throw new LeaveRequestRemainingLeaveException(emp.getRemainingLeave()+last_day, day);
+
+        // check employee timetable
+        if (!timeTableService.isAvailable(emp.getEid(), lr.getStartingDate(), lr.getEndingDate()))
+            throw new TimeTableDateNotAvailableException(emp, lr.getStartingDate(), lr.getEndingDate());
 
         // edit leave from employee.getRemaining_leave(), day);
         emp.setRemainingLeave(emp.getRemainingLeave() + last_day - day);
@@ -88,6 +105,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
         return this.repository.saveAndFlush(lr);
     }
 
+    @Secured("ROLE_HR")
     @Override
     public LeaveRequestEntity acceptLeaveRequest(LeaveRequestEntity lr) {
         if (lr.getStatus() != LeaveStatus.PENDING)
@@ -99,6 +117,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
         return this.repository.saveAndFlush(lr);
     }
 
+    @Secured("ROLE_HR")
     @Override
     public LeaveRequestEntity declineLeaveRequest(LeaveRequestEntity lr) {
         if (lr.getStatus() != LeaveStatus.PENDING)

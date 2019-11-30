@@ -16,7 +16,6 @@ import java.util.Set;
 public class TeamEntity extends PKGenerator implements Serializable {
     @Id
     @Column(length = 25, updatable = false)
-    @Setter(AccessLevel.NONE)
     @Size(min = 25, max = 25)
     @Builder.Default
     private String id = PKGenerator.generatePK("TEAM");

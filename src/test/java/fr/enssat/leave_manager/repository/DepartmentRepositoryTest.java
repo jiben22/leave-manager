@@ -72,11 +72,13 @@ public class DepartmentRepositoryTest {
 
         assertThat(department).isEqualToComparingFieldByField(added_department);
     }
-
+/*
     @Test
     public void testDeleteDepartmentById() {
         repository.deleteById("DEPARTMENT-157314099170606-0001");
 
         assertFalse(repository.existsById("DEPARTMENT-157314099170606-0001"));
     }
+    */
+
 }

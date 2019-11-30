@@ -17,7 +17,6 @@ import java.util.Set;
 public class DepartmentEntity extends PKGenerator implements Serializable {
     @Id
     @Column(length=31, updatable = false)
-    @Setter(AccessLevel.NONE)
     @Size(min = 31, max = 31)
     @Builder.Default
     private String id = PKGenerator.generatePK("DEPARTMENT");

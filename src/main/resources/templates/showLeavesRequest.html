@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head.html :: head"></head>
+
+<body class="">
+    <div class="wrapper ">
+        <div th:replace="fragments/menus.html :: menu"></div>
+        <div class="main-panel">
+            <div th:replace="fragments/menus.html :: logoutMenu"></div>
+            <div class="content">
+                <div class="container-fluid">
+                    <a th:href="@{/demande-conges/modifier/} + ${leaveRequest.lrid}">
+                        <button type="button" class="btn btn-warning pull-right">Modifier</button>
+                    </a>
+                    <div class="card">
+                        <div class="card-header card-header-primary card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">next_week</i>
+                            </div>
+                            <h4 class="card-title">Visualiser la demande de congés</h4>
+                        </div>
+                        <div class="card-body">
+                            <form action="#" th:object="${leaveRequest}" class="form-horizontal">
+                                <input type="hidden" th:field="*{lrid}" />
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Date de début</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input th:value="*{startingDate}" disabled="" name="startingDate" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2 col-form-label">Date de fin</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input th:value="*{endingDate}" disabled="" name="endingDate" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Type de congé</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <select disabled="" th:field="*{typeOfLeave}" type="text" class="form-control ">
+                                                    <option th:each="typeOfLeave : ${typesOfLeaves}" 
+                                                    th:value="${typeOfLeave.id}" 
+                                                    th:text="${typeOfLeave.name}">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Raison</label>
+                                    <div class="col-md-4 ">
+                                        <div class="form-group has-default bmd-form-group ">
+                                            <input disabled="" th:field="*{reason}" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Nombre de congés restants</label>
+                                    <div class="col-md-2">
+                                        <div class="form-group has-default bmd-form-group ">
+                                            <input th:value="${remainingLeave}" type="text" class="form-control" disabled="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer th:replace="fragments/footer.html :: footer "></footer>
+        </div>
+</body>
+
+</html>

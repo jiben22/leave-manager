@@ -2,6 +2,7 @@ package fr.enssat.leave_manager.model;
 
 import fr.enssat.leave_manager.utils.enums.LeaveStatus;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.FutureOrPresent;
@@ -22,7 +23,6 @@ public class LeaveRequestEntity extends PKGenerator implements Serializable {
 
     @Id
     @Column(length = 33, updatable = false)
-    @Setter(AccessLevel.NONE)
     @Size(min = 33, max = 33)
     @Builder.Default
     private String lrid = PKGenerator.generatePK("LEAVEREQUEST");
@@ -73,5 +73,6 @@ public class LeaveRequestEntity extends PKGenerator implements Serializable {
     @Column(length = 16, nullable = false)
     @Enumerated(EnumType.STRING)
     @NotNull
-    private LeaveStatus status;
+    @Builder.Default
+    private LeaveStatus status = LeaveStatus.PENDING;
 }

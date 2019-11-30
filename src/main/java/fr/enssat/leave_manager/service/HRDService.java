@@ -6,8 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
-@Transactional
 public interface HRDService {
     boolean exists(String id);
     HRDEntity getHRD(String id);

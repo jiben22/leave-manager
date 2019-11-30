@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html lang="fr" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="menu">
+    <div class="sidebar" data-background-color="white" data-color="azure" data-image="/img/sidebar-1.jpg">
+        <div class="logo">
+            <a th:href="@{/}" class="simple-text logo-normal">
+                Gestionnaire de congés
+            </a>
+        </div>
+        <div class="sidebar-wrapper">
+            <div class="col-md-12">
+                <div class="card card-profile">
+                    <i class="material-icons" style="font-size: 6em;">account_circle</i>
+                    <h4 class="card-title">
+                        <span th:text="${session.employee.firstname + ' ' + session.employee.lastname}" th:unless="${session.employee == null}"></span>
+                    </h4>
+                </div>
+            </div>
+            <ul class="nav">
+                <li class="nav-item" th:classappend="${title == 'Vue d''ensemble' ? 'active' : ''}">
+                    <a class="nav-link" th:href="@{/}">
+                        <i class="material-icons">dashboard</i>
+                        <p>Vue d'ensemble</p>
+                    </a>
+                </li>
+                <li sec:authorize="hasRole('ROLE_HR')" class="nav-item" th:classappend="${title == 'Demandes à traiter' ? 'active' : ''}">
+                    <a class="nav-link" th:href="@{/demandes}">
+                        <i class="material-icons">assignment</i>
+                        <p>Demandes à traiter</p>
+                    </a>
+                </li>
+                <li sec:authorize="hasRole('ROLE_HR') || hasRole('ROLE_TEAMLEADER')" class="nav-item" th:classappend="${title == 'Liste des équipes' ? 'active' : ''}">
+                    <a class="nav-link" th:href="@{/equipes}">
+                        <i class="material-icons">people</i>
+                        <p>Liste des équipes</p>
+                    </a>
+                </li>
+                <li sec:authorize="hasRole('ROLE_HR')" class="nav-item" th:classappend="${title == 'Liste des employés' ? 'active' : ''}">
+                    <a class="nav-link" th:href="@{/employes}">
+                        <i class="material-icons">person</i>
+                        <p>Liste des employés</p>
+                    </a>
+                </li>
+                <li sec:authorize="hasRole('ROLE_HR')" class="nav-item" th:classappend="${title == 'Liste des types de congés' ? 'active' : ''}">
+                    <a class="nav-link" th:href="@{/types-conges}">
+                        <i class="material-icons">library_books</i>
+                        <p>Liste des types de congés</p>
+                    </a>
+                </li>
+                <li class="nav-item" th:classappend="${title == 'Mes demandes de congés' ? 'active' : ''}">
+                    <a class="nav-link" th:href="@{/demandes-conges}">
+                        <i class="material-icons">next_week</i>
+                        <p>Mes demandes de congés</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="logoutMenu">
+    <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse justify-content-end">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" id="navbarDropdownLogout" th:href="@{/deconnexion}" style="display: flex;flex-direction: column;align-items: center;">
+                            <i class="material-icons red">power_settings_new</i>Déconnexion
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>

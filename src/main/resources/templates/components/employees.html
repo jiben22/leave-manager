@@ -1,68 +1,63 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<div class="card-body" th:fragment="employees">
-  <div class="toolbar">
-  </div>
-  <div class="material-datatables">
-    <div class="row">
-      <div class="col-sm-12">
-        <table id="datatables" class="table table-striped table-no-bordered table-hover dataTable dtr-inline"
-          style="width: 100%;" role="grid" aria-describedby="datatables_info" width="100%" cellspacing="0">
-          <thead>
-            <tr role="row">
-              <th class="sorting_asc" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1"
-                style="width: 181px;" aria-sort="ascending" aria-label="Name: activate to sort column descending">
-                Nom</th>
-              <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;"
-                aria-label="Position: activate to sort column ascending">
-                Prénom</th>
-              <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;"
-                aria-label="Office: activate to sort column ascending">Ville
-              </th>
-              <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;"
-                aria-label="Office: activate to sort column ascending">Équipe
-              </th>
-              <th class="disabled-sorting text-right sorting" tabindex="0" aria-controls="datatables" rowspan="1"
-                colspan="1" style="width: 50px;" aria-label="Actions: activate to sort column ascending"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr role="row" class="odd">
-              <td tabindex="0" class="sorting_1">
-                <a href="#" data-toggle="modal" data-target="#updateEmployeeModal">Captain</a>
-              </td>
-              <td>America</td>
-              <td>Lannion</td>
-              <td>Avengers</td>
-              <td class="text-right">
-                <a href="#" class="btn btn-link btn-danger btn-just-icon remove" data-toggle="modal"
-                  data-target="#deleteEmployeeModal"><i class="material-icons">close</i></a>
-              </td>
-            </tr>
-            <tr role="row" class="even">
-              <td class="sorting_1" tabindex="0">Thor</td>
-              <td></td>
-              <td>Paris</td>
-              <td>Avengers</td>
-              <td class="text-right">
-                <a href="#" class="btn btn-link btn-danger btn-just-icon remove" data-toggle="modal"
-                  data-target="#deleteEmployeeModal"><i class="material-icons">close</i></a>
-              </td>
-            </tr>
-            <tr role="row" class="odd">
-              <td tabindex="0" class="sorting_1">Spider</td>
-              <td>Man</td>
-              <td>Lyon</td>
-              <td>Avengers</td>
-              <td class="text-right">
-                <a href="#" class="btn btn-link btn-danger btn-just-icon remove" data-toggle="modal"
-                  data-target="#deleteEmployeeModal"><i class="material-icons">close</i></a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+<div class="card-body" th:fragment="employees(employees)">
+    <div class="toolbar">
     </div>
-  </div>
+    <div class="material-datatables">
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="datatables" class="table table-striped table-no-bordered table-hover dataTable dtr-inline" style="width: 100%;" role="grid" aria-describedby="datatables_info" width="100%" cellspacing="0">
+                    <thead>
+                        <tr role="row">
+                            <th class="sorting_asc" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;" aria-sort="ascending" aria-label="Name: activate to sort column descending">
+                                Nom
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;" aria-label="Position: activate to sort column ascending">
+                                Prénom
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;" aria-label="Office: activate to sort column ascending">
+                                Ville
+                            </th>
+                            <!-- <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;" aria-label="Office: activate to sort column ascending">
+                                Équipe
+                            </th> -->
+                            <th class="disabled-sorting text-right sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 70px;" aria-label="Actions: activate to sort column ascending"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="employee, i : ${employees}" th:data-id="${employee.eid}" role="row" th:style="${i.odd}? 'odd' : 'even'" th:class="${employee.eid}">
+                            <td th:text="${employee.lastname}" tabindex="0" class="sorting_1">Lastname</td>
+                            <td th:text="${employee.firstname}">Firstname</td>
+                            <td th:text="${employee.city}">City</td>
+                            <!-- <td th:text="${employee.team}">Team</td> -->
+                            <td class="text-right">
+                                <!-- <a th:href="@{/employe/modifier/} + ${employee.eid}" class="btn btn-link btn-info btn-just-icon"><i class="material-icons">edit</i></a> -->
+                                <a th:href="@{/employe/} + ${employee.eid}" class="btn btn-link btn-warning btn-just-icon"><i class="material-icons">dvr</i></a>
+                                <button class="btn btn-link btn-danger btn-just-icon remove" data-target="#deleteEmployeeModal" data-toggle="modal"><i class="material-icons">close</i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div th:replace="modals/employeeModals.html :: deleteEmployeeModal"></div>
+    </div>
+    <script>
+
+        (function($) {
+            let that;
+            $(".remove").click(function() {
+                that = $(this);
+                $(".remove-modal-btn").click(function(){
+                    let tr = that.parent().parent()[0];
+                    let eid = tr.dataset.id;
+                    $(tr).fadeOut();
+                    $.get("employe/supprimer/"+eid);
+                });
+            });
+        })(jQuery);
+
+    </script>
 </div>
+

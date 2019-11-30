@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head.html :: head"></head>
+
+<body class="">
+    <div class="wrapper ">
+        <div th:replace="fragments/menus.html :: menu"></div>
+        <div class="main-panel">
+            <div th:replace="fragments/menus.html :: logoutMenu"></div>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header card-header-primary card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">assignment</i>
+                            </div>
+                            <h4 class="card-title">Demande de congé</h4>
+                        </div>
+                        <div class="card-body">
+                            <form class="form-horizontal">
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Nom</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input type="text" class="form-control" th:value="${leaveRequest.employee.lastname}" disabled="">
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2 col-form-label">Prénom</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input type="text" class="form-control" th:value="${leaveRequest.employee.firstname}" disabled="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Date de création</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input type="text" class="form-control" th:value="${leaveRequest.creationDate}" disabled="">
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2 col-form-label">Date de la dernière modification</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input type="text" class="form-control" th:value="${leaveRequest.lastEditionDate}" disabled="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Date de début</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input type="text" class="form-control" th:value="${leaveRequest.startingDate}" disabled="">
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2 col-form-label">Date de fin</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input type="text" class="form-control" th:value="${leaveRequest.endingDate}" disabled="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Type de congé</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input type="text" class="form-control" th:value="${leaveRequest.typeOfLeave.name}" disabled="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Raison</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input type="text" class="form-control" th:value="${leaveRequest.reason}" disabled="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Mon commentaire</label>
+                                    <div class="col-md-6">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <textarea id="hrCommentLR" class="form-control" rows="3" th:text="${leaveRequest.hrComment}"></textarea>
+                                        </div>
+                                        <small id="errorMsg" class="text-danger" style="display:none">
+                                            Le commentaire ne peut pas être vide lors d'un refus de demande !
+                                        </small>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="pull-right">
+                                    <button id="declineLR" type="button" class="btn btn-danger">Refuser</button>
+                                    <button id="validateLR" type="button" class="btn btn-success">Valider</button>
+                                </div>
+                            </form>
+                            <script th:inline="javascript">
+                                submit_lr = function(str) {
+                                    let id = /*[[${leaveRequest.lrid}]]*/ '';
+                                    $.get('/demande/' + str + '/' + id + '?comment=' + $("textarea#hrCommentLR").val(),
+                                        function(data) {
+                                            window.location.href = "/demandes";
+                                        });
+                                }
+
+                                $("#declineLR").click(function() {
+                                    if ($("textarea#hrCommentLR").val().trim() == "") $('#errorMsg').show();
+                                    else submit_lr("refuser");
+                                });
+                                $("#validateLR").click(function() {
+                                    submit_lr("valider");
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer th:replace="fragments/footer.html :: footer"></footer>
+        </div>
+    </div>
+</body>
+
+</html>

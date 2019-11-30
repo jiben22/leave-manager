@@ -15,7 +15,6 @@ import java.io.Serializable;
 public class HRDEntity extends PKGenerator implements Serializable {
     @Id
     @Column(length = 29, updatable = false)
-    @Setter(AccessLevel.NONE)
     @Size(min = 29, max = 29)
     @Builder.Default
     private String eid = PKGenerator.generatePK("EMPLOYEE");

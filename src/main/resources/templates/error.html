@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head.html :: head"></head>
+
+<div id="notfound">
+    <div class="notfound">
+        <div class="notfound-404">
+            <h1 th:text="${statusCode}">404</h1>
+        </div>
+        <h2>Oops!</h2>
+        <a th:href="@{/}">Retourner à l'accueil</a>
+    </div>
+</div>

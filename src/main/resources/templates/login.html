@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments/head.html :: head"></head>
 
@@ -14,90 +14,72 @@
     <!-- End Navbar -->
     <div class="wrapper wrapper-full-page">
         <div class="page-header login-page header-filter" filter-color="black"
-            style="background-image: url('img/wallpapers/mountain.jpg'); background-size: cover; background-position: top center;">
+             style="background-image: url('/img/wallpapers/mountain.jpg'); background-size: cover; background-position: top center;">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
-                        <form class="form" method="" action="">
+                    <span class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
+                        <form class="form" name='f' th:action="@{/connexion}" method="POST">
+                            <div th:if="${param.error}">
+                                    <div class="alert alert-danger">
+                                        Identifiant ou mot de passe invalide
+                                    </div>
+                                </div>
+                                <div th:if="${param.logout}">
+                                    <div class="alert alert-info">
+                                        Vous avez été déconnecté
+                                    </div>
+                                </div>
+                                <div th:if="${param.resetSuccess}">
+                                    <div class="alert alert-info">
+                                        Votre mot de passe a été réinitialisé avec succès
+                                    </div>
+                                </div>
                             <div class="card card-login card-hidden">
                                 <div class="card-header card-header-primary text-center">
                                     <h3 class="card-title">
                                         Bienvenue sur votre espace personnel
                                     </h3>
                                 </div>
-                                <div class="card-body ">
-                                    <p class="card-description text-center">
-                                        Accédez à votre espace dédié pour vos demandes de congés.
-                                    </p>
-                                    <span class="bmd-form-group">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="material-icons">email</i>
-                                                </span>
-                                            </div>
-                                            <input type="email" class="form-control" placeholder="Identifiant...">
-                                        </div>
-                                    </span>
-                                    <span class="bmd-form-group">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="material-icons">lock_outline</i>
-                                                </span>
-                                            </div>
-                                            <input type="password" class="form-control" placeholder="Mot de passe...">
-                                        </div>
-                                    </span>
-                                    <hr />
-                                    <label class="form-check-label">
-                                        <a href="./demande-mot-de-passe">Mot de passe oublié ?</a>
-                                    </label>
-                                </div>
-                                <div class="card-footer justify-content-center">
-                                    <a href="#pablo" class="btn btn-primary btn-link btn-lg">Se connecter</a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                                <div class="card-body">
+                                        <p class="card-description text-center">
+                                            Accédez à votre espace dédié pour vos demandes de congés.
+                                        </p>
+                <span class="bmd-form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="material-icons">email</i>
+                                                    </span>
                 </div>
+                <input name="username" type="email" class="form-control" placeholder="Identifiant..." />
             </div>
-            <footer class="footer">
-                <div class="container">
-                    <nav class="float-left">
-                        <ul>
-                            <li>
-                                <a href="https://www.creative-tim.com">
-                                    Creative Tim
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://creative-tim.com/presentation">
-                                    About Us
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://blog.creative-tim.com">
-                                    Blog
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.creative-tim.com/license">
-                                    Licenses
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <div class="copyright float-right">
-                        &copy;
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script>, made with <i class="material-icons">favorite</i> by
-                        <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
-                    </div>
-                </div>
-            </footer>
+            </span>
+            <span class="bmd-form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="material-icons">lock_outline</i>
+                                                    </span>
         </div>
+        <input name="password" type="password" class="form-control" placeholder="Mot de passe..." />
+    </div>
+    </span>
+    <hr />
+    <label class="form-check-label">
+                                            <a th:href="@{/reinitialisation-mot-de-passe}">Mot de passe oublié ?</a>
+                                        </label>
+    </div>
+    <div class="card-footer justify-content-center">
+        <button name="submit" type="submit" value="submit" class="btn btn-primary btn-link btn-lg">Se connecter</button>
+    </div>
+    </div>
+    </form>
+                    </span>
+    </div>
+    </div>
+    </div>
+    <footer th:replace="fragments/footer.html :: footer"></footer>
+    </div>
     </div>
 </body>
 

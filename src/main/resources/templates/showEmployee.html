@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head.html :: head"></head>
+
+<body class="">
+    <div class="wrapper ">
+        <div th:replace="fragments/menus.html :: menu"></div>
+        <div class="main-panel">
+            <div th:replace="fragments/menus.html :: logoutMenu"></div>
+            <div class="content">
+                <div class="container-fluid">
+                    <a th:href="@{/employe/modifier/} + ${employee.eid}">
+                        <button type="button" class="btn btn-warning pull-right">Modifier</button>
+                    </a>
+                    <div class="card">
+                        <div class="card-header card-header-primary card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">person</i>
+                            </div>
+                            <h4 class="card-title">Visualiser l'employé</h4>
+                        </div>
+                        <div class="card-body">
+                            <form action="#" th:object="${employee}" class="form-horizontal">
+                                <input type="hidden" th:field="*{eid}" />
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Nom</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input disabled="" th:field="*{lastname}" type="text" class="form-control disabled">
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2 col-form-label">Prénom</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input disabled="" th:field="*{firstname}" type="text" class="form-control disabled">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Email</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input disabled="" th:field="*{email}" type="email" class="form-control disabled">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Adresse</label>
+                                    <div class="col-md-10">
+                                        <div class="form-group bmd-form-group">
+                                            <input disabled="" th:field="*{street}" type="text" class="form-control disabled">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Code Postal</label>
+                                    <div class="col-md-2">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input disabled="" th:field="*{postCode}" type="text" class="form-control disabled">
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2 col-form-label">Ville</label>
+                                    <div class="col-md-2">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input disabled="" th:field="*{city}" type="text" class="form-control disabled">
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2 col-form-label">Pays</label>
+                                    <div class="col-md-2">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input disabled="" th:field="*{country}" type="text" class="form-control disabled">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Emploi</label>
+                                    <div class="col-md-6">
+                                        <div class="form-group bmd-form-group">
+                                            <input disabled="" th:field="*{position}" type="text" class="form-control disabled">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Équipe</label>
+                                    <div class="col-md-8">
+                                        <div class="form-group bmd-form-group">
+                                            <select disabled="" th:field="*{teamList}" class="form-control disabled">
+                                                    <option th:each="team : ${employee.teamList}" th:value="${team.id}" th:text="${team.name}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Role</label>
+                                    <div class="col-md-8">
+                                        <div class="form-group bmd-form-group">
+                                            <input disabled="" type="text" class="form-control disabled" th:value="${employee_role}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Nombre de congés</label>
+                                    <div class="col-md-1">
+                                        <div class="form-group bmd-form-group">
+                                            <input disabled="" th:field="*{remainingLeave}" type="text" class="form-control disabled" value="25">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer th:replace="fragments/footer.html :: footer"></footer>
+        </div>
+</body>
+
+</html>

@@ -5,18 +5,11 @@
 
 <body class="">
     <div class="wrapper ">
-        <div th:replace="fragments/menu.html :: menu"></div>
+        <div th:replace="fragments/menus.html :: menu"></div>
         <div class="main-panel">
+            <div th:replace="fragments/menus.html :: logoutMenu"></div>
             <div class="content">
                 <div class="container-fluid">
-                    <div th:replace="fragments/header.html :: header"></div>
-                    <div class="row">
-                        <div class="offset-md-11">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addLeaveRequestModal">
-                +
-              </button>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
@@ -25,6 +18,14 @@
                                         <i class="material-icons">next_week</i>
                                     </div>
                                     <h4 class="card-title">Mes demandes de congés</h4>
+                                    <span th:if="${param.message}" class="text-danger" th:text="${param.message}"></span>
+                                </div>
+                                <div class="container">
+                                    <div class="offset-md-11">
+                                        <a th:href="@{/demande-conges/ajouter}" class="btn btn-primary">
+                                            <i class="material-icons" style="font-size:30px;">add_circle_outline</i>
+                                        </a>
+                                    </div>
                                 </div>
                                 <div class="card-body">
                                     <div class="toolbar">
@@ -41,18 +42,17 @@
                                                                 Date de fin</th>
                                                             <th class="disabled-sorting sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;" aria-label="Actions: activate to sort column ascending">Type de congé</th>
                                                             <th class="disabled-sorting sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 181px;" aria-label="Actions: activate to sort column ascending">Statut</th>
-                                                            <th class="disabled-sorting text-right sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 80px;" aria-label="Actions: activate to sort column ascending"></th>
+                                                            <th class="disabled-sorting sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 120px;" aria-label="Actions: activate to sort column ascending"></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr role="row" class="odd pending">
-                                                            <td tabindex="0" class="sorting_1">
-                                                                <a href="#" data-toggle="modal" data-target="#updateLeaveRequestModal">22/12/2019</a>
-                                                            </td>
-                                                            <td>05/01/2020</td>
-                                                            <td>Congé payé</td>
-                                                            <td>En attente</td>
+                                                        <tr th:each="leavesRequest, i : ${leavesRequests}" role="row" th:style="${i.odd}? 'odd' : 'even'" th:data-id="${leavesRequest.lrid}">
+                                                            <td th:text="${leavesRequest.startingDate}" tabindex="0" class="sorting_1">Starting date</td>
+                                                            <td th:text="${leavesRequest.endingDate}">Ending date</td>
+                                                            <td th:text="${leavesRequest.typeOfLeave.name}">Name of type of leaves</td>
+                                                            <td th:text="${leavesRequest.status}">Status</td>
                                                             <td class="text-right">
+                                                                <a th:href="@{/demande-conges/} + ${leavesRequest.lrid}" class="btn btn-link btn-warning btn-just-icon"><i class="material-icons">dvr</i></a>
                                                                 <a href="#" class="btn btn-link btn-danger btn-just-icon remove" data-toggle="modal" data-target="#deleteLeaveRequestModal"><i class="material-icons">close</i></a>
                                                             </td>
                                                         </tr>
@@ -68,11 +68,22 @@
                 </div>
             </div>
             <footer th:replace="fragments/footer.html :: footer"></footer>
+            <div th:replace="modals/leaveRequestModals.html :: deleteLeaveRequestModal"></div>
         </div>
-        <div th:replace="modals/leaveRequestModals.html :: addLeaveRequestModal"></div>
-        <div th:replace="modals/leaveRequestModals.html :: updateLeaveRequestModal"></div>
-        <div th:replace="modals/leaveRequestModals.html :: deleteLeaveRequestModal"></div>
         <script>
+            (function($) {
+                let that;
+                $(".remove").click(function() {
+                    that = $(this);
+                    $(".remove-modal-btn").click(function() {
+                        let tr = that.parent().parent()[0];
+                        let lrid = tr.dataset.id;
+                        $(tr).fadeOut();
+                        $.get("/demande-conges/supprimer/" + lrid);
+                    });
+                });
+
+            })(jQuery);
             $(document).ready(function() {
                 $('#datatables').DataTable({
                     "pagingType": "full_numbers",
@@ -122,6 +133,7 @@
                 md.initFormExtendedDatetimepickers();
             });
         </script>
+    </div>
 </body>
 
 </html>

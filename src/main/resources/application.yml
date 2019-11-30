@@ -1,12 +1,40 @@
 # Spring configuration
-      spring:
-        datasource:
-          url: jdbc:postgresql://localhost:5432/LeaveManager
-          username: postgres
-          password: root
-          driver-class-name: org.postgresql.Driver
-        jpa:
-          generate-ddl: false
-          hibernate:
-            ddl-auto: update # auto create or update database schema
-          database: postgresql
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1/LeaveManager
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+  # ===============================
+  # = JPA configurations
+  # ===============================
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: update # auto create or update database schema
+    database: mysql
+  # ===============================
+  # = MAIL configurations
+  # ===============================
+  mail:
+    default-encoding: UTF-8
+    host: smtp.gmail.com
+    username: klozinn@gmail.com
+    password:
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    protocol: smtp
+    test-connection: false
+
+# Logger
+logging:
+  level:
+    root: INFO
+    com.memorynotfound: DEBUG
+    org.springframework.web: INFO
+    org.springframework.security: INFO

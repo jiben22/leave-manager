@@ -10,15 +10,16 @@
 
 ### Database
 
-1. Install PostgreSQL >= 10
+1. Install MySQL
 
 2. Turn on the server with these values (or update `src/main/resources/application.yml` file)
-> Host name: **localhost** \
-> Port: **5432** \
-> Username: **postgres** \
+> Host name: **127.0.0.1** \
+> Username: **root** \
 > Password: **root**
 
 3. Create database
 > Database: **LeaveManager**
 
 4. Launch the application, it will do the rest
+
+5. You can use `src/test/resources/data.sql` file to feed the database

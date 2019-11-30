@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head.html :: head"></head>
+
+<body class="">
+    <div class="wrapper ">
+        <div th:replace="fragments/menus.html :: menu"></div>
+        <div class="main-panel">
+            <div th:replace="fragments/menus.html :: logoutMenu"></div>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="card ">
+                        <div class="card-header card-header-primary card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">next_week</i>
+                            </div>
+                            <h4 class="card-title">Ajouter une demande de congés</h4>
+                        </div>
+                        <div class="card-body">
+                            <form action="#" method="post" th:action="@{/demande-conges/ajouter}"  class="form-horizontal"> <!--th:object="${leaveRequest}"-->
+                                <!-- <div class="row">
+                                    <div class="offset-md-2 col-md-4">
+                                        <span class="text-danger" th:errors="*{startingDate}"> </span>
+
+                                    </div>
+                                    <div class="offset-md-2 col-md-4">
+                                        <span class="text-danger" th:errors="*{endingDate}"> </span>
+                                    </div>
+                                </div> -->
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Date de début</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input name="startingDate" type="text" class="form-control datepicker datepickerCalendar">
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2 col-form-label">Date de fin</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <input name="endingDate" type="text" class="form-control datepicker datepickerCalendar">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="offset-md-2 col-md-4 ">
+                                        <span class="text-danger" > </span><!--th:errors="*{typeOfLeave}"-->
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Type de congé</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group has-default bmd-form-group">
+                                            <select name="typeOfLeave" type="text" class="form-control "><!--th:field="*{typeOfLeave}"-->
+                                                    <option th:each="typeOfLeave : ${typesOfLeaves}" 
+                                                    th:value="${typeOfLeave.id}" 
+                                                    th:text="${typeOfLeave.name}">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="offset-md-2 col-md-4">
+                                        <span class="text-danger" > </span><!--th:errors="*{reason}"-->
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Raison</label>
+                                    <div class="col-md-4 ">
+                                        <div class="form-group has-default bmd-form-group ">
+                                            <input name="reason" type="text" class="form-control"><!--th:field="*{reason}"-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Nombre de congés restants</label>
+                                    <div class="col-md-2">
+                                        <div class="form-group has-default bmd-form-group ">
+                                            <input th:value="${remainingLeave}" type="text" class="form-control" disabled="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pull-right ">
+                                    <a th:href="@{/demandes-conges} ">
+                                        <button type="button " class="btn btn-secondary ">Annuler</button>
+                                    </a>
+                                    <button type="submit " class="btn btn-success ">Enregistrer</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer th:replace="fragments/footer.html :: footer "></footer>
+        </div>
+    </div>
+</body>
+
+</html>

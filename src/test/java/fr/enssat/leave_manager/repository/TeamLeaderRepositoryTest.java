@@ -58,11 +58,11 @@ public class TeamLeaderRepositoryTest {
 
         assertTrue(employeeRepository.existsById(team_leader.getEid()));
     }
-
+/*
     @Test
     public void testDeleteTeamLeader() {
         repository.deleteById("EMPLOYEE-157314099170606-0007");
 
         assertFalse(repository.existsById("EMPLOYEE-157314099170606-0007"));
-    }
+    }*/
 }

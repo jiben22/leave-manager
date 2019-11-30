@@ -10,7 +10,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Set;
 
 
@@ -23,7 +24,6 @@ import java.util.Set;
 public class EmployeeEntity extends PKGenerator implements Serializable {
     @Id
     @Column(length = 29, updatable = false)
-    @Setter(AccessLevel.NONE)
     @NonNull
     @Size(min = 29, max = 29)
     @Builder.Default
@@ -60,7 +60,6 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
     private String country;
 
     @Column(nullable = false, length = 45)
-    @Setter(AccessLevel.NONE)
     @Size(max = 45, message = "La fonction ne doit pas dépasser les 45 caractères !")
     private String position;
 
@@ -76,8 +75,6 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
     private String email;
 
     @ToString.Exclude
-    @Column(nullable = false)
-    @NonNull
     private String password;
 
     // Override Lombok Setter to encode password
@@ -85,18 +82,10 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
         this.password = encodePassword(password);
     }
 
-    // Override Builder 'password' function to encode password
-    public static class EmployeeEntityBuilder {
-        private String password;
-        public EmployeeEntityBuilder password(String password) {
-            this.password = encodePassword(password);
-            return this;
-        }
-    }
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
     @NonNull
-    @ManyToMany(cascade = {
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {
             CascadeType.DETACH,
             CascadeType.MERGE,
             CascadeType.REFRESH,
@@ -113,6 +102,11 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
     private Set<LeaveRequestEntity> leaveRequestList;
 
     @ToString.Exclude @EqualsAndHashCode.Exclude
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @Builder.Default
+    private Set<PasswordResetToken> tokenResetList = null;
+
+    @ToString.Exclude @EqualsAndHashCode.Exclude
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "eid", referencedColumnName = "employee")
     private HREntity hr;
@@ -127,13 +121,33 @@ public class EmployeeEntity extends PKGenerator implements Serializable {
     @JoinColumn(name = "eid", referencedColumnName = "employee")
     private TeamLeaderEntity teamLeader;
 
-    public List<String> getRole() {
-        List<String> roles = new ArrayList<>();
+
+    public Collection<String> getRoles() {
+        ArrayList<String> roles = new ArrayList<String>();
+
+        if (this.getHr() != null) {
+            roles.addAll(Arrays.asList("ROLE_HR", "ROLE_EMPLOYEE"));
+        }
+        if (this.getHrd() != null) {
+            roles.addAll(Arrays.asList("ROLE_HRD", "ROLE_HR", "ROLE_TEAMLEADER", "ROLE_EMPLOYEE"));
+        }
+        if (this.getTeamLeader() != null) {
+            roles.addAll(Arrays.asList("ROLE_TEAMLEADER", "ROLE_EMPLOYEE"));
+        }
+
         roles.add("ROLE_EMPLOYEE");
-        if (this.getHrd() != null) roles.add("ROLE_HRD");
-        else if (this.getHr() != null) roles.add("ROLE_HR");
-        else if (this.getTeamLeader() != null) roles.add("ROLE_TEAMLEADER");
         return roles;
+
+    }
+
+    // Override Builder 'password' function to encode password
+    public static class EmployeeEntityBuilder {
+        private String password;
+
+        public EmployeeEntityBuilder password(String password) {
+            this.password = encodePassword(password);
+            return this;
+        }
     }
     private static BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 

@@ -1,23 +1,16 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments/head.html :: head"></head>
 
 <body class="">
     <div class="wrapper ">
-        <div th:replace="fragments/menu.html :: menu"></div>
+        <div th:replace="fragments/menus.html :: menu"></div>
         <div class="main-panel">
+            <div th:replace="fragments/menus.html :: logoutMenu"></div>
             <div class="content">
                 <div class="container-fluid">
-                    <!-- <div th:replace="components/statistics.html :: statistics"></div> -->
-                    <div class="row">
-                        <div class="offset-md-11">
-                            <div th:replace="fragments/header.html :: header"></div>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addLeaveRequestModal">
-                                +
-                            </button>
-                        </div>
-                    </div>
+                    <div sec:authorize="hasRole('ROLE_HR')" th:replace="components/statistics.html :: statistics"></div>
                     <div class="card card-calendar">
                         <div class="card-body ">
                             <div id="fullCalendar" class="fc fc-unthemed fc-ltr"></div>
@@ -45,10 +38,6 @@
                                                 <td>Congé payé</td>
                                                 <td>22</td>
                                             </tr>
-                                            <tr>
-                                                <td>RTT</td>
-                                                <td>3</td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -59,35 +48,41 @@
                         <div class="card">
                             <div class="card-header card-header-primary card-header-icon">
                                 <div class="card-icon">
-                                    <i class="material-icons">calendar_today</i>
+                                    <i class="material-icons">my_location</i>
                                 </div>
                                 <h4 class="card-title">Légende</h4>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table">
-                                        <thead class="">
+                                        <thead>
                                             <th style="width: 40px;"></th>
-                                            <th style="width: 181px;">Statut</th>
+                                            <th style="width: 181px;" class="font-weight-bold">Statut</th>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <div class="p-3 mb-2 bg-success "></div>
+                                                    <div class="rounded-circle p-3 mb-2 bg-success "></div>
                                                 </td>
                                                 <td>Validée</td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <div class="p-3 mb-2 bg-warning"></div>
+                                                    <div class="rounded-circle p-3 mb-2" style="Background-color: #00bcd4;"></div>
                                                 </td>
                                                 <td>En attente</td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <div class="p-3 mb-2 bg-danger"></div>
+                                                    <div class="rounded-circle p-3 mb-2 bg-danger"></div>
                                                 </td>
                                                 <td>Refusée</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="rounded-circle p-3 mb-2" style="background-color: #ff9800"></div>
+                                                </td>
+                                                <td>Annulée</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -100,17 +95,37 @@
             </div>
         </div>
     </div>
-    <div th:replace="modals/leaveRequestModals.html :: addLeaveRequestModal"></div>
-    <div th:replace="modals/leaveRequestModals.html :: updateLeaveRequestModal"></div>
-    <div th:replace="modals/leaveRequestModals.html :: deleteLeaveRequestModal"></div>
     <script src="js/plugins/fullcalendar-locales-fr.js "></script>
-    <script>
+    <script th:inline="javascript">
         $(document).ready(function() {
             //Get date of today
             today = new Date();
             y = today.getFullYear();
             m = today.getMonth();
             d = today.getDate();
+
+            // Employee LeaveRequests
+            var employee_calendar = [];
+            let _style = "blue";
+            let status = "PENDING";
+
+            /*[# th:each="leaveRequest : ${employeeLeaveRequest}"]*/
+            _style = "blue";
+            status = /*[[${leaveRequest.status}]]*/ "PENDING";
+            if (status == "CANCELLED") _style = "orange";
+            else if (status == "DECLINED") _style = "red";
+            else if (status == "ACCEPTED") _style = "green";
+
+            employee_calendar.push({
+                id: /*[[${leaveRequest.lrid}]]*/ "",
+                title: /*[[${leaveRequest.typeOfLeave.name}]]*/ "",
+                start: new Date(/*[[${leaveRequest.startingDate}]]*/ ),
+                end: new Date(/*[[${leaveRequest.endingDate}]]*/ ),
+                description: (/*[[${reason}]]*/ "") || "",
+                color: _style
+            });
+            /*[/]*/
+
             // initialise FullCalendar
             let calendar = $("#fullCalendar ").fullCalendar({
                 viewRender: function(e, a) {
@@ -124,7 +139,6 @@
                 locale: 'fr',
                 header: {
                     left: "title ",
-                    center: "month ",
                     right: "prev,next,today "
                 },
                 defaultDate: today,
@@ -137,39 +151,12 @@
                 },
                 //editable: !0,
                 //eventLimit: !0,
-                events: [{
-                    title: "Congé payé ",
-                    start: new Date(y, m, 1),
-                    description: "Vacances ",
-                    className: "event-green "
-                }, {
-                    title: "Congé payé ",
-                    start: new Date(y, m, 2),
-                    description: "Vacances ",
-                    className: "event-green "
-                }, {
-                    title: "Congé payé ",
-                    start: new Date(y, m, 3),
-                    description: "Vacances ",
-                    className: "event-green "
-                }, {
-                    id: 999,
-                    title: "RTT ",
-                    start: new Date(y, m, d - 4, 6, 0),
-                    allDay: !1,
-                    description: " ",
-                    className: "event-orange "
-                },{
-                    title: "Congé payé ",
-                    start: new Date(y, m, 20),
-                    description: "A fortiori, ton compteur est vide !",
-                    className: "event-red "
-                }],
+                events: employee_calendar,
                 select: function() {
-                    $('#addLeaveRequestModal').modal('show');
+                    window.location.href= "/demande-conges/ajouter";
                 },
                 eventClick: function(info) {
-                    $('#updateLeaveRequestModal').modal('show');
+                    window.location.href= "/demande-conges/"+info.id;
                 },
                 eventRender: function(event, element) {
                     $(element).tooltip({
@@ -178,9 +165,6 @@
                         trigger: 'hover',
                         container: 'body'
                     });
-                },
-                dayClick: function(date, jsEvent, view) {
-                    initValueDatetimepickerCalendar(date);
                 }
             });
         });

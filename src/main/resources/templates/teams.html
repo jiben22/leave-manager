@@ -5,18 +5,13 @@
 
 <body class="">
     <div class="wrapper ">
-        <div th:replace="fragments/menu.html :: menu"></div>
+        <div th:replace="fragments/menus.html :: menu"></div>
         <div class="main-panel">
+            <div th:replace="fragments/menus.html :: logoutMenu"></div>
             <div class="content">
                 <div class="container-fluid">
-                    <div th:replace="fragments/header.html :: header"></div>
-                    <div class="row">
-                        <div class="offset-md-11">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTeamModal">
-                                +
-                            </button>
-                        </div>
-                    </div>
+                    <h2 th:text="${message}" class="text-danger"></h2>
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
@@ -26,35 +21,50 @@
                                     </div>
                                     <h4 class="card-title">Liste des équipes</h4>
                                 </div>
+                                <div class="container">
+                                    <div class="offset-md-11">
+                                        <a th:href="@{/equipe/ajouter}" class="btn btn-primary">
+                                            <i class="material-icons" style="font-size:30px;">group_add</i>
+                                        </a>
+                                    </div>
+                                </div>
                                 <div class="card-body">
                                     <div id="accordion">
-                                        <div class="card">
-                                            <div class="card-header" id="headingOne">
-                                                <h3 class="mb-0">
-                                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                        <span class="card-icon">
-                                                            <i class="material-icons">people</i>
+                                        <div  th:each="team: ${teams}" th:data-id="${team.id}" class="card">
+
+                                            <!-- Team -->
+                                            <div class="card-header">
+                                                    <button th:text="${team.name}" class="btn btn-link" data-toggle="collapse" th:attr="data-target='#collapse-' + ${team.id}">
+                                                            <span class="card-icon">
+                                                                <i class="material-icons">people</i>
+                                                            </span>
+
+                                                        </button>
+                                                    <span class="pull-right">
+                                                            <a th:href="@{/equipe/modifier/} + ${team.id}">
+                                                                <button type="button" class="btn btn-warning ">Modifier</button>
+                                                            </a>
+
+                                                            <button data-target="#deleteTeamModal" data-toggle="modal" type="button" class="btn btn-danger remove-btn">Supprimer</button>
                                                         </span>
-                                                        Avangers
-                                                    </button>
-                                                </h3>
+
                                             </div>
-                                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+
+                                            <div th:id="'collapse-' + ${team.id}" class="collapse" data-parent="#accordion">
                                                 <div class="card-body">
-                                                    <div class="row">
-                                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#updateTeamModal">Modifier</button>
-                                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteTeamModal">Supprimer</button>
-                                                    </div>
+
                                                     <div class="row">
                                                         <div class="offset-md-11">
-                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addEmployeeModal">
-                                                                +
-                                                            </button>
+                                                            <a th:href="@{/employe/ajouter/} + ${team.id}">
+                                                                <button type="button" class="btn btn-primary"><i class="material-icons" style="font-size:20px;">person_add</i> </button>
+                                                            </a>
                                                         </div>
                                                     </div>
-                                                    <div th:replace="components/employees.html :: employees"></div>
+
+                                                    <div th:replace="components/employees.html :: employees(employees=${team.employeeList})"></div>
                                                 </div>
                                             </div>
+                                            <!-- End Team -->
                                         </div>
                                     </div>
                                 </div>
@@ -63,16 +73,24 @@
                     </div>
                 </div>
             </div>
+            <div th:replace="modals/teamModals.html :: deleteTeamModal"></div>
             <footer th:replace="fragments/footer.html :: footer"></footer>
         </div>
-        <div th:replace="modals/teamModals.html :: addTeamModal"></div>
-        <div th:replace="modals/teamModals.html :: updateTeamModal"></div>
-        <div th:replace="modals/teamModals.html :: deleteTeamModal"></div>
-        <div th:replace="modals/employeeModals.html :: addEmployeeModal"></div>
-        <div th:replace="modals/employeeModals.html :: updateEmployeeModal"></div>
-        <div th:replace="modals/employeeModals.html :: deleteEmployeeModal"></div>
-        <div th:replace="modals/departmentModals.html :: addDepartmentModal"></div>
         <script>
+
+            (function($){
+
+                let that;
+                $("div[data-id]").click(function() {
+                    that = $(this);
+                    let id = $(this).data("id");
+                    $(".remove-modal-btn").click(function(){
+                        $(that).fadeOut();
+                        $.get("/equipe/supprimer/"+id);
+                    });
+                });
+
+            })(jQuery);
             $(document).ready(function() {
                 $('#datatables').DataTable({
                     "pagingType": "full_numbers",
@@ -116,6 +134,7 @@
                 var table = $('#datatable').DataTable();
             });
         </script>
+    </div>
 </body>
 
 </html>

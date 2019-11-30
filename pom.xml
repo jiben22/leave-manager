@@ -24,6 +24,8 @@
 		<jacoco.version>0.8.2</jacoco.version>
 	</properties>
 
+
+    <!-- Spring Context support -->
 	<dependencies>
 		<!-- Spring Web -->
 		<dependency>
@@ -43,6 +45,13 @@
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 
+		<!-- Thymeleaf extra security -->
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
+			<version>3.0.4.RELEASE</version>
+		</dependency>
+
 		<!-- Spring Data JPA -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -50,10 +59,14 @@
 		</dependency>
 
 		<!-- PostgreSQL -->
+<!--		<dependency>-->
+<!--			<groupId>org.postgresql</groupId>-->
+<!--			<artifactId>postgresql</artifactId>-->
+<!--			<scope>runtime</scope>-->
+<!--		</dependency>-->
 		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 
 		<!-- Lombok -->
@@ -64,6 +77,13 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- Spring DevTools -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
 		<!-- Spring Test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -71,10 +91,10 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Spring DevTools -->
+		<!-- Spring Security Test -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 
@@ -91,6 +111,52 @@
 			<artifactId>assertj-core</artifactId>
 			<version>${assertj.version}</version>
 			<scope>test</scope>
+		</dependency>
+
+		<!-- Send emails -->
+		<dependency>
+			<groupId>com.mailjet</groupId>
+			<artifactId>mailjet-client</artifactId>
+			<version>4.2.0</version>
+		</dependency>
+        <!-- ice green -->
+        <dependency>
+            <groupId>com.icegreen</groupId>
+            <artifactId>greenmail</artifactId>
+            <version>1.5.11</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Spring mail-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
+        <!-- common bean utils -->
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+			<version>1.9.4</version>
+		</dependency>
+
+		<!-- Spring Context Support -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>5.2.1.RELEASE</version>
+		</dependency>
+
+		<!-- javax mail -->
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.passay</groupId>
+			<artifactId>passay</artifactId>
+			<version>1.0</version>
 		</dependency>
 	</dependencies>
 
